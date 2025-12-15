@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebForge - Welcome</title>
+    <link rel="icon" type="image/png" href="img/webforge-icon.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ff4500 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            max-width: 800px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+            text-align: left;
+        }
+        
+        .feature {
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .feature h3 {
+            color: #ff6b35;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .feature p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .cta {
+            margin-top: 40px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: #ff6b35;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+        }
+        
+        .btn:hover {
+            background: #ff4500;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 69, 0, 0.5);
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            color: #ff6b35;
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            margin-top: 40px;
+            color: #95a5a6;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i data-lucide="flame" style="width: 48px; height: 48px; display: inline-block; vertical-align: middle;"></i> WebForge</h1>
+        <p class="tagline">Forge Your Web Development Skills</p>
+        
+        <div class="features">
+            <div class="feature">
+                <i data-lucide="code-2" class="feature-icon"></i>
+                <h3>Code Editor</h3>
+                <p>Professional Monaco Editor with syntax highlighting for HTML, CSS, and JavaScript</p>
+            </div>
+            
+            <div class="feature">
+                <i data-lucide="eye" class="feature-icon"></i>
+                <h3>Live Preview</h3>
+                <p>See your changes instantly as you type. No refresh needed!</p>
+            </div>
+            
+            <div class="feature">
+                <i data-lucide="book-open" class="feature-icon"></i>
+                <h3>Templates</h3>
+                <p>Start with pre-built templates and customize them to learn</p>
+            </div>
+            
+            <div class="feature">
+                <i data-lucide="graduation-cap" class="feature-icon"></i>
+                <h3>Tutorials</h3>
+                <p>Built-in tutorials for HTML, CSS, and JavaScript basics</p>
+            </div>
+            
+            <div class="feature">
+                <i data-lucide="save" class="feature-icon"></i>
+                <h3>Auto-Save</h3>
+                <p>Your work is automatically saved every 2 seconds</p>
+            </div>
+            
+            <div class="feature">
+                <i data-lucide="package" class="feature-icon"></i>
+                <h3>Export</h3>
+                <p>Download your projects as ZIP files to share or host</p>
+            </div>
+        </div>
+        
+        <div class="cta">
+            <a href="index.html" class="btn">Launch WebForge →</a>
+        </div>
+        
+        <footer>
+            <p>No installation required • Works in any modern browser • 100% free</p>
+            <p style="margin-top: 10px;">Built with <i data-lucide="heart" style="width: 16px; height: 16px; display: inline-block; vertical-align: middle; color: #e74c3c;"></i> for students learning web development</p>
+        </footer>
+    </div>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

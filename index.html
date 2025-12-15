@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebForge - Student Website Builder</title>
+    <link rel="icon" type="image/png" href="img/webforge-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/editor/editor.main.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div id="app">
+        <header class="header">
+            <div class="header-brand">
+                <img src="img/webforge-icon.png" alt="WebForge" class="header-logo">
+                <h1>WebForge</h1>
+            </div>
+            <div class="header-actions">
+                <button id="new-project-btn" class="btn btn-primary">
+                    <i data-lucide="plus"></i>
+                    <span>New Project</span>
+                </button>
+
+                <button id="collaborate-btn" class="btn" title="Collaborate">
+                    <i data-lucide="users"></i>
+                    <span>Collaborate</span>
+                </button>
+                <button id="save-btn" class="btn">
+                    <i data-lucide="save"></i>
+                    <span>Save</span>
+                </button>
+                <button id="export-btn" class="btn">
+                    <i data-lucide="download"></i>
+                    <span>Export</span>
+                </button>
+                <button id="console-toggle-btn" class="btn">
+                    <i data-lucide="terminal"></i>
+                    <span>Show Console</span>
+                </button>
+                <button id="theme-toggle-btn" class="btn" title="Toggle dark mode">
+                    <i data-lucide="moon"></i>
+                </button>
+                <button id="help-btn" class="btn">
+                    <i data-lucide="help-circle"></i>
+                    <span>Help</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="main-container">
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3>Projects</h3>
+                    <div id="projects-list"></div>
+                </div>
+                <div class="sidebar-section">
+                    <h3>Files</h3>
+                    <button id="new-file-btn" class="btn btn-small">
+                        <i data-lucide="file-plus" style="width: 14px; height: 14px;"></i>
+                        <span>New File</span>
+                    </button>
+                    <button id="upload-asset-btn" class="btn btn-small">
+                        <i data-lucide="upload" style="width: 14px; height: 14px;"></i>
+                        <span>Upload Asset</span>
+                    </button>
+                    <input type="file" id="asset-file-input" accept="image/*,.woff,.woff2,.ttf,.otf" style="display: none;">
+                    <div id="files-tree"></div>
+                </div>
+                <div class="sidebar-section">
+                    <h3>Snippets</h3>
+                    <button id="snippets-btn" class="btn btn-small">
+                        <i data-lucide="code-2" style="width: 14px; height: 14px;"></i>
+                        <span>Browse Snippets</span>
+                    </button>
+                </div>
+            </aside>
+
+            <main class="workspace">
+                <div class="editor-container">
+                    <div class="editor-header">
+                        <span id="current-file-name">No file selected</span>
+                    </div>
+                    <div id="editor"></div>
+                </div>
+
+                <div class="preview-container">
+                    <div class="preview-header">
+                        <span>Preview</span>
+                        <div class="preview-controls">
+                            <button id="device-mobile" class="device-btn" title="Mobile (375px)" data-width="375">
+                                <i data-lucide="smartphone"></i>
+                            </button>
+                            <button id="device-tablet" class="device-btn" title="Tablet (768px)" data-width="768">
+                                <i data-lucide="tablet"></i>
+                            </button>
+                            <button id="device-desktop" class="device-btn active" title="Desktop (100%)" data-width="100%">
+                                <i data-lucide="monitor"></i>
+                            </button>
+                            <button id="preview-fullscreen-btn" class="btn-icon" title="Fullscreen Preview (F11)" aria-label="Fullscreen Preview">
+                                <i data-lucide="maximize-2"></i>
+                            </button>
+                            <button id="a11y-toggle-btn" class="btn-icon" title="Toggle Accessibility Checker" aria-label="Toggle Accessibility Checker">
+                                <i data-lucide="accessibility"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="preview-wrapper">
+                        <iframe id="preview" sandbox="allow-scripts allow-same-origin"></iframe>
+                    </div>
+                    <div id="a11y-panel" class="a11y-panel hidden">
+                        <div class="a11y-header">
+                            <span>Accessibility Issues</span>
+                            <button id="a11y-close-btn" class="btn-icon" aria-label="Close Accessibility Panel">
+                                <i data-lucide="x"></i>
+                            </button>
+                        </div>
+                        <div id="a11y-content" class="a11y-content">
+                            <p class="a11y-loading">Checking accessibility...</p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <div id="console-panel" class="console-panel hidden">
+            <div class="console-header">
+                <span>
+                    <i data-lucide="terminal" style="width: 16px; height: 16px; margin-right: 6px;"></i>
+                    Console
+                </span>
+                <div class="console-header-actions">
+                    <button id="console-clear-btn" class="console-btn" title="Clear console">
+                        <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i>
+                    </button>
+                    <button id="console-close-btn" class="console-btn" title="Close console" aria-label="Close console">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="console-output"></div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="modal-overlay" class="modal-overlay hidden"></div>
+    
+    <div id="new-project-modal" class="modal hidden">
+        <h2>Create New Project</h2>
+        <input type="text" id="project-name-input" placeholder="Project name">
+        <div class="modal-actions">
+            <button id="create-blank-btn" class="btn btn-primary">Start from Scratch</button>
+            <button id="choose-template-btn" class="btn">Choose Template</button>
+            <button class="btn cancel-btn">Cancel</button>
+        </div>
+    </div>
+
+    <div id="template-modal" class="modal hidden">
+        <h2>Choose a Template</h2>
+        <div id="templates-grid"></div>
+        <button class="btn cancel-btn">Cancel</button>
+    </div>
+
+    <div id="tutorial-modal" class="modal hidden">
+        <h2>Tutorials</h2>
+        <div id="tutorials-list"></div>
+        <button class="btn cancel-btn">Cancel</button>
+    </div>
+
+    <div id="asset-modal" class="modal hidden">
+        <h2>Asset Details</h2>
+        <div id="asset-preview"></div>
+        <div id="asset-info"></div>
+        <div id="asset-code-snippets"></div>
+        <button class="btn cancel-btn">Close</button>
+    </div>
+
+    <div id="new-file-modal" class="modal hidden">
+        <h2>Create New File</h2>
+        <p style="color: #7f8c8d; font-size: 0.9rem; margin-bottom: 1rem;">Enter a file name with extension (e.g., about.html, style.css, app.js)</p>
+        <input type="text" id="file-name-input" placeholder="e.g., about.html">
+        <div class="modal-actions">
+            <button id="create-file-btn" class="btn btn-primary">Create File</button>
+            <button class="btn cancel-btn">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container"></div>
+
+    <div id="collaboration-modal" class="modal hidden">
+        <h2>
+            <i data-lucide="users"></i>
+            Collaborate
+        </h2>
+        <div id="collab-content">
+            <div class="collab-section">
+                <h3>Start Collaboration</h3>
+                <p>Share your project with others for real-time editing</p>
+                <button id="start-collab-btn" class="btn btn-primary">
+                    <i data-lucide="share-2"></i>
+                    <span>Start Session</span>
+                </button>
+            </div>
+            <div class="collab-section">
+                <h3>Join Session</h3>
+                <input type="text" id="session-id-input" placeholder="Enter session ID">
+                <button id="join-collab-btn" class="btn">
+                    <i data-lucide="log-in"></i>
+                    <span>Join</span>
+                </button>
+            </div>
+            <div id="active-session" class="collab-section hidden">
+                <h3>Active Session</h3>
+                <div class="session-info">
+                    <p><strong>Session ID:</strong> <span id="current-session-id"></span></p>
+                    <button id="copy-link-btn" class="btn btn-small">
+                        <i data-lucide="copy"></i>
+                        <span>Copy Link</span>
+                    </button>
+                </div>
+                <div id="collaborators-list"></div>
+                <button id="leave-session-btn" class="btn">
+                    <i data-lucide="log-out"></i>
+                    <span>Leave Session</span>
+                </button>
+            </div>
+        </div>
+        <button class="btn cancel-btn">Close</button>
+    </div>
+
+    <div id="snippets-modal" class="modal hidden">
+        <h2>Code Snippets Library</h2>
+        <div class="snippets-controls">
+            <input type="text" id="snippet-search" placeholder="Search snippets...">
+            <div class="snippets-filters">
+                <button class="filter-btn active" data-lang="all">All</button>
+                <button class="filter-btn" data-lang="html">HTML</button>
+                <button class="filter-btn" data-lang="css">CSS</button>
+                <button class="filter-btn" data-lang="javascript">JavaScript</button>
+            </div>
+        </div>
+        <div id="snippets-list"></div>
+        <button class="btn cancel-btn">Close</button>
+    </div>
+
+    <!-- Load Firebase and Prettier BEFORE Monaco to avoid AMD conflicts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.8.2/axe.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prettier@3.1.1/standalone.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prettier@3.1.1/plugins/html.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prettier@3.1.1/plugins/babel.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prettier@3.1.1/plugins/postcss.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prettier@3.1.1/plugins/estree.js"></script>
+    <!-- Monaco Editor loader must come AFTER other libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/models/types.js"></script>
+    <script src="js/services/storage.js"></script>
+    <script src="js/services/file.js"></script>
+    <script src="js/services/asset.js"></script>
+    <script src="js/services/project.js"></script>
+    <script src="js/services/template.js"></script>
+    <script src="js/services/tutorial.js"></script>
+    <script src="js/services/snippet.js"></script>
+    <script src="js/services/accessibility.js"></script>
+    <script src="js/services/collaboration.js"></script>
+    <script src="js/html-autocomplete.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

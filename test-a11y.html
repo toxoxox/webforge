@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibility Checker Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.8.2/axe.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .results {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        .violation {
+            background: white;
+            border-left: 4px solid #e74c3c;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .pass {
+            color: #27ae60;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Accessibility Checker Test</h1>
+    
+    <div class="test-section">
+        <h2>Test Content (with accessibility issues)</h2>
+        <div id="test-content">
+            <!-- Missing alt text -->
+            <img src="img/webforge-icon.png">
+            
+            <!-- Missing label -->
+            <input type="text" placeholder="Enter name">
+            
+            <!-- Low contrast -->
+            <p style="color: #ccc; background: white;">This text has low contrast</p>
+            
+            <!-- Empty link -->
+            <a href="#">Click here</a>
+            
+            <!-- Missing heading hierarchy -->
+            <h4>Skipped heading levels</h4>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Accessibility Check Results</h2>
+        <button onclick="runCheck()">Run Accessibility Check</button>
+        <div id="results" class="results"></div>
+    </div>
+
+    <script>
+        async function runCheck() {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<p>Checking...</p>';
+            
+            try {
+                const results = await axe.run(document.getElementById('test-content'), {
+                    runOnly: {
+                        type: 'tag',
+                        values: ['wcag2a', 'wcag2aa', 'best-practice']
+                    }
+                });
+                
+                if (results.violations.length === 0) {
+                    resultsDiv.innerHTML = '<p class="pass"><i data-lucide="check-circle"></i> No accessibility issues found!</p>';
+                    lucide.createIcons();
+                } else {
+                    let html = `<h3>Found ${results.violations.length} issues:</h3>`;
+                    
+                    results.violations.forEach(violation => {
+                        html += `
+                            <div class="violation">
+                                <strong>${violation.impact.toUpperCase()}</strong>: ${violation.help}<br>
+                                <small>${violation.description}</small><br>
+                                <small>Affected elements: ${violation.nodes.length}</small>
+                            </div>
+                        `;
+                    });
+                    
+                    resultsDiv.innerHTML = html;
+                }
+            } catch (error) {
+                resultsDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            }
+        }
+        
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>

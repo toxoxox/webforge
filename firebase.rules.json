@@ -1,0 +1,95 @@
+{
+  "rules": {
+    "sessions": {
+      "$sessionId": {
+        ".read": true,
+        ".write": "data.exists() || !data.exists()",
+        
+        "projectId": {
+          ".validate": "newData.isString() && newData.val().length > 0"
+        },
+        
+        "projectName": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        
+        "host": {
+          ".validate": "newData.isString() && newData.val().length > 0"
+        },
+        
+        "createdAt": {
+          ".validate": "newData.isNumber() && newData.val() <= now"
+        },
+        
+        "files": {
+          ".validate": "newData.hasChildren()",
+          "$fileId": {
+            ".validate": "newData.hasChildren(['id', 'name', 'type', 'content'])",
+            "id": {
+              ".validate": "newData.isString()"
+            },
+            "name": {
+              ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 255"
+            },
+            "type": {
+              ".validate": "newData.isString() && (newData.val() == 'html' || newData.val() == 'css' || newData.val() == 'javascript' || newData.val() == 'asset')"
+            },
+            "content": {
+              ".validate": "newData.isString() && newData.val().length <= 1048576"
+            },
+            "lastModified": {
+              ".validate": "newData.isNumber()"
+            },
+            "lastModifiedBy": {
+              ".validate": "newData.isString()"
+            }
+          }
+        },
+        
+        "collaborators": {
+          "$userId": {
+            ".validate": "newData.hasChildren(['name', 'joinedAt', 'color'])",
+            "name": {
+              ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 50"
+            },
+            "joinedAt": {
+              ".validate": "newData.isNumber() && newData.val() <= now"
+            },
+            "color": {
+              ".validate": "newData.isString() && newData.val().matches(/^#[0-9a-fA-F]{6}$/)"
+            }
+          }
+        },
+        
+        "cursors": {
+          "$userId": {
+            ".validate": "newData.hasChildren(['fileId', 'position', 'timestamp'])",
+            "fileId": {
+              ".validate": "newData.isString()"
+            },
+            "position": {
+              ".validate": "newData.hasChildren(['line', 'column'])",
+              "line": {
+                ".validate": "newData.isNumber() && newData.val() >= 0"
+              },
+              "column": {
+                ".validate": "newData.isNumber() && newData.val() >= 0"
+              }
+            },
+            "timestamp": {
+              ".validate": "newData.isNumber() && newData.val() <= now"
+            }
+          }
+        },
+        
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    
+    "$other": {
+      ".validate": false
+    }
+  }
+}
