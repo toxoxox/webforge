@@ -247,6 +247,15 @@
         <button class="btn cancel-btn">Close</button>
     </div>
 
+    <div id="confirm-modal" class="modal modal-small hidden">
+        <h2 id="confirm-title">Confirm Action</h2>
+        <p id="confirm-message"></p>
+        <div class="modal-actions">
+            <button id="confirm-yes-btn" class="btn btn-danger">Delete</button>
+            <button id="confirm-no-btn" class="btn cancel-btn">Cancel</button>
+        </div>
+    </div>
+
     <!-- Load Firebase and Prettier BEFORE Monaco to avoid AMD conflicts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.8.2/axe.min.js"></script>

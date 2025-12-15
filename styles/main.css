@@ -106,6 +106,8 @@ body {
     width: 36px;
     object-fit: contain;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    display: block;
+    margin-top: -10px;
 }
 
 .header h1 {
@@ -113,6 +115,8 @@ body {
     font-weight: 700;
     letter-spacing: -0.025em;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    line-height: 1;
+    margin: 0;
 }
 
 .header-actions {
@@ -222,6 +226,14 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.05em;
     font-weight: 600;
+}
+
+.sidebar-section .btn-small {
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-section .btn-small:last-of-type {
+    margin-bottom: 0.75rem;
 }
 
 #projects-list, #files-tree {
@@ -1346,4 +1358,62 @@ body {
 
 [data-theme="dark"] #session-id-input::placeholder {
     color: #666;
+}
+
+/* Confirmation Modal */
+.modal-small {
+    min-width: 400px;
+    max-width: 500px;
+}
+
+.btn-danger {
+    background: #e74c3c;
+}
+
+.btn-danger:hover {
+    background: #c0392b;
+}
+
+/* Delete Buttons */
+.delete-btn {
+    background: none;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    padding: 0.25rem;
+    opacity: 0;
+    transition: opacity 0.2s, color 0.2s;
+    margin-left: auto;
+}
+
+.delete-btn i {
+    width: 1px;
+    height: 1px;
+}
+
+.delete-btn:hover {
+    color: #c0392b;
+}
+
+.project-item, .file-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.project-item:hover .delete-btn,
+.file-item:hover .delete-btn {
+    opacity: 1;
+}
+
+.project-item span, .file-item span {
+    flex: 1;
+}
+
+[data-theme="dark"] .delete-btn {
+    color: #e74c3c;
+}
+
+[data-theme="dark"] .delete-btn:hover {
+    color: #ff6b6b;
 }

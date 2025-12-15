@@ -11,7 +11,7 @@ const EVENT_ATTRS = ['onclick', 'ondblclick', 'onmousedown', 'onmouseup', 'onmou
 
 const TAG_ATTRS = {
     a: ['href', 'target', 'download', 'rel', 'hreflang', 'type', 'referrerpolicy'],
-    img: ['src', 'alt', 'width', 'height', 'loading', 'decoding', 'srcset', 'sizes', 'referrerpolicy'],
+    img: ['src', 'alt', 'width', 'height', 'loading', 'decoding', 'srcset', 'sizes', 'referrerpolicy', 'crossorigin'],
     link: ['rel', 'href', 'as', 'type', 'media', 'crossorigin', 'integrity', 'referrerpolicy'],
     script: ['src', 'type', 'async', 'defer', 'nomodule', 'crossorigin', 'integrity', 'referrerpolicy'],
     meta: ['name', 'content', 'charset', 'http-equiv'],
@@ -35,7 +35,7 @@ const TAG_ATTRS = {
 
 function registerHTML5Autocomplete(monaco) {
     monaco.languages.registerCompletionItemProvider('html', {
-        triggerCharacters: ['<', ' '],
+        triggerCharacters: ['<', ' ', '"', '='],
         provideCompletionItems: (model, position) => {
             const textUntilPosition = model.getValueInRange({
                 startLineNumber: position.lineNumber,
@@ -53,8 +53,35 @@ function registerHTML5Autocomplete(monaco) {
                 endColumn: word.endColumn
             };
 
-            const insideValueMatch = textUntilPosition.match(/="[^"]*$/);
+            // Check if we're inside an attribute value
+            const insideValueMatch = textUntilPosition.match(/(\w+)="([^"]*)$/);
             if (insideValueMatch) {
+                const attrName = insideValueMatch[1];
+                const partialValue = insideValueMatch[2];
+                
+                // Suggest asset files for src attributes
+                if (attrName === 'src' && typeof currentProject !== 'undefined' && currentProject) {
+                    const assetFiles = currentProject.files.filter(f => f.type === 'asset');
+                    
+                    assetFiles.forEach(asset => {
+                        suggestions.push({
+                            label: asset.name,
+                            kind: monaco.languages.CompletionItemKind.File,
+                            insertText: asset.name,
+                            documentation: `Uploaded asset: ${asset.name}\nUse the filename - it will be automatically resolved in the preview!`,
+                            detail: 'Asset file',
+                            range: {
+                                startLineNumber: position.lineNumber,
+                                endLineNumber: position.lineNumber,
+                                startColumn: position.column - partialValue.length,
+                                endColumn: position.column
+                            }
+                        });
+                    });
+                    
+                    return { suggestions };
+                }
+                
                 return { suggestions: [] };
             }
 

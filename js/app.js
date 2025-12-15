@@ -348,10 +348,39 @@ function renderProjectsList(projects) {
         if (currentProject && currentProject.id === project.id) {
             item.classList.add('active');
         }
-        item.textContent = project.name;
-        item.onclick = () => loadProject(project.id);
+        
+        const nameSpan = document.createElement('span');
+        nameSpan.textContent = project.name;
+        nameSpan.onclick = () => loadProject(project.id);
+        
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'delete-btn';
+        deleteBtn.innerHTML = '<i data-lucide="trash-2" style="width: 12px; height: 12px;"></i>';
+        deleteBtn.title = 'Delete project';
+        deleteBtn.onclick = (e) => {
+            e.stopPropagation();
+            showConfirmModal(
+                'Delete Project',
+                `Are you sure you want to delete "${project.name}"? This cannot be undone.`,
+                () => {
+                    ProjectService.deleteProject(project.id);
+                    if (currentProject && currentProject.id === project.id) {
+                        currentProject = null;
+                        currentFile = null;
+                        editor.setValue('');
+                        renderFileTree([]);
+                    }
+                    renderProjectsList(ProjectService.listProjects());
+                    showToast('Project deleted successfully', 'success');
+                }
+            );
+        };
+        
+        item.appendChild(nameSpan);
+        item.appendChild(deleteBtn);
         container.appendChild(item);
     });
+    lucide.createIcons();
 }
 
 function renderFileTree(files) {
@@ -379,8 +408,39 @@ function renderFileTree(files) {
             iconName = AssetService.isImage(file) ? 'image' : 'file-type';
         }
         
-        item.innerHTML = `<i data-lucide="${iconName}" style="width: 14px; height: 14px; margin-right: 6px;"></i><span>${file.name}</span>`;
-        item.onclick = () => openFile(file.id);
+        const icon = document.createElement('i');
+        icon.setAttribute('data-lucide', iconName);
+        icon.style.cssText = 'width: 14px; height: 14px; margin-right: 6px;';
+        
+        const nameSpan = document.createElement('span');
+        nameSpan.textContent = file.name;
+        nameSpan.onclick = () => openFile(file.id);
+        
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'delete-btn';
+        deleteBtn.innerHTML = '<i data-lucide="trash-2" style="width: 16px; height: 16px;"></i>';
+        deleteBtn.title = 'Delete file';
+        deleteBtn.onclick = (e) => {
+            e.stopPropagation();
+            showConfirmModal(
+                'Delete File',
+                `Are you sure you want to delete "${file.name}"? This cannot be undone.`,
+                () => {
+                    FileService.deleteFile(file.id, currentProject);
+                    if (currentFile && currentFile.id === file.id) {
+                        currentFile = null;
+                        editor.setValue('');
+                    }
+                    ProjectService.saveProject(currentProject);
+                    renderFileTree(currentProject.files);
+                    showToast('File deleted successfully', 'success');
+                }
+            );
+        };
+        
+        item.appendChild(icon);
+        item.appendChild(nameSpan);
+        item.appendChild(deleteBtn);
         container.appendChild(item);
     });
     
@@ -433,8 +493,20 @@ function updatePreview() {
     const htmlFile = currentProject.files.find(f => f.type === FileType.HTML);
     const cssFile = currentProject.files.find(f => f.type === FileType.CSS);
     const jsFile = currentProject.files.find(f => f.type === FileType.JAVASCRIPT);
+    const assetFiles = currentProject.files.filter(f => f.type === FileType.ASSET);
 
     let html = htmlFile ? htmlFile.content : '';
+    
+    // Replace asset filenames with base64 data URLs
+    assetFiles.forEach(asset => {
+        // Replace in src attributes: src="filename.png" -> src="data:image/png;base64,..."
+        const srcRegex = new RegExp(`src=["']${escapeRegExp(asset.name)}["']`, 'gi');
+        html = html.replace(srcRegex, `src="${asset.content}"`);
+        
+        // Replace in CSS url(): url('filename.png') -> url('data:...')
+        const urlRegex = new RegExp(`url\\(['"]?${escapeRegExp(asset.name)}['"]?\\)`, 'gi');
+        html = html.replace(urlRegex, `url('${asset.content}')`);
+    });
     
     // Inject console capture script before any other scripts
     const consoleCapture = `
@@ -655,6 +727,11 @@ function loadTheme() {
         const icon = savedTheme === 'dark' ? 'sun' : 'moon';
         btn.innerHTML = `<i data-lucide="${icon}"></i>`;
     }
+}
+
+// Helper function to escape special regex characters
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 // Load theme before anything else
@@ -1566,4 +1643,33 @@ if (editor && originalOnDidChangeModelContent) {
             }, 1000);
         }
     });
+}
+
+
+// Confirmation Modal
+function showConfirmModal(title, message, onConfirm) {
+    document.getElementById('confirm-title').textContent = title;
+    document.getElementById('confirm-message').textContent = message;
+    
+    const yesBtn = document.getElementById('confirm-yes-btn');
+    const noBtn = document.getElementById('confirm-no-btn');
+    
+    // Remove old listeners
+    const newYesBtn = yesBtn.cloneNode(true);
+    const newNoBtn = noBtn.cloneNode(true);
+    yesBtn.parentNode.replaceChild(newYesBtn, yesBtn);
+    noBtn.parentNode.replaceChild(newNoBtn, noBtn);
+    
+    // Add new listeners
+    newYesBtn.onclick = () => {
+        hideModal('confirm-modal');
+        onConfirm();
+    };
+    
+    newNoBtn.onclick = () => {
+        hideModal('confirm-modal');
+    };
+    
+    showModal('confirm-modal');
+    lucide.createIcons();
 }

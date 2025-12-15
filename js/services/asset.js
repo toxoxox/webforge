@@ -87,8 +87,8 @@ const AssetService = {
      * @returns {string} - HTML img tag
      */
     generateImgTag(assetFile, alt = '') {
-        const url = this.getAssetUrl(assetFile);
-        return `<img src="${url}" alt="${alt || assetFile.name}">`;
+        // Use simple filename - will be resolved in preview
+        return `<img src="${assetFile.name}" alt="${alt || assetFile.name}">`;
     },
 
     /**
@@ -97,8 +97,8 @@ const AssetService = {
      * @returns {string} - CSS background-image property
      */
     generateCssBackground(assetFile) {
-        const url = this.getAssetUrl(assetFile);
-        return `background-image: url('${url}');`;
+        // Use simple filename - will be resolved in preview
+        return `background-image: url('${assetFile.name}');`;
     },
 
     /**
