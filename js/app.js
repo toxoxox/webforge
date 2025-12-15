@@ -519,6 +519,11 @@ function openFile(fileId) {
     document.getElementById('current-file-name').textContent = currentFile.name;
     renderFileTree(currentProject.files);
     updatePreview();
+    
+    // Update saved session with current file
+    if (CollaborationService.isInSession()) {
+        CollaborationService.updateSavedSessionFile(fileId);
+    }
 }
 
 function updatePreview() {
@@ -1148,12 +1153,72 @@ function showTutorialModal() {
         item.style.cssText = 'padding: 1rem; margin: 0.5rem 0; background: #f5f5f5; border-radius: 4px; cursor: pointer;';
         item.innerHTML = `<h3>${tutorial.title}</h3><p style="color: #666; font-size: 0.9rem;">${tutorial.steps.length} steps</p>`;
         item.onclick = () => {
-            alert(`Tutorial: ${tutorial.title}\n\n${tutorial.steps[0].content}\n\nCode example:\n${tutorial.steps[0].codeExample || 'No example'}`);
+            showTutorialDetail(tutorial);
         };
         list.appendChild(item);
     });
 
     showModal('tutorial-modal');
+}
+
+let currentTutorial = null;
+let currentTutorialStep = 0;
+
+function showTutorialDetail(tutorial) {
+    currentTutorial = tutorial;
+    currentTutorialStep = 0;
+    
+    hideModal('tutorial-modal');
+    renderTutorialStep();
+    showModal('tutorial-detail-modal');
+}
+
+function renderTutorialStep() {
+    if (!currentTutorial) return;
+    
+    const step = currentTutorial.steps[currentTutorialStep];
+    
+    document.getElementById('tutorial-detail-title').textContent = currentTutorial.title;
+    document.getElementById('tutorial-detail-progress').textContent = 
+        `Step ${currentTutorialStep + 1} of ${currentTutorial.steps.length}`;
+    document.getElementById('tutorial-step-title').textContent = step.title;
+    document.getElementById('tutorial-step-content').textContent = step.content;
+    document.getElementById('tutorial-code-example').textContent = step.codeExample || 'No code example for this step.';
+    
+    // Update navigation buttons
+    const prevBtn = document.getElementById('tutorial-prev-btn');
+    const nextBtn = document.getElementById('tutorial-next-btn');
+    
+    prevBtn.disabled = currentTutorialStep === 0;
+    prevBtn.style.opacity = currentTutorialStep === 0 ? '0.5' : '1';
+    prevBtn.style.cursor = currentTutorialStep === 0 ? 'not-allowed' : 'pointer';
+    
+    const isLastStep = currentTutorialStep === currentTutorial.steps.length - 1;
+    nextBtn.disabled = isLastStep;
+    nextBtn.style.opacity = isLastStep ? '0.5' : '1';
+    nextBtn.style.cursor = isLastStep ? 'not-allowed' : 'pointer';
+    
+    if (isLastStep) {
+        nextBtn.innerHTML = '<span>Completed</span><i data-lucide="check"></i>';
+    } else {
+        nextBtn.innerHTML = '<span>Next</span><i data-lucide="chevron-right"></i>';
+    }
+    
+    initIcons();
+}
+
+document.getElementById('tutorial-prev-btn').onclick = () => {
+    if (currentTutorialStep > 0) {
+        currentTutorialStep--;
+        renderTutorialStep();
+    }
+};
+
+document.getElementById('tutorial-next-btn').onclick = () => {
+    if (currentTutorial && currentTutorialStep < currentTutorial.steps.length - 1) {
+        currentTutorialStep++;
+        renderTutorialStep();
+    }
 }
 
 function showSnippetsModal() {
@@ -1513,6 +1578,13 @@ window.addEventListener('load', () => {
                 }
             }
         }
+        
+        // Restore active collaboration session if exists
+        if (firebaseConfigured) {
+            setTimeout(() => {
+                restoreCollaborationSession();
+            }, 500);
+        }
     }, 1000);
 });
 
@@ -1806,6 +1878,41 @@ window.onRemovedFromSession = () => {
         hideModal('collaboration-modal');
     }
 };
+
+async function restoreCollaborationSession() {
+    const savedSession = CollaborationService.getSavedSession();
+    if (!savedSession) return;
+    
+    try {
+        // Try to rejoin the session
+        const sessionData = await CollaborationService.rejoinSession(savedSession.sessionId, savedSession.isHost);
+        
+        if (sessionData) {
+            // Restore the project
+            currentProject = {
+                id: sessionData.projectId,
+                name: sessionData.projectName,
+                files: sessionData.files,
+                createdAt: sessionData.createdAt
+            };
+            
+            renderProjectsList([currentProject]);
+            renderFileTree(currentProject.files);
+            
+            if (currentProject.files.length > 0) {
+                const fileToOpen = currentProject.files.find(f => f.id === savedSession.currentFileId) || currentProject.files[0];
+                openFile(fileToOpen.id);
+            }
+            
+            updateCollaborationUI();
+            showToast('Reconnected to collaboration session', 'success', 'Session Restored');
+        }
+    } catch (e) {
+        console.log('Could not restore session:', e.message);
+        // Session no longer exists, clear saved data
+        CollaborationService.clearSavedSession();
+    }
+}
 
 // Hook into editor changes for collaboration
 const originalOnDidChangeModelContent = editor?.onDidChangeModelContent;

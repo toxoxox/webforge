@@ -849,6 +849,97 @@ body {
     color: var(--text-primary);
 }
 
+/* Tutorial Detail Modal */
+#tutorial-detail-modal {
+    max-width: 700px;
+}
+
+#tutorial-detail-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+#tutorial-detail-title {
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+#tutorial-detail-progress {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+#tutorial-detail-content {
+    margin-bottom: 1rem;
+}
+
+#tutorial-step-title {
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+#tutorial-step-content {
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin: 1rem 0;
+}
+
+#tutorial-step-code {
+    margin: 1.5rem 0;
+}
+
+#tutorial-step-code h4 {
+    color: var(--text-primary);
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+#tutorial-step-code pre {
+    background: var(--bg-tertiary);
+    padding: 1rem;
+    border-radius: var(--radius);
+    overflow-x: auto;
+    font-family: 'Fira Code', 'Cascadia Code', 'Consolas', 'Monaco', monospace;
+    font-size: 0.9rem;
+    border: 1px solid var(--border-color);
+    margin: 0;
+}
+
+#tutorial-step-code code {
+    color: var(--text-primary);
+    font-family: inherit;
+    white-space: pre;
+    display: block;
+}
+
+.tutorial-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    gap: 1rem;
+}
+
+.tutorial-actions button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.tutorial-actions button i {
+    width: 16px;
+    height: 16px;
+}
+
+.tutorial-actions button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .cancel-btn:hover {
     background: var(--sidebar-item-hover);
     color: var(--text-primary);

@@ -189,6 +189,32 @@
         <button class="btn cancel-btn">Cancel</button>
     </div>
 
+    <div id="tutorial-detail-modal" class="modal hidden">
+        <div id="tutorial-detail-header">
+            <h2 id="tutorial-detail-title"></h2>
+            <p id="tutorial-detail-progress"></p>
+        </div>
+        <div id="tutorial-detail-content">
+            <h3 id="tutorial-step-title"></h3>
+            <p id="tutorial-step-content"></p>
+            <div id="tutorial-step-code">
+                <h4>Code Example:</h4>
+                <pre><code id="tutorial-code-example"></code></pre>
+            </div>
+        </div>
+        <div class="modal-actions tutorial-actions">
+            <button id="tutorial-prev-btn" class="btn">
+                <i data-lucide="chevron-left"></i>
+                <span>Previous</span>
+            </button>
+            <button class="btn cancel-btn">Close</button>
+            <button id="tutorial-next-btn" class="btn btn-primary">
+                <span>Next</span>
+                <i data-lucide="chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
     <div id="asset-modal" class="modal hidden">
         <h2>Asset Details</h2>
         <div id="asset-preview"></div>

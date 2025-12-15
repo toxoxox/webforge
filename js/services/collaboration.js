@@ -66,6 +66,7 @@ const CollaborationService = {
         this.isHost = true;
         this.hostId = userId;
         this.listenToSession(sessionId);
+        this.saveSession();
 
         return sessionId;
     },
@@ -112,6 +113,7 @@ const CollaborationService = {
         this.isHost = false;
         this.hostId = sessionData.host;
         this.listenToSession(cleanSessionId);
+        this.saveSession();
 
         return sessionData;
     },
@@ -272,6 +274,7 @@ const CollaborationService = {
         this.isHost = false;
         this.hostId = null;
         this.collaborators.clear();
+        this.clearSavedSession();
     },
 
     /**
@@ -332,5 +335,96 @@ const CollaborationService = {
      */
     isInSession() {
         return this.currentSessionId !== null;
+    },
+
+    /**
+     * Save current session to localStorage for restoration after page reload
+     */
+    saveSession() {
+        if (!this.currentSessionId) return;
+        
+        const sessionData = {
+            sessionId: this.currentSessionId,
+            isHost: this.isHost,
+            currentFileId: null, // Will be set by app.js when file changes
+            timestamp: Date.now()
+        };
+        
+        localStorage.setItem('webforge_active_session', JSON.stringify(sessionData));
+    },
+
+    /**
+     * Get saved session from localStorage
+     * @returns {Object|null} Saved session data
+     */
+    getSavedSession() {
+        const saved = localStorage.getItem('webforge_active_session');
+        if (!saved) return null;
+        
+        try {
+            const sessionData = JSON.parse(saved);
+            // Check if session is not too old (24 hours)
+            if (Date.now() - sessionData.timestamp > 24 * 60 * 60 * 1000) {
+                this.clearSavedSession();
+                return null;
+            }
+            return sessionData;
+        } catch (e) {
+            return null;
+        }
+    },
+
+    /**
+     * Clear saved session from localStorage
+     */
+    clearSavedSession() {
+        localStorage.removeItem('webforge_active_session');
+    },
+
+    /**
+     * Update saved session with current file ID
+     * @param {string} fileId - Current file ID
+     */
+    updateSavedSessionFile(fileId) {
+        const saved = this.getSavedSession();
+        if (saved) {
+            saved.currentFileId = fileId;
+            localStorage.setItem('webforge_active_session', JSON.stringify(saved));
+        }
+    },
+
+    /**
+     * Rejoin an existing session after page reload
+     * @param {string} sessionId - Session ID to rejoin
+     * @param {boolean} wasHost - Whether user was the host
+     * @returns {Object} Session data
+     */
+    async rejoinSession(sessionId, wasHost) {
+        if (!this.db) {
+            throw new Error('Firebase not initialized');
+        }
+
+        const sessionRef = this.db.ref(`sessions/${sessionId}`);
+        const snapshot = await sessionRef.once('value');
+
+        if (!snapshot.exists()) {
+            throw new Error('Session no longer exists');
+        }
+
+        const sessionData = snapshot.val();
+        const userId = this.getUserId();
+
+        // Check if user is still in the collaborators list
+        if (!sessionData.collaborators || !sessionData.collaborators[userId]) {
+            throw new Error('You are no longer in this session');
+        }
+
+        this.currentSessionId = sessionId;
+        this.isHost = sessionData.host === userId;
+        this.hostId = sessionData.host;
+        this.listenToSession(sessionId);
+        this.saveSession();
+
+        return sessionData;
     }
 };
