@@ -2,9 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#3498db">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>WebForge - Student Website Builder</title>
+    <meta name="description" content="Learn web development by building websites in your browser. Professional code editor, live preview, and no installation required.">
+    <meta name="keywords" content="web development, learn coding, HTML, CSS, JavaScript, student, education, website builder">
+    <meta name="author" content="WebForge">
+    <meta property="og:title" content="WebForge - Student Website Builder">
+    <meta property="og:description" content="Learn web development by building websites in your browser">
+    <meta property="og:type" content="website">
     <link rel="icon" type="image/png" href="img/webforge-icon.png">
+    <link rel="manifest" href="manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -37,6 +47,11 @@
                     <i data-lucide="download"></i>
                     <span>Export</span>
                 </button>
+                <button id="import-btn" class="btn" title="Import Project">
+                    <i data-lucide="upload"></i>
+                    <span>Import</span>
+                </button>
+                <input type="file" id="import-file-input" accept=".zip" style="display: none;">
                 <button id="console-toggle-btn" class="btn">
                     <i data-lucide="terminal"></i>
                     <span>Show Console</span>
@@ -188,6 +203,54 @@
         </div>
     </div>
 
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="modal-overlay hidden">
+        <div class="welcome-modal">
+            <div class="welcome-header">
+                <img src="img/webforge-icon.png" alt="WebForge" class="welcome-logo">
+                <h1>Welcome to WebForge!</h1>
+                <p>Your browser-based website builder for learning web development</p>
+            </div>
+            
+            <div class="welcome-content">
+                <div class="welcome-feature">
+                    <i data-lucide="code" class="welcome-icon"></i>
+                    <h3>Professional Editor</h3>
+                    <p>Write HTML, CSS, and JavaScript with IntelliSense and autocomplete</p>
+                </div>
+                
+                <div class="welcome-feature">
+                    <i data-lucide="eye" class="welcome-icon"></i>
+                    <h3>Live Preview</h3>
+                    <p>See your changes instantly as you code</p>
+                </div>
+                
+                <div class="welcome-feature">
+                    <i data-lucide="save" class="welcome-icon"></i>
+                    <h3>Auto-Save</h3>
+                    <p>Your work is automatically saved every second</p>
+                </div>
+                
+                <div class="welcome-feature">
+                    <i data-lucide="image" class="welcome-icon"></i>
+                    <h3>Upload Assets</h3>
+                    <p>Add images and use them with simple filenames</p>
+                </div>
+            </div>
+            
+            <div class="welcome-actions">
+                <button id="welcome-start-btn" class="btn btn-primary btn-large">
+                    <i data-lucide="rocket"></i>
+                    <span>Get Started</span>
+                </button>
+                <label class="welcome-checkbox">
+                    <input type="checkbox" id="welcome-dont-show">
+                    <span>Don't show this again</span>
+                </label>
+            </div>
+        </div>
+    </div>
+
     <!-- Toast Notifications -->
     <div id="toast-container"></div>
 
@@ -197,6 +260,11 @@
             Collaborate
         </h2>
         <div id="collab-content">
+            <div class="collab-section">
+                <h3>Your Name</h3>
+                <input type="text" id="collab-name-input" placeholder="Enter your name" maxlength="50">
+                <p style="font-size: 0.85rem; color: #7f8c8d; margin-top: 0.5rem;">This name will be visible to other collaborators</p>
+            </div>
             <div class="collab-section">
                 <h3>Start Collaboration</h3>
                 <p>Share your project with others for real-time editing</p>
@@ -254,6 +322,54 @@
             <button id="confirm-yes-btn" class="btn btn-danger">Delete</button>
             <button id="confirm-no-btn" class="btn cancel-btn">Cancel</button>
         </div>
+    </div>
+
+    <div id="shortcuts-modal" class="modal hidden">
+        <h2>
+            <i data-lucide="keyboard"></i>
+            Keyboard Shortcuts
+        </h2>
+        <div class="shortcuts-list">
+            <div class="shortcut-item">
+                <span class="shortcut-keys"><kbd>Ctrl</kbd> + <kbd>S</kbd></span>
+                <span class="shortcut-desc">Save current file</span>
+            </div>
+            <div class="shortcut-item">
+                <span class="shortcut-keys"><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd></span>
+                <span class="shortcut-desc">Format code (Prettier)</span>
+            </div>
+            <div class="shortcut-item">
+                <span class="shortcut-keys"><kbd>F11</kbd></span>
+                <span class="shortcut-desc">Toggle fullscreen preview</span>
+            </div>
+            <div class="shortcut-item">
+                <span class="shortcut-keys"><kbd>Esc</kbd></span>
+                <span class="shortcut-desc">Exit fullscreen preview</span>
+            </div>
+            <div class="shortcut-item">
+                <span class="shortcut-keys"><kbd>Ctrl</kbd> + <kbd>/</kbd></span>
+                <span class="shortcut-desc">Toggle line comment</span>
+            </div>
+            <div class="shortcut-item">
+                <span class="shortcut-keys"><kbd>Ctrl</kbd> + <kbd>D</kbd></span>
+                <span class="shortcut-desc">Select next occurrence</span>
+            </div>
+            <div class="shortcut-item">
+                <span class="shortcut-keys"><kbd>Alt</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd></span>
+                <span class="shortcut-desc">Move line up/down</span>
+            </div>
+            <div class="shortcut-item">
+                <span class="shortcut-keys"><kbd>Ctrl</kbd> + <kbd>Space</kbd></span>
+                <span class="shortcut-desc">Trigger autocomplete</span>
+            </div>
+        </div>
+        <button class="btn cancel-btn">Close</button>
+    </div>
+
+    <!-- Offline Warning -->
+    <div id="offline-banner" class="offline-banner hidden">
+        <i data-lucide="wifi-off"></i>
+        <span>You're offline. Some features may not work properly.</span>
     </div>
 
     <!-- Load Firebase and Prettier BEFORE Monaco to avoid AMD conflicts -->

@@ -329,9 +329,43 @@ function loadInitialState() {
         loadProject(lastProject.id);
     }
     
+    // Show welcome screen for first-time users
+    const hasSeenWelcome = localStorage.getItem('webforge-welcome-seen');
+    if (!hasSeenWelcome) {
+        showWelcomeScreen();
+    }
+    
     // Initialize icons after DOM is ready
     setTimeout(initIcons, 100);
 }
+
+// Welcome Screen
+function showWelcomeScreen() {
+    const welcomeScreen = document.getElementById('welcome-screen');
+    welcomeScreen.classList.remove('hidden');
+    initIcons();
+}
+
+function hideWelcomeScreen() {
+    const welcomeScreen = document.getElementById('welcome-screen');
+    const dontShow = document.getElementById('welcome-dont-show').checked;
+    
+    if (dontShow) {
+        localStorage.setItem('webforge-welcome-seen', 'true');
+    }
+    
+    welcomeScreen.classList.add('hidden');
+}
+
+document.getElementById('welcome-start-btn').onclick = () => {
+    hideWelcomeScreen();
+    
+    // If no projects, show new project modal
+    const projects = ProjectService.listProjects();
+    if (projects.length === 0) {
+        setTimeout(() => showModal('new-project-modal'), 300);
+    }
+};
 
 function renderProjectsList(projects) {
     const container = document.getElementById('projects-list');
@@ -827,10 +861,20 @@ function togglePreviewFullscreen() {
     initIcons();
 }
 
-// Keyboard shortcut for fullscreen (Escape to exit)
+// Keyboard shortcuts
 document.addEventListener('keydown', (e) => {
+    // Escape to exit fullscreen
     if (e.key === 'Escape' && isPreviewFullscreen) {
         togglePreviewFullscreen();
+    }
+    
+    // Ctrl/Cmd + S to save (prevent browser save dialog)
+    if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        if (currentProject) {
+            ProjectService.saveProject(currentProject);
+            showToast('Project saved', 'success');
+        }
     }
 });
 
@@ -881,7 +925,7 @@ document.getElementById('export-btn').onclick = async () => {
 };
 
 document.getElementById('help-btn').onclick = () => {
-    showTutorialModal();
+    showModal('shortcuts-modal');
 };
 
 document.getElementById('collaborate-btn').onclick = () => {
@@ -1424,6 +1468,12 @@ function showCollaborationModal() {
         joinCollaborationSession(sessionId);
     }
 
+    // Load saved name if exists
+    const savedName = CollaborationService.getUserName();
+    if (savedName) {
+        document.getElementById('collab-name-input').value = savedName;
+    }
+
     updateCollaborationUI();
     showModal('collaboration-modal');
     lucide.createIcons();
@@ -1488,18 +1538,22 @@ function updateCollaboratorsList() {
 }
 
 document.getElementById('start-collab-btn').onclick = async () => {
+    // Validate name input
+    const nameInput = document.getElementById('collab-name-input');
+    const name = nameInput.value.trim();
+    
+    if (!name) {
+        showToast('Please enter your name before starting a collaboration', 'warning', 'Name Required');
+        nameInput.focus();
+        return;
+    }
+    
+    // Save the name
+    CollaborationService.setUserName(name);
+
     if (!firebaseConfigured) {
-        const configInput = prompt('Enter Firebase configuration JSON:');
-        if (!configInput) return;
-        
-        try {
-            const config = JSON.parse(configInput);
-            localStorage.setItem('webforge_firebase_config', configInput);
-            firebaseConfigured = CollaborationService.initialize(config);
-        } catch (e) {
-            showToast(e.message, 'error', 'Invalid Configuration');
-            return;
-        }
+        showToast('Firebase configuration is required for collaboration', 'warning', 'Configuration Required');
+        return;
     }
 
     if (!currentProject) {
@@ -1517,6 +1571,19 @@ document.getElementById('start-collab-btn').onclick = async () => {
 };
 
 document.getElementById('join-collab-btn').onclick = async () => {
+    // Validate name input
+    const nameInput = document.getElementById('collab-name-input');
+    const name = nameInput.value.trim();
+    
+    if (!name) {
+        showToast('Please enter your name before joining a collaboration', 'warning', 'Name Required');
+        nameInput.focus();
+        return;
+    }
+    
+    // Save the name
+    CollaborationService.setUserName(name);
+
     const sessionId = document.getElementById('session-id-input').value.trim();
     if (!sessionId) {
         showToast('Please enter a session ID', 'warning');
@@ -1528,17 +1595,8 @@ document.getElementById('join-collab-btn').onclick = async () => {
 
 async function joinCollaborationSession(sessionId) {
     if (!firebaseConfigured) {
-        const configInput = prompt('Enter Firebase configuration JSON:');
-        if (!configInput) return;
-        
-        try {
-            const config = JSON.parse(configInput);
-            localStorage.setItem('webforge_firebase_config', configInput);
-            firebaseConfigured = CollaborationService.initialize(config);
-        } catch (e) {
-            showToast(e.message, 'error', 'Invalid Configuration');
-            return;
-        }
+        showToast('Firebase configuration is required for collaboration', 'warning', 'Configuration Required');
+        return;
     }
 
     try {
@@ -1584,11 +1642,16 @@ document.getElementById('copy-link-btn').onclick = () => {
 };
 
 document.getElementById('leave-session-btn').onclick = async () => {
-    if (confirm('Are you sure you want to leave this collaboration session?')) {
-        await CollaborationService.leaveSession();
-        updateCollaborationUI();
-        hideModal('collaboration-modal');
-    }
+    showConfirmModal(
+        'Leave Session',
+        'Are you sure you want to leave this collaboration session?',
+        async () => {
+            await CollaborationService.leaveSession();
+            updateCollaborationUI();
+            hideModal('collaboration-modal');
+            showToast('You have left the collaboration session', 'info');
+        }
+    );
 };
 
 // Collaboration callbacks

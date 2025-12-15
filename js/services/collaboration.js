@@ -219,16 +219,21 @@ const CollaborationService = {
     },
 
     /**
-     * Get or prompt for user name
-     * @returns {string} User name
+     * Get user name from localStorage
+     * @returns {string|null} User name or null if not set
      */
     getUserName() {
-        let userName = localStorage.getItem('webforge_user_name');
-        if (!userName) {
-            userName = prompt('Enter your name for collaboration:') || 'Anonymous';
-            localStorage.setItem('webforge_user_name', userName);
+        return localStorage.getItem('webforge_user_name');
+    },
+
+    /**
+     * Set user name in localStorage
+     * @param {string} name - User name
+     */
+    setUserName(name) {
+        if (name && name.trim()) {
+            localStorage.setItem('webforge_user_name', name.trim());
         }
-        return userName;
     },
 
     /**
