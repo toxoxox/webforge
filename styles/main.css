@@ -1338,6 +1338,15 @@ body {
     font-size: 0.9rem;
 }
 
+.collab-section .btn {
+    background: var(--primary);
+    color: white;
+}
+
+.collab-section .btn:hover {
+    background: var(--primary-hover);
+}
+
 .session-info {
     background: white;
     padding: 1rem;

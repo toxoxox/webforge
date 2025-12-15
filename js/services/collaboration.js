@@ -77,7 +77,19 @@ const CollaborationService = {
             throw new Error('Firebase not initialized');
         }
 
-        const sessionRef = this.db.ref(`sessions/${sessionId}`);
+        // Validate and clean session ID
+        if (!sessionId || typeof sessionId !== 'string') {
+            throw new Error('Invalid session ID');
+        }
+
+        // Remove any invalid characters for Firebase paths
+        const cleanSessionId = sessionId.trim().replace(/[.#$[\]]/g, '');
+        
+        if (!cleanSessionId) {
+            throw new Error('Invalid session ID format');
+        }
+
+        const sessionRef = this.db.ref(`sessions/${cleanSessionId}`);
         const snapshot = await sessionRef.once('value');
 
         if (!snapshot.exists()) {
@@ -91,9 +103,9 @@ const CollaborationService = {
             color: this.getRandomColor()
         });
 
-        this.currentSessionId = sessionId;
+        this.currentSessionId = cleanSessionId;
         this.isHost = false;
-        this.listenToSession(sessionId);
+        this.listenToSession(cleanSessionId);
 
         return snapshot.val();
     },

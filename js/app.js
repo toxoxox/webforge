@@ -924,8 +924,64 @@ document.getElementById('export-btn').onclick = async () => {
     }
 };
 
+document.getElementById('import-btn').onclick = () => {
+    document.getElementById('import-file-input').click();
+};
+
+document.getElementById('import-file-input').onchange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (!file.name.endsWith('.zip')) {
+        showToast('Please select a ZIP file', 'error');
+        return;
+    }
+
+    try {
+        const zip = new JSZip();
+        const contents = await zip.loadAsync(file);
+        
+        // Extract project name from ZIP filename
+        const projectName = file.name.replace('.zip', '');
+        
+        // Create new project
+        const project = ProjectService.createProject(projectName);
+        
+        // Clear default files
+        project.files = [];
+        
+        // Import files from ZIP
+        for (const [filename, zipEntry] of Object.entries(contents.files)) {
+            if (!zipEntry.dir) {
+                const content = await zipEntry.async('text');
+                const type = filename.endsWith('.html') ? FileType.HTML :
+                           filename.endsWith('.css') ? FileType.CSS :
+                           filename.endsWith('.js') ? FileType.JAVASCRIPT : FileType.ASSET;
+                
+                const newFile = FileService.createFile(project.id, filename, type, content);
+                project.files.push(newFile);
+            }
+        }
+        
+        ProjectService.saveProject(project);
+        loadProject(project.id);
+        showToast(`Project "${projectName}" imported successfully!`, 'success', 'Import Complete');
+        
+        // Reset file input
+        e.target.value = '';
+    } catch (error) {
+        console.error('Import error:', error);
+        showToast('Failed to import project. Make sure it\'s a valid WebForge ZIP file.', 'error', 'Import Failed');
+        e.target.value = '';
+    }
+};
+
 document.getElementById('help-btn').onclick = () => {
     showModal('shortcuts-modal');
+};
+
+document.getElementById('tutorials-btn').onclick = () => {
+    showTutorialModal();
 };
 
 document.getElementById('collaborate-btn').onclick = () => {
@@ -1463,9 +1519,21 @@ window.addEventListener('load', () => {
 function showCollaborationModal() {
     // Check for session ID in URL
     const urlParams = new URLSearchParams(window.location.search);
-    const sessionId = urlParams.get('session');
-    if (sessionId && firebaseConfigured) {
-        joinCollaborationSession(sessionId);
+    let sessionId = urlParams.get('session');
+    
+    // Clean the session ID - extract only the ID part if a full URL was somehow passed
+    if (sessionId) {
+        // If it contains a URL, extract just the session parameter
+        if (sessionId.includes('?session=')) {
+            const match = sessionId.match(/[?&]session=([^&]+)/);
+            sessionId = match ? match[1] : sessionId;
+        }
+        // Remove any URL fragments or invalid characters
+        sessionId = sessionId.split('#')[0].split('&')[0].trim();
+        
+        if (sessionId && firebaseConfigured) {
+            joinCollaborationSession(sessionId);
+        }
     }
 
     // Load saved name if exists
@@ -1736,3 +1804,37 @@ function showConfirmModal(title, message, onConfirm) {
     showModal('confirm-modal');
     lucide.createIcons();
 }
+
+
+// Offline Detection
+function updateOnlineStatus() {
+    const offlineBanner = document.getElementById('offline-banner');
+    if (!navigator.onLine) {
+        offlineBanner.classList.remove('hidden');
+    } else {
+        offlineBanner.classList.add('hidden');
+    }
+}
+
+window.addEventListener('online', updateOnlineStatus);
+window.addEventListener('offline', updateOnlineStatus);
+
+// Check on load
+updateOnlineStatus();
+
+// Enhanced keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+    // F11 for fullscreen preview
+    if (e.key === 'F11') {
+        e.preventDefault();
+        togglePreviewFullscreen();
+    }
+    
+    // Ctrl+? or Ctrl+/ to show shortcuts
+    if ((e.ctrlKey || e.metaKey) && (e.key === '?' || e.key === '/')) {
+        if (!e.shiftKey) {
+            e.preventDefault();
+            showModal('shortcuts-modal');
+        }
+    }
+});

@@ -12,12 +12,19 @@ A web-based platform that enables students to learn web development by building 
   - Format on paste and type
   - Parameter hints and hover documentation
 - **Code Formatting** - Auto-format HTML, CSS, and JavaScript with Prettier (Ctrl+Shift+F)
-- **Live Preview** - Real-time preview of websites as you build
+- **Live Preview** - Real-time preview with device size testing (mobile/tablet/desktop)
+- **Project Import/Export** - Download and re-import projects as ZIP files
+- **Code Snippets Library** - 25+ pre-built snippets for common patterns
+- **Accessibility Checker** - Real-time accessibility validation with axe-core
+- **Asset Management** - Upload and manage images, fonts, and other assets
+- **Console Panel** - View JavaScript console output and errors
 - **Pre-built Templates** - Portfolio and blog templates to learn from
 - **Integrated Tutorials** - Step-by-step guides for HTML, CSS, and JavaScript
+- **Keyboard Shortcuts** - Efficient workflow with documented shortcuts (Ctrl+/)
 - **Collaborative Editing** - Real-time collaboration with Firebase (optional, requires setup)
 - **Auto-Save** - Automatic localStorage persistence every 2 seconds
-- **Export Projects** - Download as ZIP files ready to host
+- **Dark Mode** - Toggle between light and dark themes
+- **Offline Detection** - Visual warning when internet connection is lost
 - **Responsive Design** - Works on mobile, tablet, and desktop
 - **Pure Vanilla** - HTML, CSS, and JavaScript - no build tools required!
 
@@ -73,7 +80,18 @@ Then open `http://localhost:8000` in your browser.
 3. Edit your HTML, CSS, and JavaScript in the code editor
 4. See live preview of your changes
 5. Click "Export" to download your project as a ZIP file
-6. Click "Help" to access tutorials
+6. Click "Import" to restore a previously exported project
+7. Click "Shortcuts" (or press Ctrl+/) to view keyboard shortcuts
+8. Click "Tutorials" to access learning resources
+
+### Keyboard Shortcuts
+
+- **Ctrl+S** - Save current file
+- **Ctrl+Shift+F** - Format code with Prettier
+- **F11** - Toggle fullscreen preview
+- **Esc** - Exit fullscreen preview
+- **Ctrl+/** - Toggle line comment
+- **Ctrl+/** - Show keyboard shortcuts modal
 
 ## Features in Detail
 
