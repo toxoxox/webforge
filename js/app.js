@@ -1150,8 +1150,11 @@ function showTutorialModal() {
 
     tutorials.forEach(tutorial => {
         const item = document.createElement('div');
-        item.style.cssText = 'padding: 1rem; margin: 0.5rem 0; background: #f5f5f5; border-radius: 4px; cursor: pointer;';
-        item.innerHTML = `<h3>${tutorial.title}</h3><p style="color: #666; font-size: 0.9rem;">${tutorial.steps.length} steps</p>`;
+        item.className = 'tutorial-list-item';
+        item.innerHTML = `
+            <h3>${tutorial.title}</h3>
+            <p class="tutorial-steps-count">${tutorial.steps.length} steps</p>
+        `;
         item.onclick = () => {
             showTutorialDetail(tutorial);
         };
@@ -1190,13 +1193,9 @@ function renderTutorialStep() {
     const nextBtn = document.getElementById('tutorial-next-btn');
     
     prevBtn.disabled = currentTutorialStep === 0;
-    prevBtn.style.opacity = currentTutorialStep === 0 ? '0.5' : '1';
-    prevBtn.style.cursor = currentTutorialStep === 0 ? 'not-allowed' : 'pointer';
     
     const isLastStep = currentTutorialStep === currentTutorial.steps.length - 1;
     nextBtn.disabled = isLastStep;
-    nextBtn.style.opacity = isLastStep ? '0.5' : '1';
-    nextBtn.style.cursor = isLastStep ? 'not-allowed' : 'pointer';
     
     if (isLastStep) {
         nextBtn.innerHTML = '<span>Completed</span><i data-lucide="check"></i>';

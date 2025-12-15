@@ -940,6 +940,37 @@ body {
     cursor: not-allowed;
 }
 
+/* Tutorial List Items */
+.tutorial-list-item {
+    padding: 1rem;
+    margin: 0.5rem 0;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tutorial-list-item:hover {
+    background: var(--sidebar-item-hover);
+    border-color: var(--primary);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.tutorial-list-item h3 {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    margin: 0 0 0.5rem 0;
+    font-weight: 600;
+}
+
+.tutorial-steps-count {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin: 0;
+}
+
 .cancel-btn:hover {
     background: var(--sidebar-item-hover);
     color: var(--text-primary);
