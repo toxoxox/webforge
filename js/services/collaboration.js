@@ -8,6 +8,7 @@ const CollaborationService = {
     sessionRef: null,
     currentSessionId: null,
     isHost: false,
+    hostId: null,
     collaborators: new Map(),
     localChanges: false,
 
@@ -44,14 +45,15 @@ const CollaborationService = {
         }
 
         const sessionId = generateId();
+        const userId = this.getUserId();
         const sessionData = {
             projectId: project.id,
             projectName: project.name,
             files: project.files,
-            host: this.getUserId(),
+            host: userId,
             createdAt: Date.now(),
             collaborators: {
-                [this.getUserId()]: {
+                [userId]: {
                     name: this.getUserName(),
                     joinedAt: Date.now(),
                     color: this.getRandomColor()
@@ -62,6 +64,7 @@ const CollaborationService = {
         await this.db.ref(`sessions/${sessionId}`).set(sessionData);
         this.currentSessionId = sessionId;
         this.isHost = true;
+        this.hostId = userId;
         this.listenToSession(sessionId);
 
         return sessionId;
@@ -97,6 +100,8 @@ const CollaborationService = {
         }
 
         const userId = this.getUserId();
+        const sessionData = snapshot.val();
+        
         await sessionRef.child(`collaborators/${userId}`).set({
             name: this.getUserName(),
             joinedAt: Date.now(),
@@ -105,9 +110,10 @@ const CollaborationService = {
 
         this.currentSessionId = cleanSessionId;
         this.isHost = false;
+        this.hostId = sessionData.host;
         this.listenToSession(cleanSessionId);
 
-        return snapshot.val();
+        return sessionData;
     },
 
     /**
@@ -116,6 +122,22 @@ const CollaborationService = {
      */
     listenToSession(sessionId) {
         this.sessionRef = this.db.ref(`sessions/${sessionId}`);
+
+        // Listen for session deletion
+        this.sessionRef.on('value', (snapshot) => {
+            if (!snapshot.exists() && this.currentSessionId) {
+                // Session was deleted
+                if (window.onSessionDeleted) {
+                    window.onSessionDeleted();
+                }
+                this.cleanup();
+            }
+        });
+
+        // Listen to host changes
+        this.sessionRef.child('host').on('value', (snapshot) => {
+            this.hostId = snapshot.val();
+        });
 
         // Listen to file changes
         this.sessionRef.child('files').on('value', (snapshot) => {
@@ -131,6 +153,18 @@ const CollaborationService = {
         // Listen to collaborators
         this.sessionRef.child('collaborators').on('value', (snapshot) => {
             const collaborators = snapshot.val() || {};
+            
+            // Check if current user was removed
+            const userId = this.getUserId();
+            if (this.currentSessionId && !collaborators[userId]) {
+                // User was removed from session
+                if (window.onRemovedFromSession) {
+                    window.onRemovedFromSession();
+                }
+                this.cleanup();
+                return;
+            }
+            
             this.collaborators.clear();
             Object.entries(collaborators).forEach(([id, data]) => {
                 this.collaborators.set(id, data);
@@ -187,6 +221,19 @@ const CollaborationService = {
     },
 
     /**
+     * Remove a participant from the session (host only)
+     * @param {string} userId - User ID to remove
+     */
+    async removeParticipant(userId) {
+        if (!this.isHost || !this.sessionRef) {
+            throw new Error('Only the host can remove participants');
+        }
+
+        await this.sessionRef.child(`collaborators/${userId}`).remove();
+        await this.sessionRef.child(`cursors/${userId}`).remove();
+    },
+
+    /**
      * Leave current session
      */
     async leaveSession() {
@@ -210,10 +257,20 @@ const CollaborationService = {
             }
         }
 
-        this.sessionRef.off();
-        this.sessionRef = null;
+        this.cleanup();
+    },
+
+    /**
+     * Clean up local session state
+     */
+    cleanup() {
+        if (this.sessionRef) {
+            this.sessionRef.off();
+            this.sessionRef = null;
+        }
         this.currentSessionId = null;
         this.isHost = false;
+        this.hostId = null;
         this.collaborators.clear();
     },
 

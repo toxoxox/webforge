@@ -1339,12 +1339,12 @@ body {
 }
 
 .collab-section .btn {
-    background: var(--primary);
-    color: white;
+    background: var(--primary) !important;
+    color: white !important;
 }
 
 .collab-section .btn:hover {
-    background: var(--primary-hover);
+    background: var(--primary-hover) !important;
 }
 
 .session-info {

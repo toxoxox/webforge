@@ -1583,6 +1583,9 @@ function updateCollaboratorsList() {
     const list = document.getElementById('collaborators-list');
     list.innerHTML = '<h4 style="margin-bottom: 0.5rem;">Collaborators</h4>';
     
+    const currentUserId = CollaborationService.getUserId();
+    const isHost = CollaborationService.isHost;
+    
     CollaborationService.collaborators.forEach((collaborator, id) => {
         const item = document.createElement('div');
         item.className = 'collaborator-item';
@@ -1594,15 +1597,41 @@ function updateCollaboratorsList() {
         
         const info = document.createElement('div');
         info.className = 'collaborator-info';
+        
+        const nameLabel = id === currentUserId ? `${collaborator.name} (You)` : collaborator.name;
+        const roleLabel = id === CollaborationService.hostId ? 'Host' : 'Active';
+        
         info.innerHTML = `
-            <div class="collaborator-name">${collaborator.name}</div>
-            <div class="collaborator-status">Active</div>
+            <div class="collaborator-name">${nameLabel}</div>
+            <div class="collaborator-status">${roleLabel}</div>
         `;
         
         item.appendChild(avatar);
         item.appendChild(info);
+        
+        // Add remove button for host (but not for themselves)
+        if (isHost && id !== currentUserId) {
+            const removeBtn = document.createElement('button');
+            removeBtn.className = 'delete-btn';
+            removeBtn.innerHTML = '<i data-lucide="user-x" style="width: 14px; height: 14px;"></i>';
+            removeBtn.title = 'Remove participant';
+            removeBtn.onclick = () => {
+                showConfirmModal(
+                    'Remove Participant',
+                    `Remove ${collaborator.name} from this session?`,
+                    async () => {
+                        await CollaborationService.removeParticipant(id);
+                        showToast(`${collaborator.name} has been removed`, 'info');
+                    }
+                );
+            };
+            item.appendChild(removeBtn);
+        }
+        
         list.appendChild(item);
     });
+    
+    lucide.createIcons();
 }
 
 document.getElementById('start-collab-btn').onclick = async () => {
@@ -1752,6 +1781,30 @@ window.onCollaboratorsUpdate = (collaborators) => {
 window.onCursorsUpdate = (cursors) => {
     // TODO: Render remote cursors in editor
     // This would require Monaco editor decorations
+};
+
+window.onSessionDeleted = () => {
+    showToast('The collaboration session has ended', 'info', 'Session Ended');
+    updateCollaborationUI();
+    
+    // Remove collaboration indicator
+    const indicator = document.querySelector('.collaboration-indicator');
+    if (indicator) indicator.remove();
+};
+
+window.onRemovedFromSession = () => {
+    showToast('You have been removed from the collaboration session', 'warning', 'Removed from Session');
+    updateCollaborationUI();
+    
+    // Remove collaboration indicator
+    const indicator = document.querySelector('.collaboration-indicator');
+    if (indicator) indicator.remove();
+    
+    // Close modal if open
+    const modal = document.getElementById('collaboration-modal');
+    if (!modal.classList.contains('hidden')) {
+        hideModal('collaboration-modal');
+    }
 };
 
 // Hook into editor changes for collaboration
