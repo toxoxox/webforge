@@ -1,6 +1,28 @@
-# WebForge - Student Website Builder
+# WebForge - Learn Web Development by Building
 
-A web-based platform that enables students to learn web development by building their own websites.
+WebForge is a browser-based learning platform that teaches HTML, CSS, and JavaScript through hands-on website building. Students learn by creating real website components step-by-step with immediate visual feedback.
+
+## 🚀 New Learning-First Experience
+
+WebForge now features a **guided learning flow** designed specifically for beginners:
+
+### 📚 Landing Page (index.html)
+- **Clear introduction** to what WebForge offers
+- **Simple navigation** to tutorials or editor
+- **Visual preview** of what students will build
+- **3-step learning process** explanation
+
+### 🎯 Tutorial Hub
+- **Organized by technology**: HTML, CSS, JavaScript
+- **Component-based tutorials**: Build real website parts
+- **Progress tracking**: See your learning journey
+- **Difficulty levels**: From beginner to advanced
+
+### 💻 Code Editor (editor.html)
+- **Professional Monaco Editor** (VS Code in browser)
+- **Live preview** with instant feedback
+- **Tutorial integration** with step-by-step guidance
+- **Project management** and export functionality
 
 ## Features
 
@@ -28,17 +50,21 @@ A web-based platform that enables students to learn web development by building 
 - **Responsive Design** - Works on mobile, tablet, and desktop
 - **Pure Vanilla** - HTML, CSS, and JavaScript - no build tools required!
 
-## Getting Started
+## 🚀 Getting Started
 
-### Prerequisites
+### For Learning (Recommended for beginners)
+1. Open `index.html` in your browser
+2. Click "Start Learning"
+3. Choose a tutorial category (HTML, CSS, or JavaScript)
+4. Follow the step-by-step instructions to build real components
 
-- A modern web browser (Chrome, Firefox, Safari, or Edge)
-- A local web server (optional, but recommended)
+### For Building (Advanced users)
+1. Open `editor.html` directly, or
+2. Click "Open Editor" from the landing page
+3. Create a new project or choose a template
+4. Start coding with full editor features
 
-### Installation
-
-No installation required! Just open `index.html` in your browser.
-
+### Local Server (Recommended)
 For best results, use a local web server:
 
 **Using Python:**
@@ -46,7 +72,7 @@ For best results, use a local web server:
 python -m http.server 8000
 ```
 
-**Using Node.js (http-server):**
+**Using Node.js:**
 ```bash
 npx http-server
 ```

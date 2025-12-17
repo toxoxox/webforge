@@ -1,0 +1,2 @@
+git config --global user.name "Tox"
+git config --global user.email "dwastaken72@gmail.com"

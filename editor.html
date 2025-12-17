@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#3498db">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>WebForge Editor - Student Website Builder</title>
+    <meta name="description" content="Professional code editor for building websites. HTML, CSS, JavaScript with live preview.">
+    <link rel="icon" type="image/png" href="img/webforge-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/editor/editor.main.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-brand">
+                <img src="img/webforge-icon.png" alt="WebForge" class="nav-logo">
+                <h1>WebForge</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html?page=tutorials" class="nav-link">Tutorials</a>
+                <a href="editor.html" class="nav-link active">Editor</a>
+            </div>
+            <div class="nav-actions">
+                <button id="theme-toggle-btn" class="btn-icon" title="Toggle dark mode">
+                    <i data-lucide="moon"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Code Editor (Direct Access) -->
+        <div class="page active">
+            <header class="editor-header">
+                <div class="header-brand">
+                    <img src="img/webforge-icon.png" alt="WebForge" class="header-logo">
+                    <h1>WebForge</h1>
+                </div>
+                <div class="header-actions">
+                    <button id="new-project-btn" class="btn btn-primary">
+                        <i data-lucide="plus"></i>
+                        <span>New Project</span>
+                    </button>
+                    <button id="collaborate-btn" class="btn" title="Collaborate">
+                        <i data-lucide="users"></i>
+                        <span>Collaborate</span>
+                    </button>
+                    <button id="save-btn" class="btn">
+                        <i data-lucide="save"></i>
+                        <span>Save</span>
+                    </button>
+                    <button id="export-btn" class="btn">
+                        <i data-lucide="download"></i>
+                        <span>Export</span>
+                    </button>
+                    <button id="import-btn" class="btn" title="Import Project">
+                        <i data-lucide="upload"></i>
+                        <span>Import</span>
+                    </button>
+                    <input type="file" id="import-file-input" accept=".zip" style="display: none;">
+                    <button id="console-toggle-btn" class="btn">
+                        <i data-lucide="terminal"></i>
+                        <span>Show Console</span>
+                    </button>
+                    <button id="help-btn" class="btn" title="Keyboard Shortcuts (Ctrl+/)">
+                        <i data-lucide="keyboard"></i>
+                        <span>Shortcuts</span>
+                    </button>
+                    <button id="tutorials-btn" class="btn" title="View Tutorials">
+                        <i data-lucide="book-open"></i>
+                        <span>Tutorials</span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="editor-main-container">
+                <aside class="sidebar">
+                    <div class="sidebar-section">
+                        <h3>Projects</h3>
+                        <div id="projects-list"></div>
+                    </div>
+                    <div class="sidebar-section">
+                        <h3>Files</h3>
+                        <button id="new-file-btn" class="btn btn-small">
+                            <i data-lucide="file-plus" style="width: 14px; height: 14px;"></i>
+                            <span>New File</span>
+                        </button>
+                        <button id="upload-asset-btn" class="btn btn-small">
+                            <i data-lucide="upload" style="width: 14px; height: 14px;"></i>
+                            <span>Upload Asset</span>
+                        </button>
+                        <input type="file" id="asset-file-input" accept="image/*,.woff,.woff2,.ttf,.otf" style="display: none;">
+                        <div id="files-tree"></div>
+                    </div>
+                    <div class="sidebar-section">
+                        <h3>Snippets</h3>
+                        <button id="snippets-btn" class="btn btn-small">
+                            <i data-lucide="code-2" style="width: 14px; height: 14px;"></i>
+                            <span>Browse Snippets</span>
+                        </button>
+                    </div>
+                </aside>
+
+                <main class="workspace">
+                    <div class="editor-container">
+                        <div class="editor-header">
+                            <span id="current-file-name">No file selected</span>
+                        </div>
+                        <div id="editor"></div>
+                    </div>
+
+                    <div class="preview-container">
+                        <div class="preview-header">
+                            <span>Preview</span>
+                            <div class="preview-controls">
+                                <button id="device-mobile" class="device-btn" title="Mobile (375px)" data-width="375">
+                                    <i data-lucide="smartphone"></i>
+                                </button>
+                                <button id="device-tablet" class="device-btn" title="Tablet (768px)" data-width="768">
+                                    <i data-lucide="tablet"></i>
+                                </button>
+                                <button id="device-desktop" class="device-btn active" title="Desktop (100%)" data-width="100%">
+                                    <i data-lucide="monitor"></i>
+                                </button>
+                                <button id="preview-fullscreen-btn" class="btn-icon" title="Fullscreen Preview (F11)" aria-label="Fullscreen Preview">
+                                    <i data-lucide="maximize-2"></i>
+                                </button>
+                                <button id="a11y-toggle-btn" class="btn-icon" title="Toggle Accessibility Checker" aria-label="Toggle Accessibility Checker">
+                                    <i data-lucide="accessibility"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="preview-wrapper">
+                            <!-- Note: allow-scripts and allow-same-origin are needed for educational preview functionality -->
+                            <iframe id="preview" sandbox="allow-scripts allow-same-origin"></iframe>
+                        </div>
+                        <div id="a11y-panel" class="a11y-panel hidden">
+                            <div class="a11y-header">
+                                <span>Accessibility Issues</span>
+                                <button id="a11y-close-btn" class="btn-icon" aria-label="Close Accessibility Panel">
+                                    <i data-lucide="x"></i>
+                                </button>
+                            </div>
+                            <div id="a11y-content" class="a11y-content">
+                                <p class="a11y-loading">Checking accessibility...</p>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+
+            <div id="console-panel" class="console-panel hidden">
+                <div class="console-header">
+                    <span>
+                        <i data-lucide="terminal" style="width: 16px; height: 16px; margin-right: 6px;"></i>
+                        Console
+                    </span>
+                    <div class="console-header-actions">
+                        <button id="console-clear-btn" class="console-btn" title="Clear console">
+                            <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i>
+                        </button>
+                        <button id="console-close-btn" class="console-btn" title="Close console" aria-label="Close console">
+                            <i data-lucide="x"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="console-output"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include all the same modals and scripts as the main app -->
+    <!-- Modals -->
+    <div id="modal-overlay" class="modal-overlay hidden"></div>
+    
+    <div id="new-project-modal" class="modal hidden">
+        <h2>Create New Project</h2>
+        <input type="text" id="project-name-input" placeholder="Project name">
+        <div class="modal-actions">
+            <button id="create-blank-btn" class="btn btn-primary">Start from Scratch</button>
+            <button id="choose-template-btn" class="btn">Choose Template</button>
+            <button class="btn cancel-btn">Cancel</button>
+        </div>
+    </div>
+
+    <div id="template-modal" class="modal hidden">
+        <h2>Choose a Template</h2>
+        <div id="templates-grid"></div>
+        <button class="btn cancel-btn">Cancel</button>
+    </div>
+
+    <div id="tutorial-browser-modal" class="modal modal-large hidden">
+        <div class="tutorial-browser-header">
+            <h2>
+                <i data-lucide="graduation-cap"></i>
+                Learn by Building
+            </h2>
+            <p>Build real website components through guided, step-by-step tutorials</p>
+        </div>
+        
+        <div class="tutorial-browser-content">
+            <div class="tutorial-categories">
+                <button class="tutorial-category-btn active" data-category="all">
+                    <i data-lucide="grid-3x3"></i>
+                    <span>All Tutorials</span>
+                </button>
+                <button class="tutorial-category-btn" data-category="layout">
+                    <i data-lucide="layout"></i>
+                    <span>Layout</span>
+                </button>
+                <button class="tutorial-category-btn" data-category="navigation">
+                    <i data-lucide="menu"></i>
+                    <span>Navigation</span>
+                </button>
+                <button class="tutorial-category-btn" data-category="ui-components">
+                    <i data-lucide="box"></i>
+                    <span>UI Components</span>
+                </button>
+                <button class="tutorial-category-btn" data-category="forms">
+                    <i data-lucide="form-input"></i>
+                    <span>Forms</span>
+                </button>
+                <button class="tutorial-category-btn" data-category="javascript-features">
+                    <i data-lucide="zap"></i>
+                    <span>JavaScript</span>
+                </button>
+            </div>
+            
+
+    <!-- Additional Editor Modals -->
+    <div id="shortcuts-modal" class="modal hidden">
+        <h2>Keyboard Shortcuts</h2>
+        <div class="shortcuts-list">
+            <div class="shortcut-item">
+                <span class="shortcut-key">Ctrl+S</span>
+                <span class="shortcut-desc">Save project</span>
+            </div>
+            <div class="shortcut-item">
+                <span class="shortcut-key">Ctrl+Shift+F</span>
+                <span class="shortcut-desc">Format code</span>
+            </div>
+            <div class="shortcut-item">
+                <span class="shortcut-key">F11</span>
+                <span class="shortcut-desc">Toggle fullscreen preview</span>
+            </div>
+            <div class="shortcut-item">
+                <span class="shortcut-key">Ctrl+/</span>
+                <span class="shortcut-desc">Show shortcuts</span>
+            </div>
+            <div class="shortcut-item">
+                <span class="shortcut-key">Esc</span>
+                <span class="shortcut-desc">Exit fullscreen</span>
+            </div>
+        </div>
+        <button class="btn cancel-btn">Close</button>
+    </div>
+
+    <div id="new-file-modal" class="modal hidden">
+        <h2>Create New File</h2>
+        <input type="text" id="file-name-input" placeholder="File name (e.g., styles.css, script.js)">
+        <div class="modal-actions">
+            <button id="create-file-btn" class="btn btn-primary">Create File</button>
+            <button class="btn cancel-btn">Cancel</button>
+        </div>
+    </div>
+
+    <div id="asset-modal" class="modal hidden">
+        <h2>Asset Details</h2>
+        <div id="asset-preview"></div>
+        <div id="asset-info"></div>
+        <div id="asset-code-snippets"></div>
+        <button class="btn cancel-btn">Close</button>
+    </div>
+
+    <div id="snippets-modal" class="modal modal-large hidden">
+        <h2>Code Snippets</h2>
+        <div class="snippets-header">
+            <input type="text" id="snippet-search" placeholder="Search snippets...">
+            <div class="snippet-filters">
+                <button class="filter-btn active" data-lang="all">All</button>
+                <button class="filter-btn" data-lang="html">HTML</button>
+                <button class="filter-btn" data-lang="css">CSS</button>
+                <button class="filter-btn" data-lang="javascript">JavaScript</button>
+            </div>
+        </div>
+        <div id="snippets-container"></div>
+        <button class="btn cancel-btn">Close</button>
+    </div>
+
+    <div id="collaboration-modal" class="modal hidden">
+        <h2>Collaboration</h2>
+        <div class="collab-section">
+            <h3>Start New Session</h3>
+            <input type="text" id="collab-name-input" placeholder="Your name">
+            <button id="start-collab-btn" class="btn btn-primary">Start Session</button>
+        </div>
+        <div class="collab-section">
+            <h3>Join Session</h3>
+            <input type="text" id="session-id-input" placeholder="Session ID">
+            <button id="join-collab-btn" class="btn btn-primary">Join Session</button>
+        </div>
+        <div id="active-session" class="collab-section hidden">
+            <h3>Active Session</h3>
+            <p>Session ID: <span id="current-session-id"></span></p>
+            <button id="copy-link-btn" class="btn">Copy Share Link</button>
+            <button id="leave-session-btn" class="btn">Leave Session</button>
+            <div id="collaborators-list"></div>
+        </div>
+        <button class="btn cancel-btn">Close</button>
+    </div>
+
+    <div id="confirm-modal" class="modal hidden">
+        <h2 id="confirm-title">Confirm</h2>
+        <p id="confirm-message">Are you sure?</p>
+        <div class="modal-actions">
+            <button id="confirm-yes-btn" class="btn btn-primary">Yes</button>
+            <button id="confirm-no-btn" class="btn cancel-btn">No</button>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container"></div>
+
+    <!-- Load all scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.8.2/axe.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prettier@3.1.1/standalone.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prettier@3.1.1/plugins/html.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prettier@3.1.1/plugins/babel.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prettier@3.1.1/plugins/postcss.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prettier@3.1.1/plugins/estree.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/models/types.js"></script>
+    <script src="js/services/storage.js"></script>
+    <script src="js/services/file.js"></script>
+    <script src="js/services/asset.js"></script>
+    <script src="js/services/project.js"></script>
+    <script src="js/services/template.js"></script>
+    <script src="js/services/tutorial.js"></script>
+    <script src="js/services/step-manager.js"></script>
+    <script src="js/services/reset-manager.js"></script>
+    <script src="js/services/snippet.js"></script>
+    <script src="js/services/accessibility.js"></script>
+    <script src="js/services/collaboration.js"></script>
+    <script src="js/html-autocomplete.js"></script>
+    <script>
+        // Direct editor initialization
+        currentPage = 'editor';
+        
+        // Initialize Monaco Editor immediately for direct editor access
+        require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs' } });
+        require(['vs/editor/editor.main'], function () {
+            // Wait for app.js to load and define the function
+            const initEditor = () => {
+                if (typeof window.initializeMonacoEditor === 'function') {
+                    window.initializeMonacoEditor();
+                    
+                    // Load projects after Monaco is initialized
+                    setTimeout(() => {
+                        const projects = ProjectService.listProjects();
+                        renderProjectsList(projects);
+
+                        if (projects.length > 0) {
+                            const lastProject = ProjectService.getCurrentProject() || projects[0];
+                            loadProject(lastProject.id);
+                        }
+                        
+                        // Show welcome screen for first-time users
+                        const hasSeenWelcome = localStorage.getItem('webforge-welcome-seen');
+                        if (!hasSeenWelcome) {
+                            showWelcomeScreen();
+                        } else {
+                            // Try to restore tutorial state for returning users
+                            restoreTutorialState();
+                        }
+                        
+                        // Initialize icons
+                        if (typeof lucide !== 'undefined') {
+                            lucide.createIcons();
+                        }
+                    }, 100);
+                } else {
+                    // Retry after a short delay
+                    setTimeout(initEditor, 100);
+                }
+            };
+            
+            initEditor();
+        });
+    </script>
+    <script src="js/app.js"></script>
+</body>
+</html>

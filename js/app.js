@@ -7,10 +7,113 @@ let currentFile = null;
 let editor = null;
 let autoSaveTimeout = null;
 
-// Initialize Monaco Editor
-require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs' } });
+// Service stubs to prevent errors if services aren't loaded
+window.ProjectService = window.ProjectService || {
+    listProjects: () => [],
+    getCurrentProject: () => null,
+    createProject: () => ({ id: 'temp', name: 'Temp', files: [] }),
+    saveProject: () => {},
+    deleteProject: () => {},
+    exportProject: () => Promise.resolve()
+};
 
-require(['vs/editor/editor.main'], function () {
+window.FileService = window.FileService || {
+    createFile: () => ({ id: 'temp', name: 'temp.html', type: 'html', content: '' }),
+    readFile: () => null,
+    updateFile: () => {},
+    deleteFile: () => {}
+};
+
+window.StorageService = window.StorageService || {
+    getTutorialStatus: () => ({ completed: false }),
+    saveTutorialProgress: () => {},
+    loadTutorialProgress: () => ({ completedSteps: [] }),
+    markTutorialComplete: () => {},
+    unlockTutorial: () => {},
+    saveCurrentTutorialState: () => {},
+    loadCurrentTutorialState: () => null,
+    createSnapshot: () => {}
+};
+
+window.TutorialEngine = window.TutorialEngine || {
+    getAllTutorialDefinitions: () => [],
+    getTutorialDefinition: () => null,
+    startTutorial: () => ({ tutorial: null, step: null, stepIndex: 0 }),
+    nextStep: () => ({ completed: false }),
+    previousStep: () => null,
+    pauseTutorial: () => {},
+    resumeTutorial: () => null,
+    markStepCompleted: () => {},
+    completeTutorial: () => {},
+    createStepSnapshot: () => {},
+    currentTutorial: null,
+    currentStep: null,
+    currentStepIndex: 0
+};
+
+window.ResetManager = window.ResetManager || {
+    resetCurrentStep: () => ({ success: false, message: 'Reset manager not loaded' })
+};
+
+window.StepManager = window.StepManager || {
+    provideHint: () => null,
+    insertCompletedCode: () => null,
+    formatLocationLabel: (file, location) => `${file} - ${location}`
+};
+
+window.AssetService = window.AssetService || {
+    uploadAsset: () => Promise.resolve({ id: 'temp', name: 'temp.png', type: 'asset' }),
+    isImage: () => false,
+    getAssetUrl: () => '',
+    formatFileSize: (size) => `${size} bytes`,
+    generateImgTag: () => '<img src="" alt="">',
+    generateCssBackground: () => 'background-image: url("");'
+};
+
+window.TemplateService = window.TemplateService || {
+    listTemplates: () => [],
+    applyTemplate: () => {}
+};
+
+window.SnippetService = window.SnippetService || {
+    getSnippetsByLanguage: () => [],
+    getSnippetById: () => null
+};
+
+window.AccessibilityService = window.AccessibilityService || {
+    checkAccessibility: () => Promise.resolve({ violations: [] }),
+    formatViolation: (v) => v
+};
+
+window.CollaborationService = window.CollaborationService || {
+    initialize: () => false,
+    isInSession: () => false,
+    createSession: () => Promise.resolve('temp-session'),
+    joinSession: () => Promise.resolve({}),
+    leaveSession: () => Promise.resolve(),
+    updateFile: () => {},
+    getShareUrl: () => '',
+    getUserName: () => '',
+    setUserName: () => {},
+    getUserId: () => 'temp-user',
+    getSavedSession: () => null,
+    clearSavedSession: () => {},
+    rejoinSession: () => Promise.resolve(null),
+    removeParticipant: () => Promise.resolve(),
+    updateSavedSessionFile: () => {},
+    collaborators: new Map(),
+    currentSessionId: null,
+    isHost: false,
+    hostId: null
+};
+
+// Initialize Monaco Editor (only if require is available - i.e., on editor page)
+if (typeof require !== 'undefined') {
+    require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs' } });
+
+    require(['vs/editor/editor.main'], function () {
+    // Store the Monaco initialization function for later use
+    window.initializeMonacoEditor = function() {
     // Configure HTML language features
     monaco.languages.html.htmlDefaults.setOptions({
         suggest: {
@@ -296,12 +399,22 @@ require(['vs/editor/editor.main'], function () {
             // Update file content
             FileService.updateFile(currentFile.id, editor.getValue(), currentProject);
             
+            // Check for tutorial step completion
+            if (TutorialEngine.currentTutorial && TutorialEngine.currentStep) {
+                checkTutorialStepCompletion();
+            }
+            
             // Auto-save with debounce
             clearTimeout(autoSaveTimeout);
             autoSaveTimeout = setTimeout(() => {
                 ProjectService.saveProject(currentProject);
                 updatePreview();
                 showSaveIndicator();
+                
+                // Update tutorial preview highlighting if in tutorial mode
+                if (TutorialEngine.currentTutorial) {
+                    highlightTutorialChanges();
+                }
             }, 1000);
         }
     });
@@ -311,28 +424,117 @@ require(['vs/editor/editor.main'], function () {
         document.getElementById('format-btn').click();
     });
 
-    // Load last project or show welcome
-    loadInitialState();
+    }; // End of initializeMonacoEditor function
     
-    // Initialize Lucide icons
-    if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
+    // Don't initialize editor immediately - wait for user to go to editor page
+    });
+}
+
+// Page Management
+let currentPage = 'landing';
+
+function showPage(pageId) {
+    // Hide all pages
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
+    
+    // Show selected page
+    const page = document.getElementById(pageId + '-page');
+    if (page) {
+        page.classList.add('active');
+        currentPage = pageId;
+        
+        // Update navigation
+        updateNavigation(pageId);
+        
+        // Initialize page-specific functionality
+        if (pageId === 'editor') {
+            initializeEditor();
+        } else if (pageId === 'tutorial-hub') {
+            updateTutorialProgress();
+        }
     }
-});
+}
+
+function updateNavigation(activePageId) {
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+    });
+    
+    const activeLink = document.getElementById('nav-' + activePageId);
+    if (activeLink) {
+        activeLink.classList.add('active');
+    }
+}
+
+function initializeEditor() {
+    // Only initialize Monaco if we're on the editor page and it hasn't been initialized
+    if (!editor && currentPage === 'editor' && window.initializeMonacoEditor) {
+        // Initialize Monaco Editor
+        window.initializeMonacoEditor();
+        
+        // Load projects after Monaco is initialized
+        setTimeout(() => {
+            const projects = ProjectService.listProjects();
+            renderProjectsList(projects);
+
+            if (projects.length > 0) {
+                const lastProject = ProjectService.getCurrentProject() || projects[0];
+                loadProject(lastProject.id);
+            }
+            
+            // Try to restore tutorial state for returning users
+            restoreTutorialState();
+        }, 100);
+    }
+}
+
+function updateTutorialProgress() {
+    // Update progress indicators on tutorial hub
+    const categories = ['html', 'css', 'javascript'];
+    
+    categories.forEach(category => {
+        const tutorials = TutorialEngine.getAllTutorialDefinitions().filter(t => 
+            t.category.includes(category) || 
+            (category === 'html' && (t.category === 'layout' || t.category === 'forms')) ||
+            (category === 'css' && (t.category === 'navigation' || t.category === 'ui-components')) ||
+            (category === 'javascript' && t.category === 'javascript-features')
+        );
+        
+        const completed = tutorials.filter(t => {
+            const status = StorageService.getTutorialStatus('default-user', t.id);
+            return status.completed;
+        }).length;
+        
+        const progressText = document.querySelector(`[data-category="${category}"] .progress-text`);
+        if (progressText) {
+            progressText.textContent = `${completed}/${tutorials.length}`;
+        }
+        
+        // Update progress circle
+        const progressCircle = document.querySelector(`[data-category="${category}"] .progress-circle`);
+        if (progressCircle && tutorials.length > 0) {
+            const percentage = (completed / tutorials.length) * 100;
+            if (percentage > 0) {
+                progressCircle.style.background = `conic-gradient(var(--primary) ${percentage * 3.6}deg, var(--border-color) 0deg)`;
+            }
+        }
+    });
+}
 
 function loadInitialState() {
-    const projects = ProjectService.listProjects();
-    renderProjectsList(projects);
-
-    if (projects.length > 0) {
-        const lastProject = ProjectService.getCurrentProject() || projects[0];
-        loadProject(lastProject.id);
-    }
+    // Show landing page by default
+    showPage('landing');
     
-    // Show welcome screen for first-time users
-    const hasSeenWelcome = localStorage.getItem('webforge-welcome-seen');
-    if (!hasSeenWelcome) {
-        showWelcomeScreen();
+    // Check if user should be redirected to editor (for direct links or returning users)
+    const urlParams = new URLSearchParams(window.location.search);
+    const page = urlParams.get('page');
+    
+    if (page === 'editor') {
+        showPage('editor');
+    } else if (page === 'tutorials') {
+        showPage('tutorial-hub');
     }
     
     // Initialize icons after DOM is ready
@@ -357,15 +559,19 @@ function hideWelcomeScreen() {
     welcomeScreen.classList.add('hidden');
 }
 
-document.getElementById('welcome-start-btn').onclick = () => {
-    hideWelcomeScreen();
-    
-    // If no projects, show new project modal
-    const projects = ProjectService.listProjects();
-    if (projects.length === 0) {
-        setTimeout(() => showModal('new-project-modal'), 300);
-    }
-};
+// Welcome screen functionality (only if element exists)
+const welcomeStartBtn = document.getElementById('welcome-start-btn');
+if (welcomeStartBtn) {
+    welcomeStartBtn.onclick = () => {
+        hideWelcomeScreen();
+        
+        // If no projects, show new project modal
+        const projects = ProjectService.listProjects();
+        if (projects.length === 0) {
+            setTimeout(() => showModal('new-project-modal'), 300);
+        }
+    };
+}
 
 function renderProjectsList(projects) {
     const container = document.getElementById('projects-list');
@@ -666,6 +872,270 @@ function initIcons() {
     }
 }
 
+// Tutorial Mode Management
+function enterTutorialMode() {
+    document.body.classList.add('tutorial-mode');
+    
+    // Add tutorial mode indicator
+    if (!document.querySelector('.tutorial-mode-indicator')) {
+        const indicator = document.createElement('div');
+        indicator.className = 'tutorial-mode-indicator';
+        indicator.innerHTML = '<i data-lucide="graduation-cap"></i><span>Tutorial Mode</span>';
+        document.querySelector('.header-brand').appendChild(indicator);
+        initIcons();
+    }
+}
+
+function exitTutorialMode() {
+    document.body.classList.remove('tutorial-mode');
+    
+    // Remove tutorial mode indicator
+    const indicator = document.querySelector('.tutorial-mode-indicator');
+    if (indicator) {
+        indicator.remove();
+    }
+    
+    // Clear tutorial decorations
+    clearTutorialDecorations();
+    clearTutorialCompletionProvider();
+}
+
+// Enhanced tutorial integration
+function startTutorial() {
+    if (!selectedTutorial) return;
+    
+    try {
+        // Enter tutorial mode
+        enterTutorialMode();
+        
+        // Create or switch to tutorial project if in tutorial mode
+        if (selectedTutorialMode === 'tutorial') {
+            createTutorialProject(selectedTutorial);
+        }
+        
+        const result = TutorialEngine.startTutorial(selectedTutorial.id, selectedTutorialMode);
+        
+        hideModal('tutorial-preview-modal');
+        showTutorialActiveModal(result);
+        
+        // Setup editor for first step
+        setupStepEditor(result.step);
+        
+        showToast(`Started tutorial: ${selectedTutorial.title}`, 'success');
+    } catch (error) {
+        console.error('Error starting tutorial:', error);
+        showToast('Failed to start tutorial', 'error');
+        exitTutorialMode();
+    }
+}
+
+function createTutorialProject(tutorial) {
+    // Create a dedicated project for the tutorial
+    const tutorialProject = ProjectService.createProject(`Tutorial: ${tutorial.title}`);
+    
+    // Add tutorial-specific files if needed
+    if (tutorial.category === TutorialCategory.JAVASCRIPT_FEATURES) {
+        // Ensure we have a script.js file
+        const jsFile = tutorialProject.files.find(f => f.name === 'script.js');
+        if (!jsFile) {
+            const newJsFile = FileService.createFile(tutorialProject.id, 'script.js', FileType.JAVASCRIPT);
+            tutorialProject.files.push(newJsFile);
+        }
+    }
+    
+    ProjectService.saveProject(tutorialProject);
+    loadProject(tutorialProject.id);
+}
+
+// Enhanced tutorial completion
+function showTutorialCompletionModal(tutorial) {
+    exitTutorialMode();
+    
+    showToast(`🎉 Tutorial "${tutorial.title}" completed!`, 'success', 'Congratulations!', 6000);
+    
+    // Suggest next tutorial
+    const allTutorials = TutorialEngine.getAllTutorialDefinitions();
+    const nextTutorials = allTutorials.filter(t => 
+        t.prerequisites && t.prerequisites.includes(tutorial.id)
+    );
+    
+    if (nextTutorials.length > 0) {
+        setTimeout(() => {
+            if (confirm(`Great job! Would you like to try "${nextTutorials[0].title}" next?`)) {
+                selectedTutorial = nextTutorials[0];
+                showTutorialPreview(nextTutorials[0]);
+            }
+        }, 2000);
+    } else {
+        setTimeout(() => {
+            if (confirm('Excellent work! Would you like to browse more tutorials?')) {
+                showTutorialModal();
+            }
+        }, 2000);
+    }
+}
+
+// Tutorial state persistence across sessions
+function saveTutorialState() {
+    if (TutorialEngine.currentTutorial && TutorialEngine.currentStep) {
+        localStorage.setItem('webforge_tutorial_state', JSON.stringify({
+            tutorialId: TutorialEngine.currentTutorial.id,
+            stepId: TutorialEngine.currentStep.id,
+            mode: TutorialEngine.tutorialMode,
+            timestamp: new Date().toISOString()
+        }));
+    }
+}
+
+function restoreTutorialState() {
+    // Check for tutorial start request first
+    const startTutorialData = localStorage.getItem('webforge_start_tutorial');
+    if (startTutorialData) {
+        try {
+            const data = JSON.parse(startTutorialData);
+            localStorage.removeItem('webforge_start_tutorial');
+            
+            const tutorial = TutorialEngine.getTutorialDefinition(data.tutorialId);
+            if (tutorial) {
+                selectedTutorial = tutorial;
+                selectedTutorialMode = data.mode;
+                
+                setTimeout(() => {
+                    startTutorial();
+                }, 1000);
+                return;
+            }
+        } catch (error) {
+            console.error('Error starting tutorial from hub:', error);
+            localStorage.removeItem('webforge_start_tutorial');
+        }
+    }
+    
+    // Check for existing tutorial state
+    const savedState = localStorage.getItem('webforge_tutorial_state');
+    if (savedState) {
+        try {
+            const state = JSON.parse(savedState);
+            
+            // Check if state is recent (within 24 hours)
+            const stateAge = Date.now() - new Date(state.timestamp).getTime();
+            if (stateAge < 24 * 60 * 60 * 1000) {
+                setTimeout(() => {
+                    if (confirm('You have an unfinished tutorial. Would you like to continue where you left off?')) {
+                        const tutorial = TutorialEngine.getTutorialDefinition(state.tutorialId);
+                        if (tutorial) {
+                            selectedTutorial = tutorial;
+                            selectedTutorialMode = state.mode;
+                            
+                            const result = TutorialEngine.resumeTutorial(state.tutorialId);
+                            if (result) {
+                                enterTutorialMode();
+                                showTutorialActiveModal(result);
+                                setupStepEditor(result.step);
+                            }
+                        }
+                    } else {
+                        localStorage.removeItem('webforge_tutorial_state');
+                    }
+                }, 1000);
+            }
+        } catch (error) {
+            console.error('Error restoring tutorial state:', error);
+            localStorage.removeItem('webforge_tutorial_state');
+        }
+    }
+}
+
+// Save tutorial state when leaving
+window.addEventListener('beforeunload', saveTutorialState);
+
+// Enhanced tutorial exit (safe element check)
+const tutorialExitBtn = document.getElementById('tutorial-exit-btn');
+if (tutorialExitBtn) {
+    tutorialExitBtn.onclick = () => {
+        if (confirm('Are you sure you want to exit this tutorial? Your progress will be saved.')) {
+            TutorialEngine.pauseTutorial();
+            saveTutorialState();
+            hideModal('tutorial-active-modal');
+            exitTutorialMode();
+            showToast('Tutorial paused. You can resume anytime from the Tutorials menu.', 'info');
+        }
+    };
+}
+
+// Mobile Navigation
+function toggleMobileNav() {
+    const mobileNav = document.getElementById('mobile-nav');
+    if (mobileNav) {
+        mobileNav.classList.toggle('hidden');
+        mobileNav.classList.toggle('active');
+    }
+}
+
+// Mobile navigation event listeners
+document.getElementById('mobile-menu-btn')?.addEventListener('click', toggleMobileNav);
+
+document.getElementById('mobile-nav')?.addEventListener('click', (e) => {
+    if (e.target.id === 'mobile-nav') {
+        toggleMobileNav();
+    }
+});
+
+document.getElementById('mobile-nav-home')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    showPage('landing');
+    toggleMobileNav();
+});
+
+document.getElementById('mobile-nav-tutorials')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    showPage('tutorial-hub');
+    toggleMobileNav();
+});
+
+document.getElementById('mobile-nav-editor')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.location.href = 'editor.html';
+});
+
+// Initialize the application
+document.addEventListener('DOMContentLoaded', () => {
+    // Wait for all services to be loaded
+    const initializeApp = () => {
+        // Check if required services are available
+        const requiredServices = ['StorageService', 'TutorialEngine'];
+        const missingServices = requiredServices.filter(service => typeof window[service] === 'undefined');
+        
+        if (missingServices.length > 0) {
+            console.log('Waiting for services to load:', missingServices);
+            setTimeout(initializeApp, 100);
+            return;
+        }
+        
+        loadInitialState();
+        
+        // Initialize event listeners based on current page
+        initializeUniversalEventListeners();
+        initializeNavigationEventListeners();
+        initializeSnippetsEventListeners();
+        
+        // Initialize editor-specific listeners if on editor page
+        if (currentPage === 'editor' || window.location.pathname.includes('editor.html')) {
+            initializeEditorEventListeners();
+            initializeTutorialEventListeners();
+            initializeCollaborationEventListeners();
+            initializeTutorialBrowserEventListeners();
+        }
+        
+        // Initialize Lucide icons
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    };
+    
+    initializeApp();
+});
+
 // Console Panel Management
 let consoleVisible = false;
 
@@ -883,230 +1353,296 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Event Listeners
-document.getElementById('new-project-btn').onclick = () => {
-    showModal('new-project-modal');
-};
-
-document.getElementById('create-blank-btn').onclick = () => {
-    const name = document.getElementById('project-name-input').value.trim();
-    if (!name) {
-        showToast('Please enter a project name', 'warning');
-        return;
+// Event Listeners - Editor-specific elements (safe checks)
+function initializeEditorEventListeners() {
+    const newProjectBtn = document.getElementById('new-project-btn');
+    if (newProjectBtn) {
+        newProjectBtn.onclick = () => {
+            showModal('new-project-modal');
+        };
     }
 
-    try {
-        const project = ProjectService.createProject(name);
-        loadProject(project.id);
-        hideModal('new-project-modal');
-        document.getElementById('project-name-input').value = '';
-        showToast(`Project "${name}" created successfully`, 'success');
-    } catch (e) {
-        showToast(e.message, 'error');
-    }
-};
-
-document.getElementById('choose-template-btn').onclick = () => {
-    hideModal('new-project-modal');
-    showTemplateModal();
-};
-
-document.getElementById('save-btn').onclick = () => {
-    if (currentProject) {
-        ProjectService.saveProject(currentProject);
-        showSaveIndicator();
-    }
-};
-
-document.getElementById('export-btn').onclick = async () => {
-    if (currentProject) {
-        try {
-            await ProjectService.exportProject(currentProject.id);
-            showToast('Project exported successfully!', 'success', 'Export Complete');
-        } catch (e) {
-            showToast(e.message, 'error', 'Export Failed');
-        }
-    }
-};
-
-document.getElementById('import-btn').onclick = () => {
-    document.getElementById('import-file-input').click();
-};
-
-document.getElementById('import-file-input').onchange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    if (!file.name.endsWith('.zip')) {
-        showToast('Please select a ZIP file', 'error');
-        return;
-    }
-
-    try {
-        const zip = new JSZip();
-        const contents = await zip.loadAsync(file);
-        
-        // Extract project name from ZIP filename
-        const projectName = file.name.replace('.zip', '');
-        
-        // Create new project
-        const project = ProjectService.createProject(projectName);
-        
-        // Clear default files
-        project.files = [];
-        
-        // Import files from ZIP
-        for (const [filename, zipEntry] of Object.entries(contents.files)) {
-            if (!zipEntry.dir) {
-                const content = await zipEntry.async('text');
-                const type = filename.endsWith('.html') ? FileType.HTML :
-                           filename.endsWith('.css') ? FileType.CSS :
-                           filename.endsWith('.js') ? FileType.JAVASCRIPT : FileType.ASSET;
-                
-                const newFile = FileService.createFile(project.id, filename, type, content);
-                project.files.push(newFile);
+    const createBlankBtn = document.getElementById('create-blank-btn');
+    if (createBlankBtn) {
+        createBlankBtn.onclick = () => {
+            const name = document.getElementById('project-name-input').value.trim();
+            if (!name) {
+                showToast('Please enter a project name', 'warning');
+                return;
             }
-        }
-        
-        ProjectService.saveProject(project);
-        loadProject(project.id);
-        showToast(`Project "${projectName}" imported successfully!`, 'success', 'Import Complete');
-        
-        // Reset file input
-        e.target.value = '';
-    } catch (error) {
-        console.error('Import error:', error);
-        showToast('Failed to import project. Make sure it\'s a valid WebForge ZIP file.', 'error', 'Import Failed');
-        e.target.value = '';
-    }
-};
 
-document.getElementById('help-btn').onclick = () => {
-    showModal('shortcuts-modal');
-};
-
-document.getElementById('tutorials-btn').onclick = () => {
-    showTutorialModal();
-};
-
-document.getElementById('collaborate-btn').onclick = () => {
-    showCollaborationModal();
-};
-
-document.getElementById('console-toggle-btn').onclick = () => {
-    toggleConsole();
-};
-
-document.getElementById('console-clear-btn').onclick = () => {
-    clearConsole();
-};
-
-document.getElementById('console-close-btn').onclick = () => {
-    toggleConsole();
-};
-
-document.getElementById('theme-toggle-btn').onclick = () => {
-    toggleTheme();
-};
-
-// Device preview buttons
-document.querySelectorAll('.device-btn').forEach(btn => {
-    btn.onclick = () => {
-        setPreviewWidth(btn.dataset.width);
-        
-        // Update active state
-        document.querySelectorAll('.device-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-    };
-});
-
-// Fullscreen preview button
-document.getElementById('preview-fullscreen-btn').onclick = () => {
-    togglePreviewFullscreen();
-};
-
-document.getElementById('snippets-btn').onclick = () => {
-    showSnippetsModal();
-};
-
-document.getElementById('new-file-btn').onclick = () => {
-    if (!currentProject) {
-        showToast('Please create or select a project first', 'warning');
-        return;
+            try {
+                const project = ProjectService.createProject(name);
+                loadProject(project.id);
+                hideModal('new-project-modal');
+                document.getElementById('project-name-input').value = '';
+                showToast(`Project "${name}" created successfully`, 'success');
+            } catch (e) {
+                showToast(e.message, 'error');
+            }
+        };
     }
 
-    // Clear previous input and show modal
-    document.getElementById('file-name-input').value = '';
-    showModal('new-file-modal');
-    
-    // Focus on input
-    setTimeout(() => {
-        document.getElementById('file-name-input').focus();
-    }, 100);
-};
-
-document.getElementById('create-file-btn').onclick = () => {
-    const name = document.getElementById('file-name-input').value.trim();
-    if (!name) {
-        showToast('Please enter a file name', 'warning');
-        return;
+    const chooseTemplateBtn = document.getElementById('choose-template-btn');
+    if (chooseTemplateBtn) {
+        chooseTemplateBtn.onclick = () => {
+            hideModal('new-project-modal');
+            showTemplateModal();
+        };
     }
 
-    try {
-        const type = name.endsWith('.html') ? FileType.HTML :
-                     name.endsWith('.css') ? FileType.CSS :
-                     name.endsWith('.js') ? FileType.JAVASCRIPT : FileType.ASSET;
-
-        const file = FileService.createFile(currentProject.id, name, type);
-        currentProject.files.push(file);
-        ProjectService.saveProject(currentProject);
-        renderFileTree(currentProject.files);
-        openFile(file.id);
-        hideModal('new-file-modal');
-        showToast(`File "${name}" created successfully`, 'success');
-    } catch (e) {
-        showToast(e.message, 'error');
+    const saveBtn = document.getElementById('save-btn');
+    if (saveBtn) {
+        saveBtn.onclick = () => {
+            if (currentProject) {
+                ProjectService.saveProject(currentProject);
+                showSaveIndicator();
+            }
+        };
     }
-};
 
-// Allow Enter key to create file
-document.getElementById('file-name-input').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        document.getElementById('create-file-btn').click();
+    const exportBtn = document.getElementById('export-btn');
+    if (exportBtn) {
+        exportBtn.onclick = async () => {
+            if (currentProject) {
+                try {
+                    await ProjectService.exportProject(currentProject.id);
+                    showToast('Project exported successfully!', 'success', 'Export Complete');
+                } catch (e) {
+                    showToast(e.message, 'error', 'Export Failed');
+                }
+            }
+        };
     }
-});
 
-document.getElementById('upload-asset-btn').onclick = () => {
-    if (!currentProject) {
-        showToast('Please create or select a project first', 'warning');
-        return;
+    const importBtn = document.getElementById('import-btn');
+    if (importBtn) {
+        importBtn.onclick = () => {
+            document.getElementById('import-file-input').click();
+        };
     }
-    document.getElementById('asset-file-input').click();
-};
 
-document.getElementById('asset-file-input').onchange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+    const importFileInput = document.getElementById('import-file-input');
+    if (importFileInput) {
+        importFileInput.onchange = async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
 
-    try {
-        const assetFile = await AssetService.uploadAsset(file, currentProject.id);
-        currentProject.files.push(assetFile);
-        ProjectService.saveProject(currentProject);
-        renderFileTree(currentProject.files);
-        
-        // Show success message with file info
-        showToast(
-            `${assetFile.name} (${AssetService.formatFileSize(assetFile.size)}) uploaded. Click to view or copy code.`,
-            'success',
-            'Asset Uploaded'
-        );
-        
-        // Clear input
-        e.target.value = '';
-    } catch (error) {
-        showToast(error.message, 'error', 'Upload Failed');
+            if (!file.name.endsWith('.zip')) {
+                showToast('Please select a ZIP file', 'error');
+                return;
+            }
+
+            try {
+                const zip = new JSZip();
+                const contents = await zip.loadAsync(file);
+                
+                // Extract project name from ZIP filename
+                const projectName = file.name.replace('.zip', '');
+                
+                // Create new project
+                const project = ProjectService.createProject(projectName);
+                
+                // Clear default files
+                project.files = [];
+                
+                // Import files from ZIP
+                for (const [filename, zipEntry] of Object.entries(contents.files)) {
+                    if (!zipEntry.dir) {
+                        const content = await zipEntry.async('text');
+                        const type = filename.endsWith('.html') ? FileType.HTML :
+                                   filename.endsWith('.css') ? FileType.CSS :
+                                   filename.endsWith('.js') ? FileType.JAVASCRIPT : FileType.ASSET;
+                        
+                        const newFile = FileService.createFile(project.id, filename, type, content);
+                        project.files.push(newFile);
+                    }
+                }
+                
+                ProjectService.saveProject(project);
+                loadProject(project.id);
+                showToast(`Project "${projectName}" imported successfully!`, 'success', 'Import Complete');
+                
+                // Reset file input
+                e.target.value = '';
+            } catch (error) {
+                console.error('Import error:', error);
+                showToast('Failed to import project. Make sure it\'s a valid WebForge ZIP file.', 'error', 'Import Failed');
+                e.target.value = '';
+            }
+        };
     }
-};
+
+    const helpBtn = document.getElementById('help-btn');
+    if (helpBtn) {
+        helpBtn.onclick = () => {
+            showModal('shortcuts-modal');
+        };
+    }
+
+    const tutorialsBtn = document.getElementById('tutorials-btn');
+    if (tutorialsBtn) {
+        tutorialsBtn.onclick = () => {
+            showTutorialModal();
+        };
+    }
+
+    const collaborateBtn = document.getElementById('collaborate-btn');
+    if (collaborateBtn) {
+        collaborateBtn.onclick = () => {
+            showCollaborationModal();
+        };
+    }
+
+    const consoleToggleBtn = document.getElementById('console-toggle-btn');
+    if (consoleToggleBtn) {
+        consoleToggleBtn.onclick = () => {
+            toggleConsole();
+        };
+    }
+
+    const consoleClearBtn = document.getElementById('console-clear-btn');
+    if (consoleClearBtn) {
+        consoleClearBtn.onclick = () => {
+            clearConsole();
+        };
+    }
+
+    const consoleCloseBtn = document.getElementById('console-close-btn');
+    if (consoleCloseBtn) {
+        consoleCloseBtn.onclick = () => {
+            toggleConsole();
+        };
+    }
+}
+
+// Universal event listeners (work on both index and editor pages)
+function initializeUniversalEventListeners() {
+    const themeToggleBtn = document.getElementById('theme-toggle-btn');
+    if (themeToggleBtn) {
+        themeToggleBtn.onclick = () => {
+            toggleTheme();
+        };
+    }
+}
+
+// Mobile Navigation
+function toggleMobileNav() {
+    const mobileNav = document.getElementById('mobile-nav');
+    if (mobileNav) {
+        mobileNav.classList.toggle('hidden');
+        mobileNav.classList.toggle('active');
+    }
+}
+
+    // Fullscreen preview button
+    const previewFullscreenBtn = document.getElementById('preview-fullscreen-btn');
+    if (previewFullscreenBtn) {
+        previewFullscreenBtn.onclick = () => {
+            togglePreviewFullscreen();
+        };
+    }
+
+    const snippetsBtn = document.getElementById('snippets-btn');
+    if (snippetsBtn) {
+        snippetsBtn.onclick = () => {
+            showSnippetsModal();
+        };
+    }
+
+    const newFileBtn = document.getElementById('new-file-btn');
+    if (newFileBtn) {
+        newFileBtn.onclick = () => {
+            if (!currentProject) {
+                showToast('Please create or select a project first', 'warning');
+                return;
+            }
+
+            // Clear previous input and show modal
+            document.getElementById('file-name-input').value = '';
+            showModal('new-file-modal');
+            
+            // Focus on input
+            setTimeout(() => {
+                document.getElementById('file-name-input').focus();
+            }, 100);
+        };
+    }
+
+    const createFileBtn = document.getElementById('create-file-btn');
+    if (createFileBtn) {
+        createFileBtn.onclick = () => {
+            const name = document.getElementById('file-name-input').value.trim();
+            if (!name) {
+                showToast('Please enter a file name', 'warning');
+                return;
+            }
+
+            try {
+                const type = name.endsWith('.html') ? FileType.HTML :
+                             name.endsWith('.css') ? FileType.CSS :
+                             name.endsWith('.js') ? FileType.JAVASCRIPT : FileType.ASSET;
+
+                const file = FileService.createFile(currentProject.id, name, type);
+                currentProject.files.push(file);
+                ProjectService.saveProject(currentProject);
+                renderFileTree(currentProject.files);
+                openFile(file.id);
+                hideModal('new-file-modal');
+                showToast(`File "${name}" created successfully`, 'success');
+            } catch (e) {
+                showToast(e.message, 'error');
+            }
+        };
+    }
+
+    // Allow Enter key to create file
+    const fileNameInput = document.getElementById('file-name-input');
+    if (fileNameInput) {
+        fileNameInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                document.getElementById('create-file-btn').click();
+            }
+        });
+    }
+
+    const uploadAssetBtn = document.getElementById('upload-asset-btn');
+    if (uploadAssetBtn) {
+        uploadAssetBtn.onclick = () => {
+            if (!currentProject) {
+                showToast('Please create or select a project first', 'warning');
+                return;
+            }
+            document.getElementById('asset-file-input').click();
+        };
+    }
+
+    const assetFileInput = document.getElementById('asset-file-input');
+    if (assetFileInput) {
+        assetFileInput.onchange = async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            try {
+                const assetFile = await AssetService.uploadAsset(file, currentProject.id);
+                currentProject.files.push(assetFile);
+                ProjectService.saveProject(currentProject);
+                renderFileTree(currentProject.files);
+                
+                // Show success message with file info
+                showToast(
+                    `${assetFile.name} (${AssetService.formatFileSize(assetFile.size)}) uploaded. Click to view or copy code.`,
+                    'success',
+                    'Asset Uploaded'
+                );
+                
+                // Clear input
+                e.target.value = '';
+            } catch (error) {
+                showToast(error.message, 'error', 'Upload Failed');
+            }
+        };
+    }
 
 // Modal functions
 function showModal(modalId) {
@@ -1143,82 +1679,296 @@ function showTemplateModal() {
     showModal('template-modal');
 }
 
+// Tutorial Browser Functions
+let selectedTutorial = null;
+let selectedTutorialMode = 'tutorial';
+
 function showTutorialModal() {
-    const tutorials = TutorialService.listTutorials();
-    const list = document.getElementById('tutorials-list');
-    list.innerHTML = '';
-
-    tutorials.forEach(tutorial => {
-        const item = document.createElement('div');
-        item.className = 'tutorial-list-item';
-        item.innerHTML = `
-            <h3>${tutorial.title}</h3>
-            <p class="tutorial-steps-count">${tutorial.steps.length} steps</p>
-        `;
-        item.onclick = () => {
-            showTutorialDetail(tutorial);
-        };
-        list.appendChild(item);
-    });
-
-    showModal('tutorial-modal');
-}
-
-let currentTutorial = null;
-let currentTutorialStep = 0;
-
-function showTutorialDetail(tutorial) {
-    currentTutorial = tutorial;
-    currentTutorialStep = 0;
-    
-    hideModal('tutorial-modal');
-    renderTutorialStep();
-    showModal('tutorial-detail-modal');
-}
-
-function renderTutorialStep() {
-    if (!currentTutorial) return;
-    
-    const step = currentTutorial.steps[currentTutorialStep];
-    
-    document.getElementById('tutorial-detail-title').textContent = currentTutorial.title;
-    document.getElementById('tutorial-detail-progress').textContent = 
-        `Step ${currentTutorialStep + 1} of ${currentTutorial.steps.length}`;
-    document.getElementById('tutorial-step-title').textContent = step.title;
-    document.getElementById('tutorial-step-content').textContent = step.content;
-    document.getElementById('tutorial-code-example').textContent = step.codeExample || 'No code example for this step.';
-    
-    // Update navigation buttons
-    const prevBtn = document.getElementById('tutorial-prev-btn');
-    const nextBtn = document.getElementById('tutorial-next-btn');
-    
-    prevBtn.disabled = currentTutorialStep === 0;
-    
-    const isLastStep = currentTutorialStep === currentTutorial.steps.length - 1;
-    nextBtn.disabled = isLastStep;
-    
-    if (isLastStep) {
-        nextBtn.innerHTML = '<span>Completed</span><i data-lucide="check"></i>';
-    } else {
-        nextBtn.innerHTML = '<span>Next</span><i data-lucide="chevron-right"></i>';
+    // If we're not on the editor page, go to tutorial hub instead
+    if (currentPage !== 'editor') {
+        showPage('tutorial-hub');
+        return;
     }
+    
+    renderTutorialBrowser();
+    showModal('tutorial-browser-modal');
+    initIcons();
+}
+
+function renderTutorialBrowser(category = 'all', searchQuery = '') {
+    const tutorials = TutorialEngine.getAllTutorialDefinitions();
+    const grid = document.getElementById('tutorial-grid');
+    grid.innerHTML = '';
+
+    // Filter tutorials
+    let filteredTutorials = tutorials;
+    
+    if (category !== 'all') {
+        filteredTutorials = tutorials.filter(t => t.category === category);
+    }
+    
+    if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        filteredTutorials = filteredTutorials.filter(t => 
+            t.title.toLowerCase().includes(query) ||
+            t.description.toLowerCase().includes(query)
+        );
+    }
+
+    if (filteredTutorials.length === 0) {
+        grid.innerHTML = '<div class="tutorial-grid-empty">No tutorials found</div>';
+        return;
+    }
+
+    filteredTutorials.forEach(tutorial => {
+        const card = document.createElement('div');
+        card.className = 'tutorial-card';
+        
+        // Check completion status
+        const status = StorageService.getTutorialStatus('default-user', tutorial.id);
+        const completionIcon = status.completed ? 
+            '<div class="tutorial-card-completion"><i data-lucide="check"></i></div>' : '';
+        
+        card.innerHTML = `
+            ${completionIcon}
+            <div class="tutorial-card-header">
+                <div>
+                    <div class="tutorial-card-title">${tutorial.title}</div>
+                    <div class="tutorial-card-meta">
+                        <span class="tutorial-difficulty-badge ${tutorial.difficulty}">${tutorial.difficulty}</span>
+                        <span class="tutorial-time-badge">${tutorial.estimatedTime}</span>
+                        <span class="tutorial-category-badge">${tutorial.category.replace('-', ' ')}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="tutorial-card-description">${tutorial.description}</div>
+        `;
+        
+        card.onclick = () => showTutorialPreview(tutorial);
+        grid.appendChild(card);
+    });
     
     initIcons();
 }
 
-document.getElementById('tutorial-prev-btn').onclick = () => {
-    if (currentTutorialStep > 0) {
-        currentTutorialStep--;
-        renderTutorialStep();
-    }
-};
+function showTutorialPreview(tutorial) {
+    selectedTutorial = tutorial;
+    
+    // Populate preview modal
+    document.getElementById('tutorial-preview-title').textContent = tutorial.title;
+    document.getElementById('tutorial-preview-difficulty').textContent = tutorial.difficulty;
+    document.getElementById('tutorial-preview-difficulty').className = `tutorial-difficulty-badge ${tutorial.difficulty}`;
+    document.getElementById('tutorial-preview-time').textContent = tutorial.estimatedTime;
+    document.getElementById('tutorial-preview-category').textContent = tutorial.category.replace('-', ' ');
+    document.getElementById('tutorial-preview-description').textContent = tutorial.description;
+    
+    // Set preview image (placeholder for now)
+    const previewImg = document.getElementById('tutorial-preview-img');
+    previewImg.src = tutorial.finalPreview || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDIwMCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMTUwIiBmaWxsPSIjRjNGNEY2Ii8+Cjx0ZXh0IHg9IjEwMCIgeT0iNzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzlDQTNBRiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlByZXZpZXc8L3RleHQ+Cjwvc3ZnPg==';
+    previewImg.alt = `${tutorial.title} preview`;
+    
+    // Render steps list
+    const stepsList = document.getElementById('tutorial-preview-steps-list');
+    stepsList.innerHTML = '';
+    
+    tutorial.steps.forEach((step, index) => {
+        const stepDiv = document.createElement('div');
+        stepDiv.className = 'tutorial-step-preview';
+        stepDiv.innerHTML = `
+            <div class="tutorial-step-preview-title">Step ${index + 1}: ${step.title}</div>
+            <div class="tutorial-step-preview-goal">${step.goal}</div>
+        `;
+        stepsList.appendChild(stepDiv);
+    });
+    
+    hideModal('tutorial-browser-modal');
+    showModal('tutorial-preview-modal');
+    initIcons();
+}
 
-document.getElementById('tutorial-next-btn').onclick = () => {
-    if (currentTutorial && currentTutorialStep < currentTutorial.steps.length - 1) {
-        currentTutorialStep++;
-        renderTutorialStep();
+function startTutorial() {
+    if (!selectedTutorial) return;
+    
+    try {
+        const result = TutorialEngine.startTutorial(selectedTutorial.id, selectedTutorialMode);
+        
+        hideModal('tutorial-preview-modal');
+        showTutorialActiveModal(result);
+        
+        // Setup editor for first step
+        setupStepEditor(result.step);
+        
+        showToast(`Started tutorial: ${selectedTutorial.title}`, 'success');
+    } catch (error) {
+        console.error('Error starting tutorial:', error);
+        showToast('Failed to start tutorial', 'error');
     }
 }
+
+function showTutorialActiveModal(tutorialData) {
+    const { tutorial, step, stepIndex } = tutorialData;
+    
+    // Update header
+    document.getElementById('tutorial-active-title').textContent = tutorial.title;
+    updateTutorialProgress(stepIndex + 1, tutorial.steps.length);
+    
+    // Update step content
+    updateTutorialStepContent(step);
+    
+    showModal('tutorial-active-modal');
+    initIcons();
+}
+
+function updateTutorialProgress(current, total) {
+    const progressFill = document.getElementById('tutorial-progress-fill');
+    const progressText = document.getElementById('tutorial-progress-text');
+    
+    const percentage = (current / total) * 100;
+    progressFill.style.width = `${percentage}%`;
+    progressText.textContent = `Step ${current} of ${total}`;
+}
+
+function updateTutorialStepContent(step) {
+    document.getElementById('tutorial-step-goal').textContent = step.goal;
+    
+    // Update instructions
+    const instructions = document.getElementById('tutorial-step-instructions');
+    instructions.textContent = step.explanation || 'Follow the code snippet below to complete this step.';
+    
+    // Update code snippet
+    const codeSnippet = document.getElementById('tutorial-code-snippet');
+    const codeLocation = document.getElementById('tutorial-code-location');
+    const codeContent = document.getElementById('tutorial-code-content');
+    
+    if (step.codeSnippet) {
+        codeSnippet.classList.remove('hidden');
+        codeLocation.textContent = StepManager.formatLocationLabel(step.targetFile, step.targetLocation);
+        codeContent.textContent = step.codeSnippet;
+    } else {
+        codeSnippet.classList.add('hidden');
+    }
+}
+
+// Tutorial Browser Event Listeners (safe initialization)
+function initializeTutorialBrowserEventListeners() {
+    const tutorialSearchInput = document.getElementById('tutorial-search-input');
+    if (tutorialSearchInput) {
+        tutorialSearchInput.addEventListener('input', (e) => {
+            const searchQuery = e.target.value;
+            const activeCategory = document.querySelector('.tutorial-category-btn.active');
+            const category = activeCategory ? activeCategory.dataset.category : 'all';
+            renderTutorialBrowser(category, searchQuery);
+        });
+    }
+
+    document.querySelectorAll('.tutorial-category-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            // Update active state
+            document.querySelectorAll('.tutorial-category-btn').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+        
+        // Render tutorials for selected category
+        const category = e.target.dataset.category;
+        const searchQuery = document.getElementById('tutorial-search-input')?.value || '';
+        renderTutorialBrowser(category, searchQuery);
+    });
+});
+}
+
+// Tutorial event listeners initialization
+function initializeTutorialEventListeners() {
+    document.querySelectorAll('.tutorial-mode-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            document.querySelectorAll('.tutorial-mode-btn').forEach(b => b.classList.remove('active'));
+            e.currentTarget.classList.add('active');
+            selectedTutorialMode = e.currentTarget.id === 'tutorial-mode-project' ? 'project' : 'tutorial';
+        });
+    });
+
+    const tutorialStartBtn = document.getElementById('tutorial-start-btn');
+    if (tutorialStartBtn) {
+        tutorialStartBtn.onclick = startTutorial;
+    }
+
+    // Tutorial Active Modal Event Listeners
+    const tutorialNextStepBtn = document.getElementById('tutorial-next-step-btn');
+    if (tutorialNextStepBtn) {
+        tutorialNextStepBtn.onclick = () => {
+            try {
+                const result = TutorialEngine.nextStep();
+                
+                if (result.completed) {
+                    hideModal('tutorial-active-modal');
+                    showTutorialCompletionModal(result.tutorial);
+                } else {
+                    updateTutorialProgress(result.stepIndex + 1, TutorialEngine.currentTutorial.steps.length);
+                    updateTutorialStepContent(result.step);
+                    setupStepEditor(result.step);
+                }
+            } catch (error) {
+                console.error('Error advancing step:', error);
+                showToast('Error advancing to next step', 'error');
+            }
+        };
+    }
+
+    const tutorialPrevStepBtn = document.getElementById('tutorial-prev-step-btn');
+    if (tutorialPrevStepBtn) {
+        tutorialPrevStepBtn.onclick = () => {
+            const result = TutorialEngine.previousStep();
+            if (result) {
+                updateTutorialProgress(result.stepIndex + 1, TutorialEngine.currentTutorial.steps.length);
+                updateTutorialStepContent(result.step);
+                setupStepEditor(result.step);
+            }
+        };
+    }
+
+    const tutorialResetStepBtn = document.getElementById('tutorial-reset-step-btn');
+    if (tutorialResetStepBtn) {
+        tutorialResetStepBtn.onclick = () => {
+            const result = ResetManager.resetCurrentStep();
+            if (result.success) {
+                showToast(result.message, 'success');
+                setupStepEditor(result.step);
+            } else {
+                showToast(result.message, 'error');
+            }
+        };
+    }
+
+    const tutorialHintBtn = document.getElementById('tutorial-hint-btn');
+    if (tutorialHintBtn) {
+        tutorialHintBtn.onclick = () => {
+            const hint = StepManager.provideHint();
+            if (hint) {
+                showToast(hint.hint, 'info', 'Hint');
+            }
+        };
+    }
+
+    const tutorialInsertCodeBtn = document.getElementById('tutorial-insert-code-btn');
+    if (tutorialInsertCodeBtn) {
+        tutorialInsertCodeBtn.onclick = () => {
+            const result = StepManager.insertCompletedCode();
+            if (result && result.code) {
+                // Insert code into editor
+                if (editor) {
+                    const position = editor.getPosition();
+                    editor.executeEdits('insert-tutorial-code', [{
+                        range: new monaco.Range(position.lineNumber, position.column, position.lineNumber, position.column),
+                        text: result.code,
+                        forceMoveMarkers: true
+                    }]);
+                    
+                    showToast('Code inserted! ' + result.explanation, 'success', 'Code Added');
+                }
+            }
+        };
+    }
+}
+
+// Duplicate tutorial-exit-btn assignment removed - handled above
 
 function showSnippetsModal() {
     renderSnippets('all', '');
@@ -1342,13 +2092,18 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
-// Snippets modal event listeners
-document.getElementById('snippet-search').addEventListener('input', (e) => {
-    const searchQuery = e.target.value;
-    const activeFilter = document.querySelector('.filter-btn.active');
-    const language = activeFilter ? activeFilter.dataset.lang : 'all';
-    renderSnippets(language, searchQuery);
-});
+// Snippets modal event listeners (safe initialization)
+function initializeSnippetsEventListeners() {
+    const snippetSearch = document.getElementById('snippet-search');
+    if (snippetSearch) {
+        snippetSearch.addEventListener('input', (e) => {
+            const searchQuery = e.target.value;
+            const activeFilter = document.querySelector('.filter-btn.active');
+            const language = activeFilter ? activeFilter.dataset.lang : 'all';
+            renderSnippets(language, searchQuery);
+        });
+    }
+}
 
 document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -1417,36 +2172,45 @@ function copyToClipboard(text, message) {
     });
 }
 
-// Cancel buttons
-document.querySelectorAll('.cancel-btn').forEach(btn => {
-    btn.onclick = (e) => {
-        const modal = e.target.closest('.modal');
-        if (modal) {
-            hideModal(modal.id);
-        }
-    };
-});
-
-document.getElementById('modal-overlay').onclick = () => {
-    document.querySelectorAll('.modal').forEach(modal => {
-        hideModal(modal.id);
+    // Cancel buttons
+    document.querySelectorAll('.cancel-btn').forEach(btn => {
+        btn.onclick = (e) => {
+            const modal = e.target.closest('.modal');
+            if (modal) {
+                hideModal(modal.id);
+            }
+        };
     });
-};
 
-// Accessibility Checker
-document.getElementById('a11y-toggle-btn').onclick = () => {
-    const panel = document.getElementById('a11y-panel');
-    if (panel.classList.contains('hidden')) {
-        panel.classList.remove('hidden');
-        runAccessibilityCheck();
-    } else {
-        panel.classList.add('hidden');
+    const modalOverlay = document.getElementById('modal-overlay');
+    if (modalOverlay) {
+        modalOverlay.onclick = () => {
+            document.querySelectorAll('.modal').forEach(modal => {
+                hideModal(modal.id);
+            });
+        };
     }
-};
 
-document.getElementById('a11y-close-btn').onclick = () => {
-    document.getElementById('a11y-panel').classList.add('hidden');
-};
+    // Accessibility Checker
+    const a11yToggleBtn = document.getElementById('a11y-toggle-btn');
+    if (a11yToggleBtn) {
+        a11yToggleBtn.onclick = () => {
+            const panel = document.getElementById('a11y-panel');
+            if (panel.classList.contains('hidden')) {
+                panel.classList.remove('hidden');
+                runAccessibilityCheck();
+            } else {
+                panel.classList.add('hidden');
+            }
+        };
+    }
+
+    const a11yCloseBtn = document.getElementById('a11y-close-btn');
+    if (a11yCloseBtn) {
+        a11yCloseBtn.onclick = () => {
+            document.getElementById('a11y-panel').classList.add('hidden');
+        };
+    }
 
 async function runAccessibilityCheck() {
     const iframe = document.getElementById('preview');
@@ -1705,61 +2469,69 @@ function updateCollaboratorsList() {
     lucide.createIcons();
 }
 
-document.getElementById('start-collab-btn').onclick = async () => {
-    // Validate name input
-    const nameInput = document.getElementById('collab-name-input');
-    const name = nameInput.value.trim();
-    
-    if (!name) {
-        showToast('Please enter your name before starting a collaboration', 'warning', 'Name Required');
-        nameInput.focus();
-        return;
-    }
-    
-    // Save the name
-    CollaborationService.setUserName(name);
+// Collaboration event listeners initialization
+function initializeCollaborationEventListeners() {
+    const startCollabBtn = document.getElementById('start-collab-btn');
+    if (startCollabBtn) {
+        startCollabBtn.onclick = async () => {
+            // Validate name input
+            const nameInput = document.getElementById('collab-name-input');
+            const name = nameInput.value.trim();
+            
+            if (!name) {
+                showToast('Please enter your name before starting a collaboration', 'warning', 'Name Required');
+                nameInput.focus();
+                return;
+            }
+            
+            // Save the name
+            CollaborationService.setUserName(name);
 
-    if (!firebaseConfigured) {
-        showToast('Firebase configuration is required for collaboration', 'warning', 'Configuration Required');
-        return;
-    }
+            if (!firebaseConfigured) {
+                showToast('Firebase configuration is required for collaboration', 'warning', 'Configuration Required');
+                return;
+            }
 
-    if (!currentProject) {
-        showToast('Please create or select a project first', 'warning');
-        return;
-    }
+            if (!currentProject) {
+                showToast('Please create or select a project first', 'warning');
+                return;
+            }
 
-    try {
-        const sessionId = await CollaborationService.createSession(currentProject);
-        updateCollaborationUI();
-        showToast('Share the session link with others to collaborate', 'success', 'Session Created');
-    } catch (e) {
-        showToast(e.message, 'error', 'Failed to Create Session');
-    }
-};
-
-document.getElementById('join-collab-btn').onclick = async () => {
-    // Validate name input
-    const nameInput = document.getElementById('collab-name-input');
-    const name = nameInput.value.trim();
-    
-    if (!name) {
-        showToast('Please enter your name before joining a collaboration', 'warning', 'Name Required');
-        nameInput.focus();
-        return;
-    }
-    
-    // Save the name
-    CollaborationService.setUserName(name);
-
-    const sessionId = document.getElementById('session-id-input').value.trim();
-    if (!sessionId) {
-        showToast('Please enter a session ID', 'warning');
-        return;
+            try {
+                const sessionId = await CollaborationService.createSession(currentProject);
+                updateCollaborationUI();
+                showToast('Share the session link with others to collaborate', 'success', 'Session Created');
+            } catch (e) {
+                showToast(e.message, 'error', 'Failed to Create Session');
+            }
+        };
     }
 
-    await joinCollaborationSession(sessionId);
-};
+    const joinCollabBtn = document.getElementById('join-collab-btn');
+    if (joinCollabBtn) {
+        joinCollabBtn.onclick = async () => {
+            // Validate name input
+            const nameInput = document.getElementById('collab-name-input');
+            const name = nameInput.value.trim();
+            
+            if (!name) {
+                showToast('Please enter your name before joining a collaboration', 'warning', 'Name Required');
+                nameInput.focus();
+                return;
+            }
+            
+            // Save the name
+            CollaborationService.setUserName(name);
+
+            const sessionId = document.getElementById('session-id-input').value.trim();
+            if (!sessionId) {
+                showToast('Please enter a session ID', 'warning');
+                return;
+            }
+
+            await joinCollaborationSession(sessionId);
+        };
+    }
 
 async function joinCollaborationSession(sessionId) {
     if (!firebaseConfigured) {
@@ -1793,34 +2565,41 @@ async function joinCollaborationSession(sessionId) {
     }
 }
 
-document.getElementById('copy-link-btn').onclick = () => {
-    const url = CollaborationService.getShareUrl();
-    if (url) {
-        navigator.clipboard.writeText(url).then(() => {
-            const btn = document.getElementById('copy-link-btn');
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<i data-lucide="check"></i><span>Copied!</span>';
-            lucide.createIcons();
-            setTimeout(() => {
-                btn.innerHTML = originalHTML;
-                lucide.createIcons();
-            }, 2000);
-        });
+    const copyLinkBtn = document.getElementById('copy-link-btn');
+    if (copyLinkBtn) {
+        copyLinkBtn.onclick = () => {
+            const url = CollaborationService.getShareUrl();
+            if (url) {
+                navigator.clipboard.writeText(url).then(() => {
+                    const btn = document.getElementById('copy-link-btn');
+                    const originalHTML = btn.innerHTML;
+                    btn.innerHTML = '<i data-lucide="check"></i><span>Copied!</span>';
+                    lucide.createIcons();
+                    setTimeout(() => {
+                        btn.innerHTML = originalHTML;
+                        lucide.createIcons();
+                    }, 2000);
+                });
+            }
+        };
     }
-};
 
-document.getElementById('leave-session-btn').onclick = async () => {
-    showConfirmModal(
-        'Leave Session',
-        'Are you sure you want to leave this collaboration session?',
-        async () => {
-            await CollaborationService.leaveSession();
-            updateCollaborationUI();
-            hideModal('collaboration-modal');
-            showToast('You have left the collaboration session', 'info');
-        }
-    );
-};
+    const leaveSessionBtn = document.getElementById('leave-session-btn');
+    if (leaveSessionBtn) {
+        leaveSessionBtn.onclick = async () => {
+            showConfirmModal(
+                'Leave Session',
+                'Are you sure you want to leave this collaboration session?',
+                async () => {
+                    await CollaborationService.leaveSession();
+                    updateCollaborationUI();
+                    hideModal('collaboration-modal');
+                    showToast('You have left the collaboration session', 'info');
+                }
+            );
+        };
+    }
+}
 
 // Collaboration callbacks
 window.onCollaborativeUpdate = (files) => {
@@ -1968,10 +2747,12 @@ function showConfirmModal(title, message, onConfirm) {
 // Offline Detection
 function updateOnlineStatus() {
     const offlineBanner = document.getElementById('offline-banner');
-    if (!navigator.onLine) {
-        offlineBanner.classList.remove('hidden');
-    } else {
-        offlineBanner.classList.add('hidden');
+    if (offlineBanner) {
+        if (!navigator.onLine) {
+            offlineBanner.classList.remove('hidden');
+        } else {
+            offlineBanner.classList.add('hidden');
+        }
     }
 }
 
@@ -1986,14 +2767,428 @@ document.addEventListener('keydown', (e) => {
     // F11 for fullscreen preview
     if (e.key === 'F11') {
         e.preventDefault();
-        togglePreviewFullscreen();
+        if (currentPage === 'editor') {
+            togglePreviewFullscreen();
+        }
     }
     
     // Ctrl+? or Ctrl+/ to show shortcuts
     if ((e.ctrlKey || e.metaKey) && (e.key === '?' || e.key === '/')) {
         if (!e.shiftKey) {
             e.preventDefault();
-            showModal('shortcuts-modal');
+            if (currentPage === 'editor') {
+                showModal('shortcuts-modal');
+            }
         }
     }
 });
+
+// Navigation Event Listeners (safe initialization)
+function initializeNavigationEventListeners() {
+    const navHome = document.getElementById('nav-home');
+    if (navHome) {
+        navHome.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('landing');
+        });
+    }
+
+    const navTutorials = document.getElementById('nav-tutorials');
+    if (navTutorials) {
+        navTutorials.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('tutorial-hub');
+        });
+    }
+}
+
+document.getElementById('nav-editor')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    // Redirect to dedicated editor page
+    window.location.href = 'editor.html';
+});
+
+// Landing Page Event Listeners
+document.getElementById('start-learning-btn')?.addEventListener('click', () => {
+    showPage('tutorial-hub');
+});
+
+document.getElementById('open-editor-btn')?.addEventListener('click', () => {
+    // Redirect to dedicated editor page
+    window.location.href = 'editor.html';
+});
+
+// Category card clicks on landing page
+document.querySelectorAll('.category-card').forEach(card => {
+    card.addEventListener('click', () => {
+        const category = card.dataset.category;
+        showPage('tutorial-hub');
+        // Scroll to the relevant category
+        setTimeout(() => {
+            const categoryElement = document.querySelector(`[data-category="${category}"]`);
+            if (categoryElement) {
+                categoryElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        }, 100);
+    });
+});
+
+// Tutorial Hub Event Listeners
+document.querySelectorAll('.tutorial-item').forEach(item => {
+    item.addEventListener('click', () => {
+        const tutorialId = item.dataset.tutorial;
+        startTutorialFromHub(tutorialId);
+    });
+});
+
+// Map tutorial hub items to actual tutorial IDs
+const tutorialMapping = {
+    'hero-section': 'Hero Section',
+    'contact-form': 'Contact Form',
+    'navbar-basic': 'Build a Navigation Bar',
+    'navbar-responsive': 'Responsive Navigation', 
+    'card-component': 'Card Component',
+    'interactive-button': 'Interactive Button'
+};
+
+function startTutorialFromHub(tutorialId) {
+    const actualTutorialId = tutorialMapping[tutorialId] || tutorialId;
+    const tutorial = TutorialEngine.getTutorialDefinition(actualTutorialId);
+    
+    if (!tutorial) {
+        showToast('Tutorial not found. Coming soon!', 'info');
+        return;
+    }
+    
+    // Store tutorial selection for editor page
+    localStorage.setItem('webforge_start_tutorial', JSON.stringify({
+        tutorialId: actualTutorialId,
+        mode: 'tutorial',
+        timestamp: new Date().toISOString()
+    }));
+    
+    // Redirect to editor page
+    window.location.href = 'editor.html';
+}
+
+// Enhanced tutorial start function for new structure
+function startTutorialFromHub(tutorialId) {
+    const tutorial = TutorialEngine.getTutorialDefinition(tutorialId);
+    if (!tutorial) return;
+    
+    // Store tutorial selection for editor page
+    localStorage.setItem('webforge_start_tutorial', JSON.stringify({
+        tutorialId: tutorialId,
+        mode: 'tutorial',
+        timestamp: new Date().toISOString()
+    }));
+    
+    // Redirect to editor page
+    window.location.href = 'editor.html';
+}
+
+// Tutorial-specific Monaco Editor enhancements
+
+/**
+ * Highlight target location for tutorial step
+ */
+function highlightTargetLocation(targetFile, targetLocation) {
+    if (!editor || !currentFile || currentFile.name !== targetFile) {
+        return;
+    }
+
+    // Clear existing tutorial decorations
+    clearTutorialDecorations();
+
+    const model = editor.getModel();
+    if (!model) return;
+
+    let range = null;
+
+    // Find target location in the code
+    if (targetLocation === 'body') {
+        const content = model.getValue();
+        const bodyMatch = content.match(/<body[^>]*>/i);
+        if (bodyMatch) {
+            const position = model.getPositionAt(bodyMatch.index + bodyMatch[0].length);
+            range = new monaco.Range(position.lineNumber, 1, position.lineNumber + 1, 1);
+        }
+    } else if (targetLocation === 'head') {
+        const content = model.getValue();
+        const headMatch = content.match(/<head[^>]*>/i);
+        if (headMatch) {
+            const position = model.getPositionAt(headMatch.index + headMatch[0].length);
+            range = new monaco.Range(position.lineNumber, 1, position.lineNumber + 1, 1);
+        }
+    } else if (targetLocation.startsWith('/*') && targetLocation.endsWith('*/')) {
+        // CSS comment location
+        const content = model.getValue();
+        const commentIndex = content.indexOf(targetLocation);
+        if (commentIndex !== -1) {
+            const position = model.getPositionAt(commentIndex + targetLocation.length);
+            range = new monaco.Range(position.lineNumber, 1, position.lineNumber + 1, 1);
+        }
+    }
+
+    if (range) {
+        // Add tutorial highlight decoration
+        const decorations = editor.deltaDecorations([], [{
+            range: range,
+            options: {
+                className: 'tutorial-target-highlight',
+                glyphMarginClassName: 'tutorial-target-glyph',
+                hoverMessage: { value: 'Add your code here' },
+                minimap: {
+                    color: '#4CAF50',
+                    position: monaco.editor.MinimapPosition.Inline
+                }
+            }
+        }]);
+
+        // Store decoration IDs for cleanup
+        window.tutorialDecorations = decorations;
+
+        // Scroll to and focus the target location
+        editor.revealRangeInCenter(range);
+        editor.setPosition(range.getEndPosition());
+        editor.focus();
+    }
+}
+
+/**
+ * Focus editing area for tutorial step
+ */
+function focusEditingArea(targetFile, targetLocation) {
+    if (!editor || !currentFile || currentFile.name !== targetFile) {
+        // Switch to target file if needed
+        if (currentProject) {
+            const file = currentProject.files.find(f => f.name === targetFile);
+            if (file) {
+                openFile(file.id);
+                // Retry after file is loaded
+                setTimeout(() => focusEditingArea(targetFile, targetLocation), 100);
+                return;
+            }
+        }
+        return;
+    }
+
+    highlightTargetLocation(targetFile, targetLocation);
+}
+
+/**
+ * Show input guides for tutorial step
+ */
+function showInputGuides(step) {
+    if (!editor || !step) return;
+
+    // Add tutorial-specific autocomplete suggestions
+    const disposable = monaco.languages.registerCompletionItemProvider('html', {
+        provideCompletionItems: (model, position) => {
+            if (!step.codeSnippet) return { suggestions: [] };
+
+            const word = model.getWordUntilPosition(position);
+            const range = {
+                startLineNumber: position.lineNumber,
+                endLineNumber: position.lineNumber,
+                startColumn: word.startColumn,
+                endColumn: word.endColumn
+            };
+
+            return {
+                suggestions: [{
+                    label: 'tutorial-snippet',
+                    kind: monaco.languages.CompletionItemKind.Snippet,
+                    insertText: step.codeSnippet,
+                    insertTextRules: monaco.languages.CompletionItemInsertTextRule.InsertAsSnippet,
+                    documentation: `Tutorial step: ${step.title}`,
+                    detail: 'Tutorial code snippet',
+                    range: range,
+                    sortText: '0000' // Ensure it appears first
+                }]
+            };
+        }
+    });
+
+    // Store disposable for cleanup
+    window.tutorialCompletionProvider = disposable;
+}
+
+/**
+ * Highlight code area for tutorial
+ */
+function highlightCodeArea(targetFile, targetLocation) {
+    highlightTargetLocation(targetFile, targetLocation);
+}
+
+/**
+ * Add tutorial-specific autocomplete
+ */
+function addTutorialAutocomplete(step) {
+    showInputGuides(step);
+}
+
+/**
+ * Detect step completion based on code changes
+ */
+function detectStepCompletion(step) {
+    if (!editor || !step) return false;
+
+    const currentContent = editor.getValue();
+    
+    // Basic completion detection - check if code snippet is present
+    if (step.codeSnippet) {
+        // Remove whitespace and normalize for comparison
+        const normalizedSnippet = step.codeSnippet.replace(/\s+/g, ' ').trim();
+        const normalizedContent = currentContent.replace(/\s+/g, ' ').trim();
+        
+        return normalizedContent.includes(normalizedSnippet);
+    }
+
+    return true; // If no code snippet, consider complete
+}
+
+/**
+ * Check tutorial step completion
+ */
+function checkTutorialStepCompletion() {
+    if (!TutorialEngine.currentStep) return;
+
+    const isComplete = StepManager.validateStepCompletion();
+    
+    if (isComplete) {
+        // Show completion indicator
+        showStepCompletionFeedback();
+        
+        // Auto-advance after a short delay
+        setTimeout(() => {
+            if (confirm('Step completed! Move to next step?')) {
+                advanceToNextStep();
+            }
+        }, 1500);
+    }
+}
+
+/**
+ * Show step completion feedback
+ */
+function showStepCompletionFeedback() {
+    // Add completion decoration
+    const model = editor.getModel();
+    if (!model) return;
+
+    const lineCount = model.getLineCount();
+    const range = new monaco.Range(1, 1, lineCount, model.getLineMaxColumn(lineCount));
+
+    const decorations = editor.deltaDecorations([], [{
+        range: range,
+        options: {
+            className: 'tutorial-step-complete',
+            glyphMarginClassName: 'tutorial-complete-glyph',
+            hoverMessage: { value: 'Step completed! ✓' }
+        }
+    }]);
+
+    // Remove decoration after a few seconds
+    setTimeout(() => {
+        editor.deltaDecorations(decorations, []);
+    }, 3000);
+}
+
+/**
+ * Advance to next tutorial step
+ */
+function advanceToNextStep() {
+    try {
+        const result = TutorialEngine.nextStep();
+        
+        if (result.completed) {
+            showTutorialCompletionModal(result.tutorial);
+        } else {
+            updateTutorialUI(result);
+            setupStepEditor(result.step);
+        }
+    } catch (error) {
+        console.error('Error advancing to next step:', error);
+        showToast('Error advancing to next step', 'error');
+    }
+}
+
+/**
+ * Setup editor for tutorial step
+ */
+function setupStepEditor(step) {
+    if (!step) return;
+
+    // Clear previous tutorial enhancements
+    clearTutorialDecorations();
+    clearTutorialCompletionProvider();
+
+    // Setup new step
+    if (step.targetFile && step.targetLocation) {
+        focusEditingArea(step.targetFile, step.targetLocation);
+    }
+
+    if (step.codeSnippet) {
+        addTutorialAutocomplete(step);
+    }
+}
+
+/**
+ * Clear tutorial decorations
+ */
+function clearTutorialDecorations() {
+    if (window.tutorialDecorations && editor) {
+        editor.deltaDecorations(window.tutorialDecorations, []);
+        window.tutorialDecorations = null;
+    }
+}
+
+/**
+ * Clear tutorial completion provider
+ */
+function clearTutorialCompletionProvider() {
+    if (window.tutorialCompletionProvider) {
+        window.tutorialCompletionProvider.dispose();
+        window.tutorialCompletionProvider = null;
+    }
+}
+
+/**
+ * Highlight tutorial changes in preview
+ */
+function highlightTutorialChanges() {
+    // This would highlight the visual changes made in the current step
+    // Implementation depends on preview integration
+    const stepData = StepManager.getCurrentStepData();
+    if (stepData && stepData.step) {
+        // Could add visual indicators in preview iframe
+        console.log('Highlighting changes for step:', stepData.step.title);
+    }
+}
+
+/**
+ * Update tutorial UI elements
+ */
+function updateTutorialUI(stepResult) {
+    // Update step counter, progress bar, etc.
+    // This would integrate with tutorial UI components
+    console.log('Updating tutorial UI for step:', stepResult.stepIndex + 1);
+}
+
+/**
+ * Show tutorial completion modal
+ */
+function showTutorialCompletionModal(tutorial) {
+    showToast(`Tutorial "${tutorial.title}" completed!`, 'success', 'Congratulations!');
+    
+    // Suggest next tutorial
+    const suggestions = TutorialEngine.getSuggestedNextTutorials?.(tutorial.id);
+    if (suggestions && suggestions.length > 0) {
+        setTimeout(() => {
+            if (confirm(`Great job! Would you like to try "${suggestions[0].title}" next?`)) {
+                TutorialEngine.startTutorial(suggestions[0].id);
+            }
+        }, 2000);
+    }
+}

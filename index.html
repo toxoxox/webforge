@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta name="theme-color" content="#3498db">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>WebForge - Student Website Builder</title>
@@ -19,382 +20,435 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/editor/editor.main.min.css">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
     <div id="app">
-        <header class="header">
-            <div class="header-brand">
-                <img src="img/webforge-icon.png" alt="WebForge" class="header-logo">
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-brand">
+                <img src="img/webforge-icon.png" alt="WebForge" class="nav-logo">
                 <h1>WebForge</h1>
             </div>
-            <div class="header-actions">
-                <button id="new-project-btn" class="btn btn-primary">
-                    <i data-lucide="plus"></i>
-                    <span>New Project</span>
-                </button>
-
-                <button id="collaborate-btn" class="btn" title="Collaborate">
-                    <i data-lucide="users"></i>
-                    <span>Collaborate</span>
-                </button>
-                <button id="save-btn" class="btn">
-                    <i data-lucide="save"></i>
-                    <span>Save</span>
-                </button>
-                <button id="export-btn" class="btn">
-                    <i data-lucide="download"></i>
-                    <span>Export</span>
-                </button>
-                <button id="import-btn" class="btn" title="Import Project">
-                    <i data-lucide="upload"></i>
-                    <span>Import</span>
-                </button>
-                <input type="file" id="import-file-input" accept=".zip" style="display: none;">
-                <button id="console-toggle-btn" class="btn">
-                    <i data-lucide="terminal"></i>
-                    <span>Show Console</span>
-                </button>
-                <button id="theme-toggle-btn" class="btn" title="Toggle dark mode">
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="index.html?page=tutorials" class="nav-link">Tutorials</a>
+                <a href="editor.html" class="nav-link">Editor</a>
+            </div>
+            <div class="nav-actions">
+                <button id="theme-toggle-btn" class="btn-icon" title="Toggle dark mode">
                     <i data-lucide="moon"></i>
                 </button>
-                <button id="help-btn" class="btn" title="Keyboard Shortcuts (Ctrl+/)">
-                    <i data-lucide="keyboard"></i>
-                    <span>Shortcuts</span>
+                <button id="mobile-menu-btn" class="btn-icon mobile-menu-btn" title="Menu">
+                    <i data-lucide="menu"></i>
                 </button>
-                <button id="tutorials-btn" class="btn" title="View Tutorials">
+            </div>
+        </nav>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-nav" class="mobile-nav hidden">
+            <div class="mobile-nav-content">
+                <a href="index.html" class="mobile-nav-link active">
+                    <i data-lucide="home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="index.html?page=tutorials" class="mobile-nav-link">
                     <i data-lucide="book-open"></i>
                     <span>Tutorials</span>
-                </button>
+                </a>
+                <a href="editor.html" class="mobile-nav-link">
+                    <i data-lucide="code"></i>
+                    <span>Editor</span>
+                </a>
             </div>
-        </header>
-
-        <div class="main-container">
-            <aside class="sidebar">
-                <div class="sidebar-section">
-                    <h3>Projects</h3>
-                    <div id="projects-list"></div>
-                </div>
-                <div class="sidebar-section">
-                    <h3>Files</h3>
-                    <button id="new-file-btn" class="btn btn-small">
-                        <i data-lucide="file-plus" style="width: 14px; height: 14px;"></i>
-                        <span>New File</span>
-                    </button>
-                    <button id="upload-asset-btn" class="btn btn-small">
-                        <i data-lucide="upload" style="width: 14px; height: 14px;"></i>
-                        <span>Upload Asset</span>
-                    </button>
-                    <input type="file" id="asset-file-input" accept="image/*,.woff,.woff2,.ttf,.otf" style="display: none;">
-                    <div id="files-tree"></div>
-                </div>
-                <div class="sidebar-section">
-                    <h3>Snippets</h3>
-                    <button id="snippets-btn" class="btn btn-small">
-                        <i data-lucide="code-2" style="width: 14px; height: 14px;"></i>
-                        <span>Browse Snippets</span>
-                    </button>
-                </div>
-            </aside>
-
-            <main class="workspace">
-                <div class="editor-container">
-                    <div class="editor-header">
-                        <span id="current-file-name">No file selected</span>
-                    </div>
-                    <div id="editor"></div>
-                </div>
-
-                <div class="preview-container">
-                    <div class="preview-header">
-                        <span>Preview</span>
-                        <div class="preview-controls">
-                            <button id="device-mobile" class="device-btn" title="Mobile (375px)" data-width="375">
-                                <i data-lucide="smartphone"></i>
-                            </button>
-                            <button id="device-tablet" class="device-btn" title="Tablet (768px)" data-width="768">
-                                <i data-lucide="tablet"></i>
-                            </button>
-                            <button id="device-desktop" class="device-btn active" title="Desktop (100%)" data-width="100%">
-                                <i data-lucide="monitor"></i>
-                            </button>
-                            <button id="preview-fullscreen-btn" class="btn-icon" title="Fullscreen Preview (F11)" aria-label="Fullscreen Preview">
-                                <i data-lucide="maximize-2"></i>
-                            </button>
-                            <button id="a11y-toggle-btn" class="btn-icon" title="Toggle Accessibility Checker" aria-label="Toggle Accessibility Checker">
-                                <i data-lucide="accessibility"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="preview-wrapper">
-                        <iframe id="preview" sandbox="allow-scripts allow-same-origin"></iframe>
-                    </div>
-                    <div id="a11y-panel" class="a11y-panel hidden">
-                        <div class="a11y-header">
-                            <span>Accessibility Issues</span>
-                            <button id="a11y-close-btn" class="btn-icon" aria-label="Close Accessibility Panel">
-                                <i data-lucide="x"></i>
-                            </button>
-                        </div>
-                        <div id="a11y-content" class="a11y-content">
-                            <p class="a11y-loading">Checking accessibility...</p>
-                        </div>
-                    </div>
-                </div>
-            </main>
         </div>
 
-        <div id="console-panel" class="console-panel hidden">
-            <div class="console-header">
-                <span>
-                    <i data-lucide="terminal" style="width: 16px; height: 16px; margin-right: 6px;"></i>
-                    Console
-                </span>
-                <div class="console-header-actions">
-                    <button id="console-clear-btn" class="console-btn" title="Clear console">
-                        <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i>
-                    </button>
-                    <button id="console-close-btn" class="console-btn" title="Close console" aria-label="Close console">
-                        <i data-lucide="x"></i>
-                    </button>
+        <!-- Landing Page -->
+        <div id="landing-page" class="page active">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title">Build real websites while you learn</h1>
+                    <p class="hero-description">Learn HTML, CSS, and JavaScript by building actual website components step-by-step</p>
+                    <div class="hero-actions">
+                        <button id="start-learning-btn" class="btn btn-primary btn-large">
+                            <i data-lucide="play"></i>
+                            <span>Start Learning</span>
+                        </button>
+                        <a href="editor.html" class="btn btn-secondary btn-large">
+                            <i data-lucide="code"></i>
+                            <span>Open Editor</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-preview">
+                        <div class="preview-window">
+                            <div class="preview-header">
+                                <div class="preview-dots">
+                                    <span></span><span></span><span></span>
+                                </div>
+                            </div>
+                            <div class="preview-content">
+                                <div class="sample-navbar"></div>
+                                <div class="sample-hero"></div>
+                                <div class="sample-cards">
+                                    <div class="sample-card"></div>
+                                    <div class="sample-card"></div>
+                                    <div class="sample-card"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How It Works -->
+            <section class="how-it-works">
+                <div class="container">
+                    <h2>How it works</h2>
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-icon">
+                                <i data-lucide="book-open"></i>
+                            </div>
+                            <h3>1. Choose a tutorial</h3>
+                            <p>Pick from HTML, CSS, or JavaScript tutorials</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">
+                                <i data-lucide="code"></i>
+                            </div>
+                            <h3>2. Build step-by-step</h3>
+                            <p>Follow guided instructions to build real components</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">
+                                <i data-lucide="download"></i>
+                            </div>
+                            <h3>3. Export your website</h3>
+                            <p>Download your completed project to host anywhere</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tutorial Categories Preview -->
+            <section class="categories-preview">
+                <div class="container">
+                    <h2>What you'll learn</h2>
+                    <div class="category-cards">
+                        <div class="category-card" data-category="html">
+                            <div class="category-icon">
+                                <i data-lucide="file-text"></i>
+                            </div>
+                            <h3>HTML</h3>
+                            <p>Page structure, semantic sections, forms</p>
+                            <div class="category-examples">
+                                <span>Navigation</span>
+                                <span>Hero sections</span>
+                                <span>Contact forms</span>
+                            </div>
+                        </div>
+                        <div class="category-card" data-category="css">
+                            <div class="category-icon">
+                                <i data-lucide="palette"></i>
+                            </div>
+                            <h3>CSS</h3>
+                            <p>Flexbox layout, cards, responsive design</p>
+                            <div class="category-examples">
+                                <span>Flexbox layouts</span>
+                                <span>Card components</span>
+                                <span>Responsive navbars</span>
+                            </div>
+                        </div>
+                        <div class="category-card" data-category="javascript">
+                            <div class="category-icon">
+                                <i data-lucide="zap"></i>
+                            </div>
+                            <h3>JavaScript</h3>
+                            <p>Interactive elements, event handling</p>
+                            <div class="category-examples">
+                                <span>Menu toggles</span>
+                                <span>Interactive buttons</span>
+                                <span>Form validation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Tutorial Hub Page -->
+        <div id="tutorial-hub-page" class="page">
+            <div class="container">
+                <div class="page-header">
+                    <h1>Choose Your Learning Path</h1>
+                    <p>Build real website components through hands-on tutorials</p>
+                </div>
+                
+                <div class="tutorial-categories">
+                    <div class="tutorial-category" data-category="html">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i data-lucide="file-text"></i>
+                            </div>
+                            <div class="category-info">
+                                <h2>HTML Tutorials</h2>
+                                <p>Learn to structure web pages with semantic HTML elements</p>
+                            </div>
+                            <div class="category-progress">
+                                <div class="progress-circle">
+                                    <span class="progress-text">0/3</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="category-tutorials">
+                            <div class="tutorial-item" data-tutorial="hero-section">
+                                <h3>Hero Section</h3>
+                                <p>Create an eye-catching hero section</p>
+                                <span class="difficulty beginner">Beginner</span>
+                            </div>
+                            <div class="tutorial-item" data-tutorial="contact-form">
+                                <h3>Contact Form</h3>
+                                <p>Build a professional contact form</p>
+                                <span class="difficulty intermediate">Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-category" data-category="css">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i data-lucide="palette"></i>
+                            </div>
+                            <div class="category-info">
+                                <h2>CSS Tutorials</h2>
+                                <p>Style your websites with modern CSS techniques</p>
+                            </div>
+                            <div class="category-progress">
+                                <div class="progress-circle">
+                                    <span class="progress-text">0/4</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="category-tutorials">
+                            <div class="tutorial-item" data-tutorial="navbar-basic">
+                                <h3>Navigation Bar</h3>
+                                <p>Build a responsive navigation bar</p>
+                                <span class="difficulty beginner">Beginner</span>
+                            </div>
+                            <div class="tutorial-item" data-tutorial="navbar-responsive">
+                                <h3>Responsive Navigation</h3>
+                                <p>Make your navigation mobile-friendly</p>
+                                <span class="difficulty intermediate">Intermediate</span>
+                            </div>
+                            <div class="tutorial-item" data-tutorial="card-component">
+                                <h3>Card Component</h3>
+                                <p>Create reusable card components</p>
+                                <span class="difficulty beginner">Beginner</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-category" data-category="javascript">
+                        <div class="category-header">
+                            <div class="category-icon">
+                                <i data-lucide="zap"></i>
+                            </div>
+                            <div class="category-info">
+                                <h2>JavaScript Tutorials</h2>
+                                <p>Add interactivity with JavaScript</p>
+                            </div>
+                            <div class="category-progress">
+                                <div class="progress-circle">
+                                    <span class="progress-text">0/2</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="category-tutorials">
+                            <div class="tutorial-item" data-tutorial="interactive-button">
+                                <h3>Interactive Button</h3>
+                                <p>Add click interactions to buttons</p>
+                                <span class="difficulty beginner">Beginner</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div id="console-output"></div>
         </div>
-    </div>
-
+        
     <!-- Modals -->
     <div id="modal-overlay" class="modal-overlay hidden"></div>
     
-    <div id="new-project-modal" class="modal hidden">
-        <h2>Create New Project</h2>
-        <input type="text" id="project-name-input" placeholder="Project name">
-        <div class="modal-actions">
-            <button id="create-blank-btn" class="btn btn-primary">Start from Scratch</button>
-            <button id="choose-template-btn" class="btn">Choose Template</button>
-            <button class="btn cancel-btn">Cancel</button>
+
+
+    <div id="tutorial-browser-modal" class="modal modal-large hidden">
+        <div class="tutorial-browser-header">
+            <h2>
+                <i data-lucide="graduation-cap"></i>
+                Learn by Building
+            </h2>
+            <p>Build real website components through guided, step-by-step tutorials</p>
         </div>
-    </div>
-
-    <div id="template-modal" class="modal hidden">
-        <h2>Choose a Template</h2>
-        <div id="templates-grid"></div>
-        <button class="btn cancel-btn">Cancel</button>
-    </div>
-
-    <div id="tutorial-modal" class="modal hidden">
-        <h2>Tutorials</h2>
-        <div id="tutorials-list"></div>
-        <button class="btn cancel-btn">Cancel</button>
-    </div>
-
-    <div id="tutorial-detail-modal" class="modal hidden">
-        <div id="tutorial-detail-header">
-            <h2 id="tutorial-detail-title"></h2>
-            <p id="tutorial-detail-progress"></p>
+        
+        <div class="tutorial-browser-content">
+            <div class="tutorial-categories">
+                <button class="tutorial-category-btn active" data-category="all">
+                    <i data-lucide="grid-3x3"></i>
+                    <span>All Tutorials</span>
+                </button>
+                <button class="tutorial-category-btn" data-category="layout">
+                    <i data-lucide="layout"></i>
+                    <span>Layout</span>
+                </button>
+                <button class="tutorial-category-btn" data-category="navigation">
+                    <i data-lucide="menu"></i>
+                    <span>Navigation</span>
+                </button>
+                <button class="tutorial-category-btn" data-category="ui-components">
+                    <i data-lucide="box"></i>
+                    <span>UI Components</span>
+                </button>
+                <button class="tutorial-category-btn" data-category="forms">
+                    <i data-lucide="form-input"></i>
+                    <span>Forms</span>
+                </button>
+                <button class="tutorial-category-btn" data-category="javascript-features">
+                    <i data-lucide="zap"></i>
+                    <span>JavaScript</span>
+                </button>
+            </div>
+            
+            <div class="tutorial-search">
+                <input type="text" id="tutorial-search-input" placeholder="Search tutorials...">
+                <i data-lucide="search"></i>
+            </div>
+            
+            <div id="tutorial-grid" class="tutorial-grid"></div>
         </div>
-        <div id="tutorial-detail-content">
-            <h3 id="tutorial-step-title"></h3>
-            <p id="tutorial-step-content"></p>
-            <div id="tutorial-step-code">
-                <h4>Code Example:</h4>
-                <pre><code id="tutorial-code-example"></code></pre>
+        
+        <button class="btn cancel-btn">Close</button>
+    </div>
+
+    <div id="tutorial-preview-modal" class="modal modal-large hidden">
+        <div class="tutorial-preview-header">
+            <div class="tutorial-preview-info">
+                <h2 id="tutorial-preview-title"></h2>
+                <div class="tutorial-preview-meta">
+                    <span id="tutorial-preview-difficulty" class="tutorial-difficulty-badge"></span>
+                    <span id="tutorial-preview-time" class="tutorial-time-badge"></span>
+                    <span id="tutorial-preview-category" class="tutorial-category-badge"></span>
+                </div>
+                <p id="tutorial-preview-description"></p>
+            </div>
+            <div class="tutorial-preview-image">
+                <img id="tutorial-preview-img" src="" alt="Tutorial preview">
             </div>
         </div>
-        <div class="modal-actions tutorial-actions">
-            <button id="tutorial-prev-btn" class="btn">
+        
+        <div class="tutorial-preview-content">
+            <div class="tutorial-preview-steps">
+                <h3>What you'll build:</h3>
+                <div id="tutorial-preview-steps-list"></div>
+            </div>
+            
+            <div class="tutorial-preview-actions">
+                <div class="tutorial-mode-selection">
+                    <h4>Choose your learning mode:</h4>
+                    <div class="tutorial-mode-options">
+                        <button id="tutorial-mode-tutorial" class="tutorial-mode-btn active">
+                            <i data-lucide="book-open"></i>
+                            <div>
+                                <strong>Tutorial Mode</strong>
+                                <span>Guided practice in a clean environment</span>
+                            </div>
+                        </button>
+                        <button id="tutorial-mode-project" class="tutorial-mode-btn">
+                            <i data-lucide="folder"></i>
+                            <div>
+                                <strong>Project Mode</strong>
+                                <span>Add to your existing project</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="tutorial-start-actions">
+                    <button id="tutorial-start-btn" class="btn btn-primary btn-large">
+                        <i data-lucide="play"></i>
+                        <span>Start Tutorial</span>
+                    </button>
+                    <button class="btn cancel-btn">Back to Browse</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tutorial-active-modal" class="modal modal-large hidden">
+        <div class="tutorial-active-header">
+            <div class="tutorial-active-info">
+                <h2 id="tutorial-active-title"></h2>
+                <div class="tutorial-progress">
+                    <div class="tutorial-progress-bar">
+                        <div id="tutorial-progress-fill" class="tutorial-progress-fill"></div>
+                    </div>
+                    <span id="tutorial-progress-text">Step 1 of 6</span>
+                </div>
+            </div>
+            <div class="tutorial-active-controls">
+                <button id="tutorial-reset-step-btn" class="btn btn-small" title="Reset current step">
+                    <i data-lucide="rotate-ccw"></i>
+                    <span>Reset Step</span>
+                </button>
+                <button id="tutorial-hint-btn" class="btn btn-small" title="Get a hint">
+                    <i data-lucide="help-circle"></i>
+                    <span>Hint</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="tutorial-active-content">
+            <div class="tutorial-step-info">
+                <h3 id="tutorial-step-goal"></h3>
+                <div id="tutorial-step-instructions"></div>
+                <div id="tutorial-code-snippet" class="tutorial-code-snippet hidden">
+                    <div class="tutorial-code-header">
+                        <span id="tutorial-code-location"></span>
+                        <button id="tutorial-insert-code-btn" class="btn btn-small">
+                            <i data-lucide="plus"></i>
+                            <span>Insert Code</span>
+                        </button>
+                    </div>
+                    <pre><code id="tutorial-code-content"></code></pre>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tutorial-active-actions">
+            <button id="tutorial-prev-step-btn" class="btn">
                 <i data-lucide="chevron-left"></i>
                 <span>Previous</span>
             </button>
-            <button class="btn cancel-btn">Close</button>
-            <button id="tutorial-next-btn" class="btn btn-primary">
-                <span>Next</span>
+            <button id="tutorial-exit-btn" class="btn">
+                <i data-lucide="x"></i>
+                <span>Exit Tutorial</span>
+            </button>
+            <button id="tutorial-next-step-btn" class="btn btn-primary">
+                <span>Next Step</span>
                 <i data-lucide="chevron-right"></i>
             </button>
         </div>
     </div>
 
-    <div id="asset-modal" class="modal hidden">
-        <h2>Asset Details</h2>
-        <div id="asset-preview"></div>
-        <div id="asset-info"></div>
-        <div id="asset-code-snippets"></div>
-        <button class="btn cancel-btn">Close</button>
-    </div>
 
-    <div id="new-file-modal" class="modal hidden">
-        <h2>Create New File</h2>
-        <p style="color: #7f8c8d; font-size: 0.9rem; margin-bottom: 1rem;">Enter a file name with extension (e.g., about.html, style.css, app.js)</p>
-        <input type="text" id="file-name-input" placeholder="e.g., about.html">
-        <div class="modal-actions">
-            <button id="create-file-btn" class="btn btn-primary">Create File</button>
-            <button class="btn cancel-btn">Cancel</button>
-        </div>
-    </div>
 
-    <!-- Welcome Screen -->
-    <div id="welcome-screen" class="modal-overlay hidden">
-        <div class="welcome-modal">
-            <div class="welcome-header">
-                <img src="img/webforge-icon.png" alt="WebForge" class="welcome-logo">
-                <h1>Welcome to WebForge!</h1>
-                <p>Your browser-based website builder for learning web development</p>
-            </div>
-            
-            <div class="welcome-content">
-                <div class="welcome-feature">
-                    <i data-lucide="code" class="welcome-icon"></i>
-                    <h3>Professional Editor</h3>
-                    <p>Write HTML, CSS, and JavaScript with IntelliSense and autocomplete</p>
-                </div>
-                
-                <div class="welcome-feature">
-                    <i data-lucide="eye" class="welcome-icon"></i>
-                    <h3>Live Preview</h3>
-                    <p>See your changes instantly as you code</p>
-                </div>
-                
-                <div class="welcome-feature">
-                    <i data-lucide="save" class="welcome-icon"></i>
-                    <h3>Auto-Save</h3>
-                    <p>Your work is automatically saved every second</p>
-                </div>
-                
-                <div class="welcome-feature">
-                    <i data-lucide="image" class="welcome-icon"></i>
-                    <h3>Upload Assets</h3>
-                    <p>Add images and use them with simple filenames</p>
-                </div>
-            </div>
-            
-            <div class="welcome-actions">
-                <button id="welcome-start-btn" class="btn btn-primary btn-large">
-                    <i data-lucide="rocket"></i>
-                    <span>Get Started</span>
-                </button>
-                <label class="welcome-checkbox">
-                    <input type="checkbox" id="welcome-dont-show">
-                    <span>Don't show this again</span>
-                </label>
-            </div>
-        </div>
-    </div>
+
 
     <!-- Toast Notifications -->
     <div id="toast-container"></div>
 
-    <div id="collaboration-modal" class="modal hidden">
-        <h2>
-            <i data-lucide="users"></i>
-            Collaborate
-        </h2>
-        <div id="collab-content">
-            <div class="collab-section">
-                <h3>Your Name</h3>
-                <input type="text" id="collab-name-input" placeholder="Enter your name" maxlength="50">
-                <p style="font-size: 0.85rem; color: #7f8c8d; margin-top: 0.5rem;">This name will be visible to other collaborators</p>
-            </div>
-            <div class="collab-section">
-                <h3>Start Collaboration</h3>
-                <p>Share your project with others for real-time editing</p>
-                <button id="start-collab-btn" class="btn btn-primary">
-                    <i data-lucide="share-2"></i>
-                    <span>Start Session</span>
-                </button>
-            </div>
-            <div class="collab-section">
-                <h3>Join Session</h3>
-                <input type="text" id="session-id-input" placeholder="Enter session ID">
-                <button id="join-collab-btn" class="btn">
-                    <i data-lucide="log-in"></i>
-                    <span>Join</span>
-                </button>
-            </div>
-            <div id="active-session" class="collab-section hidden">
-                <h3>Active Session</h3>
-                <div class="session-info">
-                    <p><strong>Session ID:</strong> <span id="current-session-id"></span></p>
-                    <button id="copy-link-btn" class="btn btn-small">
-                        <i data-lucide="copy"></i>
-                        <span>Copy Link</span>
-                    </button>
-                </div>
-                <div id="collaborators-list"></div>
-                <button id="leave-session-btn" class="btn">
-                    <i data-lucide="log-out"></i>
-                    <span>Leave Session</span>
-                </button>
-            </div>
-        </div>
-        <button class="btn cancel-btn">Close</button>
-    </div>
 
-    <div id="snippets-modal" class="modal hidden">
-        <h2>Code Snippets Library</h2>
-        <div class="snippets-controls">
-            <input type="text" id="snippet-search" placeholder="Search snippets...">
-            <div class="snippets-filters">
-                <button class="filter-btn active" data-lang="all">All</button>
-                <button class="filter-btn" data-lang="html">HTML</button>
-                <button class="filter-btn" data-lang="css">CSS</button>
-                <button class="filter-btn" data-lang="javascript">JavaScript</button>
-            </div>
-        </div>
-        <div id="snippets-list"></div>
-        <button class="btn cancel-btn">Close</button>
-    </div>
-
-    <div id="confirm-modal" class="modal modal-small hidden">
-        <h2 id="confirm-title">Confirm Action</h2>
-        <p id="confirm-message"></p>
-        <div class="modal-actions">
-            <button id="confirm-yes-btn" class="btn btn-danger">Delete</button>
-            <button id="confirm-no-btn" class="btn cancel-btn">Cancel</button>
-        </div>
-    </div>
-
-    <div id="shortcuts-modal" class="modal hidden">
-        <h2>
-            <i data-lucide="keyboard"></i>
-            Keyboard Shortcuts
-        </h2>
-        <div class="shortcuts-list">
-            <div class="shortcut-item">
-                <span class="shortcut-keys"><kbd>Ctrl</kbd> + <kbd>S</kbd></span>
-                <span class="shortcut-desc">Save current file</span>
-            </div>
-            <div class="shortcut-item">
-                <span class="shortcut-keys"><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd></span>
-                <span class="shortcut-desc">Format code (Prettier)</span>
-            </div>
-            <div class="shortcut-item">
-                <span class="shortcut-keys"><kbd>F11</kbd></span>
-                <span class="shortcut-desc">Toggle fullscreen preview</span>
-            </div>
-            <div class="shortcut-item">
-                <span class="shortcut-keys"><kbd>Esc</kbd></span>
-                <span class="shortcut-desc">Exit fullscreen preview</span>
-            </div>
-            <div class="shortcut-item">
-                <span class="shortcut-keys"><kbd>Ctrl</kbd> + <kbd>/</kbd></span>
-                <span class="shortcut-desc">Toggle line comment</span>
-            </div>
-            <div class="shortcut-item">
-                <span class="shortcut-keys"><kbd>Ctrl</kbd> + <kbd>D</kbd></span>
-                <span class="shortcut-desc">Select next occurrence</span>
-            </div>
-            <div class="shortcut-item">
-                <span class="shortcut-keys"><kbd>Alt</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd></span>
-                <span class="shortcut-desc">Move line up/down</span>
-            </div>
-            <div class="shortcut-item">
-                <span class="shortcut-keys"><kbd>Ctrl</kbd> + <kbd>Space</kbd></span>
-                <span class="shortcut-desc">Trigger autocomplete</span>
-            </div>
-        </div>
-        <button class="btn cancel-btn">Close</button>
-    </div>
 
     <!-- Offline Warning -->
     <div id="offline-banner" class="offline-banner hidden">
@@ -402,30 +456,10 @@
         <span>You're offline. Some features may not work properly.</span>
     </div>
 
-    <!-- Load Firebase and Prettier BEFORE Monaco to avoid AMD conflicts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.8.2/axe.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prettier@3.1.1/standalone.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prettier@3.1.1/plugins/html.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prettier@3.1.1/plugins/babel.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prettier@3.1.1/plugins/postcss.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prettier@3.1.1/plugins/estree.js"></script>
-    <!-- Monaco Editor loader must come AFTER other libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/loader.min.js"></script>
-    <script src="js/firebase-config.js"></script>
+    <!-- Load only essential scripts for landing page and tutorial hub -->
     <script src="js/models/types.js"></script>
     <script src="js/services/storage.js"></script>
-    <script src="js/services/file.js"></script>
-    <script src="js/services/asset.js"></script>
-    <script src="js/services/project.js"></script>
-    <script src="js/services/template.js"></script>
     <script src="js/services/tutorial.js"></script>
-    <script src="js/services/snippet.js"></script>
-    <script src="js/services/accessibility.js"></script>
-    <script src="js/services/collaboration.js"></script>
-    <script src="js/html-autocomplete.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>
