@@ -18,8 +18,11 @@
     <link rel="manifest" href="manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Roboto+Slab:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="styles/tutorial-hub.css">
+    <link rel="stylesheet" href="styles/editor.css">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
@@ -31,14 +34,28 @@
                 <h1>WebForge</h1>
             </div>
             <div class="nav-links">
-                <a href="index.html" class="nav-link active">Home</a>
-                <a href="index.html?page=tutorials" class="nav-link">Tutorials</a>
-                <a href="editor.html" class="nav-link">Editor</a>
+                <a href="index.html" id="nav-landing" class="nav-link active">Home</a>
+                <a href="index.html?page=tutorials" id="nav-tutorial-hub" class="nav-link">Tutorials</a>
+                <a href="editor.html" id="nav-editor" class="nav-link">Editor</a>
             </div>
             <div class="nav-actions">
-                <button id="theme-toggle-btn" class="btn-icon" title="Toggle dark mode">
-                    <i data-lucide="moon"></i>
-                </button>
+                <!-- Forge Status -->
+                <div id="forge-status" class="forge-status">
+                    <div class="forge-level-badge">
+                        <i data-lucide="flame"></i>
+                        <span id="forge-level">1</span>
+                    </div>
+                    <div class="forge-info">
+                        <div id="forge-title" class="forge-title">Apprentice Smith</div>
+                        <div class="forge-xp-container">
+                            <div class="forge-xp-bar-bg">
+                                <div id="forge-xp-bar" class="forge-xp-bar" style="width: 0%"></div>
+                            </div>
+                            <span id="forge-xp-text" class="forge-xp-text">0/100 XP</span>
+                        </div>
+                    </div>
+                </div>
+                
                 <button id="mobile-menu-btn" class="btn-icon mobile-menu-btn" title="Menu">
                     <i data-lucide="menu"></i>
                 </button>
@@ -68,36 +85,33 @@
             <!-- Hero Section -->
             <section class="hero-section">
                 <div class="hero-content">
-                    <h1 class="hero-title">Build real websites while you learn</h1>
-                    <p class="hero-description">Learn HTML, CSS, and JavaScript by building actual website components step-by-step</p>
+                    <h1 class="hero-title">Forge Your Web Development Skills</h1>
+                    <p class="hero-description">Learn HTML, CSS, and JavaScript by building real websites in the forge's fire. Interactive workshop. Write code, see it live, and export finished projects.</p>
                     <div class="hero-actions">
-                        <button id="start-learning-btn" class="btn btn-primary btn-large">
-                            <i data-lucide="play"></i>
-                            <span>Start Learning</span>
-                        </button>
-                        <a href="editor.html" class="btn btn-secondary btn-large">
-                            <i data-lucide="code"></i>
-                            <span>Open Editor</span>
+                        <a href="editor.html" class="btn btn-primary btn-large">
+                            <i data-lucide="hammer"></i>
+                            <span>Enter the Forge</span>
                         </a>
+                        <button id="start-learning-btn" class="btn btn-secondary btn-large">
+                            <i data-lucide="scroll-text"></i>
+                            <span>Begin Your Apprenticeship</span>
+                        </button>
                     </div>
                 </div>
                 <div class="hero-visual">
-                    <div class="hero-preview">
-                        <div class="preview-window">
-                            <div class="preview-header">
-                                <div class="preview-dots">
-                                    <span></span><span></span><span></span>
-                                </div>
-                            </div>
-                            <div class="preview-content">
-                                <div class="sample-navbar"></div>
-                                <div class="sample-hero"></div>
-                                <div class="sample-cards">
-                                    <div class="sample-card"></div>
-                                    <div class="sample-card"></div>
-                                    <div class="sample-card"></div>
-                                </div>
-                            </div>
+                    <div class="hero-overlay-effects">
+                        <div class="floating-sparks">
+                            <div class="spark spark-1"></div>
+                            <div class="spark spark-2"></div>
+                            <div class="spark spark-3"></div>
+                            <div class="spark spark-4"></div>
+                            <div class="spark spark-5"></div>
+                            <div class="spark spark-6"></div>
+                        </div>
+                        <div class="forge-glow-effects">
+                            <div class="glow-orb glow-1"></div>
+                            <div class="glow-orb glow-2"></div>
+                            <div class="glow-orb glow-3"></div>
                         </div>
                     </div>
                 </div>
@@ -106,28 +120,104 @@
             <!-- How It Works -->
             <section class="how-it-works">
                 <div class="container">
-                    <h2>How it works</h2>
-                    <div class="steps">
-                        <div class="step">
-                            <div class="step-icon">
-                                <i data-lucide="book-open"></i>
+                    <div class="section-header">
+                        <h2>How It Works</h2>
+                        <p class="section-subtitle">Forge real websites in three simple steps</p>
+                    </div>
+                    
+                    <div class="workflow-container">
+                        <div class="workflow-card" data-step="1">
+                            <div class="card-illustration">
+                                <div class="iso-cube">
+                                    <div class="cube-face cube-front"></div>
+                                    <div class="cube-face cube-back"></div>
+                                    <div class="cube-face cube-right"></div>
+                                    <div class="cube-face cube-left"></div>
+                                    <div class="cube-face cube-top"></div>
+                                    <div class="cube-face cube-bottom"></div>
+                                </div>
+                                <div class="iso-glow"></div>
                             </div>
-                            <h3>1. Choose a tutorial</h3>
-                            <p>Pick from HTML, CSS, or JavaScript tutorials</p>
+                            <div class="card-content">
+                                <h3>1. Start a Project</h3>
+                                <p>Begin your journey with a blank canvas, selecting a template or starting from scratch.</p>
+                            </div>
                         </div>
-                        <div class="step">
-                            <div class="step-icon">
-                                <i data-lucide="code"></i>
+                        
+                        <div class="workflow-card" data-step="2">
+                            <div class="card-illustration">
+                                <div class="code-editor">
+                                    <div class="editor-header">
+                                        <div class="editor-dots">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+                                    </div>
+                                    <div class="editor-content">
+                                        <div class="code-line"></div>
+                                        <div class="code-line short"></div>
+                                        <div class="code-line"></div>
+                                        <div class="code-line medium"></div>
+                                    </div>
+                                    <div class="code-cursor"></div>
+                                </div>
+                                <div class="code-sparks">
+                                    <div class="spark"></div>
+                                    <div class="spark"></div>
+                                    <div class="spark"></div>
+                                </div>
                             </div>
-                            <h3>2. Build step-by-step</h3>
-                            <p>Follow guided instructions to build real components</p>
+                            <div class="card-content">
+                                <h3>2. Write Code</h3>
+                                <p>Write and refine your code in a clean, intuitive environment with intelligent suggestions.</p>
+                            </div>
                         </div>
-                        <div class="step">
-                            <div class="step-icon">
-                                <i data-lucide="download"></i>
+                        
+                        <div class="workflow-card" data-step="3">
+                            <div class="card-illustration">
+                                <div class="browser-window">
+                                    <div class="browser-header">
+                                        <div class="browser-dots">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+                                    </div>
+                                    <div class="browser-content">
+                                        <div class="preview-elements">
+                                            <div class="preview-header"></div>
+                                            <div class="preview-content"></div>
+                                            <div class="preview-sidebar"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="preview-glow"></div>
                             </div>
-                            <h3>3. Export your website</h3>
-                            <p>Download your completed project to host anywhere</p>
+                            <div class="card-content">
+                                <h3>3. See It Live</h3>
+                                <p>Instantly preview your changes in real-time, watching your creation take shape before your eyes.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="workflow-card" data-step="4">
+                            <div class="card-illustration">
+                                <div class="export-rocket">
+                                    <div class="rocket-body"></div>
+                                    <div class="rocket-fins"></div>
+                                    <div class="rocket-flame"></div>
+                                    <div class="rocket-trail"></div>
+                                </div>
+                                <div class="export-stars">
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <h3>4. Export & Share</h3>
+                                <p>Deploy your project to the web or share it with others, ready for the world to see.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -136,44 +226,83 @@
             <!-- Tutorial Categories Preview -->
             <section class="categories-preview">
                 <div class="container">
-                    <h2>What you'll learn</h2>
+                    <h2>Master the Three Disciplines</h2>
                     <div class="category-cards">
-                        <div class="category-card" data-category="html">
-                            <div class="category-icon">
-                                <i data-lucide="file-text"></i>
+                        <a href="html-tutorials.html" class="card category-card">
+                            <div class="tools">
+                                <div class="circle">
+                                    <span class="red box"></span>
+                                </div>
+                                <div class="circle">
+                                    <span class="yellow box"></span>
+                                </div>
+                                <div class="circle">
+                                    <span class="green box"></span>
+                                </div>
                             </div>
-                            <h3>HTML</h3>
-                            <p>Page structure, semantic sections, forms</p>
-                            <div class="category-examples">
-                                <span>Navigation</span>
-                                <span>Hero sections</span>
-                                <span>Contact forms</span>
+                            <div class="card__content">
+                                <div class="category-icon">
+                                    <i data-lucide="layout-template"></i>
+                                </div>
+                                <h3>HTML Forging</h3>
+                                <p>Shape the foundation - structure, semantics, and forms</p>
+                                <div class="category-examples">
+                                    <span>Navigation Frames</span>
+                                    <span>Hero Foundations</span>
+                                    <span>Contact Vessels</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="category-card" data-category="css">
-                            <div class="category-icon">
-                                <i data-lucide="palette"></i>
+                        </a>
+                        <a href="css-tutorials.html" class="card category-card">
+                            <div class="tools">
+                                <div class="circle">
+                                    <span class="red box"></span>
+                                </div>
+                                <div class="circle">
+                                    <span class="yellow box"></span>
+                                </div>
+                                <div class="circle">
+                                    <span class="green box"></span>
+                                </div>
                             </div>
-                            <h3>CSS</h3>
-                            <p>Flexbox layout, cards, responsive design</p>
-                            <div class="category-examples">
-                                <span>Flexbox layouts</span>
-                                <span>Card components</span>
-                                <span>Responsive navbars</span>
+                            <div class="card__content">
+                                <div class="category-icon">
+                                    <i data-lucide="paintbrush"></i>
+                                </div>
+                                <h3>CSS Artistry</h3>
+                                <p>Polish and beautify - layouts, styling, and responsiveness</p>
+                                <div class="category-examples">
+                                    <span>Flexbox Mastery</span>
+                                    <span>Card Crafting</span>
+                                    <span>Responsive Tempering</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="category-card" data-category="javascript">
-                            <div class="category-icon">
-                                <i data-lucide="zap"></i>
+                        </a>
+                        <a href="javascript-tutorials.html" class="card category-card">
+                            <div class="tools">
+                                <div class="circle">
+                                    <span class="red box"></span>
+                                </div>
+                                <div class="circle">
+                                    <span class="yellow box"></span>
+                                </div>
+                                <div class="circle">
+                                    <span class="green box"></span>
+                                </div>
                             </div>
-                            <h3>JavaScript</h3>
-                            <p>Interactive elements, event handling</p>
-                            <div class="category-examples">
-                                <span>Menu toggles</span>
-                                <span>Interactive buttons</span>
-                                <span>Form validation</span>
+                            <div class="card__content">
+                                <div class="category-icon">
+                                    <i data-lucide="zap"></i>
+                                </div>
+                                <h3>JavaScript Enchantment</h3>
+                                <p>Breathe life into your creations - interactions and logic</p>
+                                <div class="category-examples">
+                                    <span>Menu Mechanisms</span>
+                                    <span>Interactive Triggers</span>
+                                    <span>Form Validation</span>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </section>
@@ -181,105 +310,186 @@
 
         <!-- Tutorial Hub Page -->
         <div id="tutorial-hub-page" class="page">
-            <div class="container">
-                <div class="page-header">
-                    <h1>Choose Your Learning Path</h1>
-                    <p>Build real website components through hands-on tutorials</p>
+            <!-- Tutorial Hub Hero Section -->
+            <section class="tutorial-hero">
+                <div class="container">
+                    <div class="tutorial-hero-content">
+                        <h1>Learn Web Development</h1>
+                        <p>Master HTML, CSS, and JavaScript through hands-on tutorials. Build real projects while learning the fundamentals of web development.</p>
+                        <div class="tutorial-stats">
+                            <div class="stat">
+                                <span class="stat-number">15+</span>
+                                <span class="stat-label">Tutorials</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">3</span>
+                                <span class="stat-label">Languages</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">0</span>
+                                <span class="stat-label">Prerequisites</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="tutorial-categories">
-                    <div class="tutorial-category" data-category="html">
-                        <div class="category-header">
-                            <div class="category-icon">
-                                <i data-lucide="file-text"></i>
-                            </div>
-                            <div class="category-info">
-                                <h2>HTML Tutorials</h2>
-                                <p>Learn to structure web pages with semantic HTML elements</p>
-                            </div>
-                            <div class="category-progress">
-                                <div class="progress-circle">
-                                    <span class="progress-text">0/3</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="category-tutorials">
-                            <div class="tutorial-item" data-tutorial="hero-section">
-                                <h3>Hero Section</h3>
-                                <p>Create an eye-catching hero section</p>
-                                <span class="difficulty beginner">Beginner</span>
-                            </div>
-                            <div class="tutorial-item" data-tutorial="contact-form">
-                                <h3>Contact Form</h3>
-                                <p>Build a professional contact form</p>
-                                <span class="difficulty intermediate">Intermediate</span>
-                            </div>
-                        </div>
-                    </div>
+            </section>
 
-                    <div class="tutorial-category" data-category="css">
-                        <div class="category-header">
-                            <div class="category-icon">
-                                <i data-lucide="palette"></i>
+            <!-- Tutorial Categories -->
+            <section class="tutorial-categories-section">
+                <div class="container">
+                    <div class="tutorial-category-cards">
+                        <div class="tutorial-category-card">
+                            <div class="category-card-icon">
+                                <i data-lucide="layout-template"></i>
                             </div>
-                            <div class="category-info">
-                                <h2>CSS Tutorials</h2>
-                                <p>Style your websites with modern CSS techniques</p>
+                            <h3>HTML Basics</h3>
+                            <p>Learn the building blocks of web pages. Create structure, add content, and understand semantic markup.</p>
+                            <div class="category-meta">
+                                <span class="tutorial-count">5 tutorials</span>
+                                <span class="difficulty-level">Beginner friendly</span>
                             </div>
-                            <div class="category-progress">
-                                <div class="progress-circle">
-                                    <span class="progress-text">0/4</span>
-                                </div>
-                            </div>
+                            <a href="html-tutorials.html" class="category-cta-btn">
+                                <span>Start Learning HTML</span>
+                                <i data-lucide="arrow-right"></i>
+                            </a>
                         </div>
-                        <div class="category-tutorials">
-                            <div class="tutorial-item" data-tutorial="navbar-basic">
-                                <h3>Navigation Bar</h3>
-                                <p>Build a responsive navigation bar</p>
-                                <span class="difficulty beginner">Beginner</span>
-                            </div>
-                            <div class="tutorial-item" data-tutorial="navbar-responsive">
-                                <h3>Responsive Navigation</h3>
-                                <p>Make your navigation mobile-friendly</p>
-                                <span class="difficulty intermediate">Intermediate</span>
-                            </div>
-                            <div class="tutorial-item" data-tutorial="card-component">
-                                <h3>Card Component</h3>
-                                <p>Create reusable card components</p>
-                                <span class="difficulty beginner">Beginner</span>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="tutorial-category" data-category="javascript">
-                        <div class="category-header">
-                            <div class="category-icon">
+                        <div class="tutorial-category-card">
+                            <div class="category-card-icon">
+                                <i data-lucide="paintbrush"></i>
+                            </div>
+                            <h3>CSS Styling</h3>
+                            <p>Make your websites beautiful. Learn colors, layouts, animations, and responsive design techniques.</p>
+                            <div class="category-meta">
+                                <span class="tutorial-count">6 tutorials</span>
+                                <span class="difficulty-level">Beginner to intermediate</span>
+                            </div>
+                            <a href="css-tutorials.html" class="category-cta-btn">
+                                <span>Start Learning CSS</span>
+                                <i data-lucide="arrow-right"></i>
+                            </a>
+                        </div>
+
+                        <div class="tutorial-category-card">
+                            <div class="category-card-icon">
                                 <i data-lucide="zap"></i>
                             </div>
-                            <div class="category-info">
-                                <h2>JavaScript Tutorials</h2>
-                                <p>Add interactivity with JavaScript</p>
+                            <h3>JavaScript Interactivity</h3>
+                            <p>Bring your websites to life. Add interactions, handle user input, and create dynamic experiences.</p>
+                            <div class="category-meta">
+                                <span class="tutorial-count">6 tutorials</span>
+                                <span class="difficulty-level">Intermediate</span>
                             </div>
-                            <div class="category-progress">
-                                <div class="progress-circle">
-                                    <span class="progress-text">0/2</span>
-                                </div>
-                            </div>
+                            <a href="javascript-tutorials.html" class="category-cta-btn">
+                                <span>Start Learning JavaScript</span>
+                                <i data-lucide="arrow-right"></i>
+                            </a>
                         </div>
-                        <div class="category-tutorials">
-                            <div class="tutorial-item" data-tutorial="interactive-button">
-                                <h3>Interactive Button</h3>
-                                <p>Add click interactions to buttons</p>
-                                <span class="difficulty beginner">Beginner</span>
-                            </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+
+        
+    <!-- Modals -->
+    <div id="modal-overlay" class="modal-overlay hidden"></div>
+    
+    <!-- Forge Profile Modal -->
+    <div id="forge-profile-modal" class="modal modal-large hidden">
+        <div class="forge-profile-header">
+            <div class="forge-profile-avatar">
+                <div class="forge-level-badge-large">
+                    <i data-lucide="flame"></i>
+                    <span id="profile-level">1</span>
+                </div>
+            </div>
+            <div class="forge-profile-info">
+                <h2 id="profile-title">Apprentice Smith</h2>
+                <div class="forge-profile-stats">
+                    <div class="stat">
+                        <span class="stat-value" id="profile-xp">0</span>
+                        <span class="stat-label">Total XP</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value" id="profile-streak">0</span>
+                        <span class="stat-label">Day Streak</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value" id="profile-achievements">0</span>
+                        <span class="stat-label">Achievements</span>
+                    </div>
+                </div>
+                <div class="forge-xp-progress">
+                    <div class="forge-xp-bar-bg">
+                        <div id="profile-xp-bar" class="forge-xp-bar" style="width: 0%"></div>
+                    </div>
+                    <span id="profile-xp-text" class="forge-xp-text">0/100 XP to next level</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="forge-profile-content">
+            <div class="forge-section">
+                <h3>
+                    <i data-lucide="trophy"></i>
+                    <span>Achievements</span>
+                </h3>
+                <div id="achievements-grid" class="achievements-grid">
+                    <!-- Achievements will be populated here -->
+                </div>
+            </div>
+            
+            <div class="forge-section">
+                <h3>
+                    <i data-lucide="bar-chart-3"></i>
+                    <span>Forge Statistics</span>
+                </h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i data-lucide="scroll-text"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="stat-tutorial-steps">0</span>
+                            <span class="stat-description">Tutorial Steps</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i data-lucide="book-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="stat-tutorials-complete">0</span>
+                            <span class="stat-description">Tutorials Complete</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i data-lucide="folder-plus"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="stat-projects-created">0</span>
+                            <span class="stat-description">Projects Created</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i data-lucide="package"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="stat-projects-exported">0</span>
+                            <span class="stat-description">Projects Exported</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         
-    <!-- Modals -->
-    <div id="modal-overlay" class="modal-overlay hidden"></div>
+        <div class="modal-actions">
+            <button class="btn cancel-btn">Close</button>
+        </div>
+    </div>
     
 
 
@@ -456,9 +666,80 @@
         <span>You're offline. Some features may not work properly.</span>
     </div>
 
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <img src="img/webforge-icon.png" alt="WebForge" class="footer-logo-img">
+                        <h3>WebForge</h3>
+                    </div>
+                    <p class="footer-description">Learn web development by building real websites in your browser. No installation required.</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-link" aria-label="GitHub">
+                            <i data-lucide="github"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Twitter">
+                            <i data-lucide="twitter"></i>
+                        </a>
+                        <a href="#" class="social-link" aria-label="Discord">
+                            <i data-lucide="message-circle"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Learn</h4>
+                        <ul>
+                            <li><a href="html-tutorials.html">HTML Tutorials</a></li>
+                            <li><a href="css-tutorials.html">CSS Tutorials</a></li>
+                            <li><a href="javascript-tutorials.html">JavaScript Tutorials</a></li>
+                            <li><a href="editor.html">Code Editor</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#" onclick="showPage('tutorial-hub')">Getting Started</a></li>
+                            <li><a href="#" onclick="showPage('tutorial-hub')">Documentation</a></li>
+                            <li><a href="#" onclick="showPage('tutorial-hub')">Examples</a></li>
+                            <li><a href="#" onclick="showPage('tutorial-hub')">Community</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Support</h4>
+                        <ul>
+                            <li><a href="#" onclick="showPage('tutorial-hub')">Help Center</a></li>
+                            <li><a href="#" onclick="showPage('tutorial-hub')">Contact Us</a></li>
+                            <li><a href="#" onclick="showPage('tutorial-hub')">Bug Reports</a></li>
+                            <li><a href="#" onclick="showPage('tutorial-hub')">Feature Requests</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2025 WebForge. Built for students, by developers.</p>
+                    <p class="creator-credit">Created by Earl John R. Goylos</p>
+                    <div class="footer-bottom-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Accessibility</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <!-- Load only essential scripts for landing page and tutorial hub -->
     <script src="js/models/types.js"></script>
     <script src="js/services/storage.js"></script>
+    <script src="js/services/forge-master.js"></script>
     <script src="js/services/tutorial.js"></script>
     <script src="js/app.js"></script>
 </body>

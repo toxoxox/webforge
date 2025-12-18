@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#3498db">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>HTML Tutorials - WebForge</title>
+    <meta name="description" content="Learn HTML fundamentals through hands-on tutorials. Master structure, semantics, and forms.">
+    <meta name="keywords" content="HTML tutorials, learn HTML, web development, HTML5, semantic markup, forms">
+    <meta name="author" content="WebForge">
+    <meta property="og:title" content="HTML Tutorials - WebForge">
+    <meta property="og:description" content="Learn HTML fundamentals through hands-on tutorials">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/png" href="img/webforge-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Roboto+Slab:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/tutorial-hub.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-brand">
+                <img src="img/webforge-icon.png" alt="WebForge" class="nav-logo">
+                <h1>WebForge</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html?page=tutorials" class="nav-link">Tutorials</a>
+                <a href="editor.html" class="nav-link">Editor</a>
+            </div>
+            <div class="nav-actions">
+                <!-- Forge Status -->
+                <div id="forge-status" class="forge-status">
+                    <div class="forge-level-badge">
+                        <i data-lucide="flame"></i>
+                        <span id="forge-level">1</span>
+                    </div>
+                    <div class="forge-info">
+                        <div id="forge-title" class="forge-title">Apprentice Smith</div>
+                        <div class="forge-xp-container">
+                            <div class="forge-xp-bar-bg">
+                                <div id="forge-xp-bar" class="forge-xp-bar" style="width: 0%"></div>
+                            </div>
+                            <span id="forge-xp-text" class="forge-xp-text">0/100 XP</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="mobile-menu-btn" class="btn-icon mobile-menu-btn" title="Menu">
+                    <i data-lucide="menu"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-nav" class="mobile-nav hidden">
+            <div class="mobile-nav-content">
+                <a href="index.html" class="mobile-nav-link">
+                    <i data-lucide="home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="index.html?page=tutorials" class="mobile-nav-link">
+                    <i data-lucide="book-open"></i>
+                    <span>Tutorials</span>
+                </a>
+                <a href="editor.html" class="mobile-nav-link">
+                    <i data-lucide="code"></i>
+                    <span>Editor</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- HTML Tutorial Category Page -->
+        <div class="page active">
+            <!-- HTML Hero Section -->
+            <section class="category-hero html-hero compact">
+                <div class="container">
+                    <div class="category-hero-content">
+                        <div class="category-hero-icon">
+                            <i data-lucide="layout-template"></i>
+                        </div>
+                        <h1>HTML Tutorials</h1>
+                        <p>HTML is the foundation of every website. Learn how to structure content, create forms, and write semantic markup that both browsers and search engines love.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- HTML Tutorials List -->
+            <section class="tutorials-list-section">
+                <div class="container">
+                    <div class="tutorials-grid">
+                        <div class="tutorial-card" data-tutorial="html-basics">
+                            <div class="tutorial-card-header">
+                                <div class="tutorial-icon">
+                                    <i data-lucide="file-text"></i>
+                                </div>
+                                <div class="tutorial-difficulty beginner">Beginner</div>
+                            </div>
+                            <h3>Your First HTML Page</h3>
+                            <p>Create your very first webpage from scratch. Learn about HTML tags, document structure, and how browsers read your code.</p>
+                            <div class="tutorial-details">
+                                <span class="duration">
+                                    <i data-lucide="clock"></i>
+                                    15 minutes
+                                </span>
+                                <span class="lessons">
+                                    <i data-lucide="book-open"></i>
+                                    4 lessons
+                                </span>
+                            </div>
+                            <button class="tutorial-start-btn">
+                                <span>Start Tutorial</span>
+                                <i data-lucide="play"></i>
+                            </button>
+                        </div>
+
+                        <div class="tutorial-card" data-tutorial="html-headings">
+                            <div class="tutorial-card-header">
+                                <div class="tutorial-icon">
+                                    <i data-lucide="heading"></i>
+                                </div>
+                                <div class="tutorial-difficulty beginner">Beginner</div>
+                            </div>
+                            <h3>Headings and Text Structure</h3>
+                            <p>Organize your content with proper headings, paragraphs, and text formatting. Make your pages easy to read and navigate.</p>
+                            <div class="tutorial-details">
+                                <span class="duration">
+                                    <i data-lucide="clock"></i>
+                                    20 minutes
+                                </span>
+                                <span class="lessons">
+                                    <i data-lucide="book-open"></i>
+                                    5 lessons
+                                </span>
+                            </div>
+                            <button class="tutorial-start-btn">
+                                <span>Start Tutorial</span>
+                                <i data-lucide="play"></i>
+                            </button>
+                        </div>
+
+                        <div class="tutorial-card" data-tutorial="html-links">
+                            <div class="tutorial-card-header">
+                                <div class="tutorial-icon">
+                                    <i data-lucide="link"></i>
+                                </div>
+                                <div class="tutorial-difficulty beginner">Beginner</div>
+                            </div>
+                            <h3>Links and Navigation</h3>
+                            <p>Connect your pages together with links. Learn about internal links, external links, and creating smooth navigation experiences.</p>
+                            <div class="tutorial-details">
+                                <span class="duration">
+                                    <i data-lucide="clock"></i>
+                                    18 minutes
+                                </span>
+                                <span class="lessons">
+                                    <i data-lucide="book-open"></i>
+                                    4 lessons
+                                </span>
+                            </div>
+                            <button class="tutorial-start-btn">
+                                <span>Start Tutorial</span>
+                                <i data-lucide="play"></i>
+                            </button>
+                        </div>
+
+                        <div class="tutorial-card" data-tutorial="html-forms">
+                            <div class="tutorial-card-header">
+                                <div class="tutorial-icon">
+                                    <i data-lucide="form-input"></i>
+                                </div>
+                                <div class="tutorial-difficulty intermediate">Intermediate</div>
+                            </div>
+                            <h3>Forms and User Input</h3>
+                            <p>Build contact forms, surveys, and user registration pages. Learn about different input types and form validation.</p>
+                            <div class="tutorial-details">
+                                <span class="duration">
+                                    <i data-lucide="clock"></i>
+                                    25 minutes
+                                </span>
+                                <span class="lessons">
+                                    <i data-lucide="book-open"></i>
+                                    6 lessons
+                                </span>
+                            </div>
+                            <button class="tutorial-start-btn">
+                                <span>Start Tutorial</span>
+                                <i data-lucide="play"></i>
+                            </button>
+                        </div>
+
+                        <div class="tutorial-card" data-tutorial="html-semantic">
+                            <div class="tutorial-card-header">
+                                <div class="tutorial-icon">
+                                    <i data-lucide="layout-template"></i>
+                                </div>
+                                <div class="tutorial-difficulty intermediate">Intermediate</div>
+                            </div>
+                            <h3>Semantic HTML Structure</h3>
+                            <p>Write meaningful HTML that search engines and screen readers understand. Learn about semantic tags and accessibility.</p>
+                            <div class="tutorial-details">
+                                <span class="duration">
+                                    <i data-lucide="clock"></i>
+                                    22 minutes
+                                </span>
+                                <span class="lessons">
+                                    <i data-lucide="book-open"></i>
+                                    5 lessons
+                                </span>
+                            </div>
+                            <button class="tutorial-start-btn">
+                                <span>Start Tutorial</span>
+                                <i data-lucide="play"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <div class="footer-logo">
+                            <img src="img/webforge-icon.png" alt="WebForge" class="footer-logo-img">
+                            <h3>WebForge</h3>
+                        </div>
+                        <p class="footer-description">Learn web development by building real websites in your browser. No installation required.</p>
+                        <div class="footer-social">
+                            <a href="#" class="social-link" aria-label="GitHub">
+                                <i data-lucide="github"></i>
+                            </a>
+                            <a href="#" class="social-link" aria-label="Twitter">
+                                <i data-lucide="twitter"></i>
+                            </a>
+                            <a href="#" class="social-link" aria-label="Discord">
+                                <i data-lucide="message-circle"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="footer-links">
+                        <div class="footer-column">
+                            <h4>Learn</h4>
+                            <ul>
+                                <li><a href="html-tutorials.html">HTML Tutorials</a></li>
+                                <li><a href="css-tutorials.html">CSS Tutorials</a></li>
+                                <li><a href="javascript-tutorials.html">JavaScript Tutorials</a></li>
+                                <li><a href="editor.html">Code Editor</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="footer-column">
+                            <h4>Resources</h4>
+                            <ul>
+                                <li><a href="index.html?page=tutorials">Getting Started</a></li>
+                                <li><a href="index.html?page=tutorials">Documentation</a></li>
+                                <li><a href="index.html?page=tutorials">Examples</a></li>
+                                <li><a href="index.html?page=tutorials">Community</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="footer-column">
+                            <h4>Support</h4>
+                            <ul>
+                                <li><a href="index.html?page=tutorials">Help Center</a></li>
+                                <li><a href="index.html?page=tutorials">Contact Us</a></li>
+                                <li><a href="index.html?page=tutorials">Bug Reports</a></li>
+                                <li><a href="index.html?page=tutorials">Feature Requests</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="footer-bottom">
+                    <div class="footer-bottom-content">
+                        <p>&copy; 2024 WebForge. Built for students, by developers.</p>
+                        <div class="footer-bottom-links">
+                            <a href="#">Privacy Policy</a>
+                            <a href="#">Terms of Service</a>
+                            <a href="#">Accessibility</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Load essential scripts -->
+        <script src="js/models/types.js"></script>
+        <script src="js/services/storage.js"></script>
+        <script src="js/services/forge-master.js"></script>
+        <script src="js/services/tutorial.js"></script>
+        <script>
+            // Initialize page functionality
+            document.addEventListener('DOMContentLoaded', function() {
+                // Initialize icons
+                lucide.createIcons();
+                
+                // Initialize Forge Master system
+                if (typeof ForgeMaster !== 'undefined') {
+                    ForgeMaster.updateStreak('default-user');
+                    const profile = ForgeMaster.getProfile('default-user');
+                    ForgeMaster.updateForgeUI(profile);
+                }
+                
+                // Mobile menu functionality
+                const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+                const mobileNav = document.getElementById('mobile-nav');
+                
+                if (mobileMenuBtn && mobileNav) {
+                    mobileMenuBtn.addEventListener('click', () => {
+                        mobileNav.classList.toggle('hidden');
+                    });
+                }
+                
+                // Tutorial start buttons
+                document.querySelectorAll('.tutorial-start-btn').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const card = button.closest('.tutorial-card');
+                        const tutorialId = card.dataset.tutorial;
+                        window.location.href = `editor.html?tutorial=${tutorialId}`;
+                    });
+                });
+            });
+        </script>
+    </div>
+</body>
+</html>

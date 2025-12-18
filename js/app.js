@@ -524,6 +524,9 @@ function updateTutorialProgress() {
 }
 
 function loadInitialState() {
+    // Initialize Forge Master system
+    initializeForgeMaster();
+    
     // Show landing page by default
     showPage('landing');
     
@@ -539,6 +542,34 @@ function loadInitialState() {
     
     // Initialize icons after DOM is ready
     setTimeout(initIcons, 100);
+}
+
+function initializeForgeMaster() {
+    if (typeof ForgeMaster !== 'undefined') {
+        // Update daily streak
+        ForgeMaster.updateStreak('default-user');
+        
+        // Update UI
+        const profile = ForgeMaster.getProfile('default-user');
+        ForgeMaster.updateForgeUI(profile);
+        
+        // Add click handler for forge status
+        const forgeStatus = document.getElementById('forge-status');
+        if (forgeStatus) {
+            forgeStatus.onclick = () => showForgeProfile();
+        }
+    }
+}
+
+function showForgeProfile() {
+    if (typeof ForgeMaster === 'undefined') return;
+    
+    const profile = ForgeMaster.getProfile('default-user');
+    const achievements = ForgeMaster.getAchievementProgress('default-user');
+    
+    // Create and show forge profile modal
+    showModal('forge-profile-modal');
+    renderForgeProfile(profile, achievements);
 }
 
 // Welcome Screen
@@ -1523,6 +1554,39 @@ function initializeUniversalEventListeners() {
         themeToggleBtn.onclick = () => {
             toggleTheme();
         };
+    }
+    
+    // Category card clicks on landing page
+    document.querySelectorAll('.category-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const category = card.dataset.category;
+            showPage('tutorial-hub');
+            // Scroll to the relevant category
+            setTimeout(() => {
+                const categoryElement = document.querySelector(`[data-category="${category}"]`);
+                if (categoryElement) {
+                    categoryElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 100);
+        });
+    });
+    
+    // Navbar scroll effect
+    const navbar = document.querySelector('.main-nav');
+    if (navbar) {
+        let lastScrollY = window.scrollY;
+        
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            
+            if (currentScrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            lastScrollY = currentScrollY;
+        });
     }
 }
 
@@ -2818,20 +2882,7 @@ document.getElementById('open-editor-btn')?.addEventListener('click', () => {
     window.location.href = 'editor.html';
 });
 
-// Category card clicks on landing page
-document.querySelectorAll('.category-card').forEach(card => {
-    card.addEventListener('click', () => {
-        const category = card.dataset.category;
-        showPage('tutorial-hub');
-        // Scroll to the relevant category
-        setTimeout(() => {
-            const categoryElement = document.querySelector(`[data-category="${category}"]`);
-            if (categoryElement) {
-                categoryElement.scrollIntoView({ behavior: 'smooth' });
-            }
-        }, 100);
-    });
-});
+
 
 // Tutorial Hub Event Listeners
 document.querySelectorAll('.tutorial-item').forEach(item => {
@@ -3192,3 +3243,140 @@ function showTutorialCompletionModal(tutorial) {
         }, 2000);
     }
 }
+function renderForgeProfile(profile, achievements) {
+    // Update profile header
+    document.getElementById('profile-level').textContent = profile.level;
+    document.getElementById('profile-title').textContent = profile.title;
+    document.getElementById('profile-xp').textContent = profile.xp.toLocaleString();
+    document.getElementById('profile-streak').textContent = profile.stats.currentStreak;
+    document.getElementById('profile-achievements').textContent = achievements.unlocked;
+    
+    // Update XP progress
+    const nextLevel = ForgeMaster.getXPForNextLevel(profile.xp);
+    const currentLevelXP = ForgeMaster.LEVELS.find(l => l.level === profile.level)?.xp || 0;
+    const progressXP = profile.xp - currentLevelXP;
+    const neededXP = nextLevel.total - currentLevelXP;
+    const percentage = nextLevel.isMaxLevel ? 100 : (progressXP / neededXP) * 100;
+    
+    document.getElementById('profile-xp-bar').style.width = `${percentage}%`;
+    document.getElementById('profile-xp-text').textContent = nextLevel.isMaxLevel 
+        ? 'MAX LEVEL REACHED' 
+        : `${progressXP}/${neededXP} XP to next level`;
+    
+    // Update statistics
+    document.getElementById('stat-tutorial-steps').textContent = profile.stats.tutorialStepsCompleted;
+    document.getElementById('stat-tutorials-complete').textContent = profile.stats.tutorialsCompleted;
+    document.getElementById('stat-projects-created').textContent = profile.stats.projectsCreated;
+    document.getElementById('stat-projects-exported').textContent = profile.stats.projectsExported;
+    
+    // Render achievements
+    const achievementsGrid = document.getElementById('achievements-grid');
+    achievementsGrid.innerHTML = '';
+    
+    Object.values(ForgeMaster.ACHIEVEMENTS).forEach(achievement => {
+        const isUnlocked = profile.achievements.includes(achievement.id);
+        const unlockedData = profile.unlockedAchievements.find(a => a.id === achievement.id);
+        
+        const card = document.createElement('div');
+        card.className = `achievement-card ${isUnlocked ? 'unlocked' : 'locked'}`;
+        
+        card.innerHTML = `
+            <div class="achievement-rarity ${achievement.rarity}">${achievement.rarity}</div>
+            <div class="achievement-icon">
+                <i data-lucide="${achievement.icon}"></i>
+            </div>
+            <div class="achievement-name">${achievement.name}</div>
+            <div class="achievement-description">${achievement.description}</div>
+            ${isUnlocked && unlockedData ? `<div class="achievement-date">Unlocked: ${new Date(unlockedData.unlockedAt).toLocaleDateString()}</div>` : ''}
+        `;
+        
+        achievementsGrid.appendChild(card);
+    });
+    
+    // Initialize icons
+    initIcons();
+}
+
+// Hook into existing tutorial and project functions to award XP
+function awardForgeXP(action, amount, reason) {
+    if (typeof ForgeMaster !== 'undefined') {
+        ForgeMaster.awardXP('default-user', amount, reason);
+    }
+}
+
+// Override tutorial completion to award XP
+const originalNextStep = TutorialEngine.nextStep;
+TutorialEngine.nextStep = function() {
+    const result = originalNextStep.call(this);
+    
+    if (result && !result.completed) {
+        // Award XP for step completion
+        ForgeMaster.recordTutorialStep('default-user');
+    } else if (result && result.completed) {
+        // Award XP for tutorial completion
+        ForgeMaster.recordTutorialComplete('default-user', this.currentTutorial.id);
+    }
+    
+    return result;
+};
+
+// Override project creation to award XP
+const originalCreateProject = ProjectService.createProject;
+ProjectService.createProject = function(name, templateId) {
+    const project = originalCreateProject.call(this, name, templateId);
+    
+    // Award XP for project creation
+    ForgeMaster.recordProjectCreate('default-user');
+    
+    return project;
+};
+
+// Override project export to award XP
+const originalExportProject = ProjectService.exportProject;
+ProjectService.exportProject = async function(projectId) {
+    const result = await originalExportProject.call(this, projectId);
+    
+    // Award XP for project export
+    ForgeMaster.recordProjectExport('default-user');
+    
+    return result;
+};
+// Tutorial Navigation Event Listeners
+document.addEventListener('DOMContentLoaded', function() {
+    // Tutorial category navigation is now handled by direct links to separate HTML files
+    
+    // Tutorial start buttons and back navigation are now handled in separate HTML files
+});
+
+// Tutorial category pages are now separate HTML files, so no special handling needed in showPage
+
+// Update navigation highlighting for tutorial pages
+const originalUpdateNavigation = updateNavigation;
+updateNavigation = function(activePageId) {
+    // Clear all active states
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+    });
+    
+    // Set active state based on page
+    if (activePageId === 'landing') {
+        document.getElementById('nav-landing')?.classList.add('active');
+    } else if (activePageId === 'tutorial-hub' || activePageId.includes('tutorials')) {
+        document.getElementById('nav-tutorial-hub')?.classList.add('active');
+    } else if (activePageId === 'editor') {
+        document.getElementById('nav-editor')?.classList.add('active');
+    }
+    
+    // Update mobile nav if it exists
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.classList.remove('active');
+    });
+    
+    if (activePageId === 'landing') {
+        document.querySelector('.mobile-nav-link[href="index.html"]')?.classList.add('active');
+    } else if (activePageId === 'tutorial-hub' || activePageId.includes('tutorials')) {
+        document.querySelector('.mobile-nav-link[href="index.html?page=tutorials"]')?.classList.add('active');
+    } else if (activePageId === 'editor') {
+        document.querySelector('.mobile-nav-link[href="editor.html"]')?.classList.add('active');
+    }
+};
