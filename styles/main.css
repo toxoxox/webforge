@@ -1079,13 +1079,13 @@ html {
 
 /* Tutorial Hub Hero Section */
 .tutorial-hero {
-    padding: 8rem 2rem 4rem;
+    padding: 5rem 2rem 3rem;
     background: linear-gradient(135deg, 
         rgba(65, 35, 25, 0.9) 0%, 
         rgba(45, 25, 20, 0.95) 50%, 
         rgba(35, 20, 15, 1) 100%
     );
-    min-height: 50vh;
+    min-height: 35vh;
     display: flex;
     align-items: center;
     position: relative;
@@ -1167,9 +1167,9 @@ html {
 
 .tutorial-category-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 3rem;
-    max-width: 1200px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
@@ -1271,6 +1271,7 @@ html {
     justify-content: center;
     gap: 0.5rem;
     width: 100%;
+    text-decoration: none;
 }
 
 .category-cta-btn:hover {
@@ -1527,10 +1528,18 @@ html {
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+    .tutorial-category-cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+        max-width: 800px;
+    }
+}
+
 @media (max-width: 768px) {
     .tutorial-hero {
-        padding: 6rem 1rem 3rem;
-        min-height: 40vh;
+        padding: 4rem 1rem 2rem;
+        min-height: 30vh;
     }
     
     .tutorial-hero h1 {
