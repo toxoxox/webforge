@@ -1259,11 +1259,6 @@ function escapeHtml(text) {
 window.addEventListener('message', (event) => {
     if (event.data && event.data.type === 'console') {
         addConsoleMessage(event.data.level, event.data.message, event.data.timestamp);
-        
-        // Auto-show console on errors
-        if (event.data.level === 'error' && !consoleVisible) {
-            toggleConsole();
-        }
     }
 });
 
