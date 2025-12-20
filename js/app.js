@@ -1575,6 +1575,13 @@ function initializeEditorEventListeners() {
             hideWelcomeScreen();
         };
     }
+    
+    const welcomeCloseXBtn = document.getElementById('welcome-close-x');
+    if (welcomeCloseXBtn) {
+        welcomeCloseXBtn.onclick = () => {
+            hideWelcomeScreen();
+        };
+    }
 }
 
 // Universal event listeners (work on both index and editor pages)
