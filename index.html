@@ -27,58 +27,8 @@
 </head>
 <body>
     <div id="app">
-        <!-- Navigation -->
-        <nav class="main-nav">
-            <div class="nav-brand">
-                <img src="img/webforge-icon.png" alt="WebForge" class="nav-logo">
-                <h1>WebForge</h1>
-            </div>
-            <div class="nav-links">
-                <a href="index.html" id="nav-landing" class="nav-link active">Home</a>
-                <a href="index.html?page=tutorials" id="nav-tutorial-hub" class="nav-link">Tutorials</a>
-                <a href="editor.html" id="nav-editor" class="nav-link">Editor</a>
-            </div>
-            <div class="nav-actions">
-                <!-- Forge Status -->
-                <div id="forge-status" class="forge-status">
-                    <div class="forge-level-badge">
-                        <i data-lucide="flame"></i>
-                        <span id="forge-level">1</span>
-                    </div>
-                    <div class="forge-info">
-                        <div id="forge-title" class="forge-title">Apprentice Smith</div>
-                        <div class="forge-xp-container">
-                            <div class="forge-xp-bar-bg">
-                                <div id="forge-xp-bar" class="forge-xp-bar" style="width: 0%"></div>
-                            </div>
-                            <span id="forge-xp-text" class="forge-xp-text">0/100 XP</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <button id="mobile-menu-btn" class="btn-icon mobile-menu-btn" title="Menu">
-                    <i data-lucide="menu"></i>
-                </button>
-            </div>
-        </nav>
-
-        <!-- Mobile Navigation Menu -->
-        <div id="mobile-nav" class="mobile-nav hidden">
-            <div class="mobile-nav-content">
-                <a href="index.html" class="mobile-nav-link active">
-                    <i data-lucide="home"></i>
-                    <span>Home</span>
-                </a>
-                <a href="index.html?page=tutorials" class="mobile-nav-link">
-                    <i data-lucide="book-open"></i>
-                    <span>Tutorials</span>
-                </a>
-                <a href="editor.html" class="mobile-nav-link">
-                    <i data-lucide="code"></i>
-                    <span>Editor</span>
-                </a>
-            </div>
-        </div>
+        <!-- Navigation Container -->
+        <div id="navbar-container"></div>
 
         <!-- Landing Page -->
         <div id="landing-page" class="page active">
@@ -86,16 +36,22 @@
             <section class="hero-section">
                 <div class="hero-content">
                     <h1 class="hero-title">Forge Your Web Development Skills</h1>
-                    <p class="hero-description">Learn HTML, CSS, and JavaScript by building real websites in the forge's fire. Interactive workshop. Write code, see it live, and export finished projects.</p>
+                    <p class="hero-description">Build real website components. No installs. No long courses. Just build.</p>
                     <div class="hero-actions">
-                        <a href="editor.html" class="btn btn-primary btn-large">
+                        <a href="components.html" class="btn btn-primary btn-large btn-with-subtext">
                             <i data-lucide="hammer"></i>
-                            <span>Enter the Forge</span>
+                            <div class="btn-text-wrapper">
+                                <span class="btn-main-text">Browse Components</span>
+                                <small class="btn-subtext">Grab ready-made parts</small>
+                            </div>
                         </a>
-                        <button id="start-learning-btn" class="btn btn-secondary btn-large">
-                            <i data-lucide="scroll-text"></i>
-                            <span>Begin Your Apprenticeship</span>
-                        </button>
+                        <a href="editor.html" class="btn btn-secondary btn-large btn-with-subtext">
+                            <i data-lucide="code"></i>
+                            <div class="btn-text-wrapper">
+                                <span class="btn-main-text">Enter the Forge</span>
+                                <small class="btn-subtext">Jump into the editor</small>
+                            </div>
+                        </a>
                     </div>
                 </div>
                 <div class="hero-visual">
@@ -117,12 +73,124 @@
                 </div>
             </section>
 
+            <!-- Featured Components Section -->
+            <section class="featured-components">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Featured Forgings</h2>
+                        <p class="section-subtitle">Ready-made parts you can use instantly</p>
+                    </div>
+                    
+                    <div class="featured-grid">
+                        <div class="featured-component-card">
+                            <div class="component-preview">
+                                <div class="preview-navbar">
+                                    <div class="preview-nav-brand"></div>
+                                    <div class="preview-nav-links">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="component-info">
+                                <h3>Responsive Navbar</h3>
+                                <div class="component-tags">
+                                    <span class="tag">Responsive</span>
+                                    <span class="tag">Mobile-first</span>
+                                </div>
+                                <a href="components.html?filter=navigation" class="component-action-btn">
+                                    <span>Use This</span>
+                                    <i data-lucide="arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="featured-component-card">
+                            <div class="component-preview">
+                                <div class="preview-card">
+                                    <div class="preview-card-image"></div>
+                                    <div class="preview-card-content">
+                                        <div class="preview-card-title"></div>
+                                        <div class="preview-card-text"></div>
+                                        <div class="preview-card-text short"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="component-info">
+                                <h3>Card Layout</h3>
+                                <div class="component-tags">
+                                    <span class="tag">No JS</span>
+                                    <span class="tag">Flexible</span>
+                                </div>
+                                <a href="components.html?filter=ui-elements" class="component-action-btn">
+                                    <span>Use This</span>
+                                    <i data-lucide="arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="featured-component-card">
+                            <div class="component-preview">
+                                <div class="preview-footer">
+                                    <div class="preview-footer-columns">
+                                        <div class="preview-footer-col"></div>
+                                        <div class="preview-footer-col"></div>
+                                        <div class="preview-footer-col"></div>
+                                    </div>
+                                    <div class="preview-footer-bottom"></div>
+                                </div>
+                            </div>
+                            <div class="component-info">
+                                <h3>Footer</h3>
+                                <div class="component-tags">
+                                    <span class="tag">Responsive</span>
+                                    <span class="tag">No JS</span>
+                                </div>
+                                <a href="components.html?filter=layout" class="component-action-btn">
+                                    <span>Use This</span>
+                                    <i data-lucide="arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="featured-component-card">
+                            <div class="component-preview">
+                                <div class="preview-form">
+                                    <div class="preview-input"></div>
+                                    <div class="preview-input"></div>
+                                    <div class="preview-button"></div>
+                                </div>
+                            </div>
+                            <div class="component-info">
+                                <h3>Contact Form</h3>
+                                <div class="component-tags">
+                                    <span class="tag">Validated</span>
+                                    <span class="tag">Accessible</span>
+                                </div>
+                                <a href="components.html?filter=forms" class="component-action-btn">
+                                    <span>Use This</span>
+                                    <i data-lucide="arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section-cta">
+                        <a href="components.html" class="btn btn-large">
+                            <i data-lucide="box"></i>
+                            <span>View All Components</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
             <!-- How It Works -->
             <section class="how-it-works">
                 <div class="container">
                     <div class="section-header">
                         <h2>How It Works</h2>
-                        <p class="section-subtitle">Forge real websites in three simple steps</p>
+                        <p class="section-subtitle">Build and assemble in three steps</p>
                     </div>
                     
                     <div class="workflow-container">
@@ -139,8 +207,8 @@
                                 <div class="iso-glow"></div>
                             </div>
                             <div class="card-content">
-                                <h3>1. Start a Project</h3>
-                                <p>Begin your journey with a blank canvas, selecting a template or starting from scratch.</p>
+                                <h3>1. Pick a Component</h3>
+                                <p>Browse navbars, cards, forms, and more. Grab what you need.</p>
                             </div>
                         </div>
                         
@@ -162,15 +230,15 @@
                                     </div>
                                     <div class="code-cursor"></div>
                                 </div>
-                                <div class="code-sparks">
+                                <code class="code-sparks">
                                     <div class="spark"></div>
                                     <div class="spark"></div>
                                     <div class="spark"></div>
-                                </div>
+                                </code>
                             </div>
                             <div class="card-content">
-                                <h3>2. Write Code</h3>
-                                <p>Write and refine your code in a clean, intuitive environment with intelligent suggestions.</p>
+                                <h3>2. Customize It</h3>
+                                <p>Tweak colors, text, and layout in the live editor.</p>
                             </div>
                         </div>
                         
@@ -195,40 +263,21 @@
                                 <div class="preview-glow"></div>
                             </div>
                             <div class="card-content">
-                                <h3>3. See It Live</h3>
-                                <p>Instantly preview your changes in real-time, watching your creation take shape before your eyes.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="workflow-card" data-step="4">
-                            <div class="card-illustration">
-                                <div class="export-rocket">
-                                    <div class="rocket-body"></div>
-                                    <div class="rocket-fins"></div>
-                                    <div class="rocket-flame"></div>
-                                    <div class="rocket-trail"></div>
-                                </div>
-                                <div class="export-stars">
-                                    <div class="star"></div>
-                                    <div class="star"></div>
-                                    <div class="star"></div>
-                                </div>
-                            </div>
-                            <div class="card-content">
-                                <h3>4. Export & Share</h3>
-                                <p>Deploy your project to the web or share it with others, ready for the world to see.</p>
+                                <h3>3. Use It</h3>
+                                <p>Export and drop it into your project. Done.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Tutorial Categories Preview -->
+            <!-- Three Disciplines Section -->
             <section class="categories-preview">
                 <div class="container">
-                    <h2>Master the Three Disciplines</h2>
+                    <h2>The Three Disciplines</h2>
+                    <p class="disciplines-intro">Skills you'll use while building components</p>
                     <div class="category-cards">
-                        <a href="html-tutorials.html" class="card category-card">
+                        <div class="card category-card">
                             <div class="tools">
                                 <div class="circle">
                                     <span class="red box"></span>
@@ -245,15 +294,13 @@
                                     <i data-lucide="layout-template"></i>
                                 </div>
                                 <h3>HTML Forging</h3>
-                                <p>Shape the foundation - structure, semantics, and forms</p>
+                                <p>Structure your components with semantic markup</p>
                                 <div class="category-examples">
-                                    <span>Navigation Frames</span>
-                                    <span>Hero Foundations</span>
-                                    <span>Contact Vessels</span>
+                                    <span>Used in all components</span>
                                 </div>
                             </div>
-                        </a>
-                        <a href="css-tutorials.html" class="card category-card">
+                        </div>
+                        <div class="card category-card">
                             <div class="tools">
                                 <div class="circle">
                                     <span class="red box"></span>
@@ -270,15 +317,13 @@
                                     <i data-lucide="paintbrush"></i>
                                 </div>
                                 <h3>CSS Artistry</h3>
-                                <p>Polish and beautify - layouts, styling, and responsiveness</p>
+                                <p>Style and polish your components to perfection</p>
                                 <div class="category-examples">
-                                    <span>Flexbox Mastery</span>
-                                    <span>Card Crafting</span>
-                                    <span>Responsive Tempering</span>
+                                    <span>Make it look good</span>
                                 </div>
                             </div>
-                        </a>
-                        <a href="javascript-tutorials.html" class="card category-card">
+                        </div>
+                        <div class="card category-card">
                             <div class="tools">
                                 <div class="circle">
                                     <span class="red box"></span>
@@ -295,14 +340,12 @@
                                     <i data-lucide="zap"></i>
                                 </div>
                                 <h3>JavaScript Enchantment</h3>
-                                <p>Breathe life into your creations - interactions and logic</p>
+                                <p>Add interactivity when components need it</p>
                                 <div class="category-examples">
-                                    <span>Menu Mechanisms</span>
-                                    <span>Interactive Triggers</span>
-                                    <span>Form Validation</span>
+                                    <span>For dynamic features</span>
                                 </div>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -662,77 +705,11 @@
         <span>You're offline. Some features may not work properly.</span>
     </div>
 
-    <!-- Footer -->
-    <footer class="main-footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="footer-logo">
-                        <img src="img/webforge-icon.png" alt="WebForge" class="footer-logo-img">
-                        <h3>WebForge</h3>
-                    </div>
-                    <p class="footer-description">Learn web development by building real websites in your browser. No installation required.</p>
-                    <div class="footer-social">
-                        <a href="#" class="social-link" aria-label="GitHub">
-                            <i data-lucide="github"></i>
-                        </a>
-                        <a href="#" class="social-link" aria-label="Twitter">
-                            <i data-lucide="twitter"></i>
-                        </a>
-                        <a href="#" class="social-link" aria-label="Discord">
-                            <i data-lucide="message-circle"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="footer-links">
-                    <div class="footer-column">
-                        <h4>Learn</h4>
-                        <ul>
-                            <li><a href="html-tutorials.html">HTML Tutorials</a></li>
-                            <li><a href="css-tutorials.html">CSS Tutorials</a></li>
-                            <li><a href="javascript-tutorials.html">JavaScript Tutorials</a></li>
-                            <li><a href="editor.html">Code Editor</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>Resources</h4>
-                        <ul>
-                            <li><a href="#" onclick="showPage('tutorial-hub')">Getting Started</a></li>
-                            <li><a href="#" onclick="showPage('tutorial-hub')">Documentation</a></li>
-                            <li><a href="#" onclick="showPage('tutorial-hub')">Examples</a></li>
-                            <li><a href="#" onclick="showPage('tutorial-hub')">Community</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-column">
-                        <h4>Support</h4>
-                        <ul>
-                            <li><a href="#" onclick="showPage('tutorial-hub')">Help Center</a></li>
-                            <li><a href="#" onclick="showPage('tutorial-hub')">Contact Us</a></li>
-                            <li><a href="#" onclick="showPage('tutorial-hub')">Bug Reports</a></li>
-                            <li><a href="#" onclick="showPage('tutorial-hub')">Feature Requests</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <div class="footer-bottom-content">
-                    <p>&copy; 2025 WebForge. Built for students, by developers.</p>
-                    <p class="creator-credit">Created by Earl John R. Goylos</p>
-                    <div class="footer-bottom-links">
-                        <a href="#">Privacy Policy</a>
-                        <a href="#">Terms of Service</a>
-                        <a href="#">Accessibility</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- Footer Container -->
+    <div id="footer-container"></div>
 
-    <!-- Load only essential scripts for landing page and tutorial hub -->
+    <!-- Load component loader first -->
+    <script src="js/component-loader.js"></script>
     <script src="js/models/types.js"></script>
     <script src="js/services/storage.js"></script>
     <script src="js/services/forge-master.js"></script>

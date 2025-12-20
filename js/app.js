@@ -431,7 +431,7 @@ if (typeof require !== 'undefined') {
 }
 
 // Page Management
-let currentPage = 'landing';
+let currentPage = window.location.pathname.includes('editor.html') ? 'editor' : 'landing';
 
 function showPage(pageId) {
     // Hide all pages
@@ -469,6 +469,13 @@ function updateNavigation(activePageId) {
 }
 
 function initializeEditor() {
+    // On editor.html, editor-init.js handles Monaco initialization
+    // We just need to ensure projects are loaded if editor already exists
+    if (window.location.pathname.includes('editor.html')) {
+        // editor-init.js will handle the full initialization
+        return;
+    }
+    
     // Only initialize Monaco if we're on the editor page and it hasn't been initialized
     if (!editor && currentPage === 'editor' && window.initializeMonacoEditor) {
         // Initialize Monaco Editor
@@ -527,17 +534,20 @@ function loadInitialState() {
     // Initialize Forge Master system
     initializeForgeMaster();
     
-    // Show landing page by default
-    showPage('landing');
-    
-    // Check if user should be redirected to editor (for direct links or returning users)
-    const urlParams = new URLSearchParams(window.location.search);
-    const page = urlParams.get('page');
-    
-    if (page === 'editor') {
-        showPage('editor');
-    } else if (page === 'tutorials') {
-        showPage('tutorial-hub');
+    // Only run page management if we're on the main index.html (not editor.html)
+    if (!window.location.pathname.includes('editor.html')) {
+        // Show landing page by default
+        showPage('landing');
+        
+        // Check if user should be redirected to editor (for direct links or returning users)
+        const urlParams = new URLSearchParams(window.location.search);
+        const page = urlParams.get('page');
+        
+        if (page === 'editor') {
+            showPage('editor');
+        } else if (page === 'tutorials') {
+            showPage('tutorial-hub');
+        }
     }
     
     // Initialize icons after DOM is ready
@@ -575,19 +585,20 @@ function showForgeProfile() {
 // Welcome Screen
 function showWelcomeScreen() {
     const welcomeScreen = document.getElementById('welcome-screen');
-    welcomeScreen.classList.remove('hidden');
-    initIcons();
+    if (welcomeScreen) {
+        welcomeScreen.classList.remove('hidden');
+        initIcons();
+    } else {
+        console.warn('Welcome screen element not found');
+    }
 }
 
 function hideWelcomeScreen() {
     const welcomeScreen = document.getElementById('welcome-screen');
-    const dontShow = document.getElementById('welcome-dont-show').checked;
-    
-    if (dontShow) {
+    if (welcomeScreen) {
+        welcomeScreen.classList.add('hidden');
         localStorage.setItem('webforge-welcome-seen', 'true');
     }
-    
-    welcomeScreen.classList.add('hidden');
 }
 
 // Welcome screen functionality (only if element exists)
@@ -1156,6 +1167,9 @@ document.addEventListener('DOMContentLoaded', () => {
             initializeTutorialEventListeners();
             initializeCollaborationEventListeners();
             initializeTutorialBrowserEventListeners();
+            
+            // Initialize editor and load projects
+            initializeEditor();
         }
         
         // Initialize Lucide icons
@@ -1543,6 +1557,22 @@ function initializeEditorEventListeners() {
     if (consoleCloseBtn) {
         consoleCloseBtn.onclick = () => {
             toggleConsole();
+        };
+    }
+    
+    // Welcome screen buttons
+    const welcomeNewProjectBtn = document.getElementById('welcome-new-project');
+    if (welcomeNewProjectBtn) {
+        welcomeNewProjectBtn.onclick = () => {
+            hideWelcomeScreen();
+            setTimeout(() => showModal('new-project-modal'), 300);
+        };
+    }
+    
+    const welcomeCloseBtn = document.getElementById('welcome-close');
+    if (welcomeCloseBtn) {
+        welcomeCloseBtn.onclick = () => {
+            hideWelcomeScreen();
         };
     }
 }
@@ -2874,7 +2904,7 @@ document.getElementById('nav-editor')?.addEventListener('click', (e) => {
 
 // Landing Page Event Listeners
 document.getElementById('start-learning-btn')?.addEventListener('click', () => {
-    showPage('tutorial-hub');
+    window.location.href = 'components.html';
 });
 
 document.getElementById('open-editor-btn')?.addEventListener('click', () => {

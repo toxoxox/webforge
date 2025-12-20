@@ -17,32 +17,34 @@
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/editor.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/editor/editor.main.min.css">
+    <style>
+        /* CRITICAL OVERRIDE: Force transparent navbar on editor page */
+        body.editor-page .main-nav {
+            background: transparent !important;
+            background-color: transparent !important;
+            background-image: none !important;
+            border: none !important;
+            border-bottom: 1px solid transparent !important;
+            box-shadow: none !important;
+            backdrop-filter: none !important;
+        }
+        
+        body.editor-page .main-nav.scrolled {
+            background: #1e1e1e !important;
+            background-color: #1e1e1e !important;
+            border-bottom: 1px solid #2d2d30 !important;
+        }
+    </style>
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body>
+<body class="editor-page">
     <div id="app">
-        <!-- Navigation -->
-        <nav class="main-nav">
-            <div class="nav-brand">
-                <img src="img/webforge-icon.png" alt="WebForge" class="nav-logo">
-                <h1>WebForge</h1>
-            </div>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="index.html?page=tutorials" class="nav-link">Tutorials</a>
-                <a href="editor.html" class="nav-link active">Editor</a>
-            </div>
-            <div class="nav-actions">
-            </div>
-        </nav>
+        <!-- Navigation Container -->
+        <div id="navbar-container"></div>
 
         <!-- Code Editor (Direct Access) -->
         <div class="page active">
             <header class="editor-header">
-                <div class="header-brand">
-                    <img src="img/webforge-icon.png" alt="WebForge" class="header-logo">
-                    <h1>WebForge</h1>
-                </div>
                 <div class="header-actions">
                     <button id="new-project-btn" class="btn btn-primary">
                         <i data-lucide="plus"></i>
@@ -138,8 +140,8 @@
                             </div>
                         </div>
                         <div class="preview-wrapper">
-                            <!-- Note: allow-scripts and allow-same-origin are needed for educational preview functionality -->
-                            <iframe id="preview" sandbox="allow-scripts allow-same-origin"></iframe>
+                            <!-- Educational preview iframe - allow-same-origin needed for live preview updates -->
+                            <iframe id="preview" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals"></iframe>
                         </div>
                         <div id="a11y-panel" class="a11y-panel hidden">
                             <div class="a11y-header">
@@ -172,6 +174,18 @@
                     </div>
                 </div>
                 <div id="console-output"></div>
+            </div>
+
+            <!-- Welcome Screen -->
+            <div id="welcome-screen" class="welcome-screen hidden">
+                <div class="welcome-content">
+                    <h2>Welcome to WebForge Editor</h2>
+                    <p>Start building your web projects with our professional code editor.</p>
+                    <div class="welcome-actions">
+                        <button id="welcome-new-project" class="btn btn-primary">Create New Project</button>
+                        <button id="welcome-close" class="btn">Get Started</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -328,7 +342,11 @@
     <!-- Toast Notifications -->
     <div id="toast-container"></div>
 
+    <!-- Footer Container -->
+    <div id="footer-container"></div>
+
     <!-- Load all scripts -->
+    <script src="js/component-loader.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.8.2/axe.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
@@ -352,52 +370,32 @@
     <script src="js/services/snippet.js"></script>
     <script src="js/services/accessibility.js"></script>
     <script src="js/services/collaboration.js"></script>
+    <script src="js/services/forge-master.js"></script>
+    <script src="js/services/component.js"></script>
     <script src="js/html-autocomplete.js"></script>
+    <script src="js/editor-init.js"></script>
+    <script src="js/app.js"></script>
     <script>
-        // Direct editor initialization
-        currentPage = 'editor';
-        
-        // Initialize Monaco Editor immediately for direct editor access
-        require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs' } });
-        require(['vs/editor/editor.main'], function () {
-            // Wait for app.js to load and define the function
-            const initEditor = () => {
-                if (typeof window.initializeMonacoEditor === 'function') {
-                    window.initializeMonacoEditor();
-                    
-                    // Load projects after Monaco is initialized
-                    setTimeout(() => {
-                        const projects = ProjectService.listProjects();
-                        renderProjectsList(projects);
-
-                        if (projects.length > 0) {
-                            const lastProject = ProjectService.getCurrentProject() || projects[0];
-                            loadProject(lastProject.id);
-                        }
-                        
-                        // Show welcome screen for first-time users
-                        const hasSeenWelcome = localStorage.getItem('webforge-welcome-seen');
-                        if (!hasSeenWelcome) {
-                            showWelcomeScreen();
-                        } else {
-                            // Try to restore tutorial state for returning users
-                            restoreTutorialState();
-                        }
-                        
-                        // Initialize icons
-                        if (typeof lucide !== 'undefined') {
-                            lucide.createIcons();
-                        }
-                    }, 100);
-                } else {
-                    // Retry after a short delay
-                    setTimeout(initEditor, 100);
-                }
-            };
+        // Initialize page after everything loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
             
-            initEditor();
+            // Set active nav link for editor page
+            const editorNavLink = document.getElementById('nav-editor');
+            if (editorNavLink) {
+                editorNavLink.classList.add('active');
+            }
+            
+            // Initialize Forge Master system
+            if (typeof ForgeMaster !== 'undefined') {
+                ForgeMaster.updateStreak('default-user');
+                const profile = ForgeMaster.getProfile('default-user');
+                ForgeMaster.updateForgeUI(profile);
+            }
         });
     </script>
-    <script src="js/app.js"></script>
 </body>
 </html>

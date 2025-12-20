@@ -8,15 +8,62 @@
 }
 
 .editor-header {
-    background: var(--primary);
-    color: white;
-    padding: 0.875rem 1.5rem;
+    background: #1e1e1e;
+    color: #cccccc;
+    padding: 0.5rem 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: var(--shadow-lg);
+    border-bottom: 1px solid #2d2d30;
     position: relative;
     z-index: 50;
+    height: 35px;
+    flex-shrink: 0;
+}
+
+.header-actions {
+    display: flex;
+    gap: 0.25rem;
+    align-items: center;
+    flex: 1;
+}
+
+.header-actions .btn {
+    background: transparent;
+    border: none;
+    color: #cccccc;
+    padding: 4px 8px;
+    font-size: 13px;
+    height: 28px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: background 0.1s ease;
+    cursor: pointer;
+}
+
+.header-actions .btn:hover {
+    background: #2a2d2e;
+    color: #ffffff;
+}
+
+.header-actions .btn i {
+    width: 16px;
+    height: 16px;
+}
+
+.header-actions .btn span {
+    font-size: 13px;
+}
+
+.header-actions .btn-primary {
+    background: #0e639c;
+    color: #ffffff;
+}
+
+.header-actions .btn-primary:hover {
+    background: #1177bb;
 }
 
 .editor-main-container {
@@ -76,68 +123,74 @@
 }
 
 /* Sidebar */
+/* Sidebar - VS Code Style */
 .sidebar {
     width: 260px;
-    background: var(--sidebar-bg);
-    border-right: 1px solid var(--border-color);
+    background: #252526;
+    border-right: 1px solid #2d2d30;
     overflow-y: auto;
-    padding: 1.25rem;
-    box-shadow: var(--shadow-sm);
+    padding: 0.5rem 0;
     transition: background-color 0.3s ease;
 }
 
 .sidebar-section {
-    margin-bottom: 1.75rem;
+    margin-bottom: 1rem;
+    padding: 0 0.5rem;
 }
 
 .sidebar-section h3 {
-    font-size: 0.75rem;
-    color: var(--text-tertiary);
-    margin-bottom: 0.75rem;
+    font-size: 11px;
+    color: #cccccc;
+    margin-bottom: 0.5rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     font-weight: 600;
+    padding: 0 0.5rem;
 }
 
 .sidebar-section .btn-small {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
+    background: transparent;
+    border: none;
+    color: #cccccc;
+    padding: 4px 8px;
+    font-size: 13px;
+    border-radius: 3px;
+    width: 100%;
+    text-align: left;
+    transition: background 0.1s ease;
 }
 
-.sidebar-section .btn-small:last-of-type {
-    margin-bottom: 0.75rem;
+.sidebar-section .btn-small:hover {
+    background: #2a2d2e;
 }
 
 #projects-list, #files-tree {
-    margin-top: 0.5rem;
+    margin-top: 0.25rem;
 }
 
 .project-item, .file-item {
-    padding: 0.625rem 0.75rem;
-    margin: 0.25rem 0;
-    background: var(--sidebar-item-bg);
-    border: 1px solid transparent;
-    border-radius: var(--radius-sm);
+    padding: 4px 8px;
+    margin: 1px 0;
+    background: transparent;
+    border: none;
+    border-radius: 3px;
     cursor: pointer;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    font-size: 0.875rem;
-    color: var(--text-primary);
+    transition: background 0.1s ease;
+    font-size: 13px;
+    color: #cccccc;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 6px;
 }
 
 .project-item:hover, .file-item:hover {
-    background: var(--sidebar-item-hover);
-    border-color: var(--border-color);
-    transform: translateX(2px);
+    background: #2a2d2e;
 }
 
 .project-item.active, .file-item.active {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-    box-shadow: var(--shadow);
-    font-weight: 500;
+    background: #37373d;
+    color: #ffffff;
 }
 
 .file-item {
@@ -187,12 +240,12 @@
     color: #ff6b6b;
 }
 
-/* Workspace */
+/* Workspace - VS Code Style */
 .workspace {
     flex: 1;
     display: flex;
     overflow: hidden;
-    background: var(--bg-tertiary);
+    background: #1e1e1e;
     transition: background-color 0.3s ease;
 }
 
@@ -200,22 +253,24 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    background: var(--bg-primary);
+    background: #1e1e1e;
     transition: background-color 0.3s ease;
 }
 
-.editor-header, .preview-header {
-    background: var(--editor-header-bg);
-    color: var(--editor-header-text);
-    padding: 0.625rem 1rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    border-bottom: 1px solid var(--border-color);
+.editor-container .editor-header, .preview-header {
+    background: #1e1e1e;
+    color: #cccccc;
+    padding: 0.5rem 1rem;
+    font-size: 13px;
+    font-weight: 400;
+    border-bottom: 1px solid #2d2d30;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 0.5rem;
     transition: background-color 0.3s ease, color 0.3s ease;
+    height: 35px;
+    flex-shrink: 0;
 }
 
 .preview-controls {
@@ -226,15 +281,15 @@
 
 .device-btn {
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--editor-header-text);
-    padding: 0.375rem 0.5rem;
-    border-radius: var(--radius-sm);
+    border: none;
+    color: #cccccc;
+    padding: 4px 8px;
+    border-radius: 3px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s;
+    transition: all 0.1s ease;
 }
 
 .device-btn i {
@@ -243,13 +298,12 @@
 }
 
 .device-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.3);
+    background: #2a2d2e;
+    color: #ffffff;
 }
 
 .device-btn.active {
-    background: var(--primary);
-    border-color: var(--primary);
+    background: #0e639c;
     color: white;
 }
 
@@ -258,7 +312,7 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    background: var(--bg-tertiary);
+    background: #1e1e1e;
     padding: 1rem;
     overflow: auto;
     transition: background-color 0.3s ease;
@@ -266,7 +320,7 @@
 
 .preview-container.fullscreen .preview-wrapper {
     padding: 0;
-    background: var(--bg-primary);
+    background: #1e1e1e;
 }
 
 .preview-container.fullscreen #preview {
@@ -294,7 +348,7 @@
 }
 
 .preview-container {
-    border-left: 1px solid var(--border-color);
+    border-left: 1px solid #2d2d30;
     position: relative;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -313,40 +367,43 @@
     display: none !important;
 }
 
-/* Accessibility Panel */
+/* Accessibility Panel - VS Code Style */
 .a11y-panel {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
     height: 300px;
-    background: white;
-    border-top: 2px solid #3498db;
+    background: #1e1e1e;
+    border-top: 1px solid #2d2d30;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
     z-index: 10;
 }
 
 .a11y-header {
-    background: #3498db;
-    color: white;
-    padding: 0.75rem 1rem;
+    background: #2d2d2d;
+    color: #cccccc;
+    padding: 0.5rem 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-weight: 600;
+    font-weight: 500;
+    font-size: 13px;
+    border-bottom: 1px solid #2d2d30;
 }
 
 .a11y-content {
     flex: 1;
     overflow-y: auto;
     padding: 1rem;
+    background: #1e1e1e;
 }
 
 .a11y-loading {
     text-align: center;
-    color: #7f8c8d;
+    color: #858585;
     padding: 2rem;
 }
 
@@ -354,7 +411,7 @@
     display: flex;
     gap: 1rem;
     padding: 1rem;
-    background: #ecf0f1;
+    background: #252526;
     border-radius: 4px;
     margin-bottom: 1rem;
 }
@@ -363,7 +420,7 @@
     flex: 1;
     text-align: center;
     padding: 0.5rem;
-    background: white;
+    background: #1e1e1e;
     border-radius: 4px;
 }
 
@@ -371,20 +428,20 @@
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 0.25rem;
+    color: #cccccc;
 }
 
 .a11y-stat-label {
     font-size: 0.85rem;
-    color: #7f8c8d;
+    color: #858585;
 }
 
 .a11y-violation {
-    background: white;
+    background: #252526;
     border-left: 4px solid #e74c3c;
     padding: 1rem;
     margin-bottom: 1rem;
     border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .a11y-violation.moderate {
@@ -433,24 +490,24 @@
 
 .a11y-violation-title {
     font-weight: 600;
-    color: #2c3e50;
+    color: #cccccc;
 }
 
 .a11y-violation-description {
-    color: #7f8c8d;
+    color: #858585;
     font-size: 0.9rem;
     margin-bottom: 0.75rem;
 }
 
 .a11y-violation-help {
     font-size: 0.85rem;
-    color: #34495e;
+    color: #cccccc;
     margin-bottom: 0.5rem;
 }
 
 .a11y-violation-link {
     display: inline-block;
-    color: #3498db;
+    color: #4fc1ff;
     text-decoration: none;
     font-size: 0.85rem;
     margin-bottom: 0.75rem;
@@ -461,8 +518,8 @@
 }
 
 .a11y-node {
-    background: #f8f9fa;
-    border: 1px solid #dee2e6;
+    background: #1e1e1e;
+    border: 1px solid #2d2d30;
     border-radius: 3px;
     padding: 0.5rem;
     margin-top: 0.5rem;
@@ -471,14 +528,14 @@
 }
 
 .a11y-node-html {
-    color: #e74c3c;
+    color: #ce9178;
     word-break: break-all;
 }
 
 .a11y-empty {
     text-align: center;
     padding: 3rem 1rem;
-    color: #27ae60;
+    color: #4ec9b0;
 }
 
 .a11y-empty-icon {
@@ -491,10 +548,11 @@
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
+    color: #cccccc;
 }
 
 .a11y-empty-subtext {
-    color: #7f8c8d;
+    color: #858585;
     font-size: 0.9rem;
 }
 
@@ -845,3 +903,347 @@
         flex-wrap: wrap;
     }
 }
+
+/* Fix for editor visibility */
+.editor-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+.editor-header {
+    flex-shrink: 0;
+}
+
+/* VS Code Style Modal Overrides for Editor Page */
+.editor-page .modal {
+    background: #252526;
+    border: 1px solid #2d2d30;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.editor-page .modal h2 {
+    color: #ffffff;
+    text-shadow: none;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.editor-page .modal input[type="text"] {
+    background: #1e1e1e;
+    border: 1px solid #2d2d30;
+    color: #cccccc;
+}
+
+.editor-page .modal input[type="text"]:focus {
+    border-color: #0e639c;
+    background: #1e1e1e;
+    box-shadow: 0 0 0 1px #0e639c;
+}
+
+.editor-page .modal-overlay {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.editor-page .btn {
+    background: #2d2d2d;
+    color: #cccccc;
+    border: 1px solid #2d2d30;
+    box-shadow: none;
+    text-shadow: none;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.editor-page .btn:hover {
+    background: #3c3c3c;
+    color: #ffffff;
+}
+
+.editor-page .btn-primary {
+    background: #0e639c;
+    color: #ffffff;
+    border: 1px solid #0e639c;
+}
+
+.editor-page .btn-primary:hover {
+    background: #1177bb;
+    border-color: #1177bb;
+}
+
+.editor-page .cancel-btn {
+    background: #2d2d2d;
+    color: #cccccc;
+    border: 1px solid #2d2d30;
+}
+
+.editor-page .cancel-btn:hover {
+    background: #3c3c3c;
+}
+
+/* Shortcuts Modal */
+.editor-page .shortcuts-list {
+    background: #1e1e1e;
+}
+
+.editor-page .shortcut-item {
+    border-bottom: 1px solid #2d2d30;
+    padding: 0.75rem 0;
+}
+
+.editor-page .shortcut-key {
+    background: #2d2d2d;
+    color: #cccccc;
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    border: 1px solid #3c3c3c;
+}
+
+.editor-page .shortcut-desc {
+    color: #cccccc;
+}
+
+/* Templates Grid */
+.editor-page #templates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.editor-page .template-card {
+    background: #1e1e1e;
+    border: 1px solid #2d2d30;
+    border-radius: 4px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.editor-page .template-card:hover {
+    background: #252526;
+    border-color: #0e639c;
+}
+
+.editor-page .template-card h3 {
+    color: #cccccc;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    text-shadow: none;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.editor-page .template-card p {
+    color: #858585;
+    font-size: 0.85rem;
+}
+
+/* Snippets Modal */
+.editor-page .snippets-header {
+    margin-bottom: 1rem;
+}
+
+.editor-page #snippet-search {
+    background: #1e1e1e;
+    border: 1px solid #2d2d30;
+    color: #cccccc;
+    padding: 0.5rem;
+    border-radius: 3px;
+    width: 100%;
+    margin-bottom: 0.75rem;
+}
+
+.editor-page .snippet-filters {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.editor-page .filter-btn {
+    background: #2d2d2d;
+    color: #cccccc;
+    border: 1px solid #2d2d30;
+    padding: 0.4rem 0.8rem;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.editor-page .filter-btn:hover {
+    background: #3c3c3c;
+}
+
+.editor-page .filter-btn.active {
+    background: #0e639c;
+    border-color: #0e639c;
+    color: #ffffff;
+}
+
+.editor-page #snippets-container {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.editor-page .snippet-item {
+    background: #1e1e1e;
+    border: 1px solid #2d2d30;
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.editor-page .snippet-item:hover {
+    background: #252526;
+    border-color: #0e639c;
+}
+
+.editor-page .snippet-item h4 {
+    color: #cccccc;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+    text-shadow: none;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.editor-page .snippet-item pre {
+    background: #0f0f0f;
+    color: #d4d4d4;
+    padding: 0.5rem;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    overflow-x: auto;
+}
+
+/* Collaboration Modal */
+.editor-page .collab-section {
+    background: #1e1e1e;
+    border: 1px solid #2d2d30;
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.editor-page .collab-section h3 {
+    color: #cccccc;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    text-shadow: none;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.editor-page .collab-section input {
+    background: #252526;
+    border: 1px solid #2d2d30;
+    color: #cccccc;
+    padding: 0.5rem;
+    border-radius: 3px;
+    width: 100%;
+    margin-bottom: 0.75rem;
+}
+
+.editor-page #collaborators-list {
+    margin-top: 1rem;
+}
+
+.editor-page .collaborator-item {
+    background: #252526;
+    border: 1px solid #2d2d30;
+    border-radius: 3px;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.editor-page .collaborator-name {
+    color: #cccccc;
+    flex: 1;
+}
+
+.editor-page .collaborator-status {
+    color: #4ec9b0;
+    font-size: 0.8rem;
+}
+
+/* Confirm Modal */
+.editor-page #confirm-message {
+    color: #cccccc;
+    margin-bottom: 1.5rem;
+}
+
+/* Hide navbar brand and links in editor page for VS Code look */
+.editor-page .nav-brand {
+    display: none;
+}
+
+.editor-page .nav-links {
+    display: none;
+}
+
+.editor-page .nav-actions {
+    width: 100%;
+    justify-content: flex-end;
+}
+
+/* CRITICAL: Editor page navbar override - MUST be transparent initially */
+body.editor-page .main-nav,
+.editor-page .main-nav {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border: none !important;
+    border-bottom: 1px solid transparent !important;
+    padding: 0.5rem 1rem !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+}
+
+/* Editor navbar when scrolled - solid dark like VS Code */
+body.editor-page .main-nav.scrolled,
+.editor-page .main-nav.scrolled {
+    background: #1e1e1e !important;
+    background-color: #1e1e1e !important;
+    background-image: none !important;
+    border-bottom: 1px solid #2d2d30 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+}
+
+.editor-page .forge-status {
+    display: flex !important;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.editor-page .forge-status:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.editor-page .main-nav.scrolled .forge-status {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #2d2d30;
+}
+
+.editor-page .main-nav.scrolled .forge-status:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: #3c3c3c;
+}
+
+.editor-page .forge-title,
+.editor-page .forge-xp-text {
+    color: #cccccc !important;
+}
+
+.editor-page .forge-xp-bar-bg {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.editor-page .forge-level-badge,
+.editor-page .forge-info {
+    display: flex !important;
+}
+
