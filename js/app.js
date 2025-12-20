@@ -784,6 +784,13 @@ function updatePreview() {
 
     let html = htmlFile ? htmlFile.content : '';
     
+    // Remove external CSS and JS references to prevent 404 errors
+    // Remove <link rel="stylesheet" href="styles.css"> and similar
+    html = html.replace(/<link[^>]*rel=["']stylesheet["'][^>]*>/gi, '');
+    
+    // Remove <script src="script.js"></script> and similar (but keep inline scripts)
+    html = html.replace(/<script[^>]*src=["'][^"']*["'][^>]*><\/script>/gi, '');
+    
     // Replace asset filenames with base64 data URLs
     assetFiles.forEach(asset => {
         // Replace in src attributes: src="filename.png" -> src="data:image/png;base64,..."
@@ -872,25 +879,37 @@ function updatePreview() {
     
     // Inject CSS
     if (cssFile && cssFile.content) {
-        html = html.replace('</head>', `<style>${cssFile.content}</style></head>`);
+        if (html.includes('</head>')) {
+            html = html.replace('</head>', `<style>${cssFile.content}</style></head>`);
+        } else if (html.includes('<body>')) {
+            html = html.replace('<body>', `<style>${cssFile.content}</style><body>`);
+        } else {
+            html = `<style>${cssFile.content}</style>` + html;
+        }
     }
     
     // Inject JS
     if (jsFile && jsFile.content) {
-        html = html.replace('</body>', `<script>${jsFile.content}</script></body>`);
+        if (html.includes('</body>')) {
+            html = html.replace('</body>', `<script>${jsFile.content}</script></body>`);
+        } else {
+            html = html + `<script>${jsFile.content}</script>`;
+        }
     }
 
     const iframe = document.getElementById('preview');
-    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-    iframeDoc.open();
-    iframeDoc.write(html);
-    iframeDoc.close();
+    if (iframe) {
+        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+        iframeDoc.open();
+        iframeDoc.write(html);
+        iframeDoc.close();
 
-    // Run accessibility check if panel is visible
-    const a11yPanel = document.getElementById('a11y-panel');
-    if (a11yPanel && !a11yPanel.classList.contains('hidden')) {
-        // Wait for iframe to load before checking
-        setTimeout(() => runAccessibilityCheck(), 500);
+        // Run accessibility check if panel is visible
+        const a11yPanel = document.getElementById('a11y-panel');
+        if (a11yPanel && !a11yPanel.classList.contains('hidden')) {
+            // Wait for iframe to load before checking
+            setTimeout(() => runAccessibilityCheck(), 500);
+        }
     }
 }
 
@@ -1747,13 +1766,39 @@ function toggleMobileNav() {
 
 // Modal functions
 function showModal(modalId) {
-    document.getElementById('modal-overlay').classList.remove('hidden');
-    document.getElementById(modalId).classList.remove('hidden');
+    const overlay = document.getElementById('modal-overlay');
+    const modal = document.getElementById(modalId);
+    
+    if (!overlay) {
+        console.error('Modal overlay not found!');
+        return;
+    }
+    
+    if (!modal) {
+        console.error('Modal not found:', modalId);
+        return;
+    }
+    
+    overlay.classList.remove('hidden');
+    modal.classList.remove('hidden');
+    
+    // Initialize icons in the modal
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
 }
 
 function hideModal(modalId) {
-    document.getElementById('modal-overlay').classList.add('hidden');
-    document.getElementById(modalId).classList.add('hidden');
+    const overlay = document.getElementById('modal-overlay');
+    const modal = document.getElementById(modalId);
+    
+    if (overlay) {
+        overlay.classList.add('hidden');
+    }
+    
+    if (modal) {
+        modal.classList.add('hidden');
+    }
 }
 
 function showTemplateModal() {
@@ -2792,29 +2837,6 @@ async function restoreCollaborationSession() {
         CollaborationService.clearSavedSession();
     }
 }
-
-// Hook into editor changes for collaboration
-const originalOnDidChangeModelContent = editor?.onDidChangeModelContent;
-if (editor && originalOnDidChangeModelContent) {
-    editor.onDidChangeModelContent(() => {
-        if (currentFile && currentProject) {
-            FileService.updateFile(currentFile.id, editor.getValue(), currentProject);
-            
-            // Sync to collaboration session
-            if (CollaborationService.isInSession()) {
-                CollaborationService.updateFile(currentFile.id, editor.getValue());
-            }
-            
-            clearTimeout(autoSaveTimeout);
-            autoSaveTimeout = setTimeout(() => {
-                ProjectService.saveProject(currentProject);
-                updatePreview();
-                showSaveIndicator();
-            }, 1000);
-        }
-    });
-}
-
 
 // Confirmation Modal
 function showConfirmModal(title, message, onConfirm) {

@@ -929,6 +929,10 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
+.editor-page .modal p {
+    color: #cccccc;
+}
+
 .editor-page .modal input[type="text"] {
     background: #1e1e1e;
     border: 1px solid #2d2d30;
@@ -1174,17 +1178,8 @@
     margin-bottom: 1.5rem;
 }
 
-/* Hide navbar brand and links in editor page for VS Code look */
-.editor-page .nav-brand {
-    display: none;
-}
-
-.editor-page .nav-links {
-    display: none;
-}
-
+/* Editor page navbar - keep all elements visible */
 .editor-page .nav-actions {
-    width: 100%;
     justify-content: flex-end;
 }
 
