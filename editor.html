@@ -16,6 +16,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/editor.css">
+    <link rel="stylesheet" href="styles/workshop.css">
+    <link rel="stylesheet" href="styles/editor-header.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.45.0/min/vs/editor/editor.main.min.css">
     <style>
         /* CRITICAL OVERRIDE: Force transparent navbar on editor page */
@@ -48,11 +50,7 @@
                 <div class="header-actions">
                     <button id="new-project-btn" class="btn btn-primary">
                         <i data-lucide="plus"></i>
-                        <span>New Project</span>
-                    </button>
-                    <button id="collaborate-btn" class="btn" title="Collaborate">
-                        <i data-lucide="users"></i>
-                        <span>Collaborate</span>
+                        <span>New</span>
                     </button>
                     <button id="save-btn" class="btn">
                         <i data-lucide="save"></i>
@@ -62,64 +60,162 @@
                         <i data-lucide="download"></i>
                         <span>Export</span>
                     </button>
-                    <button id="import-btn" class="btn" title="Import Project">
-                        <i data-lucide="upload"></i>
-                        <span>Import</span>
+                    <div class="header-divider"></div>
+                    <button id="console-toggle-btn" class="btn btn-icon" title="Toggle Console">
+                        <i data-lucide="terminal"></i>
+                    </button>
+                    <button id="help-btn" class="btn btn-icon" title="Keyboard Shortcuts">
+                        <i data-lucide="keyboard"></i>
+                    </button>
+                    <button id="more-actions-btn" class="btn btn-icon" title="More Actions">
+                        <i data-lucide="more-vertical"></i>
                     </button>
                     <input type="file" id="import-file-input" accept=".zip" style="display: none;">
-                    <button id="console-toggle-btn" class="btn">
-                        <i data-lucide="terminal"></i>
-                        <span>Show Console</span>
-                    </button>
-                    <button id="help-btn" class="btn" title="Keyboard Shortcuts (Ctrl+/)">
-                        <i data-lucide="keyboard"></i>
-                        <span>Shortcuts</span>
-                    </button>
-                    <button id="tutorials-btn" class="btn" title="View Tutorials">
-                        <i data-lucide="book-open"></i>
-                        <span>Tutorials</span>
-                    </button>
                 </div>
             </header>
 
+            <!-- More Actions Dropdown -->
+            <div id="more-actions-menu" class="dropdown-menu hidden">
+                <button id="import-btn-menu" class="dropdown-item">
+                    <i data-lucide="upload"></i>
+                    <span>Import Project</span>
+                </button>
+                <button id="collaborate-btn-menu" class="dropdown-item">
+                    <i data-lucide="users"></i>
+                    <span>Collaborate</span>
+                </button>
+                <button id="tutorials-btn-menu" class="dropdown-item">
+                    <i data-lucide="book-open"></i>
+                    <span>Tutorials</span>
+                </button>
+            </div>
+
             <div class="editor-main-container">
-                <aside class="sidebar">
-                    <div class="sidebar-section">
-                        <h3>Projects</h3>
-                        <div id="projects-list"></div>
+                <!-- Workshop Panel (Collapsible with Tabs) -->
+                <aside id="workshop-panel" class="workshop-panel">
+                    <div class="workshop-header">
+                        <div class="workshop-tabs">
+                            <button class="workshop-tab active" data-tab="workshop" id="workshop-tab-btn">
+                                <i data-lucide="hammer"></i>
+                                <span>Workshop</span>
+                            </button>
+                            <button class="workshop-tab" data-tab="files" id="files-tab-btn">
+                                <i data-lucide="folder"></i>
+                                <span>Files</span>
+                            </button>
+                        </div>
+                        <button id="workshop-collapse-btn" class="panel-collapse-btn" title="Collapse Panel">
+                            <i data-lucide="chevron-left"></i>
+                        </button>
                     </div>
-                    <div class="sidebar-section">
-                        <h3>Files</h3>
-                        <button id="new-file-btn" class="btn btn-small">
-                            <i data-lucide="file-plus" style="width: 14px; height: 14px;"></i>
-                            <span>New File</span>
-                        </button>
-                        <button id="upload-asset-btn" class="btn btn-small">
-                            <i data-lucide="upload" style="width: 14px; height: 14px;"></i>
-                            <span>Upload Asset</span>
-                        </button>
-                        <input type="file" id="asset-file-input" accept="image/*,.woff,.woff2,.ttf,.otf" style="display: none;">
-                        <div id="files-tree"></div>
+                    
+                    <!-- Workshop Tab Content -->
+                    <div class="workshop-tab-content active" data-content="workshop">
+                        <div class="workshop-content">
+                            <div id="workshop-step-content">
+                                <!-- Workshop steps will be loaded here -->
+                                <div class="workshop-welcome">
+                                    <div class="workshop-welcome-icon">
+                                        <i data-lucide="sparkles"></i>
+                                    </div>
+                                    <h3>Welcome to the Workshop!</h3>
+                                    <p>Click "Build This" on any component to start building step-by-step.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="workshop-footer">
+                            <button id="workshop-prev-btn" class="btn btn-small" disabled>
+                                <i data-lucide="chevron-left"></i>
+                                <span>Previous</span>
+                            </button>
+                            <div class="workshop-progress">
+                                <span id="workshop-step-indicator">-</span>
+                            </div>
+                            <button id="workshop-next-btn" class="btn btn-small btn-primary" disabled>
+                                <span>Next</span>
+                                <i data-lucide="chevron-right"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div class="sidebar-section">
-                        <h3>Snippets</h3>
-                        <button id="snippets-btn" class="btn btn-small">
-                            <i data-lucide="code-2" style="width: 14px; height: 14px;"></i>
-                            <span>Browse Snippets</span>
-                        </button>
+                    
+                    <!-- Files Tab Content -->
+                    <div class="workshop-tab-content" data-content="files">
+                        <div class="files-content">
+                            <div class="files-section">
+                                <div class="files-section-header">
+                                    <h3>Projects</h3>
+                                    <button id="new-project-btn-sidebar" class="btn-icon" title="New Project">
+                                        <i data-lucide="plus"></i>
+                                    </button>
+                                </div>
+                                <div id="projects-list"></div>
+                            </div>
+                            <div class="files-section">
+                                <div class="files-section-header">
+                                    <h3>Files</h3>
+                                    <div class="files-actions">
+                                        <button id="new-file-btn" class="btn-icon" title="New File">
+                                            <i data-lucide="file-plus"></i>
+                                        </button>
+                                        <button id="upload-asset-btn" class="btn-icon" title="Upload Asset">
+                                            <i data-lucide="upload"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <input type="file" id="asset-file-input" accept="image/*,.woff,.woff2,.ttf,.otf" style="display: none;">
+                                <div id="files-tree"></div>
+                            </div>
+                            <div class="files-section">
+                                <div class="files-section-header">
+                                    <h3>Snippets</h3>
+                                </div>
+                                <button id="snippets-btn" class="btn btn-small btn-full">
+                                    <i data-lucide="code-2"></i>
+                                    <span>Browse Snippets</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </aside>
 
+                <!-- Workshop Collapsed Tab -->
+                <div id="workshop-collapsed-tab" class="workshop-collapsed-tab hidden">
+                    <button id="workshop-expand-btn" class="workshop-expand-btn" title="Expand Panel">
+                        <i data-lucide="chevron-right"></i>
+                        <span class="workshop-tab-text">Panel</span>
+                    </button>
+                </div>
+
+                <!-- Resize Handle for Workshop -->
+                <div id="workshop-resize-handle" class="resize-handle"></div>
+
                 <main class="workspace">
+                    <!-- Editor Collapsed Tab -->
+                    <div id="editor-collapsed-tab" class="editor-collapsed-tab hidden">
+                        <button id="editor-expand-btn" class="editor-expand-btn" title="Expand Editor">
+                            <i data-lucide="chevron-right"></i>
+                            <span class="editor-tab-text">Editor</span>
+                        </button>
+                    </div>
+
                     <div class="editor-container">
                         <div class="editor-header">
                             <span id="current-file-name">No file selected</span>
+                            <button id="editor-collapse-btn" class="panel-collapse-btn" title="Collapse Editor">
+                                <i data-lucide="chevron-left"></i>
+                            </button>
                         </div>
                         <div id="editor"></div>
                     </div>
 
+                    <!-- Resize Handle between Editor and Preview -->
+                    <div id="editor-resize-handle" class="resize-handle resize-handle-vertical"></div>
+
                     <div class="preview-container">
                         <div class="preview-header">
+                            <button id="preview-collapse-btn" class="panel-collapse-btn" title="Collapse Preview">
+                                <i data-lucide="chevron-right"></i>
+                            </button>
                             <span>Preview</span>
                             <div class="preview-controls">
                                 <button id="device-mobile" class="device-btn" title="Mobile (375px)" data-width="375">
@@ -154,6 +250,14 @@
                                 <p class="a11y-loading">Checking accessibility...</p>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Preview Collapsed Tab -->
+                    <div id="preview-collapsed-tab" class="preview-collapsed-tab hidden">
+                        <button id="preview-expand-btn" class="preview-expand-btn" title="Expand Preview">
+                            <i data-lucide="chevron-left"></i>
+                            <span class="preview-tab-text">Preview</span>
+                        </button>
                     </div>
                 </main>
             </div>
@@ -376,6 +480,7 @@
     <script src="js/services/collaboration.js"></script>
     <script src="js/services/forge-master.js"></script>
     <script src="js/services/component.js"></script>
+    <script src="js/workshop-manager.js"></script>
     <script src="js/html-autocomplete.js"></script>
     <script src="js/editor-init.js"></script>
     <script src="js/app.js"></script>
@@ -398,6 +503,57 @@
                 ForgeMaster.updateStreak('default-user');
                 const profile = ForgeMaster.getProfile('default-user');
                 ForgeMaster.updateForgeUI(profile);
+            }
+            
+            // More Actions Dropdown
+            const moreActionsBtn = document.getElementById('more-actions-btn');
+            const moreActionsMenu = document.getElementById('more-actions-menu');
+            
+            if (moreActionsBtn && moreActionsMenu) {
+                moreActionsBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    moreActionsMenu.classList.toggle('hidden');
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function() {
+                    moreActionsMenu.classList.add('hidden');
+                });
+                
+                // Prevent dropdown from closing when clicking inside
+                moreActionsMenu.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
+            
+            // Wire up dropdown menu items to original button handlers
+            const importBtnMenu = document.getElementById('import-btn-menu');
+            const collaborateBtnMenu = document.getElementById('collaborate-btn-menu');
+            const tutorialsBtnMenu = document.getElementById('tutorials-btn-menu');
+            
+            if (importBtnMenu) {
+                importBtnMenu.addEventListener('click', function() {
+                    document.getElementById('import-file-input').click();
+                    moreActionsMenu.classList.add('hidden');
+                });
+            }
+            
+            if (collaborateBtnMenu) {
+                collaborateBtnMenu.addEventListener('click', function() {
+                    if (typeof showModal === 'function') {
+                        showModal('collaboration-modal');
+                    }
+                    moreActionsMenu.classList.add('hidden');
+                });
+            }
+            
+            if (tutorialsBtnMenu) {
+                tutorialsBtnMenu.addEventListener('click', function() {
+                    if (typeof showModal === 'function') {
+                        showModal('tutorial-browser-modal');
+                    }
+                    moreActionsMenu.classList.add('hidden');
+                });
             }
         });
     </script>

@@ -261,10 +261,12 @@ h3 {
     min-height: 100vh;
 }
 
-/* Editor page specific - full height without margin when navbar is inside */
+/* Editor page specific - full height with proper navbar spacing */
 .editor-page .page.active {
-    height: calc(100vh - 60px);
-    min-height: calc(100vh - 60px);
+    height: 100vh;
+    min-height: 100vh;
+    margin-top: 0;
+    padding-top: 60px; /* Space for fixed navbar */
 }
 
 /* ===== NAVIGATION ===== */

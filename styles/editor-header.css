@@ -1,0 +1,261 @@
+/* ===== EDITOR HEADER CLEANUP ===== */
+
+/* Navbar spacing fix for editor page */
+.editor-page #app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.editor-page .main-nav {
+    flex-shrink: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
+
+.editor-page .page {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin-top: 60px; /* Space for fixed navbar */
+}
+
+/* Editor Header */
+.editor-header {
+    background: #2d2d2d;
+    border-bottom: 1px solid #2d2d30;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    flex-shrink: 0;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.header-divider {
+    width: 1px;
+    height: 24px;
+    background: #2d2d30;
+    margin: 0 0.25rem;
+}
+
+/* Button Styles */
+.editor-header .btn {
+    background: transparent;
+    border: none;
+    color: #cccccc;
+    padding: 0.4rem 0.75rem;
+    font-size: 13px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.editor-header .btn:hover {
+    background: #3e3e42;
+    color: #ffffff;
+}
+
+.editor-header .btn-primary {
+    background: #0e639c;
+    color: #ffffff;
+}
+
+.editor-header .btn-primary:hover {
+    background: #1177bb;
+}
+
+.editor-header .btn i {
+    width: 16px;
+    height: 16px;
+}
+
+/* Icon-only buttons */
+.editor-header .btn-icon {
+    padding: 0.4rem;
+    min-width: 32px;
+    justify-content: center;
+}
+
+.editor-header .btn-icon span {
+    display: none;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    position: absolute;
+    top: 45px;
+    right: 1rem;
+    background: #252526;
+    border: 1px solid #2d2d30;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    min-width: 200px;
+    padding: 0.25rem 0;
+}
+
+.dropdown-menu.hidden {
+    display: none;
+}
+
+.dropdown-item {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #cccccc;
+    padding: 0.6rem 1rem;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.dropdown-item:hover {
+    background: #2a2d2e;
+    color: #ffffff;
+}
+
+.dropdown-item i {
+    width: 16px;
+    height: 16px;
+}
+
+/* Compact Forge Status */
+.editor-page .forge-status {
+    display: flex !important;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    max-width: 200px;
+}
+
+.editor-page .forge-status:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.editor-page .forge-level-badge {
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
+.editor-page .forge-level-badge i {
+    width: 12px;
+    height: 12px;
+}
+
+.editor-page .forge-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    min-width: 0;
+    flex: 1;
+}
+
+.editor-page .forge-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #cccccc;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.editor-page .forge-xp {
+    font-size: 10px;
+    color: #858585;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Navbar spacing fix */
+.editor-page #app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.editor-page .main-nav {
+    flex-shrink: 0;
+}
+
+.editor-page .page {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Responsive - hide text on smaller screens */
+@media (max-width: 1024px) {
+    .editor-header .btn span {
+        display: none;
+    }
+    
+    .editor-header .btn {
+        padding: 0.4rem;
+        min-width: 32px;
+        justify-content: center;
+    }
+    
+    .editor-header .btn-primary span {
+        display: inline;
+    }
+    
+    .editor-page .forge-status {
+        max-width: 150px;
+    }
+    
+    .editor-page .forge-title,
+    .editor-page .forge-xp {
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .editor-page .forge-info {
+        display: none;
+    }
+    
+    .editor-page .forge-status {
+        padding: 0.35rem;
+        max-width: auto;
+    }
+}

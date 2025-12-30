@@ -505,6 +505,13 @@ require(['vs/editor/editor.main'], function () {
         
         console.log('App.js loaded, initializing editor...');
         
+        // Initialize ComponentService first (needed for workshop mode)
+        if (typeof ComponentService !== 'undefined' && ComponentService.components.length === 0) {
+            console.log('Initializing ComponentService...');
+            ComponentService.loadComponents();
+            console.log('ComponentService loaded with', ComponentService.components.length, 'components');
+        }
+        
         // Load projects after Monaco is initialized
         setTimeout(() => {
             try {
@@ -517,10 +524,15 @@ require(['vs/editor/editor.main'], function () {
                 const mode = urlParams.get('mode');
                 const componentId = urlParams.get('component');
                 
+                console.log('URL params:', { mode, componentId });
+                console.log('Workshop mode check:', mode === 'workshop', componentId);
+                
                 if (mode === 'workshop' && componentId) {
+                    console.log('Entering workshop mode...');
                     // Initialize workshop mode
                     initWorkshopMode(componentId);
                 } else {
+                    console.log('Entering normal mode...');
                     // Normal editor mode
                     if (projects.length > 0) {
                         const lastProject = ProjectService.getCurrentProject() || projects[0];
@@ -557,32 +569,57 @@ require(['vs/editor/editor.main'], function () {
     
     // Initialize workshop mode
     function initWorkshopMode(componentId) {
-        console.log('Initializing workshop mode for component:', componentId);
+        console.log('=== WORKSHOP MODE INITIALIZATION ===');
+        console.log('Component ID:', componentId);
         
         // Get workshop data from localStorage
         const workshopData = localStorage.getItem('webforge-workshop-start');
+        console.log('Workshop data from localStorage:', workshopData);
+        
         if (workshopData) {
             try {
                 const workshop = JSON.parse(workshopData);
-                console.log('Workshop data loaded:', workshop);
+                console.log('Parsed workshop data:', workshop);
+                console.log('Workshop has steps:', workshop.workshop?.steps?.length || 0);
                 
                 // Create or load workshop project
                 const workshopProject = createWorkshopProject(workshop);
-                loadProject(workshopProject.id);
+                console.log('Workshop project created:', workshopProject.id);
                 
-                // Show workshop guidance
-                showWorkshopGuidance(workshop);
+                loadProject(workshopProject.id);
+                console.log('Workshop project loaded');
+                
+                // Load workshop into WorkshopManager (new system)
+                if (typeof WorkshopManager !== 'undefined') {
+                    console.log('WorkshopManager found, loading component...');
+                    
+                    // Switch to workshop tab
+                    WorkshopManager.switchTab('workshop');
+                    console.log('Switched to workshop tab');
+                    
+                    // Load the component workshop (small delay to ensure DOM is ready)
+                    setTimeout(() => {
+                        console.log('Loading component into WorkshopManager:', componentId);
+                        console.log('ComponentService components count:', ComponentService?.components?.length || 0);
+                        
+                        WorkshopManager.loadComponent(componentId);
+                    }, 300);
+                } else {
+                    console.error('WorkshopManager not found!');
+                }
                 
                 // Clear the workshop start data
                 localStorage.removeItem('webforge-workshop-start');
+                console.log('Workshop start data cleared from localStorage');
                 
             } catch (error) {
                 console.error('Error loading workshop data:', error);
+                console.error('Error stack:', error.stack);
                 // Fallback to normal mode
                 initNormalMode();
             }
         } else {
-            console.warn('No workshop data found, falling back to normal mode');
+            console.warn('No workshop data found in localStorage, falling back to normal mode');
             initNormalMode();
         }
     }
@@ -616,275 +653,6 @@ require(['vs/editor/editor.main'], function () {
     // Get starter JavaScript for workshop
     function getWorkshopStarterJS(workshop) {
         return '// Workshop: ' + workshop.name + '\n// Add your JavaScript functionality here\n\ndocument.addEventListener("DOMContentLoaded", function() {\n    // Your code goes here\n});';
-    }
-    
-    // Show workshop guidance
-    function showWorkshopGuidance(workshop) {
-        console.log('Showing workshop guidance for:', workshop.name);
-        
-        // Create workshop panel
-        const workshopPanel = document.createElement('div');
-        workshopPanel.id = 'workshop-panel';
-        workshopPanel.className = 'workshop-panel';
-        
-        // Get workshop steps from the component data
-        const steps = workshop.workshop?.steps || [
-            { step: 1, title: 'Set up HTML structure', description: 'Create the basic HTML structure for your component' },
-            { step: 2, title: 'Add CSS styling', description: 'Style your component to match the design' },
-            { step: 3, title: 'Add interactivity', description: 'Implement JavaScript functionality if needed' }
-        ];
-        
-        let stepsHTML = '<div class="workshop-steps-list">';
-        steps.forEach((step, index) => {
-            stepsHTML += `
-                <div class="workshop-step" data-step="${index + 1}">
-                    <div class="step-number">${index + 1}</div>
-                    <div class="step-content">
-                        <h4>${step.title || 'Step ' + (index + 1)}</h4>
-                        <p>${step.description || step.instruction || 'Complete this step'}</p>
-                        ${step.hint ? `<div class="step-hint"><i data-lucide="lightbulb"></i> ${step.hint}</div>` : ''}
-                    </div>
-                </div>
-            `;
-        });
-        stepsHTML += '</div>';
-        
-        const panelHTML = `
-            <div class="workshop-header">
-                <div class="workshop-title">
-                    <i data-lucide="wrench"></i>
-                    <h3>Workshop: ${workshop.name}</h3>
-                </div>
-                <button class="workshop-close-btn" onclick="document.getElementById('workshop-panel').remove()">
-                    <i data-lucide="x"></i>
-                </button>
-            </div>
-            <div class="workshop-goal">
-                <strong>Goal:</strong> ${workshop.workshop?.goal || 'Build a professional ' + workshop.name.toLowerCase()}
-            </div>
-            ${stepsHTML}
-            <div class="workshop-footer">
-                <button class="btn btn-small" onclick="window.open('${workshop.previewUrl || '#'}', '_blank')">
-                    <i data-lucide="external-link"></i>
-                    View Example
-                </button>
-            </div>
-        `;
-        
-        workshopPanel.innerHTML = panelHTML;
-        
-        // Add to page
-        document.body.appendChild(workshopPanel);
-        
-        // Initialize icons
-        if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
-        }
-        
-        // Add enhanced styling
-        const style = document.createElement('style');
-        const styleCSS = `
-            .workshop-panel {
-                position: fixed;
-                top: 70px;
-                right: 20px;
-                bottom: 20px;
-                width: 280px;
-                background: #252526;
-                border: 1px solid #2d2d30;
-                border-radius: 8px;
-                box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-                z-index: 100;
-                overflow-y: auto;
-                font-family: 'Inter', -apple-system, sans-serif;
-                display: flex;
-                flex-direction: column;
-            }
-            
-            .workshop-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: flex-start;
-                padding: 1rem;
-                border-bottom: 1px solid #2d2d30;
-                background: #1e1e1e;
-                border-radius: 8px 8px 0 0;
-            }
-            
-            .workshop-title {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                flex: 1;
-            }
-            
-            .workshop-title i {
-                width: 20px;
-                height: 20px;
-                color: #0e639c;
-            }
-            
-            .workshop-header h3 {
-                margin: 0;
-                color: #ffffff;
-                font-size: 1rem;
-                font-weight: 600;
-            }
-            
-            .workshop-close-btn {
-                background: transparent;
-                border: none;
-                color: #cccccc;
-                cursor: pointer;
-                padding: 0.25rem;
-                display: flex;
-                align-items: center;
-                border-radius: 4px;
-                transition: all 0.2s;
-            }
-            
-            .workshop-close-btn:hover {
-                background: #3e3e42;
-                color: #ffffff;
-            }
-            
-            .workshop-close-btn i {
-                width: 18px;
-                height: 18px;
-            }
-            
-            .workshop-goal {
-                padding: 1rem;
-                background: #1e1e1e;
-                color: #cccccc;
-                font-size: 0.875rem;
-                line-height: 1.5;
-                border-bottom: 1px solid #2d2d30;
-            }
-            
-            .workshop-goal strong {
-                color: #0e639c;
-            }
-            
-            .workshop-steps-list {
-                padding: 0.5rem;
-            }
-            
-            .workshop-step {
-                display: flex;
-                gap: 0.75rem;
-                padding: 0.75rem;
-                margin-bottom: 0.5rem;
-                background: #1e1e1e;
-                border-radius: 6px;
-                border-left: 3px solid #0e639c;
-                transition: all 0.2s;
-            }
-            
-            .workshop-step:hover {
-                background: #2d2d30;
-            }
-            
-            .step-number {
-                flex-shrink: 0;
-                width: 28px;
-                height: 28px;
-                background: #0e639c;
-                color: #ffffff;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-weight: 600;
-                font-size: 0.875rem;
-            }
-            
-            .step-content {
-                flex: 1;
-            }
-            
-            .step-content h4 {
-                margin: 0 0 0.25rem 0;
-                color: #ffffff;
-                font-size: 0.875rem;
-                font-weight: 600;
-            }
-            
-            .step-content p {
-                margin: 0;
-                color: #cccccc;
-                font-size: 0.8rem;
-                line-height: 1.4;
-            }
-            
-            .step-hint {
-                margin-top: 0.5rem;
-                padding: 0.5rem;
-                background: #2d2d30;
-                border-radius: 4px;
-                color: #d4d4d4;
-                font-size: 0.75rem;
-                display: flex;
-                align-items: flex-start;
-                gap: 0.5rem;
-            }
-            
-            .step-hint i {
-                width: 14px;
-                height: 14px;
-                color: #ffd700;
-                flex-shrink: 0;
-                margin-top: 2px;
-            }
-            
-            .workshop-footer {
-                padding: 1rem;
-                border-top: 1px solid #2d2d30;
-                background: #1e1e1e;
-                border-radius: 0 0 8px 8px;
-            }
-            
-            .workshop-footer .btn {
-                width: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 0.5rem;
-                background: #0e639c;
-                color: #ffffff;
-                border: none;
-                padding: 0.5rem 1rem;
-                border-radius: 4px;
-                cursor: pointer;
-                font-size: 0.875rem;
-                transition: all 0.2s;
-            }
-            
-            .workshop-footer .btn:hover {
-                background: #1177bb;
-            }
-            
-            .workshop-footer .btn i {
-                width: 16px;
-                height: 16px;
-            }
-            
-            /* Responsive adjustments */
-            @media (max-width: 1200px) {
-                .workshop-panel {
-                    width: 260px;
-                }
-            }
-            
-            @media (max-width: 768px) {
-                .workshop-panel {
-                    right: 10px;
-                    width: 240px;
-                }
-            }
-        `;
-        style.textContent = styleCSS;
-        document.head.appendChild(style);
     }
     
     // Initialize normal editor mode

@@ -43,42 +43,84 @@ const ComponentService = {
                     duration: '25 minutes',
                     steps: [
                         {
-                            title: 'Create the HTML Structure',
-                            instruction: 'Start with semantic HTML for the navigation container, brand, and menu items.',
-                            hint: 'Use <nav>, <ul>, and proper link elements for accessibility.',
-                            challenge: 'Add a hamburger button for mobile (3 span elements)'
+                            title: 'Let\'s Make a Menu Bar!',
+                            description: 'We\'re going to make the menu bar you see at the top of websites. It\'s like the menu at a restaurant - it shows you all the places you can go!',
+                            instruction: 'First, we need to tell the computer we\'re making a menu. Type this code in your HTML file:',
+                            code: `<nav class="navbar">
+  <div class="nav-brand">My Website</div>
+</nav>`,
+                            codeFile: 'index.html',
+                            tip: 'The <nav> tag is like a sign that says "This is a menu!" to the computer.',
+                            explanation: 'Think of <nav> like a lunchbox - it holds all your menu items together in one place!'
                         },
                         {
-                            title: 'Style the Desktop Layout',
-                            instruction: 'Use Flexbox to create a horizontal navigation layout.',
-                            hint: 'justify-content: space-between will push brand and menu to opposite sides.',
-                            challenge: 'Make the brand area include both logo and text'
+                            title: 'Add Menu Buttons',
+                            description: 'Now let\'s add the buttons people can click on. These are like different rooms in your house - Home, About, Contact!',
+                            instruction: 'Add these menu links inside your navbar (between the <nav> tags):',
+                            code: `<ul class="nav-menu">
+  <li><a href="#home">Home</a></li>
+  <li><a href="#about">About</a></li>
+  <li><a href="#contact">Contact</a></li>
+</ul>`,
+                            codeFile: 'index.html',
+                            tip: 'The <ul> tag makes a list, and each <li> is one item in that list - like a shopping list!',
+                            explanation: 'Each <a> tag is a clickable link. When someone clicks it, they go to that page!'
                         },
                         {
-                            title: 'Add Mobile Responsiveness',
-                            instruction: 'Hide the menu on mobile and show the hamburger button.',
-                            hint: 'Use @media (max-width: 768px) for mobile styles.',
-                            challenge: 'Position the mobile menu absolutely below the navbar'
+                            title: 'Make It Look Pretty!',
+                            description: 'Right now our menu looks boring. Let\'s paint it and make it look nice!',
+                            instruction: 'Go to your CSS file and add this styling:',
+                            code: `.navbar {
+  background-color: #333;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'CSS is like choosing what clothes to wear - it makes things look good!',
+                            explanation: 'background-color is like painting a wall. We picked dark gray (#333) and white text so it\'s easy to read!'
                         },
                         {
-                            title: 'Create the Hamburger Animation',
-                            instruction: 'Transform the hamburger lines into an X when active.',
-                            hint: 'Use CSS transforms: rotate() and translate() for the animation.',
-                            challenge: 'Make the middle line fade out (opacity: 0)'
+                            title: 'Line Up the Menu Items',
+                            description: 'Let\'s make the menu items sit next to each other in a nice row, like kids sitting on a bench!',
+                            instruction: 'Add this CSS to make the menu items line up:',
+                            code: `.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-menu a {
+  color: white;
+  text-decoration: none;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'display: flex makes things sit in a row. gap: 2rem puts space between them so they\'re not squished!',
+                            explanation: 'list-style: none removes the bullet points. We don\'t need them for a menu!'
                         },
                         {
-                            title: 'Add JavaScript Functionality',
-                            instruction: 'Toggle the mobile menu and hamburger animation on click.',
-                            hint: 'Use classList.toggle() to add/remove the "active" class.',
-                            challenge: 'Close the menu when a link is clicked'
+                            title: 'Make It Work on Phones!',
+                            description: 'Phones have small screens, so we need to make our menu work on tiny screens too!',
+                            instruction: 'Add this special code that only works on small screens:',
+                            code: `@media (max-width: 768px) {
+  .nav-menu {
+    flex-direction: column;
+  }
+}`,
+                            codeFile: 'styles.css',
+                            tip: '@media is like a magic spell that only works when the screen is small!',
+                            explanation: 'flex-direction: column makes items stack on top of each other instead of side-by-side. Perfect for phones!'
                         }
                     ],
                     learningObjectives: [
-                        'Master Flexbox for navigation layouts',
-                        'Understand mobile-first responsive design',
-                        'Learn CSS transforms for animations',
-                        'Practice semantic HTML structure',
-                        'Implement JavaScript event handling'
+                        'Learn what a navigation bar is and why websites need them',
+                        'Understand how to use HTML tags like <nav>, <ul>, and <a>',
+                        'Make things look pretty with CSS colors and spacing',
+                        'Learn how to make websites work on phones (responsive design)',
+                        'Understand what Flexbox does (makes things line up nicely)'
                     ]
                 },
                 useCases: [
@@ -1693,6 +1735,13 @@ document.addEventListener('DOMContentLoaded', function() {
             toast.style.animation = 'toast-slide-out 0.3s ease-out forwards';
             setTimeout(() => toast.remove(), 300);
         }, 3000);
+    },
+
+    /**
+     * Get a specific component by ID
+     */
+    getComponent(componentId) {
+        return this.components.find(c => c.id === componentId);
     },
 
     /**
