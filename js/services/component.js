@@ -30,13 +30,13 @@ const ComponentService = {
             // Navigation Components
             {
                 id: 'responsive-navbar',
-                name: 'Responsive Navbar',
+                name: 'Navigation Bar with Dropdown',
                 type: 'navigation',
-                difficulty: 'intermediate',
-                hasJS: true,
-                mobileFirst: true,
-                tags: ['Responsive', 'Mobile-first', 'Flexbox'],
-                description: 'Learn to build a professional navigation bar with logo, styled links, and dropdown menus.',
+                difficulty: 'beginner',
+                hasJS: false,
+                mobileFirst: false,
+                tags: ['Beginner-Friendly', 'Flexbox', 'CSS-Only'],
+                description: 'Build a professional navigation bar with logo, styled links, and dropdown menus. 15 easy-to-follow steps break down each concept.',
                 preview: this.generateNavbarPreview(),
                 workshop: {
                     goal: 'Build a professional navigation bar with logo and dropdown menu',
@@ -415,7 +415,7 @@ const ComponentService = {
                             description: 'Let\'s add a dropdown menu to the Services link! This shows more options when you hover over it.',
                             instruction: 'Find the Services <li> in your HTML and replace it with this code:',
                             code: `<li class="dropdown">
-  <a href="#services" class="nav-link">Services</a>
+  <a href="#services" class="nav-link">Services ▾</a>
   <ul class="dropdown-menu">
     <li><a href="#web" class="dropdown-link">Web Design</a></li>
     <li><a href="#app" class="dropdown-link">App Development</a></li>
@@ -423,8 +423,8 @@ const ComponentService = {
   </ul>
 </li>`,
                             codeFile: 'index.html',
-                            tip: 'A dropdown is a menu inside a menu! We\'re putting a <ul> inside a <li>.',
-                            explanation: 'Here\'s the structure:\n• <li class="dropdown"> - The main menu item. The "dropdown" class tells CSS this one has a submenu.\n• <a href="#services" class="nav-link">Services</a> - The main link you see.\n• <ul class="dropdown-menu"> - A new list INSIDE the list item! This is the hidden menu.\n• Three <li> items inside - These are the dropdown options (Web Design, App Development, SEO).\n• class="dropdown-link" - Styles these links differently from the main menu links.\n\nThink of it like a folder with files inside. The folder is "Services" and the files are the three options!',
+                            tip: 'A dropdown is a menu inside a menu! We\'re putting a <ul> inside a <li>. The ▾ symbol shows users there\'s a menu!',
+                            explanation: 'Here\'s the structure:\n• <li class="dropdown"> - The main menu item. The "dropdown" class tells CSS this one has a submenu.\n• <a href="#services" class="nav-link">Services ▾</a> - The main link you see. The ▾ is a down arrow symbol that hints there\'s a dropdown!\n• <ul class="dropdown-menu"> - A new list INSIDE the list item! This is the hidden menu.\n• Three <li> items inside - These are the dropdown options (Web Design, App Development, SEO).\n• class="dropdown-link" - Styles these links differently from the main menu links.\n\nThink of it like a folder with files inside. The folder is "Services" and the files are the three options!',
                             validation: {
                                 required: [
                                     {
@@ -1460,12 +1460,23 @@ document.addEventListener('DOMContentLoaded', function() {
     generateNavbarPreview() {
         return `
             <div class="component-preview-placeholder">
-                <div style="background: #333; color: white; padding: 0.5rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem;">
-                    <span style="font-weight: bold;">My Site</span>
-                    <div style="display: flex; gap: 1rem;">
-                        <span>Home</span>
-                        <span>About</span>
-                        <span>Contact</span>
+                <div style="background: #2c3e50; color: white; padding: 0.75rem 1rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <div style="width: 24px; height: 24px; background: #3498db; border-radius: 4px;"></div>
+                        <span style="font-weight: 600; font-size: 0.85rem;">My Website</span>
+                    </div>
+                    <div style="display: flex; gap: 1rem; position: relative;">
+                        <span style="padding: 0.25rem 0.5rem; border-radius: 3px; transition: background 0.3s;">Home</span>
+                        <span style="padding: 0.25rem 0.5rem; border-radius: 3px;">About</span>
+                        <div style="position: relative;">
+                            <span style="padding: 0.25rem 0.5rem; border-radius: 3px; background: rgba(255,255,255,0.1);">Services ▾</span>
+                            <div style="position: absolute; top: 100%; left: 0; background: #34495e; border-radius: 4px; margin-top: 0.25rem; min-width: 120px; font-size: 0.7rem; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
+                                <div style="padding: 0.5rem 0.75rem;">Web Design</div>
+                                <div style="padding: 0.5rem 0.75rem;">App Dev</div>
+                                <div style="padding: 0.5rem 0.75rem;">SEO</div>
+                            </div>
+                        </div>
+                        <span style="padding: 0.25rem 0.5rem; border-radius: 3px;">Contact</span>
                     </div>
                 </div>
             </div>
