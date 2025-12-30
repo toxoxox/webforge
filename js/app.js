@@ -709,10 +709,22 @@ function renderFileTree(files) {
                 `Are you sure you want to delete "${file.name}"? This cannot be undone.`,
                 () => {
                     FileService.deleteFile(file.id, currentProject);
+                    
+                    // If deleting the active file, switch to another file
                     if (currentFile && currentFile.id === file.id) {
-                        currentFile = null;
-                        editor.setValue('');
+                        const codeFiles = currentProject.files.filter(f => f.type !== FileType.ASSET && f.id !== file.id);
+                        if (codeFiles.length > 0) {
+                            openFile(codeFiles[0].id);
+                        } else {
+                            currentFile = null;
+                            editor.setValue('');
+                            renderFileTabs(currentProject.files);
+                        }
+                    } else {
+                        // Just update the tabs
+                        renderFileTabs(currentProject.files);
                     }
+                    
                     ProjectService.saveProject(currentProject);
                     renderFileTree(currentProject.files);
                     showToast('File deleted successfully', 'success');
@@ -744,6 +756,87 @@ function loadProject(projectId) {
     }
 }
 
+// Render file tabs in editor header
+function renderFileTabs(files) {
+    const container = document.getElementById('editor-tabs');
+    if (!container) return;
+    
+    container.innerHTML = '';
+
+    if (files.length === 0) {
+        return;
+    }
+
+    // Only show code files in tabs (not assets)
+    const codeFiles = files.filter(f => f.type !== FileType.ASSET);
+
+    codeFiles.forEach(file => {
+        const tab = document.createElement('button');
+        tab.className = 'editor-tab';
+        if (currentFile && currentFile.id === file.id) {
+            tab.classList.add('active');
+        }
+        
+        // Add icon based on file type
+        let iconName = 'file';
+        if (file.type === FileType.HTML) iconName = 'file-code';
+        else if (file.type === FileType.CSS) iconName = 'palette';
+        else if (file.type === FileType.JAVASCRIPT) iconName = 'code';
+        
+        tab.innerHTML = `
+            <i data-lucide="${iconName}" class="editor-tab-icon"></i>
+            <span class="editor-tab-name">${file.name}</span>
+            <button class="editor-tab-close" data-file-id="${file.id}" title="Close">
+                <i data-lucide="x"></i>
+            </button>
+        `;
+        
+        // Click tab to open file
+        tab.onclick = (e) => {
+            // Don't open if clicking close button
+            if (e.target.closest('.editor-tab-close')) return;
+            openFile(file.id);
+        };
+        
+        // Close button handler
+        const closeBtn = tab.querySelector('.editor-tab-close');
+        closeBtn.onclick = (e) => {
+            e.stopPropagation();
+            closeFileTab(file.id);
+        };
+        
+        container.appendChild(tab);
+    });
+    
+    // Initialize icons
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+}
+
+// Close a file tab (switch to another file if this was active)
+function closeFileTab(fileId) {
+    if (!currentProject) return;
+    
+    // If this is the active file, switch to another file
+    if (currentFile && currentFile.id === fileId) {
+        const codeFiles = currentProject.files.filter(f => f.type !== FileType.ASSET);
+        const otherFile = codeFiles.find(f => f.id !== fileId);
+        
+        if (otherFile) {
+            openFile(otherFile.id);
+        } else {
+            // No other files, clear editor
+            currentFile = null;
+            editor.setValue('');
+        }
+    }
+    
+    // Note: We don't actually delete the file, just close the tab
+    // To delete, user should use the delete button in the projects panel
+    renderFileTabs(currentProject.files);
+}
+
 function openFile(fileId) {
     if (!currentProject) return;
 
@@ -763,9 +856,8 @@ function openFile(fileId) {
     monaco.editor.setModelLanguage(editor.getModel(), language);
     editor.setValue(currentFile.content);
 
-    // Update UI
-    document.getElementById('current-file-name').textContent = currentFile.name;
-    renderFileTree(currentProject.files);
+    // Update UI - render tabs instead of single file name
+    renderFileTabs(currentProject.files);
     updatePreview();
     
     // Update saved session with current file

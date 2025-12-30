@@ -36,91 +36,586 @@ const ComponentService = {
                 hasJS: true,
                 mobileFirst: true,
                 tags: ['Responsive', 'Mobile-first', 'Flexbox'],
-                description: 'Learn to build a responsive navigation bar with mobile toggle from scratch.',
+                description: 'Learn to build a professional navigation bar with logo, styled links, and dropdown menus.',
                 preview: this.generateNavbarPreview(),
                 workshop: {
-                    goal: 'Build a professional navigation bar that works on all devices',
-                    duration: '25 minutes',
+                    goal: 'Build a professional navigation bar with logo and dropdown menu',
+                    duration: '40 minutes',
                     steps: [
                         {
-                            title: 'Let\'s Make a Menu Bar!',
-                            description: 'We\'re going to make the menu bar you see at the top of websites. It\'s like the menu at a restaurant - it shows you all the places you can go!',
-                            instruction: 'First, we need to tell the computer we\'re making a menu. Type this code in your HTML file:',
+                            title: 'Create the Navbar Container',
+                            description: 'Let\'s start by making a container for our navigation bar. Think of it like building a shelf to hold all your menu items!',
+                            instruction: 'Type this code in your HTML file to create the navbar:',
                             code: `<nav class="navbar">
-  <div class="nav-brand">My Website</div>
+  <div class="nav-brand">
+    <img src="img/webforge-icon.png" alt="Logo" class="nav-logo">
+    <span class="brand-name">My Website</span>
+  </div>
 </nav>`,
                             codeFile: 'index.html',
-                            tip: 'The <nav> tag is like a sign that says "This is a menu!" to the computer.',
-                            explanation: 'Think of <nav> like a lunchbox - it holds all your menu items together in one place!'
+                            tip: 'The <nav> tag tells the browser "this is a navigation menu!" It helps people using screen readers understand your website better.',
+                            explanation: 'Let\'s break down each line:\n• <nav class="navbar"> - Creates a navigation container. The class="navbar" gives it a name so we can style it later.\n• <div class="nav-brand"> - A box to hold our logo and website name together.\n• <img src="img/webforge-icon.png" alt="Logo" class="nav-logo"> - Shows an image. "src" tells where to find the image file. "alt" describes it for people who can\'t see it (important for accessibility!).\n• <span class="brand-name"> - Holds text. Unlike <div>, <span> doesn\'t start a new line.\n• </nav> - Closes the navigation container.\n\nNote: You can replace "img/webforge-icon.png" with your own logo image path!',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'tag',
+                                        value: 'nav',
+                                        message: 'We need a <nav> tag to create our navigation bar!',
+                                        hint: 'Start with <nav class="navbar">'
+                                    },
+                                    {
+                                        type: 'class',
+                                        value: 'navbar',
+                                        message: 'Add class="navbar" to your <nav> tag!',
+                                        hint: 'The navbar class will help us style it later'
+                                    },
+                                    {
+                                        type: 'class',
+                                        value: 'nav-brand',
+                                        message: 'We need a div with class="nav-brand" for the logo area!',
+                                        hint: 'Add <div class="nav-brand"> inside the <nav>'
+                                    },
+                                    {
+                                        type: 'tag',
+                                        value: 'img',
+                                        message: 'Don\'t forget to add an <img> tag for the logo!',
+                                        hint: 'Add <img src="..." alt="Logo" class="nav-logo">'
+                                    }
+                                ]
+                            }
                         },
                         {
-                            title: 'Add Menu Buttons',
-                            description: 'Now let\'s add the buttons people can click on. These are like different rooms in your house - Home, About, Contact!',
-                            instruction: 'Add these menu links inside your navbar (between the <nav> tags):',
+                            title: 'Add Navigation Links',
+                            description: 'Now let\'s add the menu links! These are the buttons people click to go to different pages.',
+                            instruction: 'Add these menu links after the nav-brand div (but still inside the <nav>):',
                             code: `<ul class="nav-menu">
-  <li><a href="#home">Home</a></li>
-  <li><a href="#about">About</a></li>
-  <li><a href="#contact">Contact</a></li>
+  <li><a href="#home" class="nav-link">Home</a></li>
+  <li><a href="#about" class="nav-link">About</a></li>
+  <li><a href="#services" class="nav-link">Services</a></li>
+  <li><a href="#contact" class="nav-link">Contact</a></li>
 </ul>`,
                             codeFile: 'index.html',
-                            tip: 'The <ul> tag makes a list, and each <li> is one item in that list - like a shopping list!',
-                            explanation: 'Each <a> tag is a clickable link. When someone clicks it, they go to that page!'
+                            tip: 'The <ul> tag creates an "unordered list" - perfect for menu items! Each <li> is one menu item.',
+                            explanation: 'Here\'s what each part does:\n• <ul class="nav-menu"> - Creates an unordered list (bullets by default, but we\'ll remove them with CSS).\n• <li> - List item. Each one is a menu button.\n• <a href="#home"> - A link! "href" tells where to go. The # means it\'s a link to a section on the same page.\n• class="nav-link" - Names the link so we can style all links the same way.\n• Home, About, etc. - The text people see and click on.',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'tag',
+                                        value: 'ul',
+                                        message: 'We need a <ul> tag to create our menu list!',
+                                        hint: 'Add <ul class="nav-menu"> after the nav-brand'
+                                    },
+                                    {
+                                        type: 'class',
+                                        value: 'nav-menu',
+                                        message: 'Add class="nav-menu" to your <ul> tag!',
+                                        hint: 'This class will help us style the menu'
+                                    },
+                                    {
+                                        type: 'tag',
+                                        value: 'li',
+                                        message: 'We need <li> tags for each menu item!',
+                                        hint: 'Add <li> tags inside the <ul>'
+                                    },
+                                    {
+                                        type: 'class',
+                                        value: 'nav-link',
+                                        message: 'Add class="nav-link" to your <a> tags!',
+                                        hint: 'Each link should have class="nav-link"'
+                                    }
+                                ]
+                            }
                         },
                         {
-                            title: 'Make It Look Pretty!',
-                            description: 'Right now our menu looks boring. Let\'s paint it and make it look nice!',
-                            instruction: 'Go to your CSS file and add this styling:',
+                            title: 'Add Basic Navbar Colors',
+                            description: 'Let\'s give our navbar a nice color and some breathing room!',
+                            instruction: 'Go to your CSS file and add these styles:',
                             code: `.navbar {
-  background-color: #333;
-  color: white;
+  background-color: #2c3e50;
+  padding: 1rem 2rem;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'In CSS, we use a dot (.) before the class name to select it. So .navbar selects anything with class="navbar".',
+                            explanation: 'Let\'s understand each CSS property:\n• background-color: #2c3e50 - Paints the navbar dark blue-gray. #2c3e50 is a color code (hex code). You can use any color you like!\n• padding: 1rem 2rem - Adds space inside the navbar. 1rem top/bottom, 2rem left/right. "rem" is a size unit that scales nicely.',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'selector',
+                                        value: '.navbar',
+                                        message: 'We need to create a .navbar style in CSS!',
+                                        hint: 'Start with .navbar { } in your CSS file'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'background-color',
+                                        message: 'Add background-color to give the navbar a color!',
+                                        hint: 'Try background-color: #2c3e50;'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'padding',
+                                        message: 'Add padding to give the navbar some space!',
+                                        hint: 'Try padding: 1rem 2rem;'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            title: 'Arrange Items with Flexbox',
+                            description: 'Now let\'s use Flexbox magic to line up our logo and menu nicely!',
+                            instruction: 'Add these properties to your .navbar style:',
+                            code: `.navbar {
+  background-color: #2c3e50;
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'CSS is like choosing what clothes to wear - it makes things look good!',
-                            explanation: 'background-color is like painting a wall. We picked dark gray (#333) and white text so it\'s easy to read!'
+                            tip: 'Flexbox is like having superpowers for arranging things on a page!',
+                            explanation: 'Understanding Flexbox properties:\n• display: flex - Turns on Flexbox! This makes items line up in a row and gives us control over how they\'re arranged.\n• justify-content: space-between - Pushes items apart. Logo goes left, menu goes right, with space between them.\n• align-items: center - Lines everything up in the middle vertically, so nothing looks crooked or misaligned.',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'property',
+                                        value: 'display',
+                                        message: 'Add display: flex to arrange items in a row!',
+                                        hint: 'Flexbox is super powerful for layouts!'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'justify-content',
+                                        message: 'Add justify-content to space items apart!',
+                                        hint: 'Use justify-content: space-between;'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'align-items',
+                                        message: 'Add align-items to center items vertically!',
+                                        hint: 'Use align-items: center;'
+                                    }
+                                ]
+                            }
                         },
                         {
-                            title: 'Line Up the Menu Items',
-                            description: 'Let\'s make the menu items sit next to each other in a nice row, like kids sitting on a bench!',
-                            instruction: 'Add this CSS to make the menu items line up:',
+                            title: 'Style the Logo Area',
+                            description: 'Let\'s arrange the logo and website name to sit nicely together!',
+                            instruction: 'Add this style for the logo area:',
+                            code: `.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'The gap property is super handy - it adds space between items automatically!',
+                            explanation: 'Understanding .nav-brand:\n• display: flex - Makes the logo and text sit side-by-side instead of stacking.\n• align-items: center - Lines them up in the middle vertically so they\'re not misaligned.\n• gap: 0.75rem - Adds space between logo and text. Like giving them breathing room!',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'selector',
+                                        value: '.nav-brand',
+                                        message: 'We need to style .nav-brand in CSS!',
+                                        hint: 'Add .nav-brand { } to your CSS'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'display',
+                                        message: 'Add display: flex to arrange logo and text!',
+                                        hint: 'Use display: flex;'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'gap',
+                                        message: 'Add gap to space the logo and text!',
+                                        hint: 'Try gap: 0.75rem;'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            title: 'Size and Round the Logo',
+                            description: 'Now let\'s make the logo the perfect size with nice rounded corners!',
+                            instruction: 'Add this style for the logo image:',
+                            code: `.nav-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'border-radius is what makes corners round - the bigger the number, the rounder it gets!',
+                            explanation: 'Understanding .nav-logo:\n• width: 40px - Makes the logo exactly 40 pixels wide.\n• height: 40px - Makes the logo exactly 40 pixels tall. Same as width makes it a perfect square!\n• border-radius: 8px - Rounds the corners. Higher numbers = rounder corners. Try 50% for a circle!',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'selector',
+                                        value: '.nav-logo',
+                                        message: 'We need to style .nav-logo in CSS!',
+                                        hint: 'Add .nav-logo { } to style the logo image'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'width',
+                                        message: 'Add width to size the logo!',
+                                        hint: 'Try width: 40px;'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'border-radius',
+                                        message: 'Add border-radius to make rounded corners!',
+                                        hint: 'Try border-radius: 8px;'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            title: 'Style the Brand Name',
+                            description: 'Let\'s make the website name look bold and beautiful!',
+                            instruction: 'Add this style for the brand name:',
+                            code: `.brand-name {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'font-weight controls how bold text is. 400 is normal, 600 is semi-bold, 700 is bold!',
+                            explanation: 'Understanding .brand-name:\n• color: white - Makes the text white so it shows up clearly on the dark background.\n• font-size: 1.5rem - Makes the text bigger (1.5 times the normal size). This makes it stand out!\n• font-weight: 600 - Makes it semi-bold. 400 is normal, 700 is very bold.',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'selector',
+                                        value: '.brand-name',
+                                        message: 'We need to style .brand-name in CSS!',
+                                        hint: 'Add .brand-name { } to your CSS'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'color',
+                                        message: 'Add color to make the text visible!',
+                                        hint: 'Try color: white;'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'font-size',
+                                        message: 'Add font-size to make the text bigger!',
+                                        hint: 'Try font-size: 1.5rem;'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            title: 'Remove List Bullets',
+                            description: 'Let\'s clean up the menu by removing bullets and arranging items in a row!',
+                            instruction: 'Add this style for the menu list:',
                             code: `.nav-menu {
   display: flex;
   list-style: none;
   gap: 2rem;
   margin: 0;
   padding: 0;
-}
-
-.nav-menu a {
-  color: white;
-  text-decoration: none;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'display: flex makes things sit in a row. gap: 2rem puts space between them so they\'re not squished!',
-                            explanation: 'list-style: none removes the bullet points. We don\'t need them for a menu!'
+                            tip: 'Lists normally have bullets and extra spacing. We\'re removing all that to make a clean menu!',
+                            explanation: 'Understanding .nav-menu:\n• display: flex - Lines up menu items in a row instead of stacking them.\n• list-style: none - Removes the bullet points that lists normally have.\n• gap: 2rem - Adds space between each menu item automatically.\n• margin: 0 and padding: 0 - Removes default spacing that browsers add to lists. This gives us full control!',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'selector',
+                                        value: '.nav-menu',
+                                        message: 'We need to style .nav-menu in CSS!',
+                                        hint: 'Add .nav-menu { } to your CSS'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'list-style',
+                                        message: 'Add list-style: none to remove bullet points!',
+                                        hint: 'This makes the menu look cleaner'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'display',
+                                        message: 'Add display: flex to line up items!',
+                                        hint: 'Use display: flex;'
+                                    }
+                                ]
+                            }
                         },
                         {
-                            title: 'Make It Work on Phones!',
-                            description: 'Phones have small screens, so we need to make our menu work on tiny screens too!',
-                            instruction: 'Add this special code that only works on small screens:',
-                            code: `@media (max-width: 768px) {
-  .nav-menu {
-    flex-direction: column;
-  }
+                            title: 'Style the Menu Links',
+                            description: 'Now let\'s make the links look clickable and pretty!',
+                            instruction: 'Add this style for the links:',
+                            code: `.nav-link {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
 }`,
                             codeFile: 'styles.css',
-                            tip: '@media is like a magic spell that only works when the screen is small!',
-                            explanation: 'flex-direction: column makes items stack on top of each other instead of side-by-side. Perfect for phones!'
+                            tip: 'Links normally have underlines, but we can remove them to make a cleaner look!',
+                            explanation: 'Understanding .nav-link:\n• color: white - Makes link text white so it shows up on the dark navbar.\n• text-decoration: none - Removes the underline that links normally have.\n• padding: 0.5rem 1rem - Adds space inside each link to make it bigger and easier to click.\n• border-radius: 6px - Slightly rounds the corners for a modern look.',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'selector',
+                                        value: '.nav-link',
+                                        message: 'We need to style .nav-link in CSS!',
+                                        hint: 'Add .nav-link { } to style the links'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'color',
+                                        message: 'Add color to make links visible!',
+                                        hint: 'Try color: white;'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'text-decoration',
+                                        message: 'Add text-decoration to remove underlines!',
+                                        hint: 'Use text-decoration: none;'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            title: 'Add Hover Effects',
+                            description: 'Let\'s add a cool effect when you move your mouse over the links!',
+                            instruction: 'Add these properties to make hover effects smooth:',
+                            code: `.nav-link {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'The :hover selector is special - it only applies when you move your mouse over something!',
+                            explanation: 'Understanding hover effects:\n• transition: background-color 0.3s - Makes color changes smooth over 0.3 seconds instead of instant. This creates a nice animation!\n• .nav-link:hover - This means "when mouse is over a .nav-link"\n• rgba(255, 255, 255, 0.1) - White color with 0.1 opacity (10% visible, 90% see-through). Creates a subtle highlight when you hover!',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'property',
+                                        value: 'transition',
+                                        message: 'Add transition for smooth hover effects!',
+                                        hint: 'Try transition: background-color 0.3s;'
+                                    },
+                                    {
+                                        type: 'pattern',
+                                        value: '\\.nav-link:hover',
+                                        message: 'Add a :hover rule for the links!',
+                                        hint: 'Use .nav-link:hover { } to style hovered links'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            title: 'Add a Dropdown Menu',
+                            description: 'Let\'s add a dropdown menu to the Services link! This shows more options when you hover over it.',
+                            instruction: 'Find the Services <li> in your HTML and replace it with this code:',
+                            code: `<li class="dropdown">
+  <a href="#services" class="nav-link">Services</a>
+  <ul class="dropdown-menu">
+    <li><a href="#web" class="dropdown-link">Web Design</a></li>
+    <li><a href="#app" class="dropdown-link">App Development</a></li>
+    <li><a href="#seo" class="dropdown-link">SEO</a></li>
+  </ul>
+</li>`,
+                            codeFile: 'index.html',
+                            tip: 'A dropdown is a menu inside a menu! We\'re putting a <ul> inside a <li>.',
+                            explanation: 'Here\'s the structure:\n• <li class="dropdown"> - The main menu item. The "dropdown" class tells CSS this one has a submenu.\n• <a href="#services" class="nav-link">Services</a> - The main link you see.\n• <ul class="dropdown-menu"> - A new list INSIDE the list item! This is the hidden menu.\n• Three <li> items inside - These are the dropdown options (Web Design, App Development, SEO).\n• class="dropdown-link" - Styles these links differently from the main menu links.\n\nThink of it like a folder with files inside. The folder is "Services" and the files are the three options!',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'class',
+                                        value: 'dropdown',
+                                        message: 'We need a class="dropdown" on the Services list item!',
+                                        hint: 'Add class="dropdown" to the <li> that contains Services'
+                                    },
+                                    {
+                                        type: 'class',
+                                        value: 'dropdown-menu',
+                                        message: 'We need a class="dropdown-menu" for the submenu!',
+                                        hint: 'Add class="dropdown-menu" to the nested <ul>'
+                                    },
+                                    {
+                                        type: 'class',
+                                        value: 'dropdown-link',
+                                        message: 'Add class="dropdown-link" to the dropdown links!',
+                                        hint: 'Each link in the dropdown should have this class'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            title: 'Position the Dropdown',
+                            description: 'Let\'s set up the positioning so the dropdown appears in the right place!',
+                            instruction: 'Add these positioning styles:',
+                            code: `.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'position: absolute is like magic - it lets you place things exactly where you want, floating above everything else!',
+                            explanation: 'Understanding positioning:\n• .dropdown { position: relative; } - Makes this the "anchor point" for the dropdown menu. The menu will position itself relative to this.\n• .dropdown-menu { position: absolute; } - Takes it out of normal flow. It floats above other content!\n• top: 100% - Positions it right below the Services link (100% = full height of parent).\n• left: 0 - Aligns it with the left edge of Services.',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'selector',
+                                        value: '.dropdown',
+                                        message: 'We need to style .dropdown in CSS!',
+                                        hint: 'Add .dropdown { } to your CSS'
+                                    },
+                                    {
+                                        type: 'selector',
+                                        value: '.dropdown-menu',
+                                        message: 'We need to style .dropdown-menu in CSS!',
+                                        hint: 'Add .dropdown-menu { } to style the submenu'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'position',
+                                        message: 'Add position property for dropdown positioning!',
+                                        hint: 'Use position: absolute on .dropdown-menu'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            title: 'Style the Dropdown Menu',
+                            description: 'Now let\'s make the dropdown look good with colors and spacing!',
+                            instruction: 'Add these style properties to .dropdown-menu:',
+                            code: `.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #34495e;
+  list-style: none;
+  padding: 0.5rem 0;
+  margin: 0;
+  border-radius: 6px;
+  min-width: 200px;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'min-width makes sure the dropdown is wide enough even if the text is short!',
+                            explanation: 'Understanding dropdown styling:\n• background-color: #34495e - Slightly lighter than the navbar so it stands out.\n• list-style: none - Removes bullet points from the dropdown list.\n• padding: 0.5rem 0 - Adds space at top and bottom.\n• margin: 0 - Removes default spacing.\n• border-radius: 6px - Rounds the corners to match our design.\n• min-width: 200px - Makes sure it\'s at least 200px wide, even if text is short.',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'property',
+                                        value: 'background-color',
+                                        message: 'Add background-color to the dropdown!',
+                                        hint: 'Try background-color: #34495e;'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'border-radius',
+                                        message: 'Add border-radius for rounded corners!',
+                                        hint: 'Try border-radius: 6px;'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'min-width',
+                                        message: 'Add min-width to make dropdown wide enough!',
+                                        hint: 'Try min-width: 200px;'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            title: 'Hide and Show the Dropdown',
+                            description: 'Let\'s make the dropdown hidden by default and appear when you hover!',
+                            instruction: 'Add these rules to control visibility:',
+                            code: `.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #34495e;
+  list-style: none;
+  padding: 0.5rem 0;
+  margin: 0;
+  border-radius: 6px;
+  min-width: 200px;
+  display: none;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'display: none makes something invisible. display: block makes it visible again!',
+                            explanation: 'Understanding show/hide:\n• display: none - HIDES the menu by default! It\'s completely invisible and takes up no space.\n• .dropdown:hover .dropdown-menu - This means "When hovering over .dropdown, find .dropdown-menu inside it"\n• display: block - SHOWS the menu! Changes from none to block when you hover over Services.',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'property',
+                                        value: 'display',
+                                        message: 'Add display property to control visibility!',
+                                        hint: 'Use display: none on .dropdown-menu'
+                                    },
+                                    {
+                                        type: 'pattern',
+                                        value: '\\.dropdown:hover',
+                                        message: 'Add a :hover rule to show the dropdown!',
+                                        hint: 'Use .dropdown:hover .dropdown-menu { display: block; }'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            title: 'Style the Dropdown Links',
+                            description: 'Finally, let\'s style the links inside the dropdown menu!',
+                            instruction: 'Add these styles for dropdown links:',
+                            code: `.dropdown-link {
+  color: white;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  display: block;
+}
+
+.dropdown-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'display: block makes each link take up the full width, making them easier to click!',
+                            explanation: 'Understanding dropdown links:\n• color: white - Makes text white.\n• text-decoration: none - Removes underlines.\n• padding: 0.75rem 1.5rem - More padding than main links for better spacing in the dropdown.\n• display: block - Makes each link take up the full width, easier to click.\n• .dropdown-link:hover - Adds a subtle highlight when you hover over dropdown items, just like the main menu!',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'selector',
+                                        value: '.dropdown-link',
+                                        message: 'We need to style .dropdown-link in CSS!',
+                                        hint: 'Add .dropdown-link { } to your CSS'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'display',
+                                        message: 'Add display: block to dropdown links!',
+                                        hint: 'This makes them easier to click'
+                                    },
+                                    {
+                                        type: 'pattern',
+                                        value: '\\.dropdown-link:hover',
+                                        message: 'Add a :hover rule for dropdown links!',
+                                        hint: 'Use .dropdown-link:hover { } for hover effects'
+                                    }
+                                ]
+                            }
                         }
                     ],
                     learningObjectives: [
-                        'Learn what a navigation bar is and why websites need them',
-                        'Understand how to use HTML tags like <nav>, <ul>, and <a>',
-                        'Make things look pretty with CSS colors and spacing',
-                        'Learn how to make websites work on phones (responsive design)',
-                        'Understand what Flexbox does (makes things line up nicely)'
+                        'Learn how to structure a navigation bar with HTML',
+                        'Understand how to add and style a logo image',
+                        'Master CSS Flexbox for layout',
+                        'Learn about hover effects and transitions',
+                        'Understand positioning for dropdown menus',
+                        'Create interactive dropdown menus with CSS'
                     ]
                 },
                 useCases: [

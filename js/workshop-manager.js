@@ -29,6 +29,41 @@ const WorkshopManager = {
         this.loadPanelStates();
         this.setupEventListeners();
         this.applyPanelStates();
+        
+        // Try to restore active workshop on page load
+        setTimeout(() => {
+            this.restoreWorkshopIfActive();
+        }, 500);
+    },
+    
+    /**
+     * Restore workshop if there's an active one
+     */
+    restoreWorkshopIfActive() {
+        // Check URL parameters first (takes priority)
+        const urlParams = new URLSearchParams(window.location.search);
+        const mode = urlParams.get('mode');
+        const componentId = urlParams.get('component');
+        
+        if (mode === 'workshop' && componentId) {
+            // Workshop mode from URL, already handled by editor-init.js
+            return;
+        }
+        
+        // Check for saved workshop state
+        const savedState = this.loadWorkshopState();
+        if (savedState && savedState.componentId) {
+            console.log('Restoring workshop from saved state:', savedState);
+            
+            // Load the component
+            this.loadComponent(savedState.componentId);
+            
+            // Restore the step position
+            if (savedState.currentStep > 0 && savedState.currentStep < this.totalSteps) {
+                this.currentStep = savedState.currentStep;
+                this.renderStep();
+            }
+        }
     },
     
     /**
@@ -352,6 +387,9 @@ const WorkshopManager = {
         console.log('- Total steps:', this.totalSteps);
         console.log('- First step:', this.currentComponent.steps[0]?.title);
         
+        // Save workshop state to localStorage for persistence
+        this.saveWorkshopState();
+        
         // Show workshop panel if collapsed
         if (this.workshopCollapsed) {
             console.log('Workshop panel is collapsed, expanding...');
@@ -361,6 +399,57 @@ const WorkshopManager = {
         // Render first step
         console.log('Rendering first step...');
         this.renderStep();
+    },
+    
+    /**
+     * Save workshop state to localStorage
+     */
+    saveWorkshopState() {
+        if (!this.currentComponent) return;
+        
+        const workshopState = {
+            componentId: this.currentComponent.id,
+            componentName: this.currentComponent.name,
+            currentStep: this.currentStep,
+            totalSteps: this.totalSteps,
+            projectId: currentProject ? currentProject.id : null,
+            timestamp: Date.now()
+        };
+        
+        localStorage.setItem('webforge-active-workshop', JSON.stringify(workshopState));
+        console.log('Workshop state saved:', workshopState);
+    },
+    
+    /**
+     * Load workshop state from localStorage
+     */
+    loadWorkshopState() {
+        const saved = localStorage.getItem('webforge-active-workshop');
+        if (!saved) return null;
+        
+        try {
+            const state = JSON.parse(saved);
+            
+            // Check if state is recent (within 24 hours)       
+            const hoursSinceLastActive = (Date.now() - state.timestamp) / (1000 * 60 * 60);
+            if (hoursSinceLastActive > 24) {
+                // State is too old, clear it
+                localStorage.removeItem('webforge-active-workshop');
+                return null;
+            }
+            
+            return state;
+        } catch (e) {
+            console.error('Failed to load workshop state:', e);
+            return null;
+        }
+    },
+    
+    /**
+     * Clear workshop state from localStorage
+     */
+    clearWorkshopState() {
+        localStorage.removeItem('webforge-active-workshop');
     },
     
     /**
@@ -405,9 +494,6 @@ const WorkshopManager = {
                     <div class="workshop-code-block">
                         <div class="workshop-code-block-header">
                             <span class="workshop-code-block-title">${step.codeFile || 'Code'}</span>
-                            <button class="workshop-code-copy-btn" onclick="WorkshopManager.copyCode(this)">
-                                Copy
-                            </button>
                         </div>
                         <pre><code>${this.escapeHtml(step.code)}</code></pre>
                     </div>
@@ -492,19 +578,205 @@ const WorkshopManager = {
         if (this.currentStep > 0) {
             this.currentStep--;
             this.renderStep();
+            this.saveWorkshopState(); // Save state when navigating
         }
     },
     
     /**
-     * Go to next step
+     * Go to next step (with validation)
      */
-    nextStep() {
+    async nextStep() {
+        // Validate current step before proceeding
         if (this.currentStep < this.totalSteps - 1) {
+            const isValid = await this.validateCurrentStep();
+            
+            if (!isValid) {
+                // Validation failed, don't proceed
+                return;
+            }
+            
+            // Validation passed, go to next step
             this.currentStep++;
             this.renderStep();
+            this.saveWorkshopState(); // Save state when navigating
+            
+            // Show success message
+            if (typeof showToast === 'function') {
+                showToast('Great job! Moving to next step', 'success');
+            }
         } else {
-            // Complete workshop
+            // Last step, complete workshop
             this.completeWorkshop();
+        }
+    },
+    
+    /**
+     * Validate current step before proceeding
+     */
+    async validateCurrentStep() {
+        const step = this.currentComponent.steps[this.currentStep];
+        
+        console.log('=== VALIDATING STEP ===');
+        console.log('Current step:', this.currentStep + 1);
+        console.log('Step title:', step.title);
+        
+        // If no validation rules, allow to proceed
+        if (!step.validation) {
+            console.log('No validation rules, allowing to proceed');
+            return true;
+        }
+        
+        // Get current project files
+        if (typeof ProjectService === 'undefined' || typeof currentProject === 'undefined') {
+            console.error('ProjectService or currentProject not available');
+            return true; // Allow to proceed if we can't validate
+        }
+        
+        const project = currentProject;
+        if (!project || !project.files) {
+            console.error('No project files available for validation');
+            return true;
+        }
+        
+        console.log('Project files:', project.files.map(f => f.name));
+        
+        // Validate using CodeValidator
+        if (typeof CodeValidator === 'undefined') {
+            console.error('CodeValidator not loaded');
+            return true;
+        }
+        
+        // Collect validation rules from all previous steps + current step
+        const allValidationRules = {
+            required: [],
+            forbidden: []
+        };
+        
+        // Add validation rules from all steps up to and including current step
+        for (let i = 0; i <= this.currentStep; i++) {
+            const stepToValidate = this.currentComponent.steps[i];
+            if (stepToValidate.validation) {
+                if (stepToValidate.validation.required) {
+                    console.log(`Adding ${stepToValidate.validation.required.length} validation rules from step ${i + 1}`);
+                    allValidationRules.required.push(...stepToValidate.validation.required);
+                }
+                if (stepToValidate.validation.forbidden) {
+                    allValidationRules.forbidden.push(...stepToValidate.validation.forbidden);
+                }
+            }
+        }
+        
+        console.log('Total validation rules:', allValidationRules.required.length);
+        console.log('Validation rules:', allValidationRules.required.map(r => `${r.type}: ${r.value}`));
+        
+        // Create a combined step with all validation rules
+        const combinedStep = {
+            ...step,
+            validation: allValidationRules
+        };
+        
+        const result = await CodeValidator.validateCurrentStep(combinedStep, project.files);
+        
+        console.log('Validation result:', result);
+        
+        if (!result.valid) {
+            console.log('Validation failed!');
+            console.log('Errors:', result.errors);
+            // Show validation errors
+            this.showValidationErrors(result.errors, result.suggestions);
+            return false;
+        }
+        
+        console.log('Validation passed!');
+        return true;
+    },
+    
+    /**
+     * Show validation errors to the user
+     */
+    showValidationErrors(errors, suggestions) {
+        const content = document.getElementById('workshop-step-content');
+        if (!content) return;
+        
+        // Remove any existing validation errors first
+        const existingError = content.querySelector('.workshop-validation-error');
+        if (existingError) {
+            existingError.remove();
+        }
+        
+        // Create error message HTML
+        let errorHTML = `
+            <div class="workshop-validation-error">
+                <div class="validation-error-header">
+                    <i data-lucide="alert-circle"></i>
+                    <h3>Oops! Let's fix a few things first</h3>
+                </div>
+                <div class="validation-error-content">
+                    <p class="validation-intro">Don't worry! Everyone makes mistakes. Here's what we need to fix:</p>
+                    <ul class="validation-error-list">
+        `;
+        
+        errors.forEach(error => {
+            const friendlyError = CodeValidator.getFriendlyMessage(error);
+            errorHTML += `<li>${friendlyError}</li>`;
+        });
+        
+        errorHTML += `</ul>`;
+        
+        if (suggestions.length > 0) {
+            errorHTML += `
+                <div class="validation-suggestions">
+                    <h4>
+                        <i data-lucide="lightbulb"></i>
+                        Here's how to fix it:
+                    </h4>
+                    <ul class="validation-suggestion-list">
+            `;
+            
+            suggestions.forEach(suggestion => {
+                errorHTML += `<li>${suggestion}</li>`;
+            });
+            
+            errorHTML += `
+                    </ul>
+                </div>
+            `;
+        }
+        
+        errorHTML += `
+                    <button class="btn btn-primary validation-try-again-btn" onclick="WorkshopManager.hideValidationErrors()">
+                        <i data-lucide="refresh-cw"></i>
+                        <span>I Fixed It! Try Again</span>
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        // Insert error message at the top of the step content
+        const stepContent = content.querySelector('.workshop-step');
+        if (stepContent) {
+            stepContent.insertAdjacentHTML('afterbegin', errorHTML);
+        }
+        
+        // Initialize icons
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+        
+        // Scroll to error
+        const errorElement = content.querySelector('.workshop-validation-error');
+        if (errorElement) {
+            errorElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    },
+    
+    /**
+     * Hide validation errors
+     */
+    hideValidationErrors() {
+        const errorElement = document.querySelector('.workshop-validation-error');
+        if (errorElement) {
+            errorElement.remove();
         }
     },
     
@@ -526,6 +798,10 @@ const WorkshopManager = {
                     </div>
                     <h3>Workshop Complete!</h3>
                     <p>You've successfully built the ${this.currentComponent.name}. Keep building!</p>
+                    <button class="btn btn-primary" onclick="window.location.href='components.html'">
+                        <i data-lucide="grid-3x3"></i>
+                        <span>Browse More Components</span>
+                    </button>
                 </div>
             `;
             
@@ -540,6 +816,11 @@ const WorkshopManager = {
         
         if (prevBtn) prevBtn.disabled = true;
         if (nextBtn) nextBtn.disabled = true;
+        
+        // Clear ALL workshop data from localStorage
+        this.clearWorkshopState();
+        localStorage.removeItem('webforge-workshop-start');
+        console.log('Workshop completed - all workshop data cleared');
     },
     
     /**

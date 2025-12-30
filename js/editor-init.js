@@ -573,18 +573,53 @@ require(['vs/editor/editor.main'], function () {
         console.log('Component ID:', componentId);
         
         // Get workshop data from localStorage
-        const workshopData = localStorage.getItem('webforge-workshop-start');
+        let workshopData = localStorage.getItem('webforge-workshop-start');
         console.log('Workshop data from localStorage:', workshopData);
+        
+        // Check for active workshop state (which includes project ID)
+        const activeWorkshop = localStorage.getItem('webforge-active-workshop');
+        let existingProjectId = null;
+        
+        if (activeWorkshop) {
+            try {
+                const active = JSON.parse(activeWorkshop);
+                existingProjectId = active.projectId;
+                console.log('Found existing workshop project ID:', existingProjectId);
+                
+                // If no workshop-start data, reconstruct it from active state
+                if (!workshopData) {
+                    workshopData = JSON.stringify({
+                        id: active.componentId,
+                        name: active.componentName,
+                        type: 'workshop'
+                    });
+                    console.log('Reconstructed workshop data from active state');
+                }
+            } catch (e) {
+                console.error('Failed to parse active workshop:', e);
+            }
+        }
         
         if (workshopData) {
             try {
                 const workshop = JSON.parse(workshopData);
                 console.log('Parsed workshop data:', workshop);
-                console.log('Workshop has steps:', workshop.workshop?.steps?.length || 0);
                 
-                // Create or load workshop project
-                const workshopProject = createWorkshopProject(workshop);
-                console.log('Workshop project created:', workshopProject.id);
+                // Try to load existing project first, or create new one
+                let workshopProject;
+                if (existingProjectId) {
+                    workshopProject = ProjectService.getProject(existingProjectId);
+                    if (workshopProject) {
+                        console.log('Loaded existing workshop project:', existingProjectId);
+                    } else {
+                        console.log('Existing project not found, creating new one');
+                        workshopProject = createWorkshopProject(workshop);
+                    }
+                } else {
+                    workshopProject = createWorkshopProject(workshop);
+                }
+                
+                console.log('Workshop project ready:', workshopProject.id);
                 
                 loadProject(workshopProject.id);
                 console.log('Workshop project loaded');
@@ -608,9 +643,9 @@ require(['vs/editor/editor.main'], function () {
                     console.error('WorkshopManager not found!');
                 }
                 
-                // Clear the workshop start data
-                localStorage.removeItem('webforge-workshop-start');
-                console.log('Workshop start data cleared from localStorage');
+                // DON'T clear the workshop start data - keep it for reloads
+                // It will be cleared when workshop is completed
+                console.log('Workshop data kept in localStorage for persistence');
                 
             } catch (error) {
                 console.error('Error loading workshop data:', error);
@@ -627,6 +662,20 @@ require(['vs/editor/editor.main'], function () {
     // Create a workshop project
     function createWorkshopProject(workshop) {
         const projectName = 'Workshop - ' + workshop.name;
+        
+        // Check if a workshop project already exists for this workshop
+        const existingProjects = ProjectService.listProjects();
+        const existingWorkshop = existingProjects.find(p => 
+            p.name === projectName && p.type === 'workshop'
+        );
+        
+        if (existingWorkshop) {
+            console.log('Found existing workshop project:', existingWorkshop.id);
+            return existingWorkshop;
+        }
+        
+        // Create new workshop project
+        console.log('Creating new workshop project:', projectName);
         const project = ProjectService.createProject(projectName, 'workshop');
         
         // Add starter files using the factory function
@@ -642,7 +691,20 @@ require(['vs/editor/editor.main'], function () {
     
     // Get starter HTML for workshop
     function getWorkshopStarterHTML(workshop) {
-        return '<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <meta name="viewport" content="width=device-width, initial-scale=1.0">\n    <title>Workshop: ' + workshop.name + '</title>\n</head>\n<body>\n    <!-- Start building your ' + workshop.name.toLowerCase() + ' here -->\n    \n</body>\n</html>';
+        return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop: ${workshop.name}</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Start building your ${workshop.name.toLowerCase()} here -->
+    
+    <script src="script.js"></script>
+</body>
+</html>`;
     }
     
     // Get starter CSS for workshop

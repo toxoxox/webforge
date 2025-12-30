@@ -14,6 +14,31 @@
     flex-shrink: 0;
 }
 
+/* Custom Scrollbar for Workshop Panel */
+.workshop-panel ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.workshop-panel ::-webkit-scrollbar-track {
+    background: #1e1e1e;
+}
+
+.workshop-panel ::-webkit-scrollbar-thumb {
+    background: #3e3e42;
+    border-radius: 4px;
+}
+
+.workshop-panel ::-webkit-scrollbar-thumb:hover {
+    background: #4e4e52;
+}
+
+/* Firefox scrollbar for workshop panel */
+.workshop-panel * {
+    scrollbar-width: thin;
+    scrollbar-color: #3e3e42 #1e1e1e;
+}
+
 .workshop-panel.collapsed {
     width: 0 !important;
     min-width: 0 !important;
@@ -92,6 +117,30 @@
     overflow-y: auto;
     padding: 1.5rem;
     background: #1e1e1e;
+}
+
+/* Custom Scrollbar for Workshop */
+.workshop-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.workshop-content::-webkit-scrollbar-track {
+    background: #1e1e1e;
+}
+
+.workshop-content::-webkit-scrollbar-thumb {
+    background: #3e3e42;
+    border-radius: 4px;
+}
+
+.workshop-content::-webkit-scrollbar-thumb:hover {
+    background: #4e4e52;
+}
+
+/* Firefox scrollbar */
+.workshop-content {
+    scrollbar-width: thin;
+    scrollbar-color: #3e3e42 #1e1e1e;
 }
 
 .workshop-footer {
@@ -491,6 +540,142 @@
     font-size: 13px;
     color: #cccccc;
     line-height: 1.6;
+}
+
+/* Validation Error Messages */
+.workshop-validation-error {
+    background: rgba(244, 67, 54, 0.1);
+    border: 2px solid #f44336;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.validation-error-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.validation-error-header i {
+    width: 24px;
+    height: 24px;
+    color: #f44336;
+    flex-shrink: 0;
+}
+
+.validation-error-header h3 {
+    margin: 0;
+    color: #f44336;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.validation-error-content {
+    color: #cccccc;
+}
+
+.validation-intro {
+    font-size: 14px;
+    margin-bottom: 1rem;
+    color: #cccccc;
+}
+
+.validation-error-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+}
+
+.validation-error-list li {
+    padding: 0.75rem;
+    background: rgba(244, 67, 54, 0.15);
+    border-left: 3px solid #f44336;
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.validation-suggestions {
+    background: rgba(76, 175, 80, 0.1);
+    border-left: 3px solid #4CAF50;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+.validation-suggestions h4 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0 0.75rem 0;
+    color: #4CAF50;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.validation-suggestions h4 i {
+    width: 18px;
+    height: 18px;
+}
+
+.validation-suggestion-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.validation-suggestion-list li {
+    padding: 0.5rem 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #cccccc;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.validation-suggestion-list li:before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.validation-try-again-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.validation-try-again-btn:hover {
+    background: #45a049;
+    transform: translateY(-1px);
+}
+
+.validation-try-again-btn i {
+    width: 16px;
+    height: 16px;
 }
 
 .workshop-warning-icon i {

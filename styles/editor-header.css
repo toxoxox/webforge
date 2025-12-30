@@ -37,6 +37,141 @@
     flex-shrink: 0;
 }
 
+/* Editor Tabs */
+.editor-tabs {
+    display: flex;
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 100%;
+    align-items: stretch;
+    scrollbar-width: none; /* Firefox */
+    margin: -0.5rem -1rem; /* Extend to edges */
+    padding: 0;
+}
+
+.editor-tabs::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+
+.editor-tab {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 1rem;
+    background: transparent;
+    border: none;
+    color: #858585;
+    font-size: 13px;
+    font-weight: 400;
+    cursor: pointer;
+    white-space: nowrap;
+    border-right: 1px solid #2d2d30;
+    transition: all 0.2s ease;
+    height: 100%;
+    position: relative;
+    min-width: 120px;
+    max-width: 200px;
+}
+
+.editor-tab:hover {
+    background: #2a2d2e;
+    color: #cccccc;
+}
+
+.editor-tab.active {
+    background: #1e1e1e;
+    color: #ffffff;
+}
+
+.editor-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #ff6b35;
+}
+
+.editor-tab-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    color: currentColor;
+}
+
+.editor-tab-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.editor-tab-close {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    flex-shrink: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: currentColor;
+}
+
+.editor-tab:hover .editor-tab-close {
+    opacity: 1;
+}
+
+.editor-tab-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.editor-tab-close i {
+    width: 14px;
+    height: 14px;
+}
+
+.editor-tab.modified .editor-tab-close::before {
+    content: '●';
+    font-size: 16px;
+    color: #ff6b35;
+    position: absolute;
+}
+
+.editor-tab.modified:hover .editor-tab-close::before {
+    content: '';
+}
+
+.panel-collapse-btn {
+    padding: 0.5rem;
+    flex-shrink: 0;
+    background: transparent;
+    border: none;
+    color: #858585;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+}
+
+.panel-collapse-btn:hover {
+    background: #2a2d2e;
+    color: #cccccc;
+}
+
+.panel-collapse-btn i {
+    width: 16px;
+    height: 16px;
+}
+
 .header-actions {
     display: flex;
     align-items: center;
@@ -139,69 +274,13 @@
     height: 16px;
 }
 
-/* Compact Forge Status */
+/* Compact Forge Status - HIDDEN FOR NOW */
 .editor-page .forge-status {
-    display: flex !important;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.35rem 0.75rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-    font-size: 12px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    max-width: 200px;
+    display: none !important;
 }
 
-.editor-page .forge-status:hover {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-.editor-page .forge-level-badge {
-    width: 24px;
-    height: 24px;
-    min-width: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-    border-radius: 50%;
-    font-size: 11px;
-    font-weight: 700;
-    color: #ffffff;
-    flex-shrink: 0;
-}
-
-.editor-page .forge-level-badge i {
-    width: 12px;
-    height: 12px;
-}
-
-.editor-page .forge-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
-    min-width: 0;
-    flex: 1;
-}
-
-.editor-page .forge-title {
-    font-size: 11px;
-    font-weight: 600;
-    color: #cccccc;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.editor-page .forge-xp {
-    font-size: 10px;
-    color: #858585;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.forge-status {
+    display: none !important;
 }
 
 /* Navbar spacing fix */

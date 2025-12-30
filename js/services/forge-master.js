@@ -192,8 +192,7 @@ const ForgeMaster = {
             profile.level = newLevel;
             profile.title = this.LEVELS.find(l => l.level === newLevel)?.title || 'Unknown';
             
-            // Show level up notification
-            this.showLevelUpNotification(newLevel, profile.title);
+            // Level up notification removed
             
             // Check for level-based achievements
             if (newLevel === 12) {
@@ -264,8 +263,7 @@ const ForgeMaster = {
         // Award achievement XP
         this.awardXP(userId, achievement.xp, `Achievement: ${achievement.name}`);
         
-        // Show achievement notification
-        this.showAchievementNotification(achievement);
+        // Achievement notification removed
         
         this.saveProfile(profile);
         return true;
@@ -392,37 +390,17 @@ const ForgeMaster = {
     },
     
     /**
-     * Show level up notification
+     * Show level up notification - DISABLED
      */
     showLevelUpNotification(level, title) {
-        if (typeof showToast === 'function') {
-            showToast(
-                `You've reached level ${level}! You are now a ${title}!`,
-                'success',
-                'Level Up!',
-                6000
-            );
-        }
-        
-        // Add visual effects
-        this.triggerLevelUpEffects();
+        // Level up notifications disabled
     },
     
     /**
-     * Show achievement notification
+     * Show achievement notification - DISABLED
      */
     showAchievementNotification(achievement) {
-        if (typeof showToast === 'function') {
-            showToast(
-                `${achievement.description}`,
-                'success',
-                `Achievement Unlocked: ${achievement.name}`,
-                5000
-            );
-        }
-        
-        // Add visual effects
-        this.triggerAchievementEffects();
+        // Achievement notifications disabled
     },
     
     /**

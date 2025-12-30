@@ -101,7 +101,7 @@
                             </button>
                             <button class="workshop-tab" data-tab="files" id="files-tab-btn">
                                 <i data-lucide="folder"></i>
-                                <span>Files</span>
+                                <span>Projects</span>
                             </button>
                         </div>
                         <button id="workshop-collapse-btn" class="panel-collapse-btn" title="Collapse Panel">
@@ -138,7 +138,7 @@
                         </div>
                     </div>
                     
-                    <!-- Files Tab Content -->
+                    <!-- Projects Tab Content -->
                     <div class="workshop-tab-content" data-content="files">
                         <div class="files-content">
                             <div class="files-section">
@@ -200,7 +200,9 @@
 
                     <div class="editor-container">
                         <div class="editor-header">
-                            <span id="current-file-name">No file selected</span>
+                            <div class="editor-tabs" id="editor-tabs">
+                                <!-- File tabs will be dynamically added here -->
+                            </div>
                             <button id="editor-collapse-btn" class="panel-collapse-btn" title="Collapse Editor">
                                 <i data-lucide="chevron-left"></i>
                             </button>
@@ -480,6 +482,7 @@
     <script src="js/services/collaboration.js"></script>
     <script src="js/services/forge-master.js"></script>
     <script src="js/services/component.js"></script>
+    <script src="js/services/code-validator.js"></script>
     <script src="js/workshop-manager.js"></script>
     <script src="js/html-autocomplete.js"></script>
     <script src="js/editor-init.js"></script>
