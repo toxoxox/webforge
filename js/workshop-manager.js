@@ -553,7 +553,8 @@ const WorkshopManager = {
         }
         
         if (nextBtn) {
-            nextBtn.disabled = this.currentStep >= this.totalSteps - 1;
+            // Don't disable the button on the last step - it becomes "Complete"
+            nextBtn.disabled = false;
             
             if (this.currentStep >= this.totalSteps - 1) {
                 nextBtn.innerHTML = '<i data-lucide="check"></i><span>Complete</span>';
@@ -784,24 +785,33 @@ const WorkshopManager = {
      * Complete workshop
      */
     completeWorkshop() {
+        // Show celebration confetti
+        this.showCelebration();
+        
         if (typeof showToast === 'function') {
-            showToast('Great job! You completed the workshop!', 'success', 'Workshop Complete');
+            showToast('🎉 Amazing work! You completed the workshop!', 'success', 'Workshop Complete');
         }
         
         // Show completion message
         const content = document.getElementById('workshop-step-content');
         if (content) {
             content.innerHTML = `
-                <div class="workshop-welcome">
-                    <div class="workshop-welcome-icon">
+                <div class="workshop-welcome workshop-complete">
+                    <div class="workshop-complete-icon">
                         <i data-lucide="trophy"></i>
                     </div>
-                    <h3>Workshop Complete!</h3>
-                    <p>You've successfully built the ${this.currentComponent.name}. Keep building!</p>
-                    <button class="btn btn-primary" onclick="window.location.href='components.html'">
-                        <i data-lucide="grid-3x3"></i>
-                        <span>Browse More Components</span>
-                    </button>
+                    <h3>🎉 Workshop Complete!</h3>
+                    <p>You've successfully built the ${this.currentComponent.name}. Keep building amazing things!</p>
+                    <div class="workshop-complete-actions">
+                        <button class="btn btn-primary" onclick="window.location.href='components.html'">
+                            <i data-lucide="grid-3x3"></i>
+                            <span>Browse More Components</span>
+                        </button>
+                        <button class="btn btn-secondary" onclick="window.location.href='editor.html'">
+                            <i data-lucide="code"></i>
+                            <span>Continue Coding</span>
+                        </button>
+                    </div>
                 </div>
             `;
             
@@ -821,6 +831,39 @@ const WorkshopManager = {
         this.clearWorkshopState();
         localStorage.removeItem('webforge-workshop-start');
         console.log('Workshop completed - all workshop data cleared');
+    },
+    
+    /**
+     * Show celebration confetti animation
+     */
+    showCelebration() {
+        const colors = ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#43e97b', '#fa709a'];
+        const confettiCount = 50;
+        
+        for (let i = 0; i < confettiCount; i++) {
+            setTimeout(() => {
+                this.createConfetti(colors[Math.floor(Math.random() * colors.length)]);
+            }, i * 30);
+        }
+    },
+    
+    /**
+     * Create a single confetti piece
+     */
+    createConfetti(color) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.backgroundColor = color;
+        confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        confetti.style.animationDelay = Math.random() * 0.5 + 's';
+        
+        document.body.appendChild(confetti);
+        
+        // Remove confetti after animation
+        setTimeout(() => {
+            confetti.remove();
+        }, 4000);
     },
     
     /**

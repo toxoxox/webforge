@@ -640,47 +640,340 @@ const ComponentService = {
                 type: 'layout',
                 difficulty: 'beginner',
                 hasJS: false,
-                mobileFirst: true,
-                tags: ['No JS', 'Responsive', 'Flexbox'],
-                description: 'Eye-catching hero section with call-to-action button for landing pages.',
+                mobileFirst: false,
+                tags: ['Beginner-Friendly', 'Flexbox', 'CSS-Only'],
+                description: 'Eye-catching hero section with gradient background and call-to-action button. Perfect for landing pages!',
                 preview: this.generateHeroPreview(),
-                html: `<section class="hero">
+                workshop: {
+                    goal: 'Build a full-screen hero section with gradient background and CTA button',
+                    duration: '25 minutes',
+                    steps: [
+                        {
+                            title: 'Create the Hero Container',
+                            description: 'Let\'s start by creating the main hero section with two sides - one for text and one for an image!',
+                            instruction: 'Add this HTML to create the hero section:',
+                            code: `<section class="hero">
   <div class="hero-content">
-    <h1 class="hero-title">Welcome to My Website</h1>
-    <p class="hero-subtitle">Building amazing things with code</p>
-    <button class="hero-cta">Get Started</button>
+    <h1 class="hero-title">Hi, I'm Learning to Code!</h1>
+    <p class="hero-subtitle">Building awesome websites and having fun with web development</p>
+    <button class="hero-cta">See My Projects</button>
+  </div>
+  <div class="hero-image">
+    <img src="img/workshop-hero-image.png" alt="Student coding">
   </div>
 </section>`,
-                css: `.hero {
+                            codeFile: 'index.html',
+                            tip: 'We\'re creating two sections side by side - one for text, one for an image. This is a super popular layout!',
+                            explanation: 'Breaking it down:\n• <section class="hero"> - Creates a section for our hero area.\n• <div class="hero-content"> - Left side container for text and button.\n• <h1> - The main heading. This is the biggest, most important text!\n• <p class="hero-subtitle"> - A subtitle that explains more.\n• <button class="hero-cta"> - A call-to-action button.\n• <div class="hero-image"> - Right side container for the image.\n• <img> - The hero image that makes it look awesome!',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'tag',
+                                        value: 'section',
+                                        message: 'We need a <section> tag for the hero!',
+                                        hint: 'Start with <section class="hero">'
+                                    },
+                                    {
+                                        type: 'class',
+                                        value: 'hero',
+                                        message: 'Add class="hero" to your section!',
+                                        hint: 'This class will help us style it'
+                                    },
+                                    {
+                                        type: 'class',
+                                        value: 'hero-content',
+                                        message: 'We need a div with class="hero-content"!',
+                                        hint: 'This will hold the text content'
+                                    },
+                                    {
+                                        type: 'class',
+                                        value: 'hero-image',
+                                        message: 'We need a div with class="hero-image"!',
+                                        hint: 'This will hold the image'
+                                    },
+                                    {
+                                        type: 'tag',
+                                        value: 'h1',
+                                        message: 'Add an <h1> tag for the main title!',
+                                        hint: 'This is your biggest heading'
+                                    },
+                                    {
+                                        type: 'tag',
+                                        value: 'button',
+                                        message: 'Don\'t forget the <button> tag!',
+                                        hint: 'Add <button class="hero-cta">See My Projects</button>'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            title: 'Make it Full Screen',
+                            description: 'Let\'s make the hero section take up the whole screen! This creates a big, impressive first impression.',
+                            instruction: 'Add these styles to make it full height:',
+                            code: `.hero {
   min-height: 100vh;
+  padding: 2rem;
+}`,
+                            codeFile: 'styles.css',
+                            tip: '100vh means "100% of the viewport height" - that\'s the full height of the browser window!',
+                            explanation: 'Understanding the properties:\n• min-height: 100vh - Makes the hero at least as tall as the screen. "vh" stands for "viewport height"!\n• padding: 2rem - Adds space inside the hero so content doesn\'t touch the edges.',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'selector',
+                                        value: '.hero',
+                                        message: 'We need to create a .hero style in CSS!',
+                                        hint: 'Start with .hero { } in your CSS file'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'min-height',
+                                        message: 'Add min-height to make it full screen!',
+                                        hint: 'Try min-height: 100vh;'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            title: 'Arrange Content Side by Side',
+                            description: 'Now let\'s use Flexbox magic to put the text on the left and image on the right!',
+                            instruction: 'Add these Flexbox properties:',
+                            code: `.hero {
+  min-height: 100vh;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3rem;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Flexbox is like having superpowers for positioning things on your page!',
+                            explanation: 'Flexbox layout:\n• display: flex - Turns on Flexbox mode! This makes items line up in a row.\n• align-items: center - Centers content vertically (up and down).\n• justify-content: space-between - Pushes items apart with space between them.\n• gap: 3rem - Adds space between the text and image sections.',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'property',
+                                        value: 'display',
+                                        message: 'Add display: flex to use Flexbox!',
+                                        hint: 'Flexbox will help us arrange items side by side'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'align-items',
+                                        message: 'Add align-items to center vertically!',
+                                        hint: 'Use align-items: center;'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'gap',
+                                        message: 'Add gap for spacing between sections!',
+                                        hint: 'Use gap: 3rem;'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            title: 'Add a Background Color',
+                            description: 'Let\'s add a nice background color to make the hero section stand out!',
+                            instruction: 'Add this background color:',
+                            code: `.hero {
+  min-height: 100vh;
+  padding: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
   text-align: center;
-  padding: 2rem;
+  background: #667eea;
+  color: white;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'You can use any color you like! Try different hex codes to find your favorite.',
+                            explanation: 'Understanding the background:\n• background: #667eea - A nice purple-blue color. #667eea is a hex color code!\n• color: white - Makes all text white so it shows up clearly on the dark background.\n• You can change #667eea to any color you want - try #3498db for blue, #e74c3c for red, or #2ecc71 for green!',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'property',
+                                        value: 'background',
+                                        message: 'Add a background color!',
+                                        hint: 'Use background: #667eea;'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'color',
+                                        message: 'Add color: white for the text!',
+                                        hint: 'This makes text visible on the dark background'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            title: 'Style Content and Image Sections',
+                            description: 'Let\'s make both sections take up equal space and style the image!',
+                            instruction: 'Add styles for both sections:',
+                            code: `.hero-content {
+  flex: 1;
+  max-width: 500px;
 }
 
-.hero-content {
-  max-width: 600px;
+.hero-image {
+  flex: 1;
+  max-width: 500px;
 }
 
-.hero-title {
+.hero-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'flex: 1 makes both sections grow equally to fill the space!',
+                            explanation: 'Section styling:\n• flex: 1 - Makes each section take up equal space.\n• max-width: 500px - Limits how wide they can get.\n• .hero-image img - Targets the image inside hero-image.\n• width: 100% - Makes image fill its container.\n• height: auto - Keeps the image proportions correct.\n• border-radius: 15px - Rounds the image corners for a modern look!',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'selector',
+                                        value: '.hero-content',
+                                        message: 'We need to style .hero-content!',
+                                        hint: 'Add .hero-content { } to your CSS'
+                                    },
+                                    {
+                                        type: 'selector',
+                                        value: '.hero-image',
+                                        message: 'We need to style .hero-image!',
+                                        hint: 'Add .hero-image { } to your CSS'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'flex',
+                                        message: 'Add flex property to make sections equal!',
+                                        hint: 'Use flex: 1;'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            title: 'Style the Title',
+                            description: 'Let\'s make the main title big and bold! This is the first thing visitors see.',
+                            instruction: 'Add these styles for the title:',
+                            code: `.hero-title {
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 1rem;
   line-height: 1.2;
-}
-
-.hero-subtitle {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'font-size: 3rem makes the title 3 times the normal text size - nice and big!',
+                            explanation: 'Title styling:\n• font-size: 3rem - Makes it really big! "rem" is a flexible size unit.\n• font-weight: 700 - Makes it bold. 400 is normal, 700 is bold.\n• margin-bottom: 1rem - Adds space below the title.\n• line-height: 1.2 - Controls spacing between lines if the title wraps.',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'selector',
+                                        value: '.hero-title',
+                                        message: 'We need to style .hero-title!',
+                                        hint: 'Add .hero-title { } to your CSS'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'font-size',
+                                        message: 'Add font-size to make it big!',
+                                        hint: 'Try font-size: 3rem;'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'font-weight',
+                                        message: 'Add font-weight to make it bold!',
+                                        hint: 'Use font-weight: 700;'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            title: 'Style the Subtitle',
+                            description: 'Now let\'s style the subtitle - it should be smaller and slightly transparent.',
+                            instruction: 'Add these styles for the subtitle:',
+                            code: `.hero-subtitle {
   font-size: 1.25rem;
   margin-bottom: 2rem;
   opacity: 0.9;
   line-height: 1.5;
-}
-
-.hero-cta {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'opacity: 0.9 makes the text slightly see-through, creating a nice subtle effect!',
+                            explanation: 'Subtitle styling:\n• font-size: 1.25rem - Bigger than normal text, but smaller than the title.\n• margin-bottom: 2rem - Adds space below before the button.\n• opacity: 0.9 - Makes it 90% visible (10% transparent). Creates a softer look!\n• line-height: 1.5 - More space between lines makes it easier to read.',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'selector',
+                                        value: '.hero-subtitle',
+                                        message: 'We need to style .hero-subtitle!',
+                                        hint: 'Add .hero-subtitle { } to your CSS'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'font-size',
+                                        message: 'Add font-size for the subtitle!',
+                                        hint: 'Try font-size: 1.25rem;'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'opacity',
+                                        message: 'Add opacity for a subtle effect!',
+                                        hint: 'Use opacity: 0.9;'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            title: 'Style the Button',
+                            description: 'Time to make an awesome call-to-action button! This is what visitors will click.',
+                            instruction: 'Add these button styles:',
+                            code: `.hero-cta {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'cursor: pointer makes the mouse cursor change to a hand when hovering over the button!',
+                            explanation: 'Button styling:\n• background: #4CAF50 - Nice green color.\n• color: white - White text on green background.\n• border: none - Removes the default button border.\n• padding: 1rem 2rem - Makes the button bigger and easier to click.\n• font-size: 1.1rem - Slightly bigger text.\n• font-weight: 600 - Semi-bold text.\n• border-radius: 5px - Rounds the corners.\n• cursor: pointer - Shows a hand cursor on hover.',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'selector',
+                                        value: '.hero-cta',
+                                        message: 'We need to style .hero-cta!',
+                                        hint: 'Add .hero-cta { } to your CSS'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'background',
+                                        message: 'Add a background color!',
+                                        hint: 'Try background: #4CAF50;'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'padding',
+                                        message: 'Add padding to make it bigger!',
+                                        hint: 'Use padding: 1rem 2rem;'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'border-radius',
+                                        message: 'Add border-radius for rounded corners!',
+                                        hint: 'Try border-radius: 5px;'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            title: 'Add Button Hover Effects',
+                            description: 'Let\'s make the button interactive! It should change when you hover over it.',
+                            instruction: 'Add these hover effects:',
+                            code: `.hero-cta {
   background: #4CAF50;
   color: white;
   border: none;
@@ -697,31 +990,40 @@ const ComponentService = {
   background: #45a049;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
-}
-
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 2rem;
-  }
-  
-  .hero-subtitle {
-    font-size: 1.1rem;
-  }
-  
-  .hero-cta {
-    padding: 0.875rem 1.5rem;
-    font-size: 1rem;
-  }
 }`,
-                js: null,
-                explanation: {
-                    title: 'Under the Hood',
-                    points: [
-                        'Full viewport height using min-height: 100vh',
-                        'Flexbox centers content both horizontally and vertically',
-                        'CSS gradients create the background effect',
-                        'Responsive typography scales on mobile devices',
-                        'Hover effects provide visual feedback'
+                            codeFile: 'styles.css',
+                            tip: 'transform: translateY(-2px) makes the button lift up slightly when you hover - so cool!',
+                            explanation: 'Hover effects:\n• transition: all 0.3s ease - Makes changes smooth over 0.3 seconds.\n• box-shadow - Adds a shadow under the button for depth.\n• :hover - Special selector that applies when mouse is over the button.\n• background: #45a049 - Slightly darker green on hover.\n• transform: translateY(-2px) - Moves button up 2 pixels (negative = up!).\n• Bigger shadow on hover makes it look like it\'s lifting up!',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'property',
+                                        value: 'transition',
+                                        message: 'Add transition for smooth effects!',
+                                        hint: 'Use transition: all 0.3s ease;'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'box-shadow',
+                                        message: 'Add box-shadow for depth!',
+                                        hint: 'Try box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);'
+                                    },
+                                    {
+                                        type: 'pattern',
+                                        value: '\\.hero-cta:hover',
+                                        message: 'Add a :hover rule for the button!',
+                                        hint: 'Use .hero-cta:hover { } for hover effects'
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    learningObjectives: [
+                        'Learn how to create full-screen sections',
+                        'Master Flexbox for centering content',
+                        'Understand CSS gradients',
+                        'Create interactive buttons with hover effects',
+                        'Use box-shadow for depth and visual interest'
                     ]
                 },
                 useCases: [
@@ -746,86 +1048,275 @@ const ComponentService = {
                 type: 'ui-elements',
                 difficulty: 'beginner',
                 hasJS: false,
-                mobileFirst: true,
-                tags: ['No JS', 'Responsive', 'Flexbox'],
-                description: 'Versatile card component for displaying content with image, title, and action.',
+                mobileFirst: false,
+                tags: ['Beginner-Friendly', 'Box-Shadow', 'CSS-Only'],
+                description: 'Versatile card component for displaying content with image, title, and action button. 7 easy steps!',
                 preview: this.generateCardPreview(),
-                html: `<div class="card">
-  <img src="https://via.placeholder.com/300x200" alt="Card image" class="card-image">
+                workshop: {
+                    goal: 'Build a beautiful card component with image, text, and button',
+                    duration: '20 minutes',
+                    steps: [
+                        {
+                            title: 'Create the Card Structure',
+                            description: 'Let\'s build a card! Cards are like little boxes that hold information - perfect for products, blog posts, or profiles.',
+                            instruction: 'Add this HTML to create the card:',
+                            code: `<div class="card">
+  <img src="https://picsum.photos/300/200" alt="Card image" class="card-image">
   <div class="card-content">
-    <h3 class="card-title">Card Title</h3>
-    <p class="card-description">This is some sample content for the card. It can contain any type of information you want to display.</p>
+    <h3 class="card-title">Amazing Discovery</h3>
+    <p class="card-description">Explore the beauty of nature through stunning photography and inspiring stories.</p>
     <button class="card-button">Learn More</button>
   </div>
 </div>`,
-                css: `.card {
-  max-width: 300px;
+                            codeFile: 'index.html',
+                            tip: 'Cards are super popular in modern web design! You see them everywhere - from shopping sites to social media.',
+                            explanation: 'Card structure:\n• <div class="card"> - The main container for everything.\n• <img class="card-image"> - An image at the top of the card.\n• <div class="card-content"> - Holds the text and button.\n• <h3 class="card-title"> - The card\'s heading.\n• <p class="card-description"> - Description text.\n• <button class="card-button"> - Action button at the bottom.',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'class',
+                                        value: 'card',
+                                        message: 'We need a div with class="card"!',
+                                        hint: 'Start with <div class="card">'
+                                    },
+                                    {
+                                        type: 'class',
+                                        value: 'card-image',
+                                        message: 'Add an image with class="card-image"!',
+                                        hint: 'Use <img class="card-image">'
+                                    },
+                                    {
+                                        type: 'class',
+                                        value: 'card-content',
+                                        message: 'We need a div with class="card-content"!',
+                                        hint: 'This holds the text and button'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            title: 'Style the Card Container',
+                            description: 'Let\'s give the card a modern look with rounded corners and a clean background!',
+                            instruction: 'Add these basic card styles:',
+                            code: `.card {
+  max-width: 320px;
   background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
   overflow: hidden;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'overflow: hidden makes sure nothing sticks out past the rounded corners!',
+                            explanation: 'Card container styling:\n• max-width: 320px - Keeps the card from getting too wide.\n• background: white - Clean white background.\n• border-radius: 16px - Nicely rounded corners for a modern look.\n• overflow: hidden - Clips anything that goes outside the rounded corners (like the image).',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'selector',
+                                        value: '.card',
+                                        message: 'We need to style .card in CSS!',
+                                        hint: 'Add .card { } to your CSS'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'background',
+                                        message: 'Add a background color!',
+                                        hint: 'Try background: white;'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'border-radius',
+                                        message: 'Add border-radius for rounded corners!',
+                                        hint: 'Use border-radius: 16px;'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            title: 'Add Shadow for Depth',
+                            description: 'Let\'s add a modern shadow to make the card look like it\'s floating above the page!',
+                            instruction: 'Add box-shadow to the card:',
+                            code: `.card {
+  max-width: 320px;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.card-image {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'box-shadow creates a shadow under the card. The rgba color makes it slightly transparent!',
+                            explanation: 'Shadow and transition:\n• box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) - Creates a soft, modern shadow.\n  - 0 = no horizontal offset\n  - 10px = 10 pixels down\n  - 30px = blur amount (more blur = softer shadow)\n  - rgba(0, 0, 0, 0.08) = black at 8% opacity\n• transition: all 0.3s ease - Makes changes smooth (we\'ll use this for hover effects!).',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'property',
+                                        value: 'box-shadow',
+                                        message: 'Add box-shadow for depth!',
+                                        hint: 'Try box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'transition',
+                                        message: 'Add transition for smooth effects!',
+                                        hint: 'Use transition: all 0.3s ease;'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            title: 'Style the Card Image',
+                            description: 'Let\'s make sure the image fits perfectly in the card!',
+                            instruction: 'Add these image styles:',
+                            code: `.card-image {
   width: 100%;
   height: 200px;
   object-fit: cover;
   display: block;
-}
-
-.card-content {
-  padding: 1.5rem;
-}
-
-.card-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #333;
-  margin: 0 0 1rem 0;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'object-fit: cover is magic! It makes images fill the space without stretching or distorting.',
+                            explanation: 'Image styling:\n• width: 100% - Makes image as wide as the card.\n• height: 200px - Fixed height of 200 pixels.\n• object-fit: cover - Crops the image to fill the space while keeping its proportions. No stretching!\n• display: block - Removes tiny gap under the image.',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'selector',
+                                        value: '.card-image',
+                                        message: 'We need to style .card-image!',
+                                        hint: 'Add .card-image { } to your CSS'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'object-fit',
+                                        message: 'Add object-fit to make images fit nicely!',
+                                        hint: 'Use object-fit: cover;'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            title: 'Add Content Padding',
+                            description: 'Let\'s add space inside the content area so text doesn\'t touch the edges!',
+                            instruction: 'Style the content container:',
+                            code: `.card-content {
+  padding: 1.75rem;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Padding creates breathing room - it makes designs look more professional!',
+                            explanation: 'Content padding:\n• padding: 1.75rem - Adds space on all sides inside the content area.\n• This keeps text away from the edges, making it easier to read.',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'selector',
+                                        value: '.card-content',
+                                        message: 'We need to style .card-content!',
+                                        hint: 'Add .card-content { } to your CSS'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'padding',
+                                        message: 'Add padding for spacing!',
+                                        hint: 'Try padding: 1.75rem;'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            title: 'Style Title and Description',
+                            description: 'Let\'s make the title and description look modern and readable!',
+                            instruction: 'Add styles for the text:',
+                            code: `.card-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 0.75rem 0;
+  letter-spacing: -0.02em;
 }
 
 .card-description {
-  color: #666;
-  line-height: 1.5;
+  color: #6b7280;
+  line-height: 1.6;
   margin: 0 0 1.5rem 0;
-}
-
-.card-button {
-  background: #2196F3;
+  font-size: 0.95rem;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'letter-spacing makes titles look more polished, and line-height makes text easier to read!',
+                            explanation: 'Text styling:\n\n.card-title:\n• font-size: 1.35rem - Slightly bigger for emphasis.\n• font-weight: 700 - Bold for impact.\n• color: #1a1a1a - Almost black, modern look.\n• letter-spacing: -0.02em - Tighter spacing for a modern feel.\n\n.card-description:\n• color: #6b7280 - Soft gray for body text.\n• line-height: 1.6 - More space between lines.\n• font-size: 0.95rem - Slightly smaller than default.',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'selector',
+                                        value: '.card-title',
+                                        message: 'We need to style .card-title!',
+                                        hint: 'Add .card-title { } to your CSS'
+                                    },
+                                    {
+                                        type: 'selector',
+                                        value: '.card-description',
+                                        message: 'We need to style .card-description!',
+                                        hint: 'Add .card-description { } to your CSS'
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            title: 'Style the Button and Add Hover',
+                            description: 'Finally, let\'s make a modern button and add hover effects to the whole card!',
+                            instruction: 'Add button styles and card hover effect:',
+                            code: `.card-button {
+  background: #667eea;
   color: white;
   border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 5px;
-  font-weight: 500;
+  padding: 0.85rem 1.75rem;
+  border-radius: 10px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
   width: 100%;
+  font-size: 0.95rem;
 }
 
 .card-button:hover {
-  background: #1976D2;
+  background: #5568d3;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
 }
 
-@media (max-width: 768px) {
-  .card {
-    max-width: 100%;
-  }
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }`,
-                js: null,
-                explanation: {
-                    title: 'Forging Notes',
-                    points: [
-                        'Box shadow creates depth and visual hierarchy',
-                        'Object-fit: cover ensures images maintain aspect ratio',
-                        'Hover transforms provide interactive feedback',
-                        'Flexible content area adapts to different text lengths',
-                        'Mobile-responsive design works on all screen sizes'
+                            codeFile: 'styles.css',
+                            tip: 'The card lifts up when you hover over it - this makes it feel interactive and fun!',
+                            explanation: 'Button and hover effects:\n\n.card-button:\n• background: #667eea - Beautiful purple color.\n• border-radius: 10px - Rounded button corners.\n• width: 100% - Button fills the full width.\n\n.card-button:hover:\n• background: #5568d3 - Darker purple on hover.\n• transform: translateY(-2px) - Button lifts slightly.\n• box-shadow - Glowing shadow effect.\n\n.card:hover:\n• transform: translateY(-8px) - Lifts the card up 8 pixels!\n• box-shadow: 0 20px 40px - Bigger, softer shadow makes it look like it\'s floating higher.',
+                            validation: {
+                                required: [
+                                    {
+                                        type: 'selector',
+                                        value: '.card-button',
+                                        message: 'We need to style .card-button!',
+                                        hint: 'Add .card-button { } to your CSS'
+                                    },
+                                    {
+                                        type: 'pattern',
+                                        value: '\\.card:hover',
+                                        message: 'Add a :hover rule for the card!',
+                                        hint: 'Use .card:hover { } for hover effects'
+                                    },
+                                    {
+                                        type: 'property',
+                                        value: 'transform',
+                                        message: 'Add transform to lift the card on hover!',
+                                        hint: 'Try transform: translateY(-8px);'
+                                    }
+                                ]
+                            }
+                        }
+                    ],
+                    learningObjectives: [
+                        'Learn how to structure card components',
+                        'Master box-shadow for depth effects',
+                        'Understand object-fit for images',
+                        'Create hover effects with transform',
+                        'Build reusable UI components'
                     ]
                 },
                 useCases: [
@@ -855,26 +1346,27 @@ const ComponentService = {
                 description: 'Professional contact form with validation and user feedback.',
                 preview: this.generateFormPreview(),
                 html: `<form class="contact-form" id="contact-form">
+  <h2>Get In Touch</h2>
   <div class="form-group">
     <label for="name">Name *</label>
-    <input type="text" id="name" name="name" required>
+    <input type="text" id="name" name="name" placeholder="Your Name" required>
     <span class="error-message" id="name-error"></span>
   </div>
   
   <div class="form-group">
     <label for="email">Email *</label>
-    <input type="email" id="email" name="email" required>
+    <input type="email" id="email" name="email" placeholder="your@email.com" required>
     <span class="error-message" id="email-error"></span>
   </div>
   
   <div class="form-group">
     <label for="subject">Subject</label>
-    <input type="text" id="subject" name="subject">
+    <input type="text" id="subject" name="subject" placeholder="What's this about?">
   </div>
   
   <div class="form-group">
     <label for="message">Message *</label>
-    <textarea id="message" name="message" rows="5" required></textarea>
+    <textarea id="message" name="message" rows="5" placeholder="Tell us what's on your mind..." required></textarea>
     <span class="error-message" id="message-error"></span>
   </div>
   
@@ -888,10 +1380,18 @@ const ComponentService = {
                 css: `.contact-form {
   max-width: 500px;
   margin: 2rem auto;
-  padding: 2rem;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+  background: #667eea;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+}
+
+.contact-form h2 {
+  color: white;
+  text-align: center;
+  margin: 0 0 2rem 0;
+  font-size: 2rem;
+  font-weight: 700;
 }
 
 .form-group {
@@ -901,62 +1401,74 @@ const ComponentService = {
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  font-weight: 500;
-  color: #333;
+  font-weight: 600;
+  color: white;
+  font-size: 0.95rem;
 }
 
 .form-group input,
 .form-group textarea {
   width: 100%;
-  padding: 0.75rem;
-  border: 2px solid #ddd;
-  border-radius: 5px;
+  padding: 0.9rem 1rem;
+  border: none;
+  border-radius: 10px;
   font-size: 1rem;
   font-family: inherit;
-  transition: border-color 0.3s ease;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.95);
+  box-sizing: border-box;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: #4CAF50;
-  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+  background: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #9ca3af;
 }
 
 .form-group input.error,
 .form-group textarea.error {
-  border-color: #f44336;
+  border: 2px solid #ff6b6b;
+  background: #fff5f5;
 }
 
 .error-message {
   display: block;
-  color: #f44336;
-  font-size: 0.875rem;
-  margin-top: 0.25rem;
+  color: #ffe5e5;
+  font-size: 0.85rem;
+  margin-top: 0.4rem;
   min-height: 1.2rem;
+  font-weight: 500;
 }
 
 .submit-btn {
   width: 100%;
-  background: #4CAF50;
-  color: white;
+  background: white;
+  color: #667eea;
   border: none;
-  padding: 1rem;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 5px;
+  padding: 1.1rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .submit-btn:hover:not(:disabled) {
-  background: #45a049;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
 }
 
 .submit-btn:disabled {
-  background: #ccc;
+  background: rgba(255, 255, 255, 0.6);
   cursor: not-allowed;
   transform: none;
 }
@@ -975,31 +1487,29 @@ const ComponentService = {
 
 .form-status {
   margin-top: 1rem;
-  padding: 0.75rem;
-  border-radius: 5px;
+  padding: 0.9rem;
+  border-radius: 10px;
   text-align: center;
-  font-weight: 500;
+  font-weight: 600;
   display: none;
 }
 
 .form-status.success {
-  background: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
+  background: white;
+  color: #10b981;
   display: block;
 }
 
 .form-status.error {
-  background: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
+  background: white;
+  color: #ef4444;
   display: block;
 }
 
 @media (max-width: 768px) {
   .contact-form {
     margin: 1rem;
-    padding: 1.5rem;
+    padding: 2rem 1.5rem;
   }
 }`,
                 js: `// Contact form validation and submission
@@ -1160,7 +1670,7 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 .interactive-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #667eea;
   color: white;
   border: none;
   padding: 1rem 2rem;
@@ -1175,6 +1685,7 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 .interactive-button:hover {
+  background: #5568d3;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
 }
@@ -1188,8 +1699,12 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 .interactive-button.success {
-  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  background: #4CAF50;
   box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+}
+
+.interactive-button.success:hover {
+  background: #45a049;
 }
 
 @keyframes button-pulse {
@@ -1486,10 +2001,21 @@ document.addEventListener('DOMContentLoaded', function() {
     generateHeroPreview() {
         return `
             <div class="component-preview-placeholder">
-                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center;">
-                    <h3 style="margin: 0 0 0.5rem 0; font-size: 1.2rem;">Welcome to My Website</h3>
-                    <p style="margin: 0 0 1rem 0; font-size: 0.9rem; opacity: 0.9;">Building amazing things</p>
-                    <button style="background: #4CAF50; color: white; border: none; padding: 0.5rem 1rem; border-radius: 3px; font-size: 0.8rem;">Get Started</button>
+                <div style="background: #667eea; color: white; padding: 1.5rem; height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+                    <div style="flex: 1; max-width: 55%;">
+                        <h3 style="margin: 0 0 0.5rem 0; font-size: 1rem; font-weight: 700;">Hi, I'm Learning to Code!</h3>
+                        <p style="margin: 0 0 0.75rem 0; font-size: 0.7rem; opacity: 0.9; line-height: 1.3;">Building awesome websites</p>
+                        <button style="background: #4CAF50; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);">See My Projects</button>
+                    </div>
+                    <div style="flex: 1; max-width: 45%; display: flex; align-items: center; justify-content: center;">
+                        <div style="width: 100%; aspect-ratio: 1; background: rgba(255,255,255,0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                <polyline points="21 15 16 10 5 21"></polyline>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
             </div>
         `;
@@ -1498,12 +2024,12 @@ document.addEventListener('DOMContentLoaded', function() {
     generateCardPreview() {
         return `
             <div class="component-preview-placeholder">
-                <div style="background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden; max-width: 200px; margin: 1rem auto;">
-                    <div style="background: #e2e8f0; height: 80px;"></div>
-                    <div style="padding: 1rem;">
-                        <h4 style="margin: 0 0 0.5rem 0; font-size: 0.9rem;">Card Title</h4>
-                        <p style="margin: 0 0 0.75rem 0; font-size: 0.7rem; color: #666;">Sample content...</p>
-                        <button style="background: #2196F3; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 3px; font-size: 0.7rem; width: 100%;">Learn More</button>
+                <div style="background: white; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; max-width: 200px; margin: 1rem auto;">
+                    <img src="https://picsum.photos/200/100" style="width: 100%; height: 100px; object-fit: cover; display: block;" alt="Card preview">
+                    <div style="padding: 1.2rem;">
+                        <h4 style="margin: 0 0 0.5rem 0; font-size: 0.95rem; font-weight: 700; color: #1a1a1a; letter-spacing: -0.02em;">Amazing Discovery</h4>
+                        <p style="margin: 0 0 0.85rem 0; font-size: 0.7rem; color: #6b7280; line-height: 1.5;">Explore the beauty of nature...</p>
+                        <button style="background: #667eea; color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.7rem; width: 100%; font-weight: 600;">Learn More</button>
                     </div>
                 </div>
             </div>
@@ -1513,20 +2039,18 @@ document.addEventListener('DOMContentLoaded', function() {
     generateFormPreview() {
         return `
             <div class="component-preview-placeholder">
-                <div style="background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); max-width: 250px; margin: 0.5rem auto;">
+                <div style="background: #667eea; padding: 1.2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3); max-width: 250px; margin: 0.5rem auto;">
+                    <h4 style="margin: 0 0 1rem 0; font-size: 0.95rem; font-weight: 700; color: white; text-align: center;">Get In Touch</h4>
                     <div style="margin-bottom: 0.75rem;">
-                        <label style="display: block; font-size: 0.7rem; margin-bottom: 0.25rem; font-weight: 500;">Name</label>
-                        <div style="background: #f8f9fa; border: 1px solid #ddd; height: 20px; border-radius: 3px;"></div>
+                        <input type="text" placeholder="Your Name" style="width: 100%; background: rgba(255,255,255,0.95); border: none; padding: 0.6rem; border-radius: 8px; font-size: 0.7rem; box-sizing: border-box;">
                     </div>
                     <div style="margin-bottom: 0.75rem;">
-                        <label style="display: block; font-size: 0.7rem; margin-bottom: 0.25rem; font-weight: 500;">Email</label>
-                        <div style="background: #f8f9fa; border: 1px solid #ddd; height: 20px; border-radius: 3px;"></div>
+                        <input type="email" placeholder="your@email.com" style="width: 100%; background: rgba(255,255,255,0.95); border: none; padding: 0.6rem; border-radius: 8px; font-size: 0.7rem; box-sizing: border-box;">
                     </div>
                     <div style="margin-bottom: 0.75rem;">
-                        <label style="display: block; font-size: 0.7rem; margin-bottom: 0.25rem; font-weight: 500;">Message</label>
-                        <div style="background: #f8f9fa; border: 1px solid #ddd; height: 40px; border-radius: 3px;"></div>
+                        <textarea placeholder="Your message..." style="width: 100%; background: rgba(255,255,255,0.95); border: none; padding: 0.6rem; border-radius: 8px; font-size: 0.7rem; height: 50px; resize: none; box-sizing: border-box;"></textarea>
                     </div>
-                    <button style="background: #4CAF50; color: white; border: none; padding: 0.5rem; border-radius: 3px; font-size: 0.7rem; width: 100%;">Send Message</button>
+                    <button style="background: white; color: #667eea; border: none; padding: 0.6rem; border-radius: 8px; font-size: 0.75rem; width: 100%; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">Send Message</button>
                 </div>
             </div>
         `;
@@ -1536,7 +2060,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return `
             <div class="component-preview-placeholder">
                 <div style="text-align: center; padding: 2rem;">
-                    <button style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 25px; font-size: 0.9rem; font-weight: 600; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">Click Me!</button>
+                    <button style="background: #667eea; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 25px; font-size: 0.9rem; font-weight: 600; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">Click Me!</button>
                     <p style="margin-top: 1rem; font-size: 0.8rem; color: #666;">Clicks: <span style="color: #667eea; font-weight: 700;">0</span></p>
                 </div>
             </div>
@@ -1894,35 +2418,60 @@ document.addEventListener('DOMContentLoaded', function() {
         const samples = {
             'responsive-navbar': `<nav class="navbar">
   <div class="nav-brand">
-    <span>My Site</span>
+    <img src="img/webforge-icon.png" alt="Logo" class="nav-logo">
+    <span class="brand-name">My Website</span>
   </div>
-  <button class="nav-toggle" id="nav-toggle">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-  <ul class="nav-menu" id="nav-menu">
+  <ul class="nav-menu">
     <li><a href="#home" class="nav-link">Home</a></li>
     <li><a href="#about" class="nav-link">About</a></li>
-    <li><a href="#services" class="nav-link">Services</a></li>
+    <li class="dropdown">
+      <a href="#services" class="nav-link">Services ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="#web" class="dropdown-link">Web Design</a></li>
+        <li><a href="#app" class="dropdown-link">App Development</a></li>
+        <li><a href="#seo" class="dropdown-link">SEO</a></li>
+      </ul>
+    </li>
     <li><a href="#contact" class="nav-link">Contact</a></li>
   </ul>
 </nav>`,
             'hero-section': `<section class="hero">
   <div class="hero-content">
-    <h1 class="hero-title">Welcome to My Website</h1>
-    <p class="hero-subtitle">Building amazing things with code</p>
-    <button class="hero-cta">Get Started</button>
+    <h1 class="hero-title">Hi, I'm Learning to Code!</h1>
+    <p class="hero-subtitle">Building awesome websites and having fun with web development</p>
+    <button class="hero-cta">See My Projects</button>
+  </div>
+  <div class="hero-image">
+    <img src="img/workshop-hero-image.png" alt="Student coding">
   </div>
 </section>`,
             'card-component': `<div class="card">
-  <img src="https://via.placeholder.com/300x200" alt="Card image" class="card-image">
+  <img src="https://picsum.photos/300/200" alt="Card image" class="card-image">
   <div class="card-content">
-    <h3 class="card-title">Card Title</h3>
-    <p class="card-description">This is what you'll learn to build in the workshop.</p>
+    <h3 class="card-title">Amazing Discovery</h3>
+    <p class="card-description">Explore the beauty of nature through stunning photography and inspiring stories.</p>
     <button class="card-button">Learn More</button>
   </div>
-</div>`
+</div>`,
+            'contact-form': `<form class="contact-form" id="contact-form">
+  <h2>Get In Touch</h2>
+  <div class="form-group">
+    <label for="name">Name *</label>
+    <input type="text" id="name" name="name" placeholder="Your Name" required>
+  </div>
+  
+  <div class="form-group">
+    <label for="email">Email *</label>
+    <input type="email" id="email" name="email" placeholder="your@email.com" required>
+  </div>
+  
+  <div class="form-group">
+    <label for="message">Message *</label>
+    <textarea id="message" name="message" rows="5" placeholder="Tell us what's on your mind..." required></textarea>
+  </div>
+  
+  <button type="submit" class="submit-btn">Send Message</button>
+</form>`
         };
         
         return samples[componentId] || '<div>Component preview not available</div>';
@@ -1934,106 +2483,107 @@ document.addEventListener('DOMContentLoaded', function() {
     getSampleCSS(componentId) {
         const samples = {
             'responsive-navbar': `.navbar {
+  background-color: #2c3e50;
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  background: #333;
-  color: white;
-  position: relative;
 }
 
 .nav-brand {
-  font-weight: bold;
-  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-.nav-toggle {
-  display: none;
-  flex-direction: column;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
+.nav-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
 }
 
-.nav-toggle span {
-  width: 25px;
-  height: 3px;
-  background: white;
-  margin: 3px 0;
-  transition: 0.3s;
+.brand-name {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .nav-menu {
   display: flex;
   list-style: none;
+  gap: 2rem;
   margin: 0;
   padding: 0;
-  gap: 2rem;
 }
 
 .nav-link {
   color: white;
   text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: background-color 0.3s;
 }
 
 .nav-link:hover {
-  color: #4CAF50;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
-@media (max-width: 768px) {
-  .nav-toggle {
-    display: flex;
-  }
-  
-  .nav-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: #333;
-    flex-direction: column;
-    padding: 1rem 2rem;
-    transform: translateY(-100%);
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-  }
-  
-  .nav-menu.active {
-    transform: translateY(0);
-    opacity: 1;
-    visibility: visible;
-  }
-  
-  .nav-toggle.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-  }
-  
-  .nav-toggle.active span:nth-child(2) {
-    opacity: 0;
-  }
-  
-  .nav-toggle.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -6px);
-  }
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #34495e;
+  list-style: none;
+  padding: 0.5rem 0;
+  margin: 0;
+  border-radius: 6px;
+  min-width: 200px;
+  display: none;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-link {
+  color: white;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  display: block;
+}
+
+.dropdown-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }`,
             'hero-section': `.hero {
   min-height: 100vh;
+  padding: 2rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  justify-content: space-between;
+  gap: 3rem;
+  background: #667eea;
   color: white;
-  text-align: center;
-  padding: 2rem;
 }
 
 .hero-content {
-  max-width: 600px;
+  flex: 1;
+  max-width: 500px;
+}
+
+.hero-image {
+  flex: 1;
+  max-width: 500px;
+}
+
+.hero-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
 }
 
 .hero-title {
@@ -2047,6 +2597,7 @@ document.addEventListener('DOMContentLoaded', function() {
   font-size: 1.25rem;
   margin-bottom: 2rem;
   opacity: 0.9;
+  line-height: 1.5;
 }
 
 .hero-cta {
@@ -2059,63 +2610,138 @@ document.addEventListener('DOMContentLoaded', function() {
   border-radius: 5px;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
 }
 
 .hero-cta:hover {
   background: #45a049;
   transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
 }`,
             'card-component': `.card {
-  max-width: 300px;
+  max-width: 320px;
   background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   overflow: hidden;
   transition: all 0.3s ease;
 }
 
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }
 
 .card-image {
   width: 100%;
   height: 200px;
   object-fit: cover;
+  display: block;
 }
 
 .card-content {
-  padding: 1.5rem;
+  padding: 1.75rem;
 }
 
 .card-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #333;
-  margin: 0 0 1rem 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 0.75rem 0;
+  letter-spacing: -0.02em;
 }
 
 .card-description {
-  color: #666;
-  line-height: 1.5;
+  color: #6b7280;
+  line-height: 1.6;
   margin: 0 0 1.5rem 0;
+  font-size: 0.95rem;
 }
 
 .card-button {
-  background: #2196F3;
+  background: #667eea;
   color: white;
   border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 5px;
-  font-weight: 500;
+  padding: 0.85rem 1.75rem;
+  border-radius: 10px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
   width: 100%;
+  font-size: 0.95rem;
 }
 
 .card-button:hover {
-  background: #1976D2;
+  background: #5568d3;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}`,
+            'contact-form': `.contact-form {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: #667eea;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+}
+
+.contact-form h2 {
+  color: white;
+  text-align: center;
+  margin: 0 0 2rem 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: white;
+  font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  background: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.submit-btn {
+  width: 100%;
+  background: white;
+  color: #667eea;
+  border: none;
+  padding: 1.1rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
 }`
         };
         

@@ -540,6 +540,7 @@
     font-size: 13px;
     color: #cccccc;
     line-height: 1.6;
+    white-space: pre-line;
 }
 
 /* Validation Error Messages */
@@ -1023,4 +1024,96 @@ body.resizing {
 
 body.resizing * {
     cursor: col-resize !important;
+}
+
+/* Confetti Animation */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    top: -10px;
+    z-index: 9999;
+    animation: confetti-fall linear forwards;
+    pointer-events: none;
+}
+
+@keyframes confetti-fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* Workshop Complete Screen */
+.workshop-complete {
+    text-align: center;
+    padding: 3rem 2rem !important;
+}
+
+.workshop-complete-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: celebrate-bounce 0.6s ease-in-out;
+}
+
+.workshop-complete-icon i {
+    width: 40px;
+    height: 40px;
+    color: white;
+}
+
+@keyframes celebrate-bounce {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+.workshop-complete h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    animation: celebrate-fade-in 0.8s ease-in-out;
+}
+
+.workshop-complete p {
+    font-size: 1rem;
+    color: #cccccc;
+    margin-bottom: 2rem;
+    animation: celebrate-fade-in 1s ease-in-out;
+}
+
+@keyframes celebrate-fade-in {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.workshop-complete-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: celebrate-fade-in 1.2s ease-in-out;
+}
+
+.workshop-complete-actions .btn {
+    min-width: 180px;
 }
