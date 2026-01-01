@@ -1657,180 +1657,192 @@ document.addEventListener('DOMContentLoaded', function() {
                 ]
             },
 
+            // Image Gallery - For adoption sites, portfolios, history sites
             {
-                id: 'interactive-button',
-                name: 'Interactive Button',
-                type: 'interactions',
+                id: 'image-gallery',
+                name: 'Image Gallery Grid',
+                type: 'layout',
                 difficulty: 'beginner',
-                hasJS: true,
-                mobileFirst: false,
-                tags: ['JavaScript', 'Animation', 'Counter'],
-                description: 'Engaging button with click counter and visual feedback effects.',
-                preview: this.generateButtonPreview(),
-                html: `<div class="button-demo">
-  <button id="interactive-btn" class="interactive-button">
-    Click Me!
-  </button>
-  <p class="click-counter">
-    Clicks: <span id="click-count">0</span>
-  </p>
-</div>`,
-                css: `.button-demo {
-  text-align: center;
-  padding: 2rem;
-}
-
-.interactive-button {
-  background: #667eea;
-  color: white;
-  border: none;
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-  position: relative;
-  overflow: hidden;
-}
-
-.interactive-button:hover {
-  background: #5568d3;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
-}
-
-.interactive-button:active {
-  transform: translateY(0);
-}
-
-.interactive-button.clicked {
-  animation: button-pulse 0.6s ease-out;
-}
-
-.interactive-button.success {
-  background: #4CAF50;
-  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
-}
-
-.interactive-button.success:hover {
-  background: #45a049;
-}
-
-@keyframes button-pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-.click-counter {
-  margin-top: 1.5rem;
-  font-size: 1.1rem;
-  color: #666;
-  font-weight: 500;
-}
-
-#click-count {
-  color: #667eea;
-  font-weight: 700;
-  font-size: 1.2rem;
-}`,
-                js: `// Interactive button functionality
-document.addEventListener('DOMContentLoaded', function() {
-  let clickCount = 0;
-  const button = document.getElementById('interactive-btn');
-  const counter = document.getElementById('click-count');
-  
-  button.addEventListener('click', function() {
-    clickCount++;
-    counter.textContent = clickCount;
-    
-    // Add click animation
-    button.classList.add('clicked');
-    setTimeout(() => {
-      button.classList.remove('clicked');
-    }, 600);
-    
-    // Special effects at milestones
-    if (clickCount === 5) {
-      button.textContent = 'Great job!';
-      button.classList.add('success');
-    } else if (clickCount === 10) {
-      button.textContent = 'Amazing!';
-      createConfetti();
-    } else if (clickCount === 15) {
-      button.textContent = 'You\\'re unstoppable!';
-    }
-  });
-  
-  // Simple confetti effect
-  function createConfetti() {
-    for (let i = 0; i < 20; i++) {
-      setTimeout(() => {
-        const confetti = document.createElement('div');
-        confetti.style.cssText = \`
-          position: fixed;
-          width: 10px;
-          height: 10px;
-          background: \${['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57'][Math.floor(Math.random() * 5)]};
-          left: \${Math.random() * 100}vw;
-          top: -10px;
-          border-radius: 50%;
-          pointer-events: none;
-          animation: confetti-fall 3s linear forwards;
-          z-index: 1000;
-        \`;
-        
-        document.body.appendChild(confetti);
-        
-        setTimeout(() => {
-          confetti.remove();
-        }, 3000);
-      }, i * 100);
-    }
-  }
-  
-  // Add confetti animation
-  const style = document.createElement('style');
-  style.textContent = \`
-    @keyframes confetti-fall {
-      to {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-  \`;
-  document.head.appendChild(style);
-});`,
-                explanation: {
-                    title: 'Under the Hood',
-                    points: [
-                        'Event listeners handle user interactions',
-                        'CSS animations provide visual feedback',
-                        'JavaScript counters track user engagement',
-                        'Dynamic content updates based on milestones',
-                        'Confetti effect uses DOM manipulation'
+                hasJS: false,
+                mobileFirst: true,
+                tags: ['CSS Grid', 'Responsive', 'Images'],
+                description: 'Responsive image gallery using CSS Grid. Perfect for pet adoption photos, game covers, cultural images, and portfolios!',
+                preview: this.generateGalleryPreview(),
+                workshop: {
+                    goal: 'Build a responsive image gallery that works on all devices',
+                    duration: '35 minutes',
+                    steps: [],
+                    learningObjectives: [
+                        'Master CSS Grid for image layouts',
+                        'Learn responsive image techniques',
+                        'Understand aspect ratios and object-fit',
+                        'Create hover effects for galleries'
                     ]
                 },
                 useCases: [
                     {
-                        title: 'Gamification',
-                        description: 'Add engaging elements to increase user interaction'
+                        title: 'Pet Adoption',
+                        description: 'Showcase adoptable dogs and cats with photos'
                     },
                     {
-                        title: 'Learning Apps',
-                        description: 'Provide feedback and rewards for student progress'
+                        title: 'Game History',
+                        description: 'Display game covers and screenshots chronologically'
                     },
                     {
-                        title: 'Marketing Pages',
-                        description: 'Create memorable interactions that users want to share'
+                        title: 'Cultural Heritage',
+                        description: 'Present photos of indigenous traditions and artifacts'
+                    }
+                ]
+            },
+
+            // Timeline Component - For history websites
+            {
+                id: 'timeline',
+                name: 'Timeline Component',
+                type: 'layout',
+                difficulty: 'intermediate',
+                hasJS: false,
+                mobileFirst: true,
+                tags: ['Flexbox', 'History', 'Storytelling'],
+                description: 'Vertical timeline perfect for historical events, game releases, sports history, and cultural milestones!',
+                preview: this.generateTimelinePreview(),
+                workshop: {
+                    goal: 'Build an engaging timeline to display historical events',
+                    duration: '40 minutes',
+                    steps: [],
+                    learningObjectives: [
+                        'Create timeline layouts with CSS',
+                        'Use pseudo-elements for visual effects',
+                        'Build responsive timelines',
+                        'Structure historical content effectively'
+                    ]
+                },
+                useCases: [
+                    {
+                        title: 'Gaming History',
+                        description: 'Show evolution of games from first releases to modern'
+                    },
+                    {
+                        title: 'PBA History',
+                        description: 'Display championship wins and legendary moments'
+                    },
+                    {
+                        title: 'Indigenous History',
+                        description: 'Present cultural milestones and historical events'
+                    }
+                ]
+            },
+
+            // Pricing Table - For services
+            {
+                id: 'pricing-table',
+                name: 'Pricing Table',
+                type: 'ui-elements',
+                difficulty: 'intermediate',
+                hasJS: false,
+                mobileFirst: true,
+                tags: ['Flexbox', 'Business', 'Responsive'],
+                description: 'Professional pricing table with featured plan highlight. Perfect for salon packages, gym memberships, and lesson pricing!',
+                preview: this.generatePricingPreview(),
+                workshop: {
+                    goal: 'Build a professional pricing table for services or products',
+                    duration: '35 minutes',
+                    steps: [],
+                    learningObjectives: [
+                        'Design effective pricing layouts',
+                        'Create visual hierarchy for featured plans',
+                        'Build responsive pricing tables',
+                        'Use CSS to highlight important options'
+                    ]
+                },
+                useCases: [
+                    {
+                        title: 'Salon Packages',
+                        description: 'Display haircut, spa, and beauty service pricing'
+                    },
+                    {
+                        title: 'Gym Memberships',
+                        description: 'Show different fitness membership tiers'
+                    },
+                    {
+                        title: 'Music Lessons',
+                        description: 'Present lesson packages and pricing options'
+                    }
+                ]
+            },
+
+            // Testimonial Section
+            {
+                id: 'testimonials',
+                name: 'Testimonials Section',
+                type: 'ui-elements',
+                difficulty: 'beginner',
+                hasJS: false,
+                mobileFirst: true,
+                tags: ['Flexbox', 'Social Proof', 'Responsive'],
+                description: 'Customer testimonials section with profile photos and quotes. Build trust for your salon, gym, or music school!',
+                preview: this.generateTestimonialPreview(),
+                workshop: {
+                    goal: 'Build a testimonials section to showcase customer reviews',
+                    duration: '30 minutes',
+                    steps: [],
+                    learningObjectives: [
+                        'Design testimonial card layouts',
+                        'Create visually appealing quote displays',
+                        'Build responsive testimonial grids',
+                        'Use CSS for professional styling'
+                    ]
+                },
+                useCases: [
+                    {
+                        title: 'Salon Reviews',
+                        description: 'Show happy customer testimonials and transformations'
+                    },
+                    {
+                        title: 'Fitness Success',
+                        description: 'Display client success stories and transformations'
+                    },
+                    {
+                        title: 'Student Reviews',
+                        description: 'Showcase music student progress and feedback'
+                    }
+                ]
+            },
+
+            // Footer Component
+            {
+                id: 'footer',
+                name: 'Footer with Social Links',
+                type: 'navigation',
+                difficulty: 'beginner',
+                hasJS: false,
+                mobileFirst: true,
+                tags: ['Flexbox', 'Social Media', 'Essential'],
+                description: 'Complete footer with contact info, social media links, and copyright. Essential for every website!',
+                preview: this.generateFooterPreview(),
+                workshop: {
+                    goal: 'Build a professional footer with contact and social media links',
+                    duration: '25 minutes',
+                    steps: [],
+                    learningObjectives: [
+                        'Structure footer content effectively',
+                        'Add social media icons with Lucide',
+                        'Create responsive footer layouts',
+                        'Style footer for visual consistency'
+                    ]
+                },
+                useCases: [
+                    {
+                        title: 'All Websites',
+                        description: 'Every website needs a footer with contact and social links'
+                    },
+                    {
+                        title: 'Business Sites',
+                        description: 'Display business hours, location, and contact methods'
+                    },
+                    {
+                        title: 'Portfolio Sites',
+                        description: 'Link to social profiles and contact information'
                     }
                 ]
             }
@@ -2067,12 +2079,94 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
     },
 
-    generateButtonPreview() {
+    generateGalleryPreview() {
         return `
             <div class="component-preview-placeholder">
-                <div style="text-align: center; padding: 2rem;">
-                    <button style="background: #667eea; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 25px; font-size: 0.9rem; font-weight: 600; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">Click Me!</button>
-                    <p style="margin-top: 1rem; font-size: 0.8rem; color: #666;">Clicks: <span style="color: #667eea; font-weight: 700;">0</span></p>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; padding: 1rem; max-width: 300px; margin: 0 auto;">
+                    <div style="aspect-ratio: 1; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px;"></div>
+                    <div style="aspect-ratio: 1; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 8px;"></div>
+                    <div style="aspect-ratio: 1; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 8px;"></div>
+                    <div style="aspect-ratio: 1; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); border-radius: 8px;"></div>
+                    <div style="aspect-ratio: 1; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); border-radius: 8px;"></div>
+                    <div style="aspect-ratio: 1; background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); border-radius: 8px;"></div>
+                </div>
+            </div>
+        `;
+    },
+
+    generateTimelinePreview() {
+        return `
+            <div class="component-preview-placeholder">
+                <div style="padding: 1rem; max-width: 280px; margin: 0 auto;">
+                    <div style="border-left: 3px solid #667eea; padding-left: 1.5rem; position: relative; margin-bottom: 1.5rem;">
+                        <div style="position: absolute; left: -8px; top: 0; width: 12px; height: 12px; background: #667eea; border-radius: 50%;"></div>
+                        <div style="font-size: 0.75rem; color: #667eea; font-weight: 600; margin-bottom: 0.3rem;">2024</div>
+                        <div style="font-size: 0.9rem; font-weight: 600; color: #333; margin-bottom: 0.3rem;">Event Title</div>
+                        <div style="font-size: 0.75rem; color: #666;">Brief description</div>
+                    </div>
+                    <div style="border-left: 3px solid #667eea; padding-left: 1.5rem; position: relative;">
+                        <div style="position: absolute; left: -8px; top: 0; width: 12px; height: 12px; background: #667eea; border-radius: 50%;"></div>
+                        <div style="font-size: 0.75rem; color: #667eea; font-weight: 600; margin-bottom: 0.3rem;">2023</div>
+                        <div style="font-size: 0.9rem; font-weight: 600; color: #333; margin-bottom: 0.3rem;">Event Title</div>
+                        <div style="font-size: 0.75rem; color: #666;">Brief description</div>
+                    </div>
+                </div>
+            </div>
+        `;
+    },
+
+    generatePricingPreview() {
+        return `
+            <div class="component-preview-placeholder">
+                <div style="display: flex; gap: 0.5rem; padding: 1rem; justify-content: center;">
+                    <div style="background: white; border: 2px solid #e5e7eb; border-radius: 12px; padding: 1rem; width: 120px; text-align: center;">
+                        <div style="font-size: 0.75rem; color: #666; margin-bottom: 0.5rem;">Basic</div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: #333; margin-bottom: 0.5rem;">$29</div>
+                        <button style="width: 100%; background: #e5e7eb; color: #333; border: none; padding: 0.4rem; border-radius: 6px; font-size: 0.7rem; font-weight: 600;">Select</button>
+                    </div>
+                    <div style="background: #667eea; border: 2px solid #667eea; border-radius: 12px; padding: 1rem; width: 120px; text-align: center; transform: scale(1.05);">
+                        <div style="font-size: 0.75rem; color: white; margin-bottom: 0.5rem;">Pro</div>
+                        <div style="font-size: 1.5rem; font-weight: 700; color: white; margin-bottom: 0.5rem;">$49</div>
+                        <button style="width: 100%; background: white; color: #667eea; border: none; padding: 0.4rem; border-radius: 6px; font-size: 0.7rem; font-weight: 600;">Select</button>
+                    </div>
+                </div>
+            </div>
+        `;
+    },
+
+    generateTestimonialPreview() {
+        return `
+            <div class="component-preview-placeholder">
+                <div style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 280px; margin: 1rem auto;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%;"></div>
+                        <div>
+                            <div style="font-size: 0.9rem; font-weight: 600; color: #333;">Customer Name</div>
+                            <div style="font-size: 0.75rem; color: #666;">Happy Client</div>
+                        </div>
+                    </div>
+                    <p style="margin: 0; font-size: 0.85rem; color: #666; line-height: 1.5; font-style: italic;">"This service exceeded my expectations. Highly recommended!"</p>
+                </div>
+            </div>
+        `;
+    },
+
+    generateFooterPreview() {
+        return `
+            <div class="component-preview-placeholder">
+                <div style="background: #2c3e50; color: white; padding: 1.5rem; border-radius: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; font-size: 0.75rem;">
+                        <div>
+                            <div style="font-weight: 600; margin-bottom: 0.3rem;">Company Name</div>
+                            <div style="opacity: 0.8;">contact@example.com</div>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <div style="width: 24px; height: 24px; background: rgba(255,255,255,0.2); border-radius: 50%;"></div>
+                            <div style="width: 24px; height: 24px; background: rgba(255,255,255,0.2); border-radius: 50%;"></div>
+                            <div style="width: 24px; height: 24px; background: rgba(255,255,255,0.2); border-radius: 50%;"></div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; font-size: 0.7rem; opacity: 0.7; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1rem;">© 2024 All rights reserved</div>
                 </div>
             </div>
         `;
