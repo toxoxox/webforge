@@ -636,12 +636,14 @@ const ComponentData = {
                 tags: ['Beginner-Friendly', 'Flexbox', 'CSS-Only'],
                 description: 'Eye-catching hero section with gradient background and call-to-action button. Perfect for landing pages!',
                 preview: `<div class="component-preview-placeholder">
-                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 3rem 2rem; border-radius: 16px; text-align: center;">
-                        <h1 style="margin: 0 0 1rem 0; font-size: 2.5rem; font-weight: 800;">Welcome to My Website</h1>
-                        <p style="margin: 0 0 2rem 0; font-size: 1.1rem; opacity: 0.95; max-width: 600px; margin-left: auto; margin-right: auto;">Create amazing web experiences with modern design and powerful features that help you build better websites.</p>
-                        <div style="display: flex; gap: 1rem; justify-content: center;">
-                            <button style="background: white; color: #667eea; border: none; padding: 1rem 2rem; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">Get Started</button>
-                            <button style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white; padding: 1rem 2rem; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer;">Learn More</button>
+                    <div style="min-height: 200px; padding: 2rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px;">
+                        <div style="flex: 1; color: white;">
+                            <h1 style="margin: 0 0 1rem 0; font-size: 2rem; font-weight: 800; line-height: 1.2;">Hi, I'm Learning to Code!</h1>
+                            <p style="margin: 0 0 1.5rem 0; font-size: 1rem; opacity: 0.95; line-height: 1.5;">Building awesome websites and having fun with web development</p>
+                            <button style="background: white; color: #667eea; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-size: 0.95rem; font-weight: 700; cursor: pointer;">See My Projects</button>
+                        </div>
+                        <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+                            <div style="width: 200px; height: 200px; background: rgba(255,255,255,0.2); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.85rem;">Hero Image</div>
                         </div>
                     </div>
                 </div>`,
@@ -1695,13 +1697,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 tags: ['CSS Grid', 'Responsive', 'Images'],
                 description: 'Responsive image gallery using CSS Grid. Perfect for pet adoption photos, game covers, cultural images, and portfolios!',
                 preview: `<div class="component-preview-placeholder">
-                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; padding: 1rem; max-width: 400px; margin: 0 auto;">
-                        <div style="aspect-ratio: 1; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px;"></div>
-                        <div style="aspect-ratio: 1; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 12px;"></div>
-                        <div style="aspect-ratio: 1; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 12px;"></div>
-                        <div style="aspect-ratio: 1; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); border-radius: 12px;"></div>
-                        <div style="aspect-ratio: 1; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); border-radius: 12px;"></div>
-                        <div style="aspect-ratio: 1; background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); border-radius: 12px;"></div>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; padding: 1rem; max-width: 450px; margin: 0 auto;">
+                        <div style="overflow: hidden; border-radius: 10px;"><img src="https://picsum.photos/150/120?random=1" style="width: 100%; height: 120px; object-fit: cover; display: block;" alt="Gallery image"></div>
+                        <div style="overflow: hidden; border-radius: 10px;"><img src="https://picsum.photos/150/120?random=2" style="width: 100%; height: 120px; object-fit: cover; display: block;" alt="Gallery image"></div>
+                        <div style="overflow: hidden; border-radius: 10px;"><img src="https://picsum.photos/150/120?random=3" style="width: 100%; height: 120px; object-fit: cover; display: block;" alt="Gallery image"></div>
+                        <div style="overflow: hidden; border-radius: 10px;"><img src="https://picsum.photos/150/120?random=4" style="width: 100%; height: 120px; object-fit: cover; display: block;" alt="Gallery image"></div>
+                        <div style="overflow: hidden; border-radius: 10px;"><img src="https://picsum.photos/150/120?random=5" style="width: 100%; height: 120px; object-fit: cover; display: block;" alt="Gallery image"></div>
+                        <div style="overflow: hidden; border-radius: 10px;"><img src="https://picsum.photos/150/120?random=6" style="width: 100%; height: 120px; object-fit: cover; display: block;" alt="Gallery image"></div>
                     </div>
                 </div>`,
                 workshop: {
