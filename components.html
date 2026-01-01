@@ -43,6 +43,53 @@
             </div>
         </div>
 
+        <!-- Website Selection Modal -->
+        <div id="website-selector-modal" class="modal">
+            <div class="modal-overlay"></div>
+            <div class="modal-content website-selector-content">
+                <h2>What website are you making?</h2>
+                <p class="modal-subtitle">We'll suggest the best components for your project!</p>
+                <div class="website-options">
+                    <button class="website-option" data-website="salon">
+                        <i data-lucide="scissors"></i>
+                        <span>Salon Website</span>
+                    </button>
+                    <button class="website-option" data-website="games">
+                        <i data-lucide="gamepad-2"></i>
+                        <span>History of Games</span>
+                    </button>
+                    <button class="website-option" data-website="pets">
+                        <i data-lucide="heart"></i>
+                        <span>Pet Adoption</span>
+                    </button>
+                    <button class="website-option" data-website="city">
+                        <i data-lucide="building-2"></i>
+                        <span>City Website</span>
+                    </button>
+                    <button class="website-option" data-website="indigenous">
+                        <i data-lucide="users"></i>
+                        <span>Indigenous People</span>
+                    </button>
+                    <button class="website-option" data-website="pba">
+                        <i data-lucide="trophy"></i>
+                        <span>PBA History</span>
+                    </button>
+                    <button class="website-option" data-website="music">
+                        <i data-lucide="music"></i>
+                        <span>Music Tutorial</span>
+                    </button>
+                    <button class="website-option" data-website="fitness">
+                        <i data-lucide="dumbbell"></i>
+                        <span>Fitness Website</span>
+                    </button>
+                    <button class="website-option other-option" data-website="other">
+                        <i data-lucide="grid-3x3"></i>
+                        <span>Other / Show All</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <!-- Component Forge Page -->
         <div id="components-page" class="page active">
             <!-- Forge Hero Section -->
@@ -61,7 +108,30 @@
             <!-- Component Filters -->
             <section class="component-filters-section">
                 <div class="container">
+                    <!-- Website Type Indicator -->
+                    <div class="selected-website-banner" id="selected-website-banner" style="display: none;">
+                        <div class="banner-content">
+                            <i data-lucide="sparkles"></i>
+                            <span id="website-type-text">Building a Salon Website</span>
+                        </div>
+                        <button class="change-website-btn" id="change-website-btn">
+                            <i data-lucide="refresh-cw"></i>
+                            <span>Change Website Type</span>
+                        </button>
+                    </div>
+
                     <div class="filters-toolbar">
+                        <!-- Recommended Filter (shows only when website is selected) -->
+                        <div class="filter-group" id="recommended-filter-group" style="display: none;">
+                            <label class="filter-label">For Your Project</label>
+                            <div class="filter-buttons">
+                                <button class="filter-btn" data-recommended="true">
+                                    <i data-lucide="star"></i>
+                                    <span>Recommended</span>
+                                </button>
+                            </div>
+                        </div>
+
                         <div class="filter-group">
                             <label class="filter-label">Component Type</label>
                             <div class="filter-buttons">
@@ -105,10 +175,9 @@
                         <div class="filter-group">
                             <label class="filter-label">Features</label>
                             <div class="filter-buttons">
-                                <button class="filter-btn active" data-js="all">All</button>
-                                <button class="filter-btn" data-js="no-js">No JS</button>
-                                <button class="filter-btn" data-js="with-js">With JS</button>
-                                <button class="filter-btn" data-mobile="mobile-first">Mobile-first</button>
+                                <button class="filter-btn" data-layout="true">Layout</button>
+                                <button class="filter-btn" data-interactive="true">Interactive (JS)</button>
+                                <button class="filter-btn" data-beginner="true">Beginner Friendly</button>
                             </div>
                         </div>
                     </div>
@@ -134,6 +203,7 @@
         <script src="js/models/types.js"></script>
         <script src="js/services/storage.js"></script>
         <script src="js/services/forge-master.js"></script>
+        <script src="js/services/website-selector.js"></script>
         <script src="js/services/component.js"></script>
         <script>
             // Initialize page functionality
@@ -146,6 +216,11 @@
                     ForgeMaster.updateStreak('default-user');
                     const profile = ForgeMaster.getProfile('default-user');
                     ForgeMaster.updateForgeUI(profile);
+                }
+                
+                // Initialize Website Selector (must be before ComponentService)
+                if (typeof WebsiteSelectorService !== 'undefined') {
+                    WebsiteSelectorService.init();
                 }
                 
                 // Initialize Component Gallery

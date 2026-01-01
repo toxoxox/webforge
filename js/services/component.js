@@ -1671,7 +1671,158 @@ document.addEventListener('DOMContentLoaded', function() {
                 workshop: {
                     goal: 'Build a responsive image gallery that works on all devices',
                     duration: '35 minutes',
-                    steps: [],
+                    steps: [
+                        {
+                            title: 'Create the Gallery Container',
+                            description: 'Let\'s start by making a container to hold all our images!',
+                            instruction: 'Add this HTML to create the gallery:',
+                            code: `<div class="gallery">
+  <h2>Photo Gallery</h2>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'The gallery container will hold all our images in a grid layout!',
+                            explanation: 'We\'re creating a simple container with a heading. Soon we\'ll add images inside!'
+                        },
+                        {
+                            title: 'Add Your First Image',
+                            description: 'Let\'s add an image to the gallery!',
+                            instruction: 'Add this image inside the gallery div (after the h2):',
+                            code: `<div class="gallery-item">
+  <img src="https://picsum.photos/400/300?random=1" alt="Gallery image 1">
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'We\'re using placeholder images from picsum.photos - replace these with your own images later!',
+                            explanation: 'Each image is wrapped in a gallery-item div. This helps us style them individually.'
+                        },
+                        {
+                            title: 'Add More Images',
+                            description: 'Let\'s add 5 more images to fill our gallery!',
+                            instruction: 'Add these images after the first one:',
+                            code: `<div class="gallery-item">
+  <img src="https://picsum.photos/400/300?random=2" alt="Gallery image 2">
+</div>
+<div class="gallery-item">
+  <img src="https://picsum.photos/400/300?random=3" alt="Gallery image 3">
+</div>
+<div class="gallery-item">
+  <img src="https://picsum.photos/400/300?random=4" alt="Gallery image 4">
+</div>
+<div class="gallery-item">
+  <img src="https://picsum.photos/400/300?random=5" alt="Gallery image 5">
+</div>
+<div class="gallery-item">
+  <img src="https://picsum.photos/400/300?random=6" alt="Gallery image 6">
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'The ?random= number makes each placeholder image different!',
+                            explanation: 'Now we have 6 images total. They\'re stacked vertically for now, but CSS Grid will fix that!'
+                        },
+                        {
+                            title: 'Style the Gallery Container',
+                            description: 'Let\'s add some basic styling to our gallery!',
+                            instruction: 'Add this CSS:',
+                            code: `.gallery {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.gallery h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'max-width keeps the gallery from getting too wide on big screens!',
+                            explanation: 'We\'re centering the gallery and adding space around it. The heading is centered too!'
+                        },
+                        {
+                            title: 'Create the Grid Layout',
+                            description: 'Now for the magic - let\'s use CSS Grid to arrange images in columns!',
+                            instruction: 'Add this CSS to create a 3-column grid:',
+                            code: `.gallery {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'repeat(3, 1fr) means "make 3 equal columns"!',
+                            explanation: 'CSS Grid automatically arranges our images into 3 columns. The gap adds space between them!'
+                        },
+                        {
+                            title: 'Style the Images',
+                            description: 'Let\'s make the images fill their containers nicely!',
+                            instruction: 'Add this CSS for the images:',
+                            code: `.gallery-item img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'object-fit: cover makes images fill the space without stretching!',
+                            explanation: 'All images are now the same height (250px) and fill their containers. Rounded corners look modern!'
+                        },
+                        {
+                            title: 'Add Hover Effect',
+                            description: 'Let\'s make images zoom slightly when you hover over them!',
+                            instruction: 'Add this hover effect:',
+                            code: `.gallery-item {
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item img:hover {
+  transform: scale(1.05);
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'overflow: hidden prevents the zoomed image from spilling outside its container!',
+                            explanation: 'When you hover, the image scales up to 105% of its size. The transition makes it smooth!'
+                        },
+                        {
+                            title: 'Make It Responsive for Tablets',
+                            description: 'Let\'s make the gallery show 2 columns on tablets!',
+                            instruction: 'Add this media query:',
+                            code: `@media (max-width: 768px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+  }
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Media queries let you change styles based on screen size!',
+                            explanation: 'On screens smaller than 768px (tablets), we show 2 columns instead of 3.'
+                        },
+                        {
+                            title: 'Make It Responsive for Phones',
+                            description: 'Finally, let\'s make it show 1 column on phones!',
+                            instruction: 'Add this media query:',
+                            code: `@media (max-width: 480px) {
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+  
+  .gallery-item img {
+    height: 200px;
+  }
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'On small screens, one column is easier to view!',
+                            explanation: 'On phones, images stack vertically in a single column. We also make them slightly shorter to fit better!'
+                        }
+                    ],
                     learningObjectives: [
                         'Master CSS Grid for image layouts',
                         'Learn responsive image techniques',
@@ -1709,7 +1860,193 @@ document.addEventListener('DOMContentLoaded', function() {
                 workshop: {
                     goal: 'Build an engaging timeline to display historical events',
                     duration: '40 minutes',
-                    steps: [],
+                    steps: [
+                        {
+                            title: 'Create the Timeline Container',
+                            description: 'Let\'s start by creating a container for our timeline!',
+                            instruction: 'Add this HTML:',
+                            code: `<div class="timeline">
+  <h2>Historical Timeline</h2>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'A timeline shows events in chronological order - perfect for history!',
+                            explanation: 'We\'re creating a container that will hold all our timeline events.'
+                        },
+                        {
+                            title: 'Add Your First Event',
+                            description: 'Let\'s add the first event to our timeline!',
+                            instruction: 'Add this event inside the timeline div:',
+                            code: `<div class="timeline-item">
+  <div class="timeline-date">2024</div>
+  <div class="timeline-content">
+    <h3>Event Title</h3>
+    <p>Description of what happened in this year.</p>
+  </div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Each event has a date and content - keep descriptions short!',
+                            explanation: 'The timeline-item contains the year and details about what happened.'
+                        },
+                        {
+                            title: 'Add More Events',
+                            description: 'Let\'s add 3 more events to build our timeline!',
+                            instruction: 'Add these events after the first one:',
+                            code: `<div class="timeline-item">
+  <div class="timeline-date">2020</div>
+  <div class="timeline-content">
+    <h3>Another Event</h3>
+    <p>Something important happened this year.</p>
+  </div>
+</div>
+
+<div class="timeline-item">
+  <div class="timeline-date">2015</div>
+  <div class="timeline-content">
+    <h3>Earlier Event</h3>
+    <p>This event happened earlier in history.</p>
+  </div>
+</div>
+
+<div class="timeline-item">
+  <div class="timeline-date">2010</div>
+  <div class="timeline-content">
+    <h3>First Event</h3>
+    <p>This is where our story begins!</p>
+  </div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'List events from newest to oldest (or oldest to newest)!',
+                            explanation: 'Now we have 4 events. They\'ll look better once we add CSS!'
+                        },
+                        {
+                            title: 'Style the Timeline Container',
+                            description: 'Let\'s add basic styling to our timeline!',
+                            instruction: 'Add this CSS:',
+                            code: `.timeline {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.timeline h2 {
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #333;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Centering the timeline makes it look professional!',
+                            explanation: 'We\'re centering the timeline and adding space for the heading.'
+                        },
+                        {
+                            title: 'Add the Vertical Line',
+                            description: 'Let\'s add a vertical line down the left side!',
+                            instruction: 'Add this CSS for the timeline items:',
+                            code: `.timeline-item {
+  position: relative;
+  padding-left: 3rem;
+  padding-bottom: 2rem;
+  border-left: 3px solid #667eea;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'border-left creates the vertical timeline line!',
+                            explanation: 'The left border creates our timeline line. Padding makes room for content.'
+                        },
+                        {
+                            title: 'Add the Circle Markers',
+                            description: 'Let\'s add circles on the timeline line for each event!',
+                            instruction: 'Add this CSS using a pseudo-element:',
+                            code: `.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 0;
+  width: 12px;
+  height: 12px;
+  background: #667eea;
+  border-radius: 50%;
+}`,
+                            codeFile: 'styles.css',
+                            tip: '::before creates an element without adding HTML!',
+                            explanation: 'The ::before pseudo-element creates a circle marker. border-radius: 50% makes it round!'
+                        },
+                        {
+                            title: 'Style the Date',
+                            description: 'Let\'s make the dates stand out with color!',
+                            instruction: 'Add this CSS for dates:',
+                            code: `.timeline-date {
+  color: #667eea;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Bold, colored dates help them stand out!',
+                            explanation: 'We\'re making dates bold and purple to match our timeline color.'
+                        },
+                        {
+                            title: 'Style the Event Content',
+                            description: 'Let\'s style the event titles and descriptions!',
+                            instruction: 'Add this CSS:',
+                            code: `.timeline-content h3 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.timeline-content p {
+  margin: 0;
+  color: #666;
+  line-height: 1.6;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Good spacing makes content easy to read!',
+                            explanation: 'We\'re styling the titles and descriptions with good spacing and colors.'
+                        },
+                        {
+                            title: 'Add Hover Effect',
+                            description: 'Let\'s make events highlight when you hover over them!',
+                            instruction: 'Add this hover effect:',
+                            code: `.timeline-item {
+  position: relative;
+  padding-left: 3rem;
+  padding-bottom: 2rem;
+  border-left: 3px solid #667eea;
+  transition: all 0.3s ease;
+}
+
+.timeline-item:hover {
+  padding-left: 3.5rem;
+}
+
+.timeline-item:hover .timeline-content h3 {
+  color: #667eea;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Subtle hover effects make timelines interactive!',
+                            explanation: 'When you hover, the item shifts slightly right and the title changes color!'
+                        },
+                        {
+                            title: 'Make It Responsive',
+                            description: 'Let\'s make the timeline work great on phones!',
+                            instruction: 'Add this media query:',
+                            code: `@media (max-width: 768px) {
+  .timeline {
+    padding: 1rem;
+  }
+  
+  .timeline-item {
+    padding-left: 2rem;
+  }
+  
+  .timeline-content h3 {
+    font-size: 1rem;
+  }
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Less padding on small screens gives more room for content!',
+                            explanation: 'On phones, we reduce padding and make titles slightly smaller to fit better.'
+                        }
+                    ],
                     learningObjectives: [
                         'Create timeline layouts with CSS',
                         'Use pseudo-elements for visual effects',
@@ -1747,7 +2084,274 @@ document.addEventListener('DOMContentLoaded', function() {
                 workshop: {
                     goal: 'Build a professional pricing table for services or products',
                     duration: '35 minutes',
-                    steps: [],
+                    steps: [
+                        {
+                            title: 'Create the Pricing Container',
+                            description: 'Let\'s start by creating a container for our pricing plans!',
+                            instruction: 'Add this HTML:',
+                            code: `<div class="pricing-section">
+  <h2>Choose Your Plan</h2>
+  <div class="pricing-cards">
+  </div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'The pricing-cards div will hold all our pricing options!',
+                            explanation: 'We\'re creating a section with a heading and a container for our pricing cards.'
+                        },
+                        {
+                            title: 'Add the Basic Plan',
+                            description: 'Let\'s create our first pricing card - the Basic plan!',
+                            instruction: 'Add this card inside pricing-cards:',
+                            code: `<div class="pricing-card">
+  <h3>Basic</h3>
+  <div class="price">$29<span>/month</span></div>
+  <ul class="features">
+    <li>5 Projects</li>
+    <li>Basic Support</li>
+    <li>1 GB Storage</li>
+  </ul>
+  <button class="btn-select">Select Plan</button>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Each plan has a name, price, features list, and button!',
+                            explanation: 'The pricing card shows the plan name, price, what\'s included, and a button to select it.'
+                        },
+                        {
+                            title: 'Add the Pro Plan',
+                            description: 'Let\'s add a Pro plan - this will be our featured option!',
+                            instruction: 'Add this card after the Basic plan:',
+                            code: `<div class="pricing-card featured">
+  <div class="badge">Popular</div>
+  <h3>Pro</h3>
+  <div class="price">$49<span>/month</span></div>
+  <ul class="features">
+    <li>Unlimited Projects</li>
+    <li>Priority Support</li>
+    <li>10 GB Storage</li>
+    <li>Advanced Features</li>
+  </ul>
+  <button class="btn-select">Select Plan</button>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'The "featured" class will make this plan stand out!',
+                            explanation: 'The Pro plan has more features and a "Popular" badge to highlight it!'
+                        },
+                        {
+                            title: 'Add the Premium Plan',
+                            description: 'Let\'s add one more plan - the Premium option!',
+                            instruction: 'Add this card after the Pro plan:',
+                            code: `<div class="pricing-card">
+  <h3>Premium</h3>
+  <div class="price">$99<span>/month</span></div>
+  <ul class="features">
+    <li>Unlimited Everything</li>
+    <li>24/7 Support</li>
+    <li>100 GB Storage</li>
+    <li>All Features</li>
+    <li>Custom Domain</li>
+  </ul>
+  <button class="btn-select">Select Plan</button>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Premium plans usually have the most features!',
+                            explanation: 'Now we have 3 pricing tiers - Basic, Pro, and Premium!'
+                        },
+                        {
+                            title: 'Style the Section',
+                            description: 'Let\'s add basic styling to our pricing section!',
+                            instruction: 'Add this CSS:',
+                            code: `.pricing-section {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.pricing-section h2 {
+  margin-bottom: 3rem;
+  font-size: 2rem;
+  color: #333;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Centering everything makes pricing tables look professional!',
+                            explanation: 'We\'re centering the section and adding space for the heading.'
+                        },
+                        {
+                            title: 'Create the Card Layout',
+                            description: 'Let\'s use Flexbox to arrange cards side by side!',
+                            instruction: 'Add this CSS:',
+                            code: `.pricing-cards {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Flexbox makes it easy to line up cards horizontally!',
+                            explanation: 'The cards now sit side by side with space between them!'
+                        },
+                        {
+                            title: 'Style the Pricing Cards',
+                            description: 'Let\'s style each pricing card!',
+                            instruction: 'Add this CSS:',
+                            code: `.pricing-card {
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 15px;
+  padding: 2rem;
+  width: 300px;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.pricing-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'The hover effect makes cards lift up - very modern!',
+                            explanation: 'Cards have rounded corners, borders, and lift up when you hover over them!'
+                        },
+                        {
+                            title: 'Style the Featured Card',
+                            description: 'Let\'s make the Pro plan stand out with special styling!',
+                            instruction: 'Add this CSS:',
+                            code: `.pricing-card.featured {
+  background: #667eea;
+  border-color: #667eea;
+  transform: scale(1.05);
+  color: white;
+}
+
+.pricing-card.featured h3,
+.pricing-card.featured .price {
+  color: white;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Making the featured plan bigger and colorful draws attention!',
+                            explanation: 'The featured card is slightly bigger, has a purple background, and white text!'
+                        },
+                        {
+                            title: 'Add the Popular Badge',
+                            description: 'Let\'s style the "Popular" badge on the featured plan!',
+                            instruction: 'Add this CSS:',
+                            code: `.badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #4CAF50;
+  color: white;
+  padding: 0.3rem 1rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'position: absolute lets us place the badge at the top!',
+                            explanation: 'The badge sits at the top center of the featured card with a green background!'
+                        },
+                        {
+                            title: 'Style Plan Names and Prices',
+                            description: 'Let\'s make the plan names and prices look great!',
+                            instruction: 'Add this CSS:',
+                            code: `.pricing-card h3 {
+  font-size: 1.5rem;
+  margin: 0 0 1rem 0;
+  color: #333;
+}
+
+.price {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #667eea;
+  margin-bottom: 1.5rem;
+}
+
+.price span {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #666;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Big, bold prices grab attention!',
+                            explanation: 'Plan names are clear, prices are big and bold, and "/month" is smaller!'
+                        },
+                        {
+                            title: 'Style the Features List',
+                            description: 'Let\'s style the list of features for each plan!',
+                            instruction: 'Add this CSS:',
+                            code: `.features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+  text-align: left;
+}
+
+.features li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.features li:last-child {
+  border-bottom: none;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Lines between features make them easy to read!',
+                            explanation: 'Each feature is separated by a line, making the list clear and organized!'
+                        },
+                        {
+                            title: 'Style the Select Buttons',
+                            description: 'Let\'s style the buttons to select a plan!',
+                            instruction: 'Add this CSS:',
+                            code: `.btn-select {
+  width: 100%;
+  padding: 0.9rem;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-select:hover {
+  background: #5568d3;
+}
+
+.pricing-card.featured .btn-select {
+  background: white;
+  color: #667eea;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'The featured card has an inverted button color!',
+                            explanation: 'Buttons are full-width and change color on hover. The featured card\'s button is white!'
+                        },
+                        {
+                            title: 'Make It Responsive',
+                            description: 'Let\'s make pricing cards stack on smaller screens!',
+                            instruction: 'Add this media query:',
+                            code: `@media (max-width: 968px) {
+  .pricing-cards {
+    flex-direction: column;
+  }
+  
+  .pricing-card {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .pricing-card.featured {
+    transform: scale(1);
+  }
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'On small screens, cards stack vertically!',
+                            explanation: 'On tablets and phones, cards stack vertically and the featured card returns to normal size!'
+                        }
+                    ],
                     learningObjectives: [
                         'Design effective pricing layouts',
                         'Create visual hierarchy for featured plans',
@@ -1785,7 +2389,192 @@ document.addEventListener('DOMContentLoaded', function() {
                 workshop: {
                     goal: 'Build a testimonials section to showcase customer reviews',
                     duration: '30 minutes',
-                    steps: [],
+                    steps: [
+                        {
+                            title: 'Create the Testimonials Container',
+                            description: 'Let\'s start by creating a section for customer reviews!',
+                            instruction: 'Add this HTML:',
+                            code: `<section class="testimonials">
+  <h2>What Our Customers Say</h2>
+  <div class="testimonial-grid">
+  </div>
+</section>`,
+                            codeFile: 'index.html',
+                            tip: 'Testimonials build trust with potential customers!',
+                            explanation: 'We\'re creating a section with a heading and a grid to hold testimonial cards.'
+                        },
+                        {
+                            title: 'Add First Testimonial',
+                            description: 'Let\'s add our first customer review!',
+                            instruction: 'Add this testimonial inside the grid:',
+                            code: `<div class="testimonial-card">
+  <div class="customer-info">
+    <img src="https://i.pravatar.cc/100?img=1" alt="Customer" class="customer-photo">
+    <div>
+      <h4>Sarah Johnson</h4>
+      <p class="customer-role">Happy Customer</p>
+    </div>
+  </div>
+  <p class="testimonial-text">"Amazing service! Highly recommend to everyone. The team was professional and friendly."</p>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'We\'re using pravatar.cc for placeholder photos - replace with real customer photos!',
+                            explanation: 'Each testimonial has a photo, name, role, and their review quote.'
+                        },
+                        {
+                            title: 'Add More Testimonials',
+                            description: 'Let\'s add 2 more customer reviews!',
+                            instruction: 'Add these testimonials:',
+                            code: `<div class="testimonial-card">
+  <div class="customer-info">
+    <img src="https://i.pravatar.cc/100?img=5" alt="Customer" class="customer-photo">
+    <div>
+      <h4>Mike Chen</h4>
+      <p class="customer-role">Regular Client</p>
+    </div>
+  </div>
+  <p class="testimonial-text">"Best experience ever! Will definitely come back. Five stars all the way!"</p>
+</div>
+
+<div class="testimonial-card">
+  <div class="customer-info">
+    <img src="https://i.pravatar.cc/100?img=9" alt="Customer" class="customer-photo">
+    <div>
+      <h4>Emma Davis</h4>
+      <p class="customer-role">Satisfied Customer</p>
+    </div>
+  </div>
+  <p class="testimonial-text">"Exceeded my expectations! The quality and attention to detail were outstanding."</p>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Three testimonials is a good number - not too few, not too many!',
+                            explanation: 'Now we have 3 testimonials from different customers!'
+                        },
+                        {
+                            title: 'Style the Section',
+                            description: 'Let\'s add basic styling to the testimonials section!',
+                            instruction: 'Add this CSS:',
+                            code: `.testimonials {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #f9fafb;
+}
+
+.testimonials h2 {
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #333;
+  font-size: 2rem;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'A light background helps testimonials stand out!',
+                            explanation: 'We\'re centering the section and giving it a light gray background.'
+                        },
+                        {
+                            title: 'Create the Grid Layout',
+                            description: 'Let\'s arrange testimonials in a grid!',
+                            instruction: 'Add this CSS:',
+                            code: `.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'CSS Grid makes it easy to create equal-width columns!',
+                            explanation: 'The testimonials now sit side by side in 3 equal columns!'
+                        },
+                        {
+                            title: 'Style the Testimonial Cards',
+                            description: 'Let\'s style each testimonial card!',
+                            instruction: 'Add this CSS:',
+                            code: `.testimonial-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Cards lift up on hover for a nice interactive effect!',
+                            explanation: 'Each card has a white background, shadow, and lifts up when you hover!'
+                        },
+                        {
+                            title: 'Style Customer Info',
+                            description: 'Let\'s style the customer photo and name section!',
+                            instruction: 'Add this CSS:',
+                            code: `.customer-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.customer-photo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.customer-info h4 {
+  margin: 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.customer-role {
+  margin: 0.2rem 0 0 0;
+  color: #667eea;
+  font-size: 0.85rem;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'border-radius: 50% makes the photo circular!',
+                            explanation: 'The photo and name sit side by side. Photos are round and names are styled!'
+                        },
+                        {
+                            title: 'Style the Quote Text',
+                            description: 'Let\'s style the testimonial quote!',
+                            instruction: 'Add this CSS:',
+                            code: `.testimonial-text {
+  color: #666;
+  line-height: 1.6;
+  font-style: italic;
+  margin: 0;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Italic text makes quotes look more authentic!',
+                            explanation: 'The quote text is gray, italic, and has good line spacing for readability!'
+                        },
+                        {
+                            title: 'Make It Responsive',
+                            description: 'Let\'s make testimonials work on all screen sizes!',
+                            instruction: 'Add these media queries:',
+                            code: `@media (max-width: 968px) {
+  .testimonial-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .testimonials {
+    padding: 1.5rem;
+  }
+  
+  .testimonial-card {
+    padding: 1.5rem;
+  }
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'On small screens, testimonials stack vertically!',
+                            explanation: 'On tablets and phones, testimonials stack in a single column for easy reading!'
+                        }
+                    ],
                     learningObjectives: [
                         'Design testimonial card layouts',
                         'Create visually appealing quote displays',
@@ -1823,7 +2612,216 @@ document.addEventListener('DOMContentLoaded', function() {
                 workshop: {
                     goal: 'Build a professional footer with contact and social media links',
                     duration: '25 minutes',
-                    steps: [],
+                    steps: [
+                        {
+                            title: 'Create the Footer Container',
+                            description: 'Let\'s start by creating the footer structure!',
+                            instruction: 'Add this HTML at the bottom of your page:',
+                            code: `<footer class="site-footer">
+  <div class="footer-content">
+  </div>
+</footer>`,
+                            codeFile: 'index.html',
+                            tip: 'The footer goes at the very bottom of your website!',
+                            explanation: 'We\'re creating a footer element with a container for our content.'
+                        },
+                        {
+                            title: 'Add Company Info',
+                            description: 'Let\'s add your company name and contact info!',
+                            instruction: 'Add this inside footer-content:',
+                            code: `<div class="footer-section">
+  <h3>My Company</h3>
+  <p>Building amazing websites since 2024</p>
+  <p>Email: contact@mycompany.com</p>
+  <p>Phone: (123) 456-7890</p>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Replace with your real company name and contact info!',
+                            explanation: 'This section shows your company name, tagline, and contact information.'
+                        },
+                        {
+                            title: 'Add Quick Links',
+                            description: 'Let\'s add a section with quick navigation links!',
+                            instruction: 'Add this after the company info:',
+                            code: `<div class="footer-section">
+  <h3>Quick Links</h3>
+  <ul class="footer-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Quick links help visitors navigate your site from the footer!',
+                            explanation: 'A list of important links makes navigation easy from anywhere on the page.'
+                        },
+                        {
+                            title: 'Add Social Media Links',
+                            description: 'Let\'s add social media icons using Lucide!',
+                            instruction: 'Add this social section:',
+                            code: `<div class="footer-section">
+  <h3>Follow Us</h3>
+  <div class="social-links">
+    <a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a>
+    <a href="#" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+    <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+    <a href="#" aria-label="Youtube"><i data-lucide="youtube"></i></a>
+  </div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Remember to call lucide.createIcons() in your JavaScript!',
+                            explanation: 'Social media icons let visitors follow you on different platforms!'
+                        },
+                        {
+                            title: 'Add Copyright',
+                            description: 'Let\'s add a copyright notice at the bottom!',
+                            instruction: 'Add this after footer-content (but inside footer):',
+                            code: `<div class="footer-bottom">
+  <p>&copy; 2024 My Company. All rights reserved.</p>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'The &copy; symbol creates the © copyright symbol!',
+                            explanation: 'A copyright notice protects your content and looks professional!'
+                        },
+                        {
+                            title: 'Style the Footer',
+                            description: 'Let\'s give the footer a dark background!',
+                            instruction: 'Add this CSS:',
+                            code: `.site-footer {
+  background: #2c3e50;
+  color: white;
+  padding: 3rem 2rem 1rem 2rem;
+  margin-top: 4rem;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Dark footers are a popular design choice!',
+                            explanation: 'We\'re giving the footer a dark blue background with white text.'
+                        },
+                        {
+                            title: 'Create Footer Layout',
+                            description: 'Let\'s arrange footer sections side by side!',
+                            instruction: 'Add this CSS:',
+                            code: `.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 3rem;
+  margin-bottom: 2rem;
+}
+
+.footer-section {
+  flex: 1;
+}
+
+.footer-section h3 {
+  margin: 0 0 1rem 0;
+  color: white;
+  font-size: 1.2rem;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Flexbox makes the sections spread out evenly!',
+                            explanation: 'The three sections now sit side by side with equal width!'
+                        },
+                        {
+                            title: 'Style Footer Links',
+                            description: 'Let\'s style the quick links list!',
+                            instruction: 'Add this CSS:',
+                            code: `.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+  color: #bdc3c7;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: white;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Links change to white on hover for a nice effect!',
+                            explanation: 'Links are gray by default and turn white when you hover over them!'
+                        },
+                        {
+                            title: 'Style Social Icons',
+                            description: 'Let\'s style the social media icons!',
+                            instruction: 'Add this CSS:',
+                            code: `.social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  background: #667eea;
+  transform: translateY(-3px);
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Icons lift up and change color on hover!',
+                            explanation: 'Social icons are circular and have a nice hover effect!'
+                        },
+                        {
+                            title: 'Style Copyright Section',
+                            description: 'Let\'s style the copyright notice!',
+                            instruction: 'Add this CSS:',
+                            code: `.footer-bottom {
+  text-align: center;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-bottom p {
+  margin: 0;
+  color: #bdc3c7;
+  font-size: 0.9rem;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'A subtle line separates the copyright from the rest!',
+                            explanation: 'The copyright is centered with a line above it!'
+                        },
+                        {
+                            title: 'Make It Responsive',
+                            description: 'Let\'s make the footer stack on mobile!',
+                            instruction: 'Add this media query:',
+                            code: `@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .site-footer {
+    padding: 2rem 1rem 1rem 1rem;
+  }
+  
+  .social-links {
+    justify-content: center;
+  }
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'On phones, footer sections stack vertically!',
+                            explanation: 'On small screens, the footer sections stack and social icons center!'
+                        }
+                    ],
                     learningObjectives: [
                         'Structure footer content effectively',
                         'Add social media icons with Lucide',
@@ -1855,7 +2853,7 @@ document.addEventListener('DOMContentLoaded', function() {
      * Setup filter event listeners
      */
     setupFilters() {
-        // Type filters
+        // Type filters (radio-style)
         document.querySelectorAll('[data-filter]').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const filter = e.target.closest('[data-filter]').dataset.filter;
@@ -1864,7 +2862,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // Difficulty filters
+        // Difficulty filters (radio-style)
         document.querySelectorAll('[data-difficulty]').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const filter = e.target.closest('[data-difficulty]').dataset.difficulty;
@@ -1873,21 +2871,48 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        // JS filters
-        document.querySelectorAll('[data-js]').forEach(btn => {
+        // NEW: Checkbox-style filters (can be toggled on/off)
+        // Recommended filter
+        document.querySelectorAll('[data-recommended]').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                const filter = e.target.closest('[data-js]').dataset.js;
-                this.setFilter('js', filter);
-                this.updateFilterButtons(e.target.closest('[data-js]'), '[data-js]');
+                const button = e.target.closest('[data-recommended]');
+                button.classList.toggle('active');
+                this.currentFilters.recommended = button.classList.contains('active');
+                this.applyFilters();
+                this.renderGallery();
             });
         });
 
-        // Mobile filters
-        document.querySelectorAll('[data-mobile]').forEach(btn => {
+        // Layout filter
+        document.querySelectorAll('[data-layout]').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                const filter = e.target.closest('[data-mobile]').dataset.mobile;
-                this.setFilter('mobile', filter);
-                this.updateFilterButtons(e.target.closest('[data-mobile]'), '[data-mobile]');
+                const button = e.target.closest('[data-layout]');
+                button.classList.toggle('active');
+                this.currentFilters.layout = button.classList.contains('active');
+                this.applyFilters();
+                this.renderGallery();
+            });
+        });
+
+        // Interactive (JS) filter
+        document.querySelectorAll('[data-interactive]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const button = e.target.closest('[data-interactive]');
+                button.classList.toggle('active');
+                this.currentFilters.interactive = button.classList.contains('active');
+                this.applyFilters();
+                this.renderGallery();
+            });
+        });
+
+        // Beginner filter
+        document.querySelectorAll('[data-beginner]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const button = e.target.closest('[data-beginner]');
+                button.classList.toggle('active');
+                this.currentFilters.beginner = button.classList.contains('active');
+                this.applyFilters();
+                this.renderGallery();
             });
         });
     },
@@ -1916,6 +2941,36 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     applyFilters() {
         this.filteredComponents = this.components.filter(component => {
+            // Recommended filter (NEW)
+            if (this.currentFilters.recommended) {
+                if (typeof WebsiteSelectorService !== 'undefined') {
+                    if (!WebsiteSelectorService.isRecommended(component.id)) {
+                        return false;
+                    }
+                }
+            }
+
+            // Layout filter (NEW)
+            if (this.currentFilters.layout) {
+                if (component.type !== 'layout') {
+                    return false;
+                }
+            }
+
+            // Interactive filter (NEW)
+            if (this.currentFilters.interactive) {
+                if (!component.hasJS) {
+                    return false;
+                }
+            }
+
+            // Beginner filter (NEW)
+            if (this.currentFilters.beginner) {
+                if (component.difficulty !== 'beginner') {
+                    return false;
+                }
+            }
+
             // Type filter
             if (this.currentFilters.type !== 'all' && component.type !== this.currentFilters.type) {
                 return false;
@@ -1926,21 +2981,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 return false;
             }
 
-            // JS filter
-            if (this.currentFilters.js === 'no-js' && component.hasJS) {
-                return false;
-            }
-            if (this.currentFilters.js === 'with-js' && !component.hasJS) {
-                return false;
-            }
-
-            // Mobile filter
-            if (this.currentFilters.mobile === 'mobile-first' && !component.mobileFirst) {
-                return false;
-            }
-
             return true;
         });
+
+        // Sort recommended components to top (NEW)
+        if (typeof WebsiteSelectorService !== 'undefined' && 
+            WebsiteSelectorService.selectedWebsite && 
+            WebsiteSelectorService.selectedWebsite !== 'other') {
+            this.filteredComponents.sort((a, b) => {
+                const aRec = WebsiteSelectorService.isRecommended(a.id);
+                const bRec = WebsiteSelectorService.isRecommended(b.id);
+                if (aRec && !bRec) return -1;
+                if (!aRec && bRec) return 1;
+                return 0;
+            });
+        }
     },
 
     /**
@@ -1959,34 +3014,51 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        gallery.innerHTML = this.filteredComponents.map(component => `
-            <div class="component-card" data-component="${component.id}">
-                <div class="component-preview">
-                    ${component.preview}
+        // Check if we should show recommended badges
+        const showRecommended = typeof WebsiteSelectorService !== 'undefined' && 
+                                WebsiteSelectorService.selectedWebsite && 
+                                WebsiteSelectorService.selectedWebsite !== 'other';
+
+        gallery.innerHTML = this.filteredComponents.map(component => {
+            const isRecommended = showRecommended && WebsiteSelectorService.isRecommended(component.id);
+            const recommendedClass = isRecommended ? 'recommended' : '';
+            const recommendedBadge = isRecommended ? `
+                <div class="recommended-badge">
+                    <i data-lucide="star"></i>
+                    <span>Recommended</span>
                 </div>
-                <div class="component-info">
-                    <div class="component-header">
-                        <h3 class="component-title">${component.name}</h3>
-                        <span class="component-difficulty ${component.difficulty}">${component.difficulty}</span>
+            ` : '';
+
+            return `
+                <div class="component-card ${recommendedClass}" data-component="${component.id}">
+                    ${recommendedBadge}
+                    <div class="component-preview">
+                        ${component.preview}
                     </div>
-                    <div class="component-tags">
-                        ${component.tags.map(tag => `
-                            <span class="component-tag ${tag.toLowerCase().replace(/[^a-z0-9]/g, '-')}">${tag}</span>
-                        `).join('')}
-                    </div>
-                    <div class="component-actions">
-                        <button class="component-btn" onclick="ComponentService.startWorkshop('${component.id}')">
-                            <i data-lucide="hammer"></i>
-                            <span>Build This</span>
-                        </button>
-                        <button class="component-btn primary" onclick="ComponentService.previewComponent('${component.id}')">
-                            <i data-lucide="eye"></i>
-                            <span>Preview</span>
-                        </button>
+                    <div class="component-info">
+                        <div class="component-header">
+                            <h3 class="component-title">${component.name}</h3>
+                            <span class="component-difficulty ${component.difficulty}">${component.difficulty}</span>
+                        </div>
+                        <div class="component-tags">
+                            ${component.tags.map(tag => `
+                                <span class="component-tag ${tag.toLowerCase().replace(/[^a-z0-9]/g, '-')}">${tag}</span>
+                            `).join('')}
+                        </div>
+                        <div class="component-actions">
+                            <button class="component-btn" onclick="ComponentService.startWorkshop('${component.id}')">
+                                <i data-lucide="hammer"></i>
+                                <span>Build This</span>
+                            </button>
+                            <button class="component-btn primary" onclick="ComponentService.previewComponent('${component.id}')">
+                                <i data-lucide="eye"></i>
+                                <span>Preview</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
 
         // Re-initialize Lucide icons
         lucide.createIcons();
