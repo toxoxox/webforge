@@ -172,6 +172,22 @@
     border-radius: 1px;
 }
 
+.filter-hint {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--modern-text-tertiary);
+    margin-top: var(--space-1);
+    font-style: italic;
+}
+
+.filter-hint i {
+    width: 14px;
+    height: 14px;
+    opacity: 0.7;
+}
+
 .filter-buttons {
     display: flex;
     gap: var(--space-2);

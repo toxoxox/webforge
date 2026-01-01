@@ -991,7 +991,13 @@ function updatePreview() {
 
     const iframe = document.getElementById('preview');
     if (iframe) {
-        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+        // Recreate iframe to ensure fresh JavaScript context and avoid "already declared" errors
+        const parent = iframe.parentNode;
+        const newIframe = iframe.cloneNode(false);
+        parent.replaceChild(newIframe, iframe);
+        
+        // Write content to the new iframe
+        const iframeDoc = newIframe.contentDocument || newIframe.contentWindow.document;
         iframeDoc.open();
         iframeDoc.write(html);
         iframeDoc.close();

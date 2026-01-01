@@ -137,8 +137,7 @@ const ComponentService = {
             });
         });
 
-        // Checkbox-style filters
-        this.setupToggleFilter('[data-recommended]', 'recommended');
+        // Checkbox-style filters (removed recommended filter)
         this.setupToggleFilter('[data-layout]', 'layout');
         this.setupToggleFilter('[data-interactive]', 'interactive');
         this.setupToggleFilter('[data-beginner]', 'beginner');
@@ -183,12 +182,15 @@ const ComponentService = {
      */
     applyFilters() {
         this.filteredComponents = this.components.filter(component => {
-            // Recommended filter
-            if (this.currentFilters.recommended) {
-                if (typeof WebsiteSelectorService !== 'undefined') {
-                    if (!WebsiteSelectorService.isRecommended(component.id)) {
-                        return false;
-                    }
+            // Auto-show recommended components when website type is selected (not "other")
+            const hasWebsiteType = typeof WebsiteSelectorService !== 'undefined' && 
+                                   WebsiteSelectorService.selectedWebsite && 
+                                   WebsiteSelectorService.selectedWebsite !== 'other';
+            
+            if (hasWebsiteType) {
+                // Only show recommended components for the selected website type
+                if (!WebsiteSelectorService.isRecommended(component.id)) {
+                    return false;
                 }
             }
 
@@ -304,8 +306,15 @@ const ComponentService = {
      * Start a component building workshop
      */
     startWorkshop(componentId) {
+        console.log('=== START WORKSHOP CLICKED ===');
+        console.log('Component ID:', componentId);
+        
         const component = this.components.find(c => c.id === componentId);
+        console.log('Found component:', component ? component.name : 'NOT FOUND');
+        console.log('Has workshop:', component ? !!component.workshop : 'N/A');
+        
         if (!component || !component.workshop) {
+            console.error('Workshop not available!');
             this.showToast('Workshop not available for this component', 'error');
             return;
         }
@@ -318,10 +327,14 @@ const ComponentService = {
             type: 'workshop'
         };
 
+        console.log('Storing workshop data:', workshopData);
         localStorage.setItem('webforge-workshop-start', JSON.stringify(workshopData));
+        console.log('Workshop data stored in localStorage');
         
         // Navigate to editor in workshop mode
-        window.location.href = 'editor.html?mode=workshop&component=' + componentId;
+        const url = 'editor.html?mode=workshop&component=' + componentId;
+        console.log('Navigating to:', url);
+        window.location.href = url;
     },
 
     /**

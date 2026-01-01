@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/tutorial-hub.css">
     <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/component-detail.css">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
@@ -130,17 +131,10 @@
                                     <span id="current-website-type-text">Select Website Type</span>
                                 </button>
                             </div>
-                        </div>
-
-                        <!-- Recommended Filter (shows only when website is selected) -->
-                        <div class="filter-group" id="recommended-filter-group" style="display: none;">
-                            <label class="filter-label">For Your Project</label>
-                            <div class="filter-buttons">
-                                <button class="filter-btn" data-recommended="true">
-                                    <i data-lucide="star"></i>
-                                    <span>Recommended</span>
-                                </button>
-                            </div>
+                            <p class="filter-hint">
+                                <i data-lucide="info"></i>
+                                <span>Click here to change your website type</span>
+                            </p>
                         </div>
 
                         <div class="filter-group">

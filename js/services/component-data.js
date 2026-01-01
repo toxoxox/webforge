@@ -45,8 +45,8 @@ const ComponentData = {
   </div>
 </nav>`,
                             codeFile: 'index.html',
-                            tip: 'The <nav> tag tells the browser "this is a navigation menu!" It helps people using screen readers understand your website better.',
-                            explanation: 'Let\'s break down each line:\n• <nav class="navbar"> - Creates a navigation container. The class="navbar" gives it a name so we can style it later.\n• <div class="nav-brand"> - A box to hold our logo and website name together.\n• <img src="img/webforge-icon.png" alt="Logo" class="nav-logo"> - Shows an image. "src" tells where to find the image file. "alt" describes it for people who can\'t see it (important for accessibility!).\n• <span class="brand-name"> - Holds text. Unlike <div>, <span> doesn\'t start a new line.\n• </nav> - Closes the navigation container.\n\nNote: You can replace "img/webforge-icon.png" with your own logo image path!',
+                            tip: 'The <nav> tag tells the browser "this is a navigation menu!"',
+                            explanation: 'What each part does:\n• <nav> - Creates a navigation container\n• class="navbar" - Gives it a name for styling\n• <img> - Shows your logo image\n• <span> - Holds the website name text',
                             validation: {
                                 required: [
                                     {
@@ -87,8 +87,8 @@ const ComponentData = {
   <li><a href="#contact" class="nav-link">Contact</a></li>
 </ul>`,
                             codeFile: 'index.html',
-                            tip: 'The <ul> tag creates an "unordered list" - perfect for menu items! Each <li> is one menu item.',
-                            explanation: 'Here\'s what each part does:\n• <ul class="nav-menu"> - Creates an unordered list (bullets by default, but we\'ll remove them with CSS).\n• <li> - List item. Each one is a menu button.\n• <a href="#home"> - A link! "href" tells where to go. The # means it\'s a link to a section on the same page.\n• class="nav-link" - Names the link so we can style all links the same way.\n• Home, About, etc. - The text people see and click on.',
+                            tip: 'The <ul> tag creates an "unordered list" - perfect for menu items!',
+                            explanation: 'What each part does:\n• <ul> - Creates a list container\n• <li> - Each list item (one menu button)\n• <a href="#home"> - A clickable link\n• The # means it links to a section on the same page',
                             validation: {
                                 required: [
                                     {
@@ -127,8 +127,8 @@ const ComponentData = {
   padding: 1rem 2rem;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'In CSS, we use a dot (.) before the class name to select it. So .navbar selects anything with class="navbar".',
-                            explanation: 'Let\'s understand each CSS property:\n• background-color: #2c3e50 - Paints the navbar dark blue-gray. #2c3e50 is a color code (hex code). You can use any color you like!\n• padding: 1rem 2rem - Adds space inside the navbar. 1rem top/bottom, 2rem left/right. "rem" is a size unit that scales nicely.',
+                            tip: 'In CSS, we use a dot (.) before the class name to select it.',
+                            explanation: 'What this does:\n• background-color - Paints the navbar\n• #2c3e50 - A dark blue-gray color code\n• padding - Adds space inside the navbar',
                             validation: {
                                 required: [
                                     {
@@ -164,8 +164,8 @@ const ComponentData = {
   align-items: center;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'Flexbox is like having superpowers for arranging things on a page!',
-                            explanation: 'Understanding Flexbox properties:\n• display: flex - Turns on Flexbox! This makes items line up in a row and gives us control over how they\'re arranged.\n• justify-content: space-between - Pushes items apart. Logo goes left, menu goes right, with space between them.\n• align-items: center - Lines everything up in the middle vertically, so nothing looks crooked or misaligned.',
+                            tip: 'Flexbox is like having superpowers for arranging things!',
+                            explanation: 'What Flexbox does:\n• display: flex - Lines items up in a row\n• justify-content: space-between - Pushes items apart\n• align-items: center - Centers everything vertically',
                             validation: {
                                 required: [
                                     {
@@ -199,8 +199,8 @@ const ComponentData = {
   gap: 0.75rem;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'The gap property is super handy - it adds space between items automatically!',
-                            explanation: 'Understanding .nav-brand:\n• display: flex - Makes the logo and text sit side-by-side instead of stacking.\n• align-items: center - Lines them up in the middle vertically so they\'re not misaligned.\n• gap: 0.75rem - Adds space between logo and text. Like giving them breathing room!',
+                            tip: 'The gap property adds space between items automatically!',
+                            explanation: 'What this does:\n• display: flex - Makes logo and text sit side-by-side\n• align-items: center - Lines them up in the middle\n• gap: 0.75rem - Adds space between them',
                             validation: {
                                 required: [
                                     {
@@ -234,8 +234,8 @@ const ComponentData = {
   border-radius: 8px;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'border-radius is what makes corners round - the bigger the number, the rounder it gets!',
-                            explanation: 'Understanding .nav-logo:\n• width: 40px - Makes the logo exactly 40 pixels wide.\n• height: 40px - Makes the logo exactly 40 pixels tall. Same as width makes it a perfect square!\n• border-radius: 8px - Rounds the corners. Higher numbers = rounder corners. Try 50% for a circle!',
+                            tip: 'border-radius makes corners round - bigger numbers = rounder!',
+                            explanation: 'What this does:\n• width: 40px - Makes logo 40 pixels wide\n• height: 40px - Makes it 40 pixels tall (a perfect square!)\n• border-radius: 8px - Rounds the corners',
                             validation: {
                                 required: [
                                     {
@@ -269,8 +269,8 @@ const ComponentData = {
   font-weight: 600;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'font-weight controls how bold text is. 400 is normal, 600 is semi-bold, 700 is bold!',
-                            explanation: 'Understanding .brand-name:\n• color: white - Makes the text white so it shows up clearly on the dark background.\n• font-size: 1.5rem - Makes the text bigger (1.5 times the normal size). This makes it stand out!\n• font-weight: 600 - Makes it semi-bold. 400 is normal, 700 is very bold.',
+                            tip: 'font-weight controls boldness: 400 is normal, 600 is semi-bold, 700 is bold!',
+                            explanation: 'What this does:\n• color: white - Makes text white\n• font-size: 1.5rem - Makes it bigger (1.5x normal size)\n• font-weight: 600 - Makes it semi-bold',
                             validation: {
                                 required: [
                                     {
@@ -306,8 +306,8 @@ const ComponentData = {
   padding: 0;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'Lists normally have bullets and extra spacing. We\'re removing all that to make a clean menu!',
-                            explanation: 'Understanding .nav-menu:\n• display: flex - Lines up menu items in a row instead of stacking them.\n• list-style: none - Removes the bullet points that lists normally have.\n• gap: 2rem - Adds space between each menu item automatically.\n• margin: 0 and padding: 0 - Removes default spacing that browsers add to lists. This gives us full control!',
+                            tip: 'Lists normally have bullets - we\'re removing them for a clean menu!',
+                            explanation: 'What this does:\n• display: flex - Lines up items in a row\n• list-style: none - Removes bullet points\n• gap: 2rem - Adds space between menu items\n• margin: 0 and padding: 0 - Removes default spacing',
                             validation: {
                                 required: [
                                     {
@@ -342,8 +342,8 @@ const ComponentData = {
   border-radius: 6px;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'Links normally have underlines, but we can remove them to make a cleaner look!',
-                            explanation: 'Understanding .nav-link:\n• color: white - Makes link text white so it shows up on the dark navbar.\n• text-decoration: none - Removes the underline that links normally have.\n• padding: 0.5rem 1rem - Adds space inside each link to make it bigger and easier to click.\n• border-radius: 6px - Slightly rounds the corners for a modern look.',
+                            tip: 'Links normally have underlines - we can remove them for a cleaner look!',
+                            explanation: 'What this does:\n• color: white - Makes link text white\n• text-decoration: none - Removes the underline\n• padding: 0.5rem 1rem - Adds space inside (easier to click)\n• border-radius: 6px - Rounds the corners',
                             validation: {
                                 required: [
                                     {
@@ -383,8 +383,8 @@ const ComponentData = {
   background-color: rgba(255, 255, 255, 0.1);
 }`,
                             codeFile: 'styles.css',
-                            tip: 'The :hover selector is special - it only applies when you move your mouse over something!',
-                            explanation: 'Understanding hover effects:\n• transition: background-color 0.3s - Makes color changes smooth over 0.3 seconds instead of instant. This creates a nice animation!\n• .nav-link:hover - This means "when mouse is over a .nav-link"\n• rgba(255, 255, 255, 0.1) - White color with 0.1 opacity (10% visible, 90% see-through). Creates a subtle highlight when you hover!',
+                            tip: 'The :hover selector only applies when you move your mouse over something!',
+                            explanation: 'What this does:\n• transition - Makes color changes smooth (0.3 seconds)\n• :hover - Means "when mouse is over this"\n• rgba(255, 255, 255, 0.1) - White color at 10% opacity',
                             validation: {
                                 required: [
                                     {
@@ -415,8 +415,8 @@ const ComponentData = {
   </ul>
 </li>`,
                             codeFile: 'index.html',
-                            tip: 'A dropdown is a menu inside a menu! We\'re putting a <ul> inside a <li>. The G•+ symbol shows users there\'s a menu!',
-                            explanation: 'Here\'s the structure:\n• <li class="dropdown"> - The main menu item. The "dropdown" class tells CSS this one has a submenu.\n• <a href="#services" class="nav-link">Services G•+</a> - The main link you see. The G•+ is a down arrow symbol that hints there\'s a dropdown!\n• <ul class="dropdown-menu"> - A new list INSIDE the list item! This is the hidden menu.\n• Three <li> items inside - These are the dropdown options (Web Design, App Development, SEO).\n• class="dropdown-link" - Styles these links differently from the main menu links.\n\nThink of it like a folder with files inside. The folder is "Services" and the files are the three options!',
+                            tip: 'A dropdown is a menu inside a menu! We\'re putting a <ul> inside a <li>.',
+                            explanation: 'What this structure does:\n• class="dropdown" - Tells CSS this item has a submenu\n• The down arrow shows there\'s more options\n• <ul class="dropdown-menu"> - The hidden submenu\n• Three <li> items - The dropdown options',
                             validation: {
                                 required: [
                                     {
@@ -454,8 +454,8 @@ const ComponentData = {
   left: 0;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'position: absolute is like magic - it lets you place things exactly where you want, floating above everything else!',
-                            explanation: 'Understanding positioning:\n• .dropdown { position: relative; } - Makes this the "anchor point" for the dropdown menu. The menu will position itself relative to this.\n• .dropdown-menu { position: absolute; } - Takes it out of normal flow. It floats above other content!\n• top: 100% - Positions it right below the Services link (100% = full height of parent).\n• left: 0 - Aligns it with the left edge of Services.',
+                            tip: 'position: absolute lets you place things exactly where you want!',
+                            explanation: 'What positioning does:\n• position: relative - Makes this the anchor point\n• position: absolute - Takes menu out of normal flow\n• top: 100% - Positions it right below Services\n• left: 0 - Aligns with left edge',
                             validation: {
                                 required: [
                                     {
@@ -495,8 +495,8 @@ const ComponentData = {
   min-width: 200px;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'min-width makes sure the dropdown is wide enough even if the text is short!',
-                            explanation: 'Understanding dropdown styling:\n• background-color: #34495e - Slightly lighter than the navbar so it stands out.\n• list-style: none - Removes bullet points from the dropdown list.\n• padding: 0.5rem 0 - Adds space at top and bottom.\n• margin: 0 - Removes default spacing.\n• border-radius: 6px - Rounds the corners to match our design.\n• min-width: 200px - Makes sure it\'s at least 200px wide, even if text is short.',
+                            tip: 'min-width makes sure the dropdown is wide enough!',
+                            explanation: 'What this does:\n• background-color - Slightly lighter than navbar\n• list-style: none - Removes bullet points\n• padding and margin - Controls spacing\n• border-radius: 6px - Rounds corners',
                             validation: {
                                 required: [
                                     {
@@ -541,8 +541,8 @@ const ComponentData = {
   display: block;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'display: none makes something invisible. display: block makes it visible again!',
-                            explanation: 'Understanding show/hide:\n• display: none - HIDES the menu by default! It\'s completely invisible and takes up no space.\n• .dropdown:hover .dropdown-menu - This means "When hovering over .dropdown, find .dropdown-menu inside it"\n• display: block - SHOWS the menu! Changes from none to block when you hover over Services.',
+                            tip: 'display: none makes something invisible. display: block makes it visible!',
+                            explanation: 'How show/hide works:\n• display: none - Hides the menu completely\n• .dropdown:hover .dropdown-menu - Means "when hovering over dropdown"\n• display: block - Shows the menu when you hover',
                             validation: {
                                 required: [
                                     {
@@ -575,8 +575,8 @@ const ComponentData = {
   background-color: rgba(255, 255, 255, 0.1);
 }`,
                             codeFile: 'styles.css',
-                            tip: 'display: block makes each link take up the full width, making them easier to click!',
-                            explanation: 'Understanding dropdown links:\n• color: white - Makes text white.\n• text-decoration: none - Removes underlines.\n• padding: 0.75rem 1.5rem - More padding than main links for better spacing in the dropdown.\n• display: block - Makes each link take up the full width, easier to click.\n• .dropdown-link:hover - Adds a subtle highlight when you hover over dropdown items, just like the main menu!',
+                            tip: 'display: block makes each link take up the full width!',
+                            explanation: 'What this does:\n• color: white - Makes text white\n• text-decoration: none - Removes underlines\n• padding - More space for easier clicking\n• display: block - Makes links full width',
                             validation: {
                                 required: [
                                     {
@@ -666,8 +666,8 @@ const ComponentData = {
   </div>
 </section>`,
                             codeFile: 'index.html',
-                            tip: 'We\'re creating two sections side by side - one for text, one for an image. This is a super popular layout!',
-                            explanation: 'Breaking it down:\n• <section class="hero"> - Creates a section for our hero area.\n• <div class="hero-content"> - Left side container for text and button.\n• <h1> - The main heading. This is the biggest, most important text!\n• <p class="hero-subtitle"> - A subtitle that explains more.\n• <button class="hero-cta"> - A call-to-action button.\n• <div class="hero-image"> - Right side container for the image.\n• <img> - The hero image that makes it look awesome!',
+                            tip: 'We\'re creating two sections side by side - one for text, one for an image!',
+                            explanation: 'What each part does:\n• <section class="hero"> - Creates the hero container\n• <div class="hero-content"> - Left side for text\n• <div class="hero-image"> - Right side for image\n• <button class="hero-cta"> - Call-to-action button',
                             validation: {
                                 required: [
                                     {
@@ -718,8 +718,8 @@ const ComponentData = {
   padding: 2rem;
 }`,
                             codeFile: 'styles.css',
-                            tip: '100vh means "100% of the viewport height" - that\'s the full height of the browser window!',
-                            explanation: 'Understanding the properties:\n• min-height: 100vh - Makes the hero at least as tall as the screen. "vh" stands for "viewport height"!\n• padding: 2rem - Adds space inside the hero so content doesn\'t touch the edges.',
+                            tip: '100vh means "100% of the viewport height" - the full screen!',
+                            explanation: 'What this does:\n• min-height: 100vh - Makes it as tall as the screen\n• "vh" stands for "viewport height"\n• padding: 2rem - Adds space inside',
                             validation: {
                                 required: [
                                     {
@@ -750,8 +750,8 @@ const ComponentData = {
   gap: 3rem;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'Flexbox is like having superpowers for positioning things on your page!',
-                            explanation: 'Flexbox layout:\n• display: flex - Turns on Flexbox mode! This makes items line up in a row.\n• align-items: center - Centers content vertically (up and down).\n• justify-content: space-between - Pushes items apart with space between them.\n• gap: 3rem - Adds space between the text and image sections.',
+                            tip: 'Flexbox is like having superpowers for positioning!',
+                            explanation: 'What Flexbox does:\n• display: flex - Lines items up in a row\n• align-items: center - Centers vertically\n• justify-content: space-between - Pushes items apart\n• gap: 3rem - Adds space between sections',
                             validation: {
                                 required: [
                                     {
@@ -790,8 +790,8 @@ const ComponentData = {
   color: white;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'You can use any color you like! Try different hex codes to find your favorite.',
-                            explanation: 'Understanding the background:\n• background: #667eea - A nice purple-blue color. #667eea is a hex color code!\n• color: white - Makes all text white so it shows up clearly on the dark background.\n• You can change #667eea to any color you want - try #3498db for blue, #e74c3c for red, or #2ecc71 for green!',
+                            tip: 'You can use any color you like! Try different hex codes.',
+                            explanation: 'What this does:\n• background: #667eea - A purple-blue color\n• color: white - Makes text white\n• This makes text show up clearly on the dark background',
                             validation: {
                                 required: [
                                     {
@@ -830,7 +830,7 @@ const ComponentData = {
 }`,
                             codeFile: 'styles.css',
                             tip: 'flex: 1 makes both sections grow equally to fill the space!',
-                            explanation: 'Section styling:\n• flex: 1 - Makes each section take up equal space.\n• max-width: 500px - Limits how wide they can get.\n• .hero-image img - Targets the image inside hero-image.\n• width: 100% - Makes image fill its container.\n• height: auto - Keeps the image proportions correct.\n• border-radius: 15px - Rounds the image corners for a modern look!',
+                            explanation: 'What this does:\n• flex: 1 - Makes sections take equal space\n• max-width: 500px - Limits how wide they get\n• width: 100% - Makes image fill its container\n• border-radius: 15px - Rounds image corners',
                             validation: {
                                 required: [
                                     {
@@ -865,8 +865,8 @@ const ComponentData = {
   line-height: 1.2;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'font-size: 3rem makes the title 3 times the normal text size - nice and big!',
-                            explanation: 'Title styling:\n• font-size: 3rem - Makes it really big! "rem" is a flexible size unit.\n• font-weight: 700 - Makes it bold. 400 is normal, 700 is bold.\n• margin-bottom: 1rem - Adds space below the title.\n• line-height: 1.2 - Controls spacing between lines if the title wraps.',
+                            tip: 'font-size: 3rem makes the title 3 times the normal size!',
+                            explanation: 'What this does:\n• font-size: 3rem - Makes it really big\n• font-weight: 700 - Makes it bold\n• margin-bottom: 1rem - Adds space below\n• line-height: 1.2 - Controls line spacing',
                             validation: {
                                 required: [
                                     {
@@ -901,8 +901,8 @@ const ComponentData = {
   line-height: 1.5;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'opacity: 0.9 makes the text slightly see-through, creating a nice subtle effect!',
-                            explanation: 'Subtitle styling:\n• font-size: 1.25rem - Bigger than normal text, but smaller than the title.\n• margin-bottom: 2rem - Adds space below before the button.\n• opacity: 0.9 - Makes it 90% visible (10% transparent). Creates a softer look!\n• line-height: 1.5 - More space between lines makes it easier to read.',
+                            tip: 'opacity: 0.9 makes the text slightly see-through for a subtle effect!',
+                            explanation: 'What this does:\n• font-size: 1.25rem - Bigger than normal, smaller than title\n• margin-bottom: 2rem - Adds space below\n• opacity: 0.9 - Makes it 90% visible (softer look)\n• line-height: 1.5 - Makes it easier to read',
                             validation: {
                                 required: [
                                     {
@@ -941,8 +941,8 @@ const ComponentData = {
   cursor: pointer;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'cursor: pointer makes the mouse cursor change to a hand when hovering over the button!',
-                            explanation: 'Button styling:\n• background: #4CAF50 - Nice green color.\n• color: white - White text on green background.\n• border: none - Removes the default button border.\n• padding: 1rem 2rem - Makes the button bigger and easier to click.\n• font-size: 1.1rem - Slightly bigger text.\n• font-weight: 600 - Semi-bold text.\n• border-radius: 5px - Rounds the corners.\n• cursor: pointer - Shows a hand cursor on hover.',
+                            tip: 'cursor: pointer makes the mouse cursor change to a hand!',
+                            explanation: 'What this does:\n• background: #4CAF50 - Green color\n• border: none - Removes default border\n• padding: 1rem 2rem - Makes button bigger\n• cursor: pointer - Shows hand cursor on hover',
                             validation: {
                                 required: [
                                     {
@@ -995,8 +995,8 @@ const ComponentData = {
   box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
 }`,
                             codeFile: 'styles.css',
-                            tip: 'transform: translateY(-2px) makes the button lift up slightly when you hover - so cool!',
-                            explanation: 'Hover effects:\n• transition: all 0.3s ease - Makes changes smooth over 0.3 seconds.\n• box-shadow - Adds a shadow under the button for depth.\n• :hover - Special selector that applies when mouse is over the button.\n• background: #45a049 - Slightly darker green on hover.\n• transform: translateY(-2px) - Moves button up 2 pixels (negative = up!).\n• Bigger shadow on hover makes it look like it\'s lifting up!',
+                            tip: 'transform: translateY(-2px) makes the button lift up slightly!',
+                            explanation: 'What hover does:\n• transition - Makes changes smooth\n• box-shadow - Adds shadow for depth\n• :hover - Applies when mouse is over button\n• transform: translateY(-2px) - Moves button up 2 pixels',
                             validation: {
                                 required: [
                                     {
@@ -1081,8 +1081,8 @@ const ComponentData = {
   </div>
 </div>`,
                             codeFile: 'index.html',
-                            tip: 'Cards are super popular in modern web design! You see them everywhere - from shopping sites to social media.',
-                            explanation: 'Card structure:\n• <div class="card"> - The main container for everything.\n• <img class="card-image"> - An image at the top of the card.\n• <div class="card-content"> - Holds the text and button.\n• <h3 class="card-title"> - The card\'s heading.\n• <p class="card-description"> - Description text.\n• <button class="card-button"> - Action button at the bottom.',
+                            tip: 'Cards are super popular in modern web design!',
+                            explanation: 'What each part does:\n• <div class="card"> - Main container\n• <img class="card-image"> - Image at the top\n• <div class="card-content"> - Holds text and button\n• <button class="card-button"> - Action button',
                             validation: {
                                 required: [
                                     {
@@ -1118,7 +1118,7 @@ const ComponentData = {
 }`,
                             codeFile: 'styles.css',
                             tip: 'overflow: hidden makes sure nothing sticks out past the rounded corners!',
-                            explanation: 'Card container styling:\n• max-width: 320px - Keeps the card from getting too wide.\n• background: white - Clean white background.\n• border-radius: 16px - Nicely rounded corners for a modern look.\n• overflow: hidden - Clips anything that goes outside the rounded corners (like the image).',
+                            explanation: 'What this does:\n• max-width: 320px - Keeps card from getting too wide\n• background: white - Clean white background\n• border-radius: 16px - Rounded corners\n• overflow: hidden - Clips content at the edges',
                             validation: {
                                 required: [
                                     {
@@ -1155,8 +1155,8 @@ const ComponentData = {
   transition: all 0.3s ease;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'box-shadow creates a shadow under the card. The rgba color makes it slightly transparent!',
-                            explanation: 'Shadow and transition:\n• box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) - Creates a soft, modern shadow.\n  - 0 = no horizontal offset\n  - 10px = 10 pixels down\n  - 30px = blur amount (more blur = softer shadow)\n  - rgba(0, 0, 0, 0.08) = black at 8% opacity\n• transition: all 0.3s ease - Makes changes smooth (we\'ll use this for hover effects!).',
+                            tip: 'box-shadow creates a shadow. The rgba color makes it transparent!',
+                            explanation: 'What this does:\n• box-shadow - Creates a soft shadow\n• 0 10px 30px - Position and blur amount\n• rgba(0, 0, 0, 0.08) - Black at 8% opacity\n• transition - Makes changes smooth',
                             validation: {
                                 required: [
                                     {
@@ -1185,8 +1185,8 @@ const ComponentData = {
   display: block;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'object-fit: cover is magic! It makes images fill the space without stretching or distorting.',
-                            explanation: 'Image styling:\n• width: 100% - Makes image as wide as the card.\n• height: 200px - Fixed height of 200 pixels.\n• object-fit: cover - Crops the image to fill the space while keeping its proportions. No stretching!\n• display: block - Removes tiny gap under the image.',
+                            tip: 'object-fit: cover is magic! It fills the space without stretching.',
+                            explanation: 'What this does:\n• width: 100% - Makes image as wide as card\n• height: 200px - Fixed height\n• object-fit: cover - Crops to fill space (no stretching!)\n• display: block - Removes tiny gap under image',
                             validation: {
                                 required: [
                                     {
@@ -1212,8 +1212,8 @@ const ComponentData = {
   padding: 1.75rem;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'Padding creates breathing room - it makes designs look more professional!',
-                            explanation: 'Content padding:\n• padding: 1.75rem - Adds space on all sides inside the content area.\n• This keeps text away from the edges, making it easier to read.',
+                            tip: 'Padding creates breathing room - it makes designs look professional!',
+                            explanation: 'What this does:\n• padding: 1.75rem - Adds space on all sides\n• This keeps text away from edges\n• Makes it easier to read',
                             validation: {
                                 required: [
                                     {
@@ -1250,8 +1250,8 @@ const ComponentData = {
   font-size: 0.95rem;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'letter-spacing makes titles look more polished, and line-height makes text easier to read!',
-                            explanation: 'Text styling:\n\n.card-title:\n• font-size: 1.35rem - Slightly bigger for emphasis.\n• font-weight: 700 - Bold for impact.\n• color: #1a1a1a - Almost black, modern look.\n• letter-spacing: -0.02em - Tighter spacing for a modern feel.\n\n.card-description:\n• color: #6b7280 - Soft gray for body text.\n• line-height: 1.6 - More space between lines.\n• font-size: 0.95rem - Slightly smaller than default.',
+                            tip: 'letter-spacing makes titles look polished, and line-height makes text easier to read!',
+                            explanation: 'What this does:\n\n.card-title:\n• font-weight: 700 - Bold for impact\n• letter-spacing: -0.02em - Tighter spacing\n\n.card-description:\n• color: #6b7280 - Soft gray\n• line-height: 1.6 - More space between lines',
                             validation: {
                                 required: [
                                     {
@@ -1297,8 +1297,8 @@ const ComponentData = {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
 }`,
                             codeFile: 'styles.css',
-                            tip: 'The card lifts up when you hover over it - this makes it feel interactive and fun!',
-                            explanation: 'Button and hover effects:\n\n.card-button:\n• background: #667eea - Beautiful purple color.\n• border-radius: 10px - Rounded button corners.\n• width: 100% - Button fills the full width.\n\n.card-button:hover:\n• background: #5568d3 - Darker purple on hover.\n• transform: translateY(-2px) - Button lifts slightly.\n• box-shadow - Glowing shadow effect.\n\n.card:hover:\n• transform: translateY(-8px) - Lifts the card up 8 pixels!\n• box-shadow: 0 20px 40px - Bigger, softer shadow makes it look like it\'s floating higher.',
+                            tip: 'The card lifts up when you hover - this makes it feel interactive!',
+                            explanation: 'What this does:\n\n.card-button:\n• background: #667eea - Purple color\n• width: 100% - Button fills full width\n\n.card:hover:\n• transform: translateY(-8px) - Lifts card up\n• box-shadow - Bigger shadow makes it look like it\'s floating',
                             validation: {
                                 required: [
                                     {
@@ -1377,7 +1377,354 @@ const ComponentData = {
                 workshop: {
                     goal: 'Build a professional contact form with validation and user feedback',
                     duration: '45 minutes',
-                    steps: [],
+                    steps: [
+                        {
+                            title: 'Create the Form Container',
+                            description: 'Let\'s start with a form element!',
+                            instruction: 'Add this HTML:',
+                            code: `<form class="contact-form" id="contact-form">
+</form>`,
+                            codeFile: 'index.html',
+                            tip: 'Using <form> instead of <div> gives us built-in form features!',
+                            explanation: 'What this does:\n• <form> - Semantic HTML for forms\n• id - Lets JavaScript find this form\n• class - For styling'
+                        },
+                        {
+                            title: 'Add the Form Title',
+                            description: 'Let\'s add a heading!',
+                            instruction: 'Add this inside the form:',
+                            code: `<form class="contact-form" id="contact-form">
+  <h2>Get In Touch</h2>
+</form>`,
+                            codeFile: 'index.html',
+                            tip: 'A clear title tells users what the form is for!',
+                            explanation: 'What this does:\n• <h2> - Main heading for the form\n• Welcomes users and sets expectations'
+                        },
+                        {
+                            title: 'Create Name Input Group',
+                            description: 'Let\'s add a name field!',
+                            instruction: 'Add this after the heading:',
+                            code: `<div class="form-group">
+  <label for="name">Name *</label>
+  <input type="text" id="name" name="name" placeholder="Your Name" required>
+  <span class="error-message" id="name-error"></span>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'The * shows it\'s required, and the error span will show validation messages!',
+                            explanation: 'What this does:\n• <label> - Describes the input\n• <input> - Text field for name\n• required - Makes it mandatory\n• error-message span - Shows validation errors'
+                        },
+                        {
+                            title: 'Create Email Input Group',
+                            description: 'Let\'s add an email field!',
+                            instruction: 'Add this after the name group:',
+                            code: `<div class="form-group">
+  <label for="email">Email *</label>
+  <input type="email" id="email" name="email" placeholder="your@email.com" required>
+  <span class="error-message" id="email-error"></span>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'type="email" automatically validates email format!',
+                            explanation: 'What this does:\n• type="email" - Special input for emails\n• Browser validates email format automatically\n• Shows email keyboard on mobile'
+                        },
+                        {
+                            title: 'Create Subject Input Group',
+                            description: 'Let\'s add an optional subject field!',
+                            instruction: 'Add this after the email group:',
+                            code: `<div class="form-group">
+  <label for="subject">Subject</label>
+  <input type="text" id="subject" name="subject" placeholder="What's this about?">
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'No * means this field is optional!',
+                            explanation: 'What this does:\n• Optional field (no required attribute)\n• Lets users specify what they\'re contacting about\n• No error span needed since it\'s optional'
+                        },
+                        {
+                            title: 'Create Message Textarea',
+                            description: 'Let\'s add a message field!',
+                            instruction: 'Add this after the subject group:',
+                            code: `<div class="form-group">
+  <label for="message">Message *</label>
+  <textarea id="message" name="message" rows="5" placeholder="Tell us what's on your mind..." required></textarea>
+  <span class="error-message" id="message-error"></span>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'textarea is perfect for longer text input!',
+                            explanation: 'What this does:\n• <textarea> - Multi-line text input\n• rows="5" - Shows 5 lines by default\n• required - Makes it mandatory'
+                        },
+                        {
+                            title: 'Add Submit Button',
+                            description: 'Let\'s add a button to send the form!',
+                            instruction: 'Add this after the message group:',
+                            code: `<button type="submit" class="submit-btn">
+  <span class="btn-text">Send Message</span>
+  <span class="btn-loading hidden">Sending...</span>
+</button>`,
+                            codeFile: 'index.html',
+                            tip: 'Two spans let us switch between normal and loading text!',
+                            explanation: 'What this does:\n• type="submit" - Submits the form\n• Two spans - One for normal, one for loading state\n• hidden class - Hides loading text initially'
+                        },
+                        {
+                            title: 'Add Status Message Area',
+                            description: 'Let\'s add a place for success/error messages!',
+                            instruction: 'Add this after the button:',
+                            code: `<div class="form-status" id="form-status"></div>`,
+                            codeFile: 'index.html',
+                            tip: 'This will show "Message sent!" or error messages!',
+                            explanation: 'What this does:\n• Empty div that JavaScript will fill\n• Shows feedback after form submission\n• Hidden by default'
+                        },
+                        {
+                            title: 'Style the Form Container',
+                            description: 'Let\'s make the form look beautiful!',
+                            instruction: 'Add this CSS:',
+                            code: `.contact-form {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: #667eea;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+}
+
+.contact-form h2 {
+  color: white;
+  text-align: center;
+  margin: 0 0 2rem 0;
+  font-size: 2rem;
+  font-weight: 700;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'The purple gradient background makes it stand out!',
+                            explanation: 'What this does:\n• background: #667eea - Purple background\n• border-radius: 20px - Rounded corners\n• box-shadow - Adds depth\n• Centers the form on the page'
+                        },
+                        {
+                            title: 'Style Form Groups',
+                            description: 'Let\'s style the input containers!',
+                            instruction: 'Add this CSS:',
+                            code: `.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: white;
+  font-size: 0.95rem;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'display: block makes labels sit above inputs!',
+                            explanation: 'What this does:\n• margin-bottom - Spaces out form fields\n• display: block - Labels on their own line\n• color: white - White text on purple background'
+                        },
+                        {
+                            title: 'Style Input Fields',
+                            description: 'Let\'s style the text inputs and textarea!',
+                            instruction: 'Add this CSS:',
+                            code: `.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.95);
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  background: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'The :focus styles make inputs lift up when clicked!',
+                            explanation: 'What this does:\n• width: 100% - Full width inputs\n• border-radius - Rounded corners\n• :focus - Special styling when typing\n• transform: translateY(-2px) - Lifts up slightly'
+                        },
+                        {
+                            title: 'Style Error States',
+                            description: 'Let\'s show when fields have errors!',
+                            instruction: 'Add this CSS:',
+                            code: `.form-group input.error,
+.form-group textarea.error {
+  border: 2px solid #ff6b6b;
+  background: #fff5f5;
+}
+
+.error-message {
+  display: block;
+  color: #ffe5e5;
+  font-size: 0.85rem;
+  margin-top: 0.4rem;
+  min-height: 1.2rem;
+  font-weight: 500;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Red border and pink background show errors clearly!',
+                            explanation: 'What this does:\n• .error class - Applied by JavaScript\n• Red border shows invalid fields\n• error-message - Shows what\'s wrong'
+                        },
+                        {
+                            title: 'Style Submit Button',
+                            description: 'Let\'s make the button look clickable!',
+                            instruction: 'Add this CSS:',
+                            code: `.submit-btn {
+  width: 100%;
+  background: white;
+  color: #667eea;
+  border: none;
+  padding: 1.1rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+}
+
+.submit-btn:disabled {
+  background: rgba(255, 255, 255, 0.6);
+  cursor: not-allowed;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'The button lifts up on hover for a nice effect!',
+                            explanation: 'What this does:\n• width: 100% - Full width button\n• :hover - Lifts up when mouse over\n• :disabled - Grayed out when submitting'
+                        },
+                        {
+                            title: 'Style Loading State',
+                            description: 'Let\'s handle the loading animation!',
+                            instruction: 'Add this CSS:',
+                            code: `.btn-loading {
+  display: none;
+}
+
+.submit-btn.loading .btn-text {
+  display: none;
+}
+
+.submit-btn.loading .btn-loading {
+  display: inline;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'This swaps the button text when submitting!',
+                            explanation: 'What this does:\n• Hides loading text by default\n• When .loading class added, swaps the text\n• Shows "Sending..." instead of "Send Message"'
+                        },
+                        {
+                            title: 'Style Status Messages',
+                            description: 'Let\'s style success and error messages!',
+                            instruction: 'Add this CSS:',
+                            code: `.form-status {
+  margin-top: 1rem;
+  padding: 0.9rem;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 600;
+  display: none;
+}
+
+.form-status.success {
+  background: white;
+  color: #10b981;
+  display: block;
+}
+
+.form-status.error {
+  background: white;
+  color: #ef4444;
+  display: block;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Green for success, red for errors!',
+                            explanation: 'What this does:\n• Hidden by default\n• .success class - Green text\n• .error class - Red text\n• display: block - Shows when class added'
+                        },
+                        {
+                            title: 'Add Form Validation',
+                            description: 'Let\'s validate the form with JavaScript!',
+                            instruction: 'Add this JavaScript:',
+                            code: `const form = document.getElementById('contact-form');
+const nameInput = document.getElementById('name');
+const emailInput = document.getElementById('email');
+const messageInput = document.getElementById('message');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  
+  // Clear previous errors
+  document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+  document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+  
+  let isValid = true;
+  
+  // Validate name
+  if (nameInput.value.trim() === '') {
+    nameInput.classList.add('error');
+    document.getElementById('name-error').textContent = 'Name is required';
+    isValid = false;
+  }
+  
+  // Validate email
+  if (emailInput.value.trim() === '') {
+    emailInput.classList.add('error');
+    document.getElementById('email-error').textContent = 'Email is required';
+    isValid = false;
+  }
+  
+  // Validate message
+  if (messageInput.value.trim() === '') {
+    messageInput.classList.add('error');
+    document.getElementById('message-error').textContent = 'Message is required';
+    isValid = false;
+  }
+  
+  if (isValid) {
+    // Form is valid, proceed with submission
+    submitForm();
+  }
+});`,
+                            codeFile: 'script.js',
+                            tip: 'e.preventDefault() stops the form from reloading the page!',
+                            explanation: 'What this does:\n• Listens for form submission\n• Checks if required fields are filled\n• Adds error class and messages if invalid\n• Calls submitForm() if everything is valid'
+                        },
+                        {
+                            title: 'Add Form Submission',
+                            description: 'Let\'s handle the actual form submission!',
+                            instruction: 'Add this JavaScript:',
+                            code: `function submitForm() {
+  const submitBtn = document.querySelector('.submit-btn');
+  const formStatus = document.getElementById('form-status');
+  
+  // Show loading state
+  submitBtn.classList.add('loading');
+  submitBtn.disabled = true;
+  
+  // Simulate API call (replace with real submission)
+  setTimeout(() => {
+    // Success!
+    submitBtn.classList.remove('loading');
+    submitBtn.disabled = false;
+    
+    formStatus.className = 'form-status success';
+    formStatus.textContent = 'Message sent successfully!';
+    
+    // Reset form
+    form.reset();
+    
+    // Hide success message after 5 seconds
+    setTimeout(() => {
+      formStatus.style.display = 'none';
+    }, 5000);
+  }, 2000);
+}`,
+                            codeFile: 'script.js',
+                            tip: 'Replace the setTimeout with a real API call to your backend!',
+                            explanation: 'What this does:\n• Shows loading state on button\n• Simulates sending (2 second delay)\n• Shows success message\n• Resets the form\n• Hides message after 5 seconds'
+                        }
+                    ],
                     learningObjectives: [
                         'Learn how to structure HTML forms',
                         'Understand form validation with JavaScript',
@@ -3013,28 +3360,67 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>`,
                 workshop: {
                     goal: 'Build an interactive before-after image comparison slider',
-                    duration: '30 minutes',
+                    duration: '35 minutes',
                     steps: [
                         {
-                            title: 'Create the Container',
-                            description: 'Let\'s make a box to hold our before and after images!',
+                            title: 'Create the Main Container',
+                            description: 'Let\'s start with a container for our slider!',
                             instruction: 'Add this HTML:',
                             code: `<div class="before-after-slider">
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'This container will hold both images and the slider handle!',
+                            explanation: 'What this does:\n• <div class="before-after-slider"> - Main container for the slider component'
+                        },
+                        {
+                            title: 'Add the Before Image',
+                            description: 'Let\'s add the "before" image!',
+                            instruction: 'Add this inside the container:',
+                            code: `<div class="before-after-slider">
   <div class="before-image">
-    <img src="before.jpg" alt="Before">
+    <img src="before.jpg" alt="Before transformation">
+  </div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'This image will always be fully visible!',
+                            explanation: 'What this does:\n• <div class="before-image"> - Container for before image\n• <img> - The actual before image\n• alt attribute - Describes the image for accessibility'
+                        },
+                        {
+                            title: 'Add the After Image',
+                            description: 'Now let\'s add the "after" image!',
+                            instruction: 'Add this after the before image:',
+                            code: `<div class="before-after-slider">
+  <div class="before-image">
+    <img src="before.jpg" alt="Before transformation">
   </div>
   <div class="after-image">
-    <img src="after.jpg" alt="After">
+    <img src="after.jpg" alt="After transformation">
+  </div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'We\'ll use CSS to clip this image so only part shows!',
+                            explanation: 'What this does:\n• <div class="after-image"> - Container for after image\n• This will be positioned on top of the before image'
+                        },
+                        {
+                            title: 'Add the Slider Handle',
+                            description: 'Let\'s add the draggable handle!',
+                            instruction: 'Add this after the images:',
+                            code: `<div class="before-after-slider">
+  <div class="before-image">
+    <img src="before.jpg" alt="Before transformation">
+  </div>
+  <div class="after-image">
+    <img src="after.jpg" alt="After transformation">
   </div>
   <div class="slider-handle"></div>
 </div>`,
                             codeFile: 'index.html',
-                            tip: 'The slider will let users drag to compare images!',
-                            explanation: 'We create a container with before/after images and a draggable handle.'
+                            tip: 'Users will drag this handle to compare images!',
+                            explanation: 'What this does:\n• <div class="slider-handle"> - The draggable divider\n• This will sit between the two images'
                         },
                         {
                             title: 'Style the Container',
-                            description: 'Make the container look nice!',
+                            description: 'Let\'s style the main container!',
                             instruction: 'Add this CSS:',
                             code: `.before-after-slider {
   position: relative;
@@ -3044,9 +3430,16 @@ document.addEventListener('DOMContentLoaded', function() {
   overflow: hidden;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-}
-
-.before-image, .after-image {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'position: relative lets us position images absolutely inside!',
+                            explanation: 'What this does:\n• position: relative - Creates positioning context\n• overflow: hidden - Hides anything outside the container\n• border-radius - Rounds the corners'
+                        },
+                        {
+                            title: 'Position the Images',
+                            description: 'Let\'s make both images fill the container!',
+                            instruction: 'Add this CSS:',
+                            code: `.before-image, .after-image {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -3056,18 +3449,25 @@ document.addEventListener('DOMContentLoaded', function() {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.after-image {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'object-fit: cover makes images fill the space without stretching!',
+                            explanation: 'What this does:\n• position: absolute - Stacks images on top of each other\n• width/height: 100% - Makes images fill container\n• object-fit: cover - Crops images to fit nicely'
+                        },
+                        {
+                            title: 'Clip the After Image',
+                            description: 'Let\'s show only half of the after image!',
+                            instruction: 'Add this CSS:',
+                            code: `.after-image {
   clip-path: inset(0 50% 0 0);
 }`,
                             codeFile: 'styles.css',
-                            tip: 'clip-path cuts the after image in half!',
-                            explanation: 'We position images absolutely and use clip-path to show only half of the after image.'
+                            tip: 'clip-path is like cutting the image with scissors!',
+                            explanation: 'What this does:\n• clip-path: inset(0 50% 0 0) - Clips from the right side\n• Shows only the left 50% of the after image\n• The before image shows through on the right'
                         },
                         {
-                            title: 'Add the Slider Handle',
-                            description: 'Create the draggable handle in the middle!',
+                            title: 'Style the Handle Line',
+                            description: 'Let\'s create the vertical divider line!',
                             instruction: 'Add this CSS:',
                             code: `.slider-handle {
   position: absolute;
@@ -3079,9 +3479,16 @@ document.addEventListener('DOMContentLoaded', function() {
   cursor: ew-resize;
   transform: translateX(-50%);
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
-}
-
-.slider-handle::before {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'cursor: ew-resize shows a left-right arrow when hovering!',
+                            explanation: 'What this does:\n• position: absolute - Positions the handle\n• left: 50% - Centers it horizontally\n• transform: translateX(-50%) - Perfect centering\n• cursor: ew-resize - Shows drag cursor'
+                        },
+                        {
+                            title: 'Add the Handle Circle',
+                            description: 'Let\'s add a circular grip in the middle!',
+                            instruction: 'Add this CSS:',
+                            code: `.slider-handle::before {
   content: '';
   position: absolute;
   left: 50%;
@@ -3094,28 +3501,49 @@ document.addEventListener('DOMContentLoaded', function() {
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }`,
                             codeFile: 'styles.css',
-                            tip: 'The handle shows where to drag!',
-                            explanation: 'We create a vertical line with a circular handle in the middle.'
+                            tip: '::before creates a pseudo-element without extra HTML!',
+                            explanation: 'What this does:\n• ::before - Creates a circle without HTML\n• border-radius: 50% - Makes it circular\n• Centers it on the handle line'
                         },
                         {
-                            title: 'Add JavaScript for Dragging',
-                            description: 'Make the slider interactive!',
+                            title: 'Set Up JavaScript Variables',
+                            description: 'Let\'s get references to our elements!',
                             instruction: 'Add this JavaScript:',
                             code: `const slider = document.querySelector('.before-after-slider');
 const handle = document.querySelector('.slider-handle');
 const afterImage = document.querySelector('.after-image');
 
-let isDragging = false;
-
-handle.addEventListener('mousedown', () => {
+let isDragging = false;`,
+                            codeFile: 'script.js',
+                            tip: 'isDragging tracks whether the user is currently dragging!',
+                            explanation: 'What this does:\n• querySelector - Gets elements from the page\n• isDragging - Boolean to track drag state\n• We need these to make dragging work'
+                        },
+                        {
+                            title: 'Track Mouse Down',
+                            description: 'Let\'s detect when dragging starts!',
+                            instruction: 'Add this JavaScript:',
+                            code: `handle.addEventListener('mousedown', () => {
   isDragging = true;
-});
-
-document.addEventListener('mouseup', () => {
+});`,
+                            codeFile: 'script.js',
+                            tip: 'mousedown fires when you press the mouse button!',
+                            explanation: 'What this does:\n• addEventListener - Listens for mouse press\n• Sets isDragging to true\n• Now we know the user is dragging'
+                        },
+                        {
+                            title: 'Track Mouse Up',
+                            description: 'Let\'s detect when dragging stops!',
+                            instruction: 'Add this JavaScript:',
+                            code: `document.addEventListener('mouseup', () => {
   isDragging = false;
-});
-
-document.addEventListener('mousemove', (e) => {
+});`,
+                            codeFile: 'script.js',
+                            tip: 'We listen on document so it works even if mouse leaves the slider!',
+                            explanation: 'What this does:\n• Listens for mouse release anywhere\n• Sets isDragging to false\n• Stops the dragging action'
+                        },
+                        {
+                            title: 'Handle Mouse Movement',
+                            description: 'Let\'s make the slider follow the mouse!',
+                            instruction: 'Add this JavaScript:',
+                            code: `document.addEventListener('mousemove', (e) => {
   if (!isDragging) return;
   
   const rect = slider.getBoundingClientRect();
@@ -3128,8 +3556,8 @@ document.addEventListener('mousemove', (e) => {
   }
 });`,
                             codeFile: 'script.js',
-                            tip: 'Now you can drag the handle to compare!',
-                            explanation: 'We track mouse movement and update the handle position and clip-path.'
+                            tip: 'We calculate percentage to make it work at any size!',
+                            explanation: 'What this does:\n• Listens for mouse movement\n• Calculates mouse position as percentage\n• Updates handle position and image clip\n• Only works when isDragging is true'
                         }
                     ],
                     learningObjectives: [
@@ -3176,30 +3604,74 @@ document.addEventListener('mousemove', (e) => {
                 </div>`,
                 workshop: {
                     goal: 'Build a clickable time slot selector for appointments',
-                    duration: '25 minutes',
+                    duration: '30 minutes',
                     steps: [
                         {
-                            title: 'Create Time Slots',
-                            description: 'Let\'s make buttons for different appointment times!',
+                            title: 'Create the Container',
+                            description: 'Let\'s start with a container for our appointment selector!',
                             instruction: 'Add this HTML:',
+                            code: `<div class="appointment-selector">
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'This will hold the title and all time slots!',
+                            explanation: 'What this does:\n• <div class="appointment-selector"> - Main container for the component'
+                        },
+                        {
+                            title: 'Add the Title',
+                            description: 'Let\'s add a heading!',
+                            instruction: 'Add this inside the container:',
+                            code: `<div class="appointment-selector">
+  <h3>Select Your Time</h3>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Clear instructions help users know what to do!',
+                            explanation: 'What this does:\n• <h3> - Heading that tells users to pick a time\n• Provides context for the time slots below'
+                        },
+                        {
+                            title: 'Create Time Slots Container',
+                            description: 'Let\'s add a container for the time buttons!',
+                            instruction: 'Add this after the heading:',
                             code: `<div class="appointment-selector">
   <h3>Select Your Time</h3>
   <div class="time-slots">
-    <button class="time-slot" data-time="9:00">9:00 AM</button>
-    <button class="time-slot" data-time="10:00">10:00 AM</button>
-    <button class="time-slot" data-time="11:00">11:00 AM</button>
-    <button class="time-slot" data-time="13:00">1:00 PM</button>
-    <button class="time-slot" data-time="14:00">2:00 PM</button>
-    <button class="time-slot" data-time="15:00">3:00 PM</button>
   </div>
 </div>`,
                             codeFile: 'index.html',
-                            tip: 'Each button is a time slot users can pick!',
-                            explanation: 'We create buttons for each available time slot with data attributes.'
+                            tip: 'We\'ll use CSS Grid to arrange these nicely!',
+                            explanation: 'What this does:\n• <div class="time-slots"> - Container for time buttons\n• Keeps time slots organized separately from the heading'
                         },
                         {
-                            title: 'Style the Time Slots',
-                            description: 'Make the time slots look like buttons!',
+                            title: 'Add Morning Time Slots',
+                            description: 'Let\'s add morning appointment times!',
+                            instruction: 'Add these buttons inside time-slots:',
+                            code: `<div class="time-slots">
+  <button class="time-slot" data-time="9:00">9:00 AM</button>
+  <button class="time-slot" data-time="10:00">10:00 AM</button>
+  <button class="time-slot" data-time="11:00">11:00 AM</button>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'data-time stores the actual time value for JavaScript!',
+                            explanation: 'What this does:\n• <button class="time-slot"> - Clickable time buttons\n• data-time - Stores time in 24-hour format\n• Button text shows user-friendly format'
+                        },
+                        {
+                            title: 'Add Afternoon Time Slots',
+                            description: 'Let\'s add afternoon times too!',
+                            instruction: 'Add these buttons after the morning slots:',
+                            code: `<div class="time-slots">
+  <button class="time-slot" data-time="9:00">9:00 AM</button>
+  <button class="time-slot" data-time="10:00">10:00 AM</button>
+  <button class="time-slot" data-time="11:00">11:00 AM</button>
+  <button class="time-slot" data-time="13:00">1:00 PM</button>
+  <button class="time-slot" data-time="14:00">2:00 PM</button>
+  <button class="time-slot" data-time="15:00">3:00 PM</button>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Now users have 6 time slots to choose from!',
+                            explanation: 'What this does:\n• Adds three afternoon time slots\n• Gives users a full day of options\n• Each button is clickable'
+                        },
+                        {
+                            title: 'Style the Container',
+                            description: 'Let\'s style the main container!',
                             instruction: 'Add this CSS:',
                             code: `.appointment-selector {
   background: white;
@@ -3209,13 +3681,33 @@ document.addEventListener('mousemove', (e) => {
   max-width: 400px;
 }
 
-.time-slots {
+.appointment-selector h3 {
+  margin: 0 0 1.5rem 0;
+  color: #1a1a1a;
+  font-size: 1.25rem;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'The shadow makes it look like a card!',
+                            explanation: 'What this does:\n• background: white - Clean white background\n• border-radius - Rounds the corners\n• box-shadow - Adds depth with a shadow'
+                        },
+                        {
+                            title: 'Create the Time Grid',
+                            description: 'Let\'s arrange time slots in a grid!',
+                            instruction: 'Add this CSS:',
+                            code: `.time-slots {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.75rem;
-}
-
-.time-slot {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'repeat(3, 1fr) creates 3 equal columns!',
+                            explanation: 'What this does:\n• display: grid - Enables CSS Grid\n• grid-template-columns - Creates 3 equal columns\n• gap - Adds space between slots'
+                        },
+                        {
+                            title: 'Style Time Slot Buttons',
+                            description: 'Let\'s make the time slots look clickable!',
+                            instruction: 'Add this CSS:',
+                            code: `.time-slot {
   padding: 0.75rem;
   border: 2px solid #e5e7eb;
   border-radius: 8px;
@@ -3230,20 +3722,27 @@ document.addEventListener('mousemove', (e) => {
   background: #eff6ff;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'Grid makes the slots line up nicely!',
-                            explanation: 'We use CSS Grid to arrange time slots in rows of 3.'
+                            tip: 'The hover effect shows which slot you\'re about to click!',
+                            explanation: 'What this does:\n• border - Outlines each slot\n• cursor: pointer - Shows hand cursor\n• :hover - Changes color when mouse is over it'
                         },
                         {
-                            title: 'Add Selected State',
-                            description: 'Show which time is selected!',
+                            title: 'Style Selected State',
+                            description: 'Let\'s show which time is selected!',
                             instruction: 'Add this CSS:',
                             code: `.time-slot.selected {
   border-color: #3b82f6;
   background: #3b82f6;
   color: white;
-}
-
-.time-slot.unavailable {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Selected slots turn blue so users know their choice!',
+                            explanation: 'What this does:\n• .selected class - Applied when clicked\n• background: #3b82f6 - Blue background\n• color: white - White text for contrast'
+                        },
+                        {
+                            title: 'Style Unavailable Slots',
+                            description: 'Let\'s show which times are unavailable!',
+                            instruction: 'Add this CSS:',
+                            code: `.time-slot.unavailable {
   background: #f3f4f6;
   color: #9ca3af;
   cursor: not-allowed;
@@ -3255,12 +3754,12 @@ document.addEventListener('mousemove', (e) => {
   border-color: #e5e7eb;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'Selected slots turn blue!',
-                            explanation: 'We style selected slots differently and disable unavailable ones.'
+                            tip: 'cursor: not-allowed shows a "no" symbol when hovering!',
+                            explanation: 'What this does:\n• Gray background shows it\'s unavailable\n• cursor: not-allowed - Shows blocked cursor\n• :hover doesn\'t change color'
                         },
                         {
                             title: 'Add Click Functionality',
-                            description: 'Make slots clickable!',
+                            description: 'Let\'s make slots selectable!',
                             instruction: 'Add this JavaScript:',
                             code: `const timeSlots = document.querySelectorAll('.time-slot');
 
@@ -3278,8 +3777,8 @@ timeSlots.forEach(slot => {
   });
 });`,
                             codeFile: 'script.js',
-                            tip: 'Now you can click to select a time!',
-                            explanation: 'We add click listeners to toggle the selected state.'
+                            tip: 'Now clicking a slot selects it and logs the time!',
+                            explanation: 'What this does:\n• querySelectorAll - Gets all time slots\n• addEventListener - Listens for clicks\n• Removes selected from all, adds to clicked one\n• Logs the selected time to console'
                         }
                     ],
                     learningObjectives: [
@@ -3323,37 +3822,62 @@ timeSlots.forEach(slot => {
                 </div>`,
                 workshop: {
                     goal: 'Build clickable filter tabs that show different content',
-                    duration: '20 minutes',
+                    duration: '25 minutes',
                     steps: [
                         {
-                            title: 'Create the Tabs',
-                            description: 'Make buttons for each category!',
+                            title: 'Create Tabs Container',
+                            description: 'Let\'s start by creating a container for our tabs!',
                             instruction: 'Add this HTML:',
+                            code: `<div class="genre-tabs">
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Tabs let users switch between different categories!',
+                            explanation: 'What this does:\n• <div class="genre-tabs"> - Container for tab buttons'
+                        },
+                        {
+                            title: 'Add Tab Buttons',
+                            description: 'Now let\'s add buttons for each genre!',
+                            instruction: 'Add these buttons inside the container:',
                             code: `<div class="genre-tabs">
   <button class="tab active" data-genre="action">Action</button>
   <button class="tab" data-genre="rpg">RPG</button>
   <button class="tab" data-genre="sports">Sports</button>
   <button class="tab" data-genre="puzzle">Puzzle</button>
-</div>
-<div class="content-area">
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'data-genre stores which category each button represents!',
+                            explanation: 'What this does:\n• <button class="tab"> - Each tab button\n• class="active" - Shows which tab is selected\n• data-genre - Stores the category name'
+                        },
+                        {
+                            title: 'Add Content Area',
+                            description: 'Let\'s add a place to show the filtered content!',
+                            instruction: 'Add this after the tabs:',
+                            code: `<div class="content-area">
   <p>Showing Action games...</p>
 </div>`,
                             codeFile: 'index.html',
-                            tip: 'Each tab will filter different content!',
-                            explanation: 'We create tab buttons with data attributes to identify each genre.'
+                            tip: 'This area will update when you click different tabs!',
+                            explanation: 'What this does:\n• <div class="content-area"> - Where content appears\n• <p> - Default message'
                         },
                         {
-                            title: 'Style the Tabs',
-                            description: 'Make tabs look clickable!',
+                            title: 'Style the Tabs Container',
+                            description: 'Let\'s style the tabs with a bottom border!',
                             instruction: 'Add this CSS:',
                             code: `.genre-tabs {
   display: flex;
   gap: 0.5rem;
   border-bottom: 2px solid #e5e7eb;
   margin-bottom: 1.5rem;
-}
-
-.tab {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'The bottom border creates a tab bar effect!',
+                            explanation: 'What this does:\n• display: flex - Lines up tabs horizontally\n• gap: 0.5rem - Space between tabs\n• border-bottom - Creates tab bar line'
+                        },
+                        {
+                            title: 'Style Tab Buttons',
+                            description: 'Let\'s make the tabs look clickable!',
+                            instruction: 'Add this CSS:',
+                            code: `.tab {
   padding: 0.75rem 1.25rem;
   border: none;
   background: none;
@@ -3367,19 +3891,26 @@ timeSlots.forEach(slot => {
 
 .tab:hover {
   color: #3b82f6;
-}
-
-.tab.active {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'margin-bottom: -2px aligns the tab border with the container border!',
+                            explanation: 'What this does:\n• background: none - Transparent background\n• border-bottom - Space for active indicator\n• margin-bottom: -2px - Overlaps container border'
+                        },
+                        {
+                            title: 'Style Active Tab',
+                            description: 'Let\'s highlight the active tab!',
+                            instruction: 'Add this CSS:',
+                            code: `.tab.active {
   color: #3b82f6;
   border-bottom-color: #3b82f6;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'Active tab has a blue underline!',
-                            explanation: 'We style tabs with an underline for the active one.'
+                            tip: 'The blue underline shows which tab is selected!',
+                            explanation: 'What this does:\n• color: #3b82f6 - Blue text\n• border-bottom-color - Blue underline\n• Shows which tab is currently active'
                         },
                         {
                             title: 'Add Click Functionality',
-                            description: 'Make tabs switch when clicked!',
+                            description: 'Let\'s make tabs switch when clicked!',
                             instruction: 'Add this JavaScript:',
                             code: `const tabs = document.querySelectorAll('.tab');
 const contentArea = document.querySelector('.content-area');
@@ -3399,7 +3930,7 @@ tabs.forEach(tab => {
 });`,
                             codeFile: 'script.js',
                             tip: 'Now tabs switch when you click them!',
-                            explanation: 'We toggle the active class and update content based on the selected tab.'
+                            explanation: 'What this does:\n• querySelectorAll - Gets all tabs\n• addEventListener - Watches for clicks\n• classList.remove/add - Toggles active class\n• innerHTML - Updates content text'
                         }
                     ],
                     learningObjectives: [
@@ -3447,9 +3978,33 @@ tabs.forEach(tab => {
                     duration: '15 minutes',
                     steps: [
                         {
-                            title: 'Create Progress Bar HTML',
-                            description: 'Make the progress bar structure!',
+                            title: 'Create Progress Container',
+                            description: 'Let\'s start with a container for our progress bar!',
                             instruction: 'Add this HTML:',
+                            code: `<div class="progress-container">
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'This will hold the label, percentage, and bar!',
+                            explanation: 'What this does:\n• <div class="progress-container"> - Main container\n• We\'ll add content inside next'
+                        },
+                        {
+                            title: 'Add Progress Header',
+                            description: 'Let\'s add a label and percentage display!',
+                            instruction: 'Add this header:',
+                            code: `<div class="progress-container">
+  <div class="progress-header">
+    <span class="progress-label">Workout Progress</span>
+    <span class="progress-percent">0%</span>
+  </div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'The percentage will update with JavaScript!',
+                            explanation: 'What this does:\n• progress-header - Container for label and percent\n• progress-label - Shows what we\'re tracking\n• progress-percent - Shows the percentage'
+                        },
+                        {
+                            title: 'Add Progress Bar',
+                            description: 'Now let\'s add the actual progress bar!',
+                            instruction: 'Add this bar:',
                             code: `<div class="progress-container">
   <div class="progress-header">
     <span class="progress-label">Workout Progress</span>
@@ -3461,11 +4016,11 @@ tabs.forEach(tab => {
 </div>`,
                             codeFile: 'index.html',
                             tip: 'The fill div will grow to show progress!',
-                            explanation: 'We create a container with a label, percentage, and the progress bar.'
+                            explanation: 'What this does:\n• progress-bar - The gray background track\n• progress-fill - The blue bar that grows\n• Starts at 0% width'
                         },
                         {
-                            title: 'Style the Progress Bar',
-                            description: 'Make it look nice!',
+                            title: 'Style Container and Header',
+                            description: 'Let\'s style the container and header!',
                             instruction: 'Add this CSS:',
                             code: `.progress-container {
   background: white;
@@ -3478,9 +4033,16 @@ tabs.forEach(tab => {
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.75rem;
-}
-
-.progress-label {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'justify-content: space-between pushes label and percent apart!',
+                            explanation: 'What this does:\n• Container gets white background and shadow\n• Header uses Flexbox\n• space-between pushes items to edges'
+                        },
+                        {
+                            title: 'Style Label and Percentage',
+                            description: 'Let\'s style the text!',
+                            instruction: 'Add this CSS:',
+                            code: `.progress-label {
   font-weight: 600;
   color: #1a1a1a;
 }
@@ -3488,17 +4050,31 @@ tabs.forEach(tab => {
 .progress-percent {
   font-weight: 700;
   color: #3b82f6;
-}
-
-.progress-bar {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'The percentage is blue to match the progress bar!',
+                            explanation: 'What this does:\n• Label is bold and dark\n• Percentage is bold and blue\n• Blue matches the fill color'
+                        },
+                        {
+                            title: 'Style Progress Bar Track',
+                            description: 'Let\'s style the gray background track!',
+                            instruction: 'Add this CSS:',
+                            code: `.progress-bar {
   width: 100%;
   height: 12px;
   background: #e5e7eb;
   border-radius: 20px;
   overflow: hidden;
-}
-
-.progress-fill {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'overflow: hidden keeps the fill inside the rounded corners!',
+                            explanation: 'What this does:\n• width: 100% - Full width\n• height: 12px - Thin bar\n• background: #e5e7eb - Light gray\n• border-radius: 20px - Pill shape'
+                        },
+                        {
+                            title: 'Style Progress Fill',
+                            description: 'Let\'s style the blue fill that shows progress!',
+                            instruction: 'Add this CSS:',
+                            code: `.progress-fill {
   height: 100%;
   background: #3b82f6;
   border-radius: 20px;
@@ -3506,34 +4082,33 @@ tabs.forEach(tab => {
   transition: width 0.5s ease;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'The fill starts at 0% width!',
-                            explanation: 'We style the bar with a background and a fill that will animate.'
+                            tip: 'transition makes the width change smoothly!',
+                            explanation: 'What this does:\n• height: 100% - Fills track height\n• background: #3b82f6 - Blue color\n• width: 0% - Starts empty\n• transition - Animates width changes'
                         },
                         {
-                            title: 'Add JavaScript to Update Progress',
-                            description: 'Make the bar fill up!',
-                            instruction: 'Add this JavaScript:',
+                            title: 'Create Update Function',
+                            description: 'Let\'s write JavaScript to update the progress!',
+                            instruction: 'Add this function:',
                             code: `function setProgress(percent) {
   const fill = document.querySelector('.progress-fill');
   const percentText = document.querySelector('.progress-percent');
   
   fill.style.width = percent + '%';
   percentText.textContent = percent + '%';
-}
-
-// Example: Set to 75%
-setProgress(75);
-
-// Example: Animate from 0 to 100
-let progress = 0;
-const interval = setInterval(() => {
-  progress += 1;
-  setProgress(progress);
-  if (progress >= 100) clearInterval(interval);
-}, 30);`,
+}`,
                             codeFile: 'script.js',
-                            tip: 'Call setProgress() to update the bar!',
-                            explanation: 'We create a function to update the width and percentage text.'
+                            tip: 'This function updates both the bar and the percentage text!',
+                            explanation: 'What this does:\n• Gets the fill and percent elements\n• Updates fill width\n• Updates percent text\n• Call with: setProgress(75)'
+                        },
+                        {
+                            title: 'Test the Progress Bar',
+                            description: 'Let\'s test it by setting progress to 75%!',
+                            instruction: 'Add this test code:',
+                            code: `// Test: Set to 75%
+setProgress(75);`,
+                            codeFile: 'script.js',
+                            tip: 'Try different numbers to see the bar change!',
+                            explanation: 'What this does:\n• Calls setProgress with 75\n• Bar fills to 75%\n• Text shows "75%"\n• Try other numbers like 25, 50, 100'
                         }
                     ],
                     learningObjectives: [
@@ -3580,11 +4155,11 @@ const interval = setInterval(() => {
                 </div>`,
                 workshop: {
                     goal: 'Build a dismissible announcement banner',
-                    duration: '15 minutes',
+                    duration: '20 minutes',
                     steps: [
                         {
-                            title: 'Create the Banner',
-                            description: 'Make an announcement banner!',
+                            title: 'Create Banner HTML',
+                            description: 'Let\'s create an announcement banner with a close button!',
                             instruction: 'Add this HTML:',
                             code: `<div class="announcement-banner" id="announcement">
   <div class="banner-content">
@@ -3597,11 +4172,11 @@ const interval = setInterval(() => {
 </div>`,
                             codeFile: 'index.html',
                             tip: 'The X button will close the banner!',
-                            explanation: 'We create a banner with content and a close button.'
+                            explanation: 'What this does:\n• <div class="announcement-banner"> - Main banner\n• <i data-lucide="info"> - Info icon\n• <button> - Close button with X icon'
                         },
                         {
                             title: 'Style the Banner',
-                            description: 'Make it stand out!',
+                            description: 'Let\'s make it stand out with a blue background!',
                             instruction: 'Add this CSS:',
                             code: `.announcement-banner {
   background: #3b82f6;
@@ -3620,9 +4195,16 @@ const interval = setInterval(() => {
   align-items: center;
   gap: 0.75rem;
   font-weight: 600;
-}
-
-.close-btn {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Blue background makes it noticeable!',
+                            explanation: 'What this does:\n• background: #3b82f6 - Blue color\n• display: flex - Arranges content and button\n• justify-content: space-between - Pushes button to right'
+                        },
+                        {
+                            title: 'Style Close Button',
+                            description: 'Let\'s style the X button!',
+                            instruction: 'Add this CSS:',
+                            code: `.close-btn {
   background: none;
   border: none;
   color: white;
@@ -3636,12 +4218,12 @@ const interval = setInterval(() => {
   opacity: 0.8;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'Blue background makes it noticeable!',
-                            explanation: 'We style the banner with flexbox to align content and button.'
+                            tip: 'The button fades slightly on hover!',
+                            explanation: 'What this does:\n• background: none - Transparent\n• cursor: pointer - Hand cursor\n• opacity: 0.8 - Fades on hover'
                         },
                         {
                             title: 'Add Close Functionality',
-                            description: 'Make the X button work!',
+                            description: 'Let\'s make the X button work!',
                             instruction: 'Add this JavaScript:',
                             code: `function closeBanner() {
   const banner = document.getElementById('announcement');
@@ -3654,7 +4236,7 @@ if (typeof lucide !== 'undefined') {
 }`,
                             codeFile: 'script.js',
                             tip: 'Clicking X hides the banner!',
-                            explanation: 'We create a function to hide the banner when the close button is clicked.'
+                            explanation: 'What this does:\n• closeBanner() - Function to hide banner\n• style.display = \'none\' - Makes it invisible\n• lucide.createIcons() - Loads the icons'
                         }
                     ],
                     learningObjectives: [
@@ -3698,21 +4280,42 @@ if (typeof lucide !== 'undefined') {
                     duration: '10 minutes',
                     steps: [
                         {
-                            title: 'Create Badge HTML',
-                            description: 'Make badges for each difficulty!',
+                            title: 'Create Badge Container',
+                            description: 'Let\'s start by creating a container for our badges!',
                             instruction: 'Add this HTML:',
+                            code: `<div class="difficulty-badges">
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'This container will hold all our difficulty badges!',
+                            explanation: 'What this does:\n• <div class="difficulty-badges"> - Container for badges\n• We\'ll add badges inside next'
+                        },
+                        {
+                            title: 'Add Beginner Badge',
+                            description: 'Let\'s add our first badge for beginner level!',
+                            instruction: 'Add this badge inside the container:',
+                            code: `<div class="difficulty-badges">
+  <span class="badge beginner">Beginner</span>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: '<span> is perfect for small inline elements like badges!',
+                            explanation: 'What this does:\n• <span class="badge"> - Creates a badge\n• class="beginner" - Marks it as beginner level\n• Text shows the difficulty name'
+                        },
+                        {
+                            title: 'Add More Difficulty Badges',
+                            description: 'Now let\'s add intermediate and advanced badges!',
+                            instruction: 'Add these badges:',
                             code: `<div class="difficulty-badges">
   <span class="badge beginner">Beginner</span>
   <span class="badge intermediate">Intermediate</span>
   <span class="badge advanced">Advanced</span>
 </div>`,
                             codeFile: 'index.html',
-                            tip: 'Each badge has a different class for colors!',
-                            explanation: 'We create span elements with classes for each difficulty level.'
+                            tip: 'Each badge has a different class for different colors!',
+                            explanation: 'What this does:\n• Three badges for three levels\n• Each has its own class\n• We\'ll style them with different colors'
                         },
                         {
-                            title: 'Style the Badges',
-                            description: 'Add colors for each level!',
+                            title: 'Style Base Badge',
+                            description: 'Let\'s add the basic styling that all badges share!',
                             instruction: 'Add this CSS:',
                             code: `.badge {
   padding: 0.4rem 0.9rem;
@@ -3721,22 +4324,43 @@ if (typeof lucide !== 'undefined') {
   font-weight: 700;
   color: white;
   display: inline-block;
-}
-
-.badge.beginner {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'border-radius: 20px makes them pill-shaped!',
+                            explanation: 'What this does:\n• padding - Makes badges bigger\n• border-radius: 20px - Rounds them into pills\n• font-weight: 700 - Makes text bold\n• color: white - White text'
+                        },
+                        {
+                            title: 'Add Beginner Color',
+                            description: 'Let\'s make the beginner badge green!',
+                            instruction: 'Add this CSS:',
+                            code: `.badge.beginner {
   background: #10b981;
-}
-
-.badge.intermediate {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Green means easy and beginner-friendly!',
+                            explanation: 'What this does:\n• .badge.beginner - Targets beginner badges\n• background: #10b981 - Green color\n• Green = easy/beginner'
+                        },
+                        {
+                            title: 'Add Intermediate Color',
+                            description: 'Let\'s make the intermediate badge orange!',
+                            instruction: 'Add this CSS:',
+                            code: `.badge.intermediate {
   background: #f59e0b;
-}
-
-.badge.advanced {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Orange means medium difficulty!',
+                            explanation: 'What this does:\n• .badge.intermediate - Targets intermediate badges\n• background: #f59e0b - Orange color\n• Orange = medium difficulty'
+                        },
+                        {
+                            title: 'Add Advanced Color',
+                            description: 'Finally, let\'s make the advanced badge red!',
+                            instruction: 'Add this CSS:',
+                            code: `.badge.advanced {
   background: #ef4444;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'Green = easy, Orange = medium, Red = hard!',
-                            explanation: 'We style badges with different colors for each difficulty level.'
+                            tip: 'Red means hard and challenging!',
+                            explanation: 'What this does:\n• .badge.advanced - Targets advanced badges\n• background: #ef4444 - Red color\n• Red = hard/advanced'
                         }
                     ],
                     learningObjectives: [
@@ -3785,24 +4409,44 @@ if (typeof lucide !== 'undefined') {
                     duration: '10 minutes',
                     steps: [
                         {
-                            title: 'Create Status Badges',
-                            description: 'Make badges for adoption status!',
+                            title: 'Create Pet Card Container',
+                            description: 'Let\'s start by creating a card for a pet!',
                             instruction: 'Add this HTML:',
                             code: `<div class="pet-card">
-  <img src="dog.jpg" alt="Cute dog">
   <h3>Max</h3>
-  <span class="status-badge available">
-    <i data-lucide="check"></i>
-    Available
-  </span>
 </div>`,
                             codeFile: 'index.html',
-                            tip: 'Change the class to show different statuses!',
-                            explanation: 'We create a badge with an icon and text for the adoption status.'
+                            tip: 'Each pet will have its own card!',
+                            explanation: 'What this does:\n• <div class="pet-card"> - Container for pet info\n• <h3> - Pet\'s name'
                         },
                         {
-                            title: 'Style the Badges',
-                            description: 'Add colors for each status!',
+                            title: 'Add Pet Image',
+                            description: 'Let\'s add a cute photo of the pet!',
+                            instruction: 'Add this image:',
+                            code: `<div class="pet-card">
+  <img src="https://picsum.photos/200/200?random=1" alt="Cute dog">
+  <h3>Max</h3>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Replace with real pet photos later!',
+                            explanation: 'What this does:\n• <img> - Shows pet photo\n• src - Image location\n• alt - Description for accessibility'
+                        },
+                        {
+                            title: 'Add Available Status Badge',
+                            description: 'Let\'s add a badge showing the pet is available!',
+                            instruction: 'Add this badge:',
+                            code: `<div class="pet-card">
+  <img src="https://picsum.photos/200/200?random=1" alt="Cute dog">
+  <h3>Max</h3>
+  <span class="status-badge available">Available</span>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'The class "available" will make it green!',
+                            explanation: 'What this does:\n• <span class="status-badge"> - Creates badge\n• class="available" - Marks as available\n• Text shows the status'
+                        },
+                        {
+                            title: 'Style Base Badge',
+                            description: 'Let\'s add the basic styling for all badges!',
                             instruction: 'Add this CSS:',
                             code: `.status-badge {
   padding: 0.4rem 0.9rem;
@@ -3810,30 +4454,44 @@ if (typeof lucide !== 'undefined') {
   font-size: 0.75rem;
   font-weight: 700;
   color: white;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.status-badge.available {
-  background: #10b981;
-}
-
-.status-badge.pending {
-  background: #f59e0b;
-}
-
-.status-badge.adopted {
-  background: #6b7280;
-}
-
-.status-badge i {
-  width: 14px;
-  height: 14px;
+  display: inline-block;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'Green = available, Orange = pending, Gray = adopted!',
-                            explanation: 'We style badges with different colors for each adoption status.'
+                            tip: 'This styling applies to all status badges!',
+                            explanation: 'What this does:\n• padding - Makes badge bigger\n• border-radius: 20px - Makes it pill-shaped\n• font-weight: 700 - Bold text\n• color: white - White text'
+                        },
+                        {
+                            title: 'Add Available Color',
+                            description: 'Let\'s make available badges green!',
+                            instruction: 'Add this CSS:',
+                            code: `.status-badge.available {
+  background: #10b981;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Green means the pet is ready for adoption!',
+                            explanation: 'What this does:\n• .status-badge.available - Targets available badges\n• background: #10b981 - Green color\n• Green = available for adoption'
+                        },
+                        {
+                            title: 'Add Pending Color',
+                            description: 'Let\'s add orange for pending adoptions!',
+                            instruction: 'Add this CSS:',
+                            code: `.status-badge.pending {
+  background: #f59e0b;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Orange means adoption is in progress!',
+                            explanation: 'What this does:\n• .status-badge.pending - Targets pending badges\n• background: #f59e0b - Orange color\n• Orange = adoption pending'
+                        },
+                        {
+                            title: 'Add Adopted Color',
+                            description: 'Finally, let\'s add gray for adopted pets!',
+                            instruction: 'Add this CSS:',
+                            code: `.status-badge.adopted {
+  background: #6b7280;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Gray means the pet has found a home!',
+                            explanation: 'What this does:\n• .status-badge.adopted - Targets adopted badges\n• background: #6b7280 - Gray color\n• Gray = already adopted'
                         }
                     ],
                     learningObjectives: [
@@ -3876,32 +4534,68 @@ if (typeof lucide !== 'undefined') {
                 </div>`,
                 workshop: {
                     goal: 'Build a toggle filter for pet types',
-                    duration: '15 minutes',
+                    duration: '20 minutes',
                     steps: [
                         {
-                            title: 'Create Toggle Buttons',
-                            description: 'Make buttons to switch between dogs and cats!',
+                            title: 'Create Filter Container',
+                            description: 'Let\'s start by creating a container for our pet filter!',
                             instruction: 'Add this HTML:',
                             code: `<div class="pet-filter">
-  <div class="toggle-buttons">
-    <button class="toggle-btn active" data-type="dogs">
-      <i data-lucide="dog"></i>
-      Dogs
-    </button>
-    <button class="toggle-btn" data-type="cats">
-      <i data-lucide="cat"></i>
-      Cats
-    </button>
-  </div>
-  <div class="results">Showing dogs...</div>
 </div>`,
                             codeFile: 'index.html',
-                            tip: 'The active button shows which filter is on!',
-                            explanation: 'We create toggle buttons with icons for dogs and cats.'
+                            tip: 'This will hold the toggle buttons and results!',
+                            explanation: 'What this does:\n• <div class="pet-filter"> - Main container for the filter'
                         },
                         {
-                            title: 'Style the Toggle',
-                            description: 'Make it look like a switch!',
+                            title: 'Add Toggle Buttons Container',
+                            description: 'Now let\'s create a container for the toggle buttons!',
+                            instruction: 'Add this inside the filter:',
+                            code: `<div class="pet-filter">
+  <div class="toggle-buttons">
+  </div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'The toggle-buttons div will hold our Dogs and Cats buttons!',
+                            explanation: 'What this does:\n• <div class="toggle-buttons"> - Container for buttons\n• We\'ll add buttons inside next'
+                        },
+                        {
+                            title: 'Add Dogs Button',
+                            description: 'Let\'s add the Dogs button with an icon!',
+                            instruction: 'Add this button:',
+                            code: `<div class="toggle-buttons">
+  <button class="toggle-btn active" data-type="dogs">
+    <i data-lucide="dog"></i>
+    Dogs
+  </button>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'class="active" makes this button selected by default!',
+                            explanation: 'What this does:\n• <button class="toggle-btn"> - Toggle button\n• class="active" - Shows it\'s selected\n• data-type="dogs" - Stores the filter type\n• <i data-lucide="dog"> - Dog icon'
+                        },
+                        {
+                            title: 'Add Cats Button',
+                            description: 'Now let\'s add the Cats button!',
+                            instruction: 'Add this button after the Dogs button:',
+                            code: `<button class="toggle-btn" data-type="cats">
+  <i data-lucide="cat"></i>
+  Cats
+</button>`,
+                            codeFile: 'index.html',
+                            tip: 'This button starts unselected (no active class)!',
+                            explanation: 'What this does:\n• Second toggle button for cats\n• data-type="cats" - Stores the filter type\n• <i data-lucide="cat"> - Cat icon'
+                        },
+                        {
+                            title: 'Add Results Display',
+                            description: 'Let\'s add a place to show which pets are displayed!',
+                            instruction: 'Add this after the toggle-buttons:',
+                            code: `<div class="results">Showing dogs...</div>`,
+                            codeFile: 'index.html',
+                            tip: 'This text will update when you click the buttons!',
+                            explanation: 'What this does:\n• <div class="results"> - Shows current filter\n• Starts with "Showing dogs..." since Dogs is active'
+                        },
+                        {
+                            title: 'Style Toggle Container',
+                            description: 'Let\'s style the toggle buttons container!',
                             instruction: 'Add this CSS:',
                             code: `.toggle-buttons {
   display: flex;
@@ -3909,9 +4603,16 @@ if (typeof lucide !== 'undefined') {
   background: #f3f4f6;
   padding: 0.25rem;
   border-radius: 10px;
-}
-
-.toggle-btn {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'The gray background creates a switch-like appearance!',
+                            explanation: 'What this does:\n• display: flex - Lines up buttons horizontally\n• background: #f3f4f6 - Light gray background\n• padding: 0.25rem - Small padding around buttons\n• border-radius: 10px - Rounded corners'
+                        },
+                        {
+                            title: 'Style Toggle Buttons',
+                            description: 'Let\'s style the individual buttons!',
+                            instruction: 'Add this CSS:',
+                            code: `.toggle-btn {
   flex: 1;
   padding: 0.6rem 1rem;
   background: transparent;
@@ -3927,22 +4628,29 @@ if (typeof lucide !== 'undefined') {
   gap: 0.5rem;
 }
 
-.toggle-btn.active {
-  background: #3b82f6;
-  color: white;
-}
-
 .toggle-btn i {
   width: 18px;
   height: 18px;
 }`,
                             codeFile: 'styles.css',
+                            tip: 'flex: 1 makes both buttons equal width!',
+                            explanation: 'What this does:\n• flex: 1 - Equal width buttons\n• background: transparent - See-through by default\n• display: flex - Aligns icon and text\n• gap: 0.5rem - Space between icon and text'
+                        },
+                        {
+                            title: 'Style Active Button',
+                            description: 'Let\'s highlight the active button!',
+                            instruction: 'Add this CSS:',
+                            code: `.toggle-btn.active {
+  background: #3b82f6;
+  color: white;
+}`,
+                            codeFile: 'styles.css',
                             tip: 'Active button has blue background!',
-                            explanation: 'We style the toggle with a background container and highlight the active button.'
+                            explanation: 'What this does:\n• .toggle-btn.active - Targets active button\n• background: #3b82f6 - Blue background\n• color: white - White text and icon'
                         },
                         {
                             title: 'Add Toggle Functionality',
-                            description: 'Make buttons switch the filter!',
+                            description: 'Let\'s make buttons switch the filter!',
                             instruction: 'Add this JavaScript:',
                             code: `const toggleBtns = document.querySelectorAll('.toggle-btn');
 const results = document.querySelector('.results');
@@ -3967,7 +4675,7 @@ if (typeof lucide !== 'undefined') {
 }`,
                             codeFile: 'script.js',
                             tip: 'Now you can toggle between dogs and cats!',
-                            explanation: 'We add click listeners to toggle the active state and update the display.'
+                            explanation: 'What this does:\n• querySelectorAll - Gets all toggle buttons\n• addEventListener - Watches for clicks\n• classList.remove/add - Toggles active class\n• dataset.type - Gets the filter type\n• textContent - Updates results text'
                         }
                     ],
                     learningObjectives: [
@@ -4019,37 +4727,55 @@ if (typeof lucide !== 'undefined') {
                 </div>`,
                 workshop: {
                     goal: 'Build a statistics display strip for city data',
-                    duration: '15 minutes',
+                    duration: '20 minutes',
                     steps: [
                         {
-                            title: 'Create Statistics HTML',
-                            description: 'Make boxes for each statistic!',
+                            title: 'Create Statistics Container',
+                            description: 'Let\'s start by creating a container for city statistics!',
                             instruction: 'Add this HTML:',
+                            code: `<div class="city-stats">
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'This will hold all our city statistics!',
+                            explanation: 'What this does:\n• <div class="city-stats"> - Main container for stats'
+                        },
+                        {
+                            title: 'Add First Statistic',
+                            description: 'Let\'s add our first stat - population!',
+                            instruction: 'Add this stat box:',
                             code: `<div class="city-stats">
   <div class="stat-item">
     <div class="stat-number">2.5M</div>
     <div class="stat-label">Population</div>
   </div>
-  <div class="stat-item">
-    <div class="stat-number">150+</div>
-    <div class="stat-label">Parks</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-number">50</div>
-    <div class="stat-label">Schools</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-number">25</div>
-    <div class="stat-label">Museums</div>
-  </div>
 </div>`,
                             codeFile: 'index.html',
                             tip: 'Each stat has a big number and a label!',
-                            explanation: 'We create stat items with numbers and labels for each city statistic.'
+                            explanation: 'What this does:\n• <div class="stat-item"> - Container for one stat\n• <div class="stat-number"> - The big number\n• <div class="stat-label"> - What it measures'
                         },
                         {
-                            title: 'Style the Statistics',
-                            description: 'Make them look organized!',
+                            title: 'Add More Statistics',
+                            description: 'Now let\'s add three more city stats!',
+                            instruction: 'Add these stats after the first one:',
+                            code: `<div class="stat-item">
+  <div class="stat-number">150+</div>
+  <div class="stat-label">Parks</div>
+</div>
+<div class="stat-item">
+  <div class="stat-number">50</div>
+  <div class="stat-label">Schools</div>
+</div>
+<div class="stat-item">
+  <div class="stat-number">25</div>
+  <div class="stat-label">Museums</div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Now we have 4 statistics total!',
+                            explanation: 'What this does:\n• Adds three more stat items\n• Each shows a different city metric\n• Parks, Schools, and Museums'
+                        },
+                        {
+                            title: 'Style the Container',
+                            description: 'Let\'s style the main container!',
                             instruction: 'Add this CSS:',
                             code: `.city-stats {
   background: white;
@@ -4060,16 +4786,30 @@ if (typeof lucide !== 'undefined') {
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   gap: 2rem;
   text-align: center;
-}
-
-.stat-number {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Grid makes stats line up perfectly!',
+                            explanation: 'What this does:\n• display: grid - Creates grid layout\n• grid-template-columns - Auto-adjusting columns\n• gap: 2rem - Space between stats\n• text-align: center - Centers text'
+                        },
+                        {
+                            title: 'Style the Numbers',
+                            description: 'Let\'s make the numbers big and bold!',
+                            instruction: 'Add this CSS:',
+                            code: `.stat-number {
   font-size: 2rem;
   font-weight: 800;
   color: #3b82f6;
   margin-bottom: 0.5rem;
-}
-
-.stat-label {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Big numbers grab attention!',
+                            explanation: 'What this does:\n• font-size: 2rem - Makes numbers big\n• font-weight: 800 - Extra bold\n• color: #3b82f6 - Blue color\n• margin-bottom - Space below number'
+                        },
+                        {
+                            title: 'Style the Labels',
+                            description: 'Let\'s style the stat labels!',
+                            instruction: 'Add this CSS:',
+                            code: `.stat-label {
   font-size: 0.875rem;
   color: #6b7280;
   font-weight: 600;
@@ -4077,12 +4817,12 @@ if (typeof lucide !== 'undefined') {
   letter-spacing: 0.05em;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'Grid makes stats line up perfectly!',
-                            explanation: 'We use CSS Grid to arrange statistics in equal columns.'
+                            tip: 'Uppercase labels look professional!',
+                            explanation: 'What this does:\n• font-size: 0.875rem - Smaller than numbers\n• color: #6b7280 - Gray color\n• text-transform: uppercase - Capital letters\n• letter-spacing - Spaced out text'
                         },
                         {
                             title: 'Add Different Colors',
-                            description: 'Make each stat unique!',
+                            description: 'Let\'s give each stat a unique color!',
                             instruction: 'Add this CSS:',
                             code: `.stat-item:nth-child(1) .stat-number {
   color: #3b82f6;
@@ -4101,7 +4841,7 @@ if (typeof lucide !== 'undefined') {
 }`,
                             codeFile: 'styles.css',
                             tip: 'Each number gets a different color!',
-                            explanation: 'We use nth-child to give each stat a unique color.'
+                            explanation: 'What this does:\n• :nth-child(1) - First stat (blue)\n• :nth-child(2) - Second stat (green)\n• :nth-child(3) - Third stat (orange)\n• :nth-child(4) - Fourth stat (red)'
                         }
                     ],
                     learningObjectives: [
@@ -4147,60 +4887,86 @@ if (typeof lucide !== 'undefined') {
                     duration: '15 minutes',
                     steps: [
                         {
-                            title: 'Create Quote HTML',
-                            description: 'Make a quote with attribution!',
+                            title: 'Create Quote Container',
+                            description: 'Let\'s start with a blockquote element for our quote!',
                             instruction: 'Add this HTML:',
                             code: `<blockquote class="quote-block">
-  <i data-lucide="quote" class="quote-icon"></i>
+</blockquote>`,
+                            codeFile: 'index.html',
+                            tip: '<blockquote> is the proper HTML tag for quotes!',
+                            explanation: 'What this does:\n• <blockquote> - Semantic HTML for quotes\n• class="quote-block" - For styling'
+                        },
+                        {
+                            title: 'Add Quote Text',
+                            description: 'Let\'s add the actual quote!',
+                            instruction: 'Add this paragraph:',
+                            code: `<blockquote class="quote-block">
   <p class="quote-text">
     "This is an inspiring quote that captures the essence of our culture and traditions."
   </p>
-  <cite class="quote-author">• Elder Name</cite>
 </blockquote>`,
                             codeFile: 'index.html',
-                            tip: 'Use blockquote for quotes - it\'s semantic HTML!',
-                            explanation: 'We use the blockquote element with a quote icon, text, and author citation.'
+                            tip: 'Put quotes in quotation marks!',
+                            explanation: 'What this does:\n• <p class="quote-text"> - Paragraph for quote\n• Quotation marks show it\'s a quote\n• class for styling'
                         },
                         {
-                            title: 'Style the Quote Block',
-                            description: 'Make it stand out!',
+                            title: 'Add Quote Author',
+                            description: 'Let\'s add who said the quote!',
+                            instruction: 'Add this citation:',
+                            code: `<blockquote class="quote-block">
+  <p class="quote-text">
+    "This is an inspiring quote that captures the essence of our culture and traditions."
+  </p>
+  <cite class="quote-author">— Elder Name</cite>
+</blockquote>`,
+                            codeFile: 'index.html',
+                            tip: '<cite> is the proper tag for attributing quotes!',
+                            explanation: 'What this does:\n• <cite> - Semantic tag for attribution\n• — (em dash) - Proper punctuation\n• Shows who said the quote'
+                        },
+                        {
+                            title: 'Style Quote Container',
+                            description: 'Let\'s make the quote block stand out!',
                             instruction: 'Add this CSS:',
                             code: `.quote-block {
   background: #f8fafc;
   padding: 2rem;
   border-radius: 16px;
   border-left: 4px solid #3b82f6;
-  position: relative;
   margin: 2rem 0;
-}
-
-.quote-icon {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 32px;
-  height: 32px;
-  color: #3b82f6;
-  opacity: 0.2;
-}
-
-.quote-text {
+  position: relative;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'The left border is a classic quote design!',
+                            explanation: 'What this does:\n• background - Light gray background\n• padding - Space inside\n• border-left - Blue accent bar\n• border-radius - Rounded corners'
+                        },
+                        {
+                            title: 'Style Quote Text',
+                            description: 'Let\'s make the quote text look beautiful!',
+                            instruction: 'Add this CSS:',
+                            code: `.quote-text {
   font-size: 1.1rem;
   font-style: italic;
   color: #1a1a1a;
   line-height: 1.6;
   margin: 0 0 1rem 0;
-}
-
-.quote-author {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Italic text is traditional for quotes!',
+                            explanation: 'What this does:\n• font-size: 1.1rem - Slightly bigger\n• font-style: italic - Slanted text\n• line-height: 1.6 - Easy to read\n• margin-bottom - Space before author'
+                        },
+                        {
+                            title: 'Style Quote Author',
+                            description: 'Let\'s style the author name!',
+                            instruction: 'Add this CSS:',
+                            code: `.quote-author {
   font-size: 0.9rem;
   font-weight: 600;
   color: #6b7280;
   font-style: normal;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'The left border makes it look like a quote!',
-                            explanation: 'We style the quote with a background, border, and decorative icon.'
+                            tip: 'Author text should be smaller and subtle!',
+                            explanation: 'What this does:\n• font-size: 0.9rem - Smaller than quote\n• font-weight: 600 - Semi-bold\n• color: #6b7280 - Gray color\n• font-style: normal - Not italic'
                         }
                     ],
                     learningObjectives: [
@@ -4253,36 +5019,60 @@ if (typeof lucide !== 'undefined') {
                 </div>`,
                 workshop: {
                     goal: 'Build a weekly workout schedule grid',
-                    duration: '20 minutes',
+                    duration: '25 minutes',
                     steps: [
                         {
-                            title: 'Create Schedule HTML',
-                            description: 'Make a list of workout days!',
+                            title: 'Create Schedule Container',
+                            description: 'Let\'s start by creating a container for the workout schedule!',
                             instruction: 'Add this HTML:',
                             code: `<div class="workout-schedule">
   <h3>Weekly Schedule</h3>
-  <div class="schedule-grid">
-    <div class="schedule-item">
-      <span class="day">Monday</span>
-      <span class="workout">Cardio</span>
-    </div>
-    <div class="schedule-item">
-      <span class="day">Wednesday</span>
-      <span class="workout">Strength Training</span>
-    </div>
-    <div class="schedule-item">
-      <span class="day">Friday</span>
-      <span class="workout">Yoga & Stretching</span>
-    </div>
-  </div>
 </div>`,
                             codeFile: 'index.html',
-                            tip: 'Each item shows a day and workout type!',
-                            explanation: 'We create schedule items with day and workout information.'
+                            tip: 'This will hold all our workout days!',
+                            explanation: 'What this does:\n• <div class="workout-schedule"> - Main container\n• <h3> - Title for the schedule'
                         },
                         {
-                            title: 'Style the Schedule',
-                            description: 'Make it look organized!',
+                            title: 'Add Schedule Grid',
+                            description: 'Now let\'s create a container for the schedule items!',
+                            instruction: 'Add this inside the workout-schedule:',
+                            code: `<div class="schedule-grid">
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'The grid will hold all our workout days!',
+                            explanation: 'What this does:\n• <div class="schedule-grid"> - Container for schedule items'
+                        },
+                        {
+                            title: 'Add First Workout Day',
+                            description: 'Let\'s add Monday\'s workout!',
+                            instruction: 'Add this inside the schedule-grid:',
+                            code: `<div class="schedule-item">
+  <span class="day">Monday</span>
+  <span class="workout">Cardio</span>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Each item shows the day and workout type!',
+                            explanation: 'What this does:\n• <div class="schedule-item"> - One workout day\n• <span class="day"> - Day of week\n• <span class="workout"> - Type of workout'
+                        },
+                        {
+                            title: 'Add More Workout Days',
+                            description: 'Let\'s add Wednesday and Friday workouts!',
+                            instruction: 'Add these after Monday:',
+                            code: `<div class="schedule-item">
+  <span class="day">Wednesday</span>
+  <span class="workout">Strength Training</span>
+</div>
+<div class="schedule-item">
+  <span class="day">Friday</span>
+  <span class="workout">Yoga & Stretching</span>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Now we have a 3-day workout schedule!',
+                            explanation: 'What this does:\n• Adds two more workout days\n• Wednesday for strength training\n• Friday for yoga'
+                        },
+                        {
+                            title: 'Style the Container',
+                            description: 'Let\'s style the main container!',
                             instruction: 'Add this CSS:',
                             code: `.workout-schedule {
   background: white;
@@ -4294,9 +5084,16 @@ if (typeof lucide !== 'undefined') {
 .schedule-grid {
   display: grid;
   gap: 0.75rem;
-}
-
-.schedule-item {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Grid layout stacks items vertically!',
+                            explanation: 'What this does:\n• background: white - Clean background\n• display: grid - Grid layout\n• gap: 0.75rem - Space between items'
+                        },
+                        {
+                            title: 'Style Schedule Items',
+                            description: 'Let\'s style each workout day!',
+                            instruction: 'Add this CSS:',
+                            code: `.schedule-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -4309,9 +5106,16 @@ if (typeof lucide !== 'undefined') {
 
 .schedule-item:hover {
   transform: translateX(4px);
-}
-
-.day {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Items slide right when you hover!',
+                            explanation: 'What this does:\n• display: flex - Aligns day and workout\n• justify-content: space-between - Pushes them apart\n• border-left - Colored accent bar\n• transform - Slides on hover'
+                        },
+                        {
+                            title: 'Style Day and Workout Text',
+                            description: 'Let\'s style the day names and workout types!',
+                            instruction: 'Add this CSS:',
+                            code: `.day {
   font-weight: 600;
   color: #1a1a1a;
 }
@@ -4321,12 +5125,12 @@ if (typeof lucide !== 'undefined') {
   font-size: 0.9rem;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'Items slide when you hover over them!',
-                            explanation: 'We style schedule items with flexbox and add a hover effect.'
+                            tip: 'Bold days make them easy to scan!',
+                            explanation: 'What this does:\n• font-weight: 600 - Bold day names\n• color: #6b7280 - Gray workout text\n• font-size: 0.9rem - Slightly smaller workout text'
                         },
                         {
                             title: 'Add Color Variations',
-                            description: 'Give each day a different color!',
+                            description: 'Finally, let\'s give each day a unique color!',
                             instruction: 'Add this CSS:',
                             code: `.schedule-item:nth-child(1) {
   background: #eff6ff;
@@ -4344,7 +5148,7 @@ if (typeof lucide !== 'undefined') {
 }`,
                             codeFile: 'styles.css',
                             tip: 'Different colors make it easier to scan!',
-                            explanation: 'We use nth-child to give each day a unique color scheme.'
+                            explanation: 'What this does:\n• :nth-child(1) - Monday (blue)\n• :nth-child(2) - Wednesday (green)\n• :nth-child(3) - Friday (orange)\n• Each day gets matching background and border'
                         }
                     ],
                     learningObjectives: [
@@ -4388,44 +5192,83 @@ if (typeof lucide !== 'undefined') {
                 </div>`,
                 workshop: {
                     goal: 'Build a timeline with clickable expandable details',
-                    duration: '25 minutes',
+                    duration: '30 minutes',
                     steps: [
                         {
-                            title: 'Create Timeline HTML',
-                            description: 'Make timeline items with hidden details!',
+                            title: 'Create Timeline Container',
+                            description: 'Let\'s start by creating a container for our expandable timeline!',
                             instruction: 'Add this HTML:',
                             code: `<div class="expandable-timeline">
-  <div class="timeline-item">
-    <div class="timeline-year">2024</div>
-    <div class="timeline-title">Major Championship</div>
-    <div class="timeline-details hidden">
-      <p>Full details about this championship, including teams, scores, and memorable moments.</p>
-    </div>
-  </div>
-  <div class="timeline-item">
-    <div class="timeline-year">2023</div>
-    <div class="timeline-title">Historic Victory</div>
-    <div class="timeline-details hidden">
-      <p>Details about this historic victory and its significance.</p>
-    </div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'This will hold all our timeline events!',
+                            explanation: 'What this does:\n• <div class="expandable-timeline"> - Main container for timeline'
+                        },
+                        {
+                            title: 'Add First Timeline Item',
+                            description: 'Let\'s add our first event to the timeline!',
+                            instruction: 'Add this inside the timeline:',
+                            code: `<div class="timeline-item">
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Each timeline-item represents one event!',
+                            explanation: 'What this does:\n• <div class="timeline-item"> - Container for one event'
+                        },
+                        {
+                            title: 'Add Year and Title',
+                            description: 'Now let\'s add the year and event title!',
+                            instruction: 'Add this inside the timeline-item:',
+                            code: `<div class="timeline-year">2024</div>
+<div class="timeline-title">Major Championship</div>`,
+                            codeFile: 'index.html',
+                            tip: 'The title will be clickable to show more details!',
+                            explanation: 'What this does:\n• <div class="timeline-year"> - The year\n• <div class="timeline-title"> - Event name (clickable)'
+                        },
+                        {
+                            title: 'Add Hidden Details',
+                            description: 'Let\'s add the expandable details section!',
+                            instruction: 'Add this after the title:',
+                            code: `<div class="timeline-details hidden">
+  <p>Full details about this championship, including teams, scores, and memorable moments.</p>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'class="hidden" makes it invisible until clicked!',
+                            explanation: 'What this does:\n• <div class="timeline-details"> - Details section\n• class="hidden" - Starts invisible\n• <p> - The detailed information'
+                        },
+                        {
+                            title: 'Add Second Event',
+                            description: 'Let\'s add another event to the timeline!',
+                            instruction: 'Add this after the first timeline-item:',
+                            code: `<div class="timeline-item">
+  <div class="timeline-year">2023</div>
+  <div class="timeline-title">Historic Victory</div>
+  <div class="timeline-details hidden">
+    <p>Details about this historic victory and its significance.</p>
   </div>
 </div>`,
                             codeFile: 'index.html',
-                            tip: 'Details start hidden and expand when clicked!',
-                            explanation: 'We create timeline items with titles and hidden detail sections.'
+                            tip: 'Now we have 2 events in our timeline!',
+                            explanation: 'What this does:\n• Adds a second event\n• Same structure as the first\n• Details also start hidden'
                         },
                         {
-                            title: 'Style the Timeline',
-                            description: 'Make it look like a timeline!',
+                            title: 'Style Timeline Items',
+                            description: 'Let\'s add the vertical line and positioning!',
                             instruction: 'Add this CSS:',
                             code: `.timeline-item {
   border-left: 3px solid #3b82f6;
   padding-left: 2rem;
   position: relative;
   margin-bottom: 2rem;
-}
-
-.timeline-item::before {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'border-left creates the vertical timeline line!',
+                            explanation: 'What this does:\n• border-left - Vertical blue line\n• padding-left - Space for content\n• position: relative - For dot positioning\n• margin-bottom - Space between events'
+                        },
+                        {
+                            title: 'Add Timeline Dots',
+                            description: 'Let\'s add the circular dots on the timeline!',
+                            instruction: 'Add this CSS:',
+                            code: `.timeline-item::before {
   content: '';
   position: absolute;
   left: -9px;
@@ -4435,9 +5278,16 @@ if (typeof lucide !== 'undefined') {
   background: #3b82f6;
   border-radius: 50%;
   box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
-}
-
-.timeline-year {
+}`,
+                            codeFile: 'styles.css',
+                            tip: '::before creates an element without adding HTML!',
+                            explanation: 'What this does:\n• ::before - Creates pseudo-element\n• position: absolute - Places it on the line\n• border-radius: 50% - Makes it circular\n• box-shadow - Adds glow effect'
+                        },
+                        {
+                            title: 'Style Year and Title',
+                            description: 'Let\'s style the year and event title!',
+                            instruction: 'Add this CSS:',
+                            code: `.timeline-year {
   font-size: 0.875rem;
   color: #3b82f6;
   font-weight: 700;
@@ -4454,9 +5304,16 @@ if (typeof lucide !== 'undefined') {
 
 .timeline-title:hover {
   color: #3b82f6;
-}
-
-.timeline-details {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'cursor: pointer shows the title is clickable!',
+                            explanation: 'What this does:\n• Year is blue and bold\n• Title is clickable (cursor: pointer)\n• Title turns blue on hover'
+                        },
+                        {
+                            title: 'Style Details Section',
+                            description: 'Let\'s style the expandable details!',
+                            instruction: 'Add this CSS:',
+                            code: `.timeline-details {
   background: #f8fafc;
   padding: 1rem;
   border-radius: 8px;
@@ -4468,12 +5325,12 @@ if (typeof lucide !== 'undefined') {
   display: none;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'The dot and line create the timeline look!',
-                            explanation: 'We style the timeline with a vertical line and dots for each event.'
+                            tip: 'The hidden class makes it invisible!',
+                            explanation: 'What this does:\n• background: #f8fafc - Light gray background\n• padding - Space inside\n• .hidden - Hides the element\n• line-height - Easy to read'
                         },
                         {
-                            title: 'Add Click to Expand',
-                            description: 'Make titles clickable to show details!',
+                            title: 'Add Click Functionality',
+                            description: 'Let\'s make titles clickable to show/hide details!',
                             instruction: 'Add this JavaScript:',
                             code: `const timelineTitles = document.querySelectorAll('.timeline-title');
 
@@ -4481,18 +5338,11 @@ timelineTitles.forEach(title => {
   title.addEventListener('click', () => {
     const details = title.nextElementSibling;
     details.classList.toggle('hidden');
-    
-    // Add arrow indicator
-    if (details.classList.contains('hidden')) {
-      title.textContent = title.textContent.replace('•', 'G•+');
-    } else {
-      title.textContent = title.textContent.replace('G•+', '•');
-    }
   });
 });`,
                             codeFile: 'script.js',
                             tip: 'Click titles to expand and collapse details!',
-                            explanation: 'We toggle the hidden class to show/hide details when titles are clicked.'
+                            explanation: 'What this does:\n• querySelectorAll - Gets all titles\n• addEventListener - Watches for clicks\n• nextElementSibling - Gets the details div\n• classList.toggle - Shows/hides details'
                         }
                     ],
                     learningObjectives: [
@@ -4532,33 +5382,72 @@ timelineTitles.forEach(title => {
                 </div>`,
                 workshop: {
                     goal: 'Build a modal popup for game information',
-                    duration: '25 minutes',
+                    duration: '35 minutes',
                     steps: [
                         {
-                            title: 'Create Modal HTML',
-                            description: 'Make a button and hidden modal!',
+                            title: 'Create Open Button',
+                            description: 'Let\'s start by creating a button to open the modal!',
                             instruction: 'Add this HTML:',
-                            code: `<button class="open-modal-btn" id="openModal">View Game Info</button>
-
-<div class="game-modal hidden" id="gameModal">
-  <div class="modal-overlay"></div>
-  <div class="modal-content">
-    <button class="close-modal" id="closeModal">
-      <i data-lucide="x"></i>
-    </button>
-    <h3>Game Title</h3>
-    <p><strong>Genre:</strong> Action RPG</p>
-    <p><strong>Release:</strong> 1998</p>
-    <p><strong>Description:</strong> An epic adventure game...</p>
-  </div>
-</div>`,
+                            code: `<button class="open-modal-btn" id="openModal">View Game Info</button>`,
                             codeFile: 'index.html',
-                            tip: 'Modal starts hidden and appears when button is clicked!',
-                            explanation: 'We create a button to open the modal and a modal with overlay and content.'
+                            tip: 'This button will trigger the modal to appear!',
+                            explanation: 'What this does:\n• <button> - Clickable button\n• id="openModal" - So JavaScript can find it'
                         },
                         {
-                            title: 'Style the Modal',
-                            description: 'Make it appear over the page!',
+                            title: 'Create Modal Container',
+                            description: 'Now let\'s create the modal structure!',
+                            instruction: 'Add this after the button:',
+                            code: `<div class="game-modal hidden" id="gameModal">
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'class="hidden" makes it invisible at first!',
+                            explanation: 'What this does:\n• <div class="game-modal"> - Modal container\n• class="hidden" - Starts invisible\n• id="gameModal" - For JavaScript'
+                        },
+                        {
+                            title: 'Add Modal Overlay',
+                            description: 'Let\'s add the dark background overlay!',
+                            instruction: 'Add this inside the modal:',
+                            code: `<div class="modal-overlay"></div>`,
+                            codeFile: 'index.html',
+                            tip: 'The overlay darkens the page behind the modal!',
+                            explanation: 'What this does:\n• <div class="modal-overlay"> - Dark background\n• Clicking it will close the modal'
+                        },
+                        {
+                            title: 'Add Modal Content Box',
+                            description: 'Now let\'s add the white content box!',
+                            instruction: 'Add this after the overlay:',
+                            code: `<div class="modal-content">
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'This is the white box that holds the game info!',
+                            explanation: 'What this does:\n• <div class="modal-content"> - White content box\n• Will appear on top of the overlay'
+                        },
+                        {
+                            title: 'Add Close Button',
+                            description: 'Let\'s add an X button to close the modal!',
+                            instruction: 'Add this inside modal-content:',
+                            code: `<button class="close-modal" id="closeModal">
+  <i data-lucide="x"></i>
+</button>`,
+                            codeFile: 'index.html',
+                            tip: 'The X icon comes from Lucide!',
+                            explanation: 'What this does:\n• <button class="close-modal"> - Close button\n• <i data-lucide="x"> - X icon\n• id="closeModal" - For JavaScript'
+                        },
+                        {
+                            title: 'Add Game Information',
+                            description: 'Now let\'s add the actual game details!',
+                            instruction: 'Add this after the close button:',
+                            code: `<h3>Game Title</h3>
+<p><strong>Genre:</strong> Action RPG</p>
+<p><strong>Release:</strong> 1998</p>
+<p><strong>Description:</strong> An epic adventure game...</p>`,
+                            codeFile: 'index.html',
+                            tip: 'Replace with real game information!',
+                            explanation: 'What this does:\n• <h3> - Game title\n• <p> - Game details\n• <strong> - Bold labels'
+                        },
+                        {
+                            title: 'Style Modal Container',
+                            description: 'Let\'s make the modal cover the whole screen!',
                             instruction: 'Add this CSS:',
                             code: `.game-modal {
   position: fixed;
@@ -4574,9 +5463,16 @@ timelineTitles.forEach(title => {
 
 .game-modal.hidden {
   display: none;
-}
-
-.modal-overlay {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'position: fixed makes it stay in place when scrolling!',
+                            explanation: 'What this does:\n• position: fixed - Covers whole screen\n• display: flex - Centers content\n• .hidden - Hides the modal'
+                        },
+                        {
+                            title: 'Style the Overlay',
+                            description: 'Let\'s style the dark background!',
+                            instruction: 'Add this CSS:',
+                            code: `.modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -4584,9 +5480,16 @@ timelineTitles.forEach(title => {
   height: 100%;
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(4px);
-}
-
-.modal-content {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'backdrop-filter adds a blur effect!',
+                            explanation: 'What this does:\n• background: rgba(0, 0, 0, 0.7) - 70% black\n• backdrop-filter: blur - Blurs background\n• Covers entire screen'
+                        },
+                        {
+                            title: 'Style Content Box',
+                            description: 'Let\'s style the white content box!',
+                            instruction: 'Add this CSS:',
+                            code: `.modal-content {
   position: relative;
   background: white;
   padding: 2rem;
@@ -4595,9 +5498,16 @@ timelineTitles.forEach(title => {
   width: 90%;
   box-shadow: 0 20px 60px rgba(0,0,0,0.3);
   z-index: 1001;
-}
-
-.close-modal {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'z-index: 1001 puts it above the overlay!',
+                            explanation: 'What this does:\n• background: white - White box\n• border-radius: 16px - Rounded corners\n• box-shadow - Dramatic shadow\n• z-index - Appears on top'
+                        },
+                        {
+                            title: 'Style Close Button',
+                            description: 'Let\'s style the X button!',
+                            instruction: 'Add this CSS:',
+                            code: `.close-modal {
   position: absolute;
   top: 1rem;
   right: 1rem;
@@ -4612,37 +5522,53 @@ timelineTitles.forEach(title => {
   color: #1a1a1a;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'The overlay darkens the background!',
-                            explanation: 'We position the modal fixed and center it with flexbox.'
+                            tip: 'position: absolute puts it in the top-right corner!',
+                            explanation: 'What this does:\n• position: absolute - Top-right corner\n• background: none - Transparent\n• color changes on hover'
                         },
                         {
-                            title: 'Add Open/Close Functionality',
-                            description: 'Make buttons work!',
+                            title: 'Add Open Functionality',
+                            description: 'Let\'s make the button open the modal!',
                             instruction: 'Add this JavaScript:',
                             code: `const openBtn = document.getElementById('openModal');
-const closeBtn = document.getElementById('closeModal');
 const modal = document.getElementById('gameModal');
-const overlay = modal.querySelector('.modal-overlay');
 
 openBtn.addEventListener('click', () => {
   modal.classList.remove('hidden');
-});
+});`,
+                            codeFile: 'script.js',
+                            tip: 'Removing "hidden" makes the modal visible!',
+                            explanation: 'What this does:\n• getElementById - Gets the button and modal\n• addEventListener - Watches for clicks\n• classList.remove - Shows the modal'
+                        },
+                        {
+                            title: 'Add Close Functionality',
+                            description: 'Let\'s make the X button close the modal!',
+                            instruction: 'Add this JavaScript:',
+                            code: `const closeBtn = document.getElementById('closeModal');
 
 closeBtn.addEventListener('click', () => {
   modal.classList.add('hidden');
-});
+});`,
+                            codeFile: 'script.js',
+                            tip: 'Adding "hidden" makes the modal invisible!',
+                            explanation: 'What this does:\n• Gets the close button\n• Watches for clicks\n• classList.add - Hides the modal'
+                        },
+                        {
+                            title: 'Close on Overlay Click',
+                            description: 'Let\'s make clicking outside close the modal!',
+                            instruction: 'Add this JavaScript:',
+                            code: `const overlay = modal.querySelector('.modal-overlay');
 
 overlay.addEventListener('click', () => {
   modal.classList.add('hidden');
 });
 
-// Initialize icons
+// Initialize Lucide icons
 if (typeof lucide !== 'undefined') {
   lucide.createIcons();
 }`,
                             codeFile: 'script.js',
-                            tip: 'Click outside the modal to close it!',
-                            explanation: 'We add event listeners to open and close the modal.'
+                            tip: 'Now you can click outside to close!',
+                            explanation: 'What this does:\n• querySelector - Gets the overlay\n• Watches for clicks on overlay\n• Hides modal when clicked\n• Initializes Lucide icons'
                         }
                     ],
                     learningObjectives: [
@@ -4689,31 +5615,49 @@ if (typeof lucide !== 'undefined') {
                     duration: '20 minutes',
                     steps: [
                         {
-                            title: 'Create Profile HTML',
-                            description: 'Make a card with tribe information!',
+                            title: 'Create Profile Container',
+                            description: 'Let\'s start by creating a container for the tribe profile!',
                             instruction: 'Add this HTML:',
+                            code: `<div class="tribe-profile">
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'This will hold the tribe image and information!',
+                            explanation: 'What this does:\n• <div class="tribe-profile"> - Main container for the profile card'
+                        },
+                        {
+                            title: 'Add Tribe Image',
+                            description: 'Let\'s add an image section at the top!',
+                            instruction: 'Add this inside the profile:',
                             code: `<div class="tribe-profile">
   <div class="tribe-image">
     <img src="tribe-photo.jpg" alt="Tribe name">
   </div>
-  <div class="tribe-info">
-    <h3 class="tribe-name">Ifugao People</h3>
-    <p class="tribe-region">
-      <i data-lucide="map-pin"></i>
-      Cordillera Region, Northern Philippines
-    </p>
-    <p class="tribe-description">
-      Known for the magnificent rice terraces and rich cultural heritage passed down through generations.
-    </p>
-  </div>
 </div>`,
                             codeFile: 'index.html',
-                            tip: 'Each tribe gets its own profile card!',
-                            explanation: 'We create a card with an image section and information section.'
+                            tip: 'Replace with a real photo of the tribe or cultural site!',
+                            explanation: 'What this does:\n• <div class="tribe-image"> - Container for image\n• <img> - The tribe photo\n• alt - Description for accessibility'
                         },
                         {
-                            title: 'Style the Profile Card',
-                            description: 'Make it look professional!',
+                            title: 'Add Tribe Information',
+                            description: 'Now let\'s add the tribe name and details!',
+                            instruction: 'Add this after the image:',
+                            code: `<div class="tribe-info">
+  <h3 class="tribe-name">Ifugao People</h3>
+  <p class="tribe-region">
+    <i data-lucide="map-pin"></i>
+    Cordillera Region, Northern Philippines
+  </p>
+  <p class="tribe-description">
+    Known for the magnificent rice terraces and rich cultural heritage passed down through generations.
+  </p>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'The map-pin icon shows the location!',
+                            explanation: 'What this does:\n• <h3> - Tribe name\n• <p class="tribe-region"> - Location with icon\n• <p class="tribe-description"> - Brief description'
+                        },
+                        {
+                            title: 'Style the Profile Container',
+                            description: 'Let\'s give the card a clean, modern look!',
                             instruction: 'Add this CSS:',
                             code: `.tribe-profile {
   background: white;
@@ -4721,9 +5665,16 @@ if (typeof lucide !== 'undefined') {
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(0,0,0,0.1);
   max-width: 400px;
-}
-
-.tribe-image {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'overflow: hidden keeps the image inside the rounded corners!',
+                            explanation: 'What this does:\n• background: white - Clean background\n• border-radius: 16px - Rounded corners\n• overflow: hidden - Clips content at edges\n• box-shadow - Adds depth'
+                        },
+                        {
+                            title: 'Style the Image Section',
+                            description: 'Let\'s make the image fill the top of the card!',
+                            instruction: 'Add this CSS:',
+                            code: `.tribe-image {
   height: 200px;
   overflow: hidden;
 }
@@ -4732,9 +5683,16 @@ if (typeof lucide !== 'undefined') {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.tribe-info {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'object-fit: cover makes the image fill without stretching!',
+                            explanation: 'What this does:\n• height: 200px - Fixed height\n• width: 100% - Full width\n• object-fit: cover - Fills space without distortion'
+                        },
+                        {
+                            title: 'Style the Info Section',
+                            description: 'Let\'s add padding and style the text!',
+                            instruction: 'Add this CSS:',
+                            code: `.tribe-info {
   padding: 2rem;
 }
 
@@ -4743,9 +5701,16 @@ if (typeof lucide !== 'undefined') {
   font-size: 1.5rem;
   font-weight: 700;
   color: #1a1a1a;
-}
-
-.tribe-region {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Padding creates breathing room around the text!',
+                            explanation: 'What this does:\n• padding: 2rem - Space inside\n• font-size: 1.5rem - Big title\n• font-weight: 700 - Bold text'
+                        },
+                        {
+                            title: 'Style the Region and Description',
+                            description: 'Finally, let\'s style the location and description!',
+                            instruction: 'Add this CSS:',
+                            code: `.tribe-region {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -4767,8 +5732,8 @@ if (typeof lucide !== 'undefined') {
   line-height: 1.6;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'The image fills the top of the card!',
-                            explanation: 'We style the card with an image header and padded content area.'
+                            tip: 'Flexbox aligns the icon and text perfectly!',
+                            explanation: 'What this does:\n• display: flex - Aligns icon and text\n• gap: 0.5rem - Space between icon and text\n• line-height: 1.6 - Easy to read'
                         }
                     ],
                     learningObjectives: [
@@ -4811,31 +5776,49 @@ if (typeof lucide !== 'undefined') {
                 </div>`,
                 workshop: {
                     goal: 'Build a cultural artifact display component',
-                    duration: '15 minutes',
+                    duration: '20 minutes',
                     steps: [
                         {
-                            title: 'Create Artifact HTML',
-                            description: 'Make a card for cultural items!',
+                            title: 'Create Artifact Container',
+                            description: 'Let\'s start by creating a container for the artifact!',
                             instruction: 'Add this HTML:',
+                            code: `<div class="artifact-highlight">
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'This will hold the artifact image and information side by side!',
+                            explanation: 'What this does:\n• <div class="artifact-highlight"> - Main container'
+                        },
+                        {
+                            title: 'Add Artifact Image',
+                            description: 'Let\'s add an image of the artifact!',
+                            instruction: 'Add this inside the container:',
                             code: `<div class="artifact-highlight">
   <div class="artifact-image">
     <img src="artifact.jpg" alt="Traditional weaving">
   </div>
-  <div class="artifact-info">
-    <h4 class="artifact-name">Traditional Weaving</h4>
-    <p class="artifact-description">
-      Ancient textile art passed down through generations, featuring intricate patterns.
-    </p>
-    <span class="artifact-period">Pre-colonial Era</span>
-  </div>
 </div>`,
                             codeFile: 'index.html',
-                            tip: 'Each artifact gets an image and description!',
-                            explanation: 'We create a card with an image and information about the artifact.'
+                            tip: 'Use a square image for best results!',
+                            explanation: 'What this does:\n• <div class="artifact-image"> - Image container\n• <img> - The artifact photo'
                         },
                         {
-                            title: 'Style the Artifact Card',
-                            description: 'Make it look museum-quality!',
+                            title: 'Add Artifact Information',
+                            description: 'Now let\'s add the artifact details!',
+                            instruction: 'Add this after the image:',
+                            code: `<div class="artifact-info">
+  <h4 class="artifact-name">Traditional Weaving</h4>
+  <p class="artifact-description">
+    Ancient textile art passed down through generations, featuring intricate patterns.
+  </p>
+  <span class="artifact-period">Pre-colonial Era</span>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'The period badge shows when the artifact is from!',
+                            explanation: 'What this does:\n• <h4> - Artifact name\n• <p> - Description\n• <span> - Time period badge'
+                        },
+                        {
+                            title: 'Style the Container',
+                            description: 'Let\'s arrange the image and info side by side!',
                             instruction: 'Add this CSS:',
                             code: `.artifact-highlight {
   background: white;
@@ -4845,9 +5828,16 @@ if (typeof lucide !== 'undefined') {
   display: flex;
   gap: 1.5rem;
   align-items: center;
-}
-
-.artifact-image {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Flexbox makes them sit side by side!',
+                            explanation: 'What this does:\n• display: flex - Horizontal layout\n• gap: 1.5rem - Space between image and text\n• align-items: center - Vertically centered'
+                        },
+                        {
+                            title: 'Style the Image',
+                            description: 'Let\'s make the image a fixed size!',
+                            instruction: 'Add this CSS:',
+                            code: `.artifact-image {
   width: 100px;
   height: 100px;
   border-radius: 12px;
@@ -4859,9 +5849,16 @@ if (typeof lucide !== 'undefined') {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.artifact-name {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'flex-shrink: 0 prevents the image from getting squished!',
+                            explanation: 'What this does:\n• width/height: 100px - Square image\n• flex-shrink: 0 - Keeps size fixed\n• object-fit: cover - Fills space'
+                        },
+                        {
+                            title: 'Style the Text',
+                            description: 'Let\'s style the artifact name and description!',
+                            instruction: 'Add this CSS:',
+                            code: `.artifact-name {
   margin: 0 0 0.5rem 0;
   font-size: 1.1rem;
   font-weight: 700;
@@ -4873,9 +5870,16 @@ if (typeof lucide !== 'undefined') {
   font-size: 0.875rem;
   color: #6b7280;
   line-height: 1.6;
-}
-
-.artifact-period {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Good line-height makes text easier to read!',
+                            explanation: 'What this does:\n• font-weight: 700 - Bold name\n• color: #6b7280 - Gray description\n• line-height: 1.6 - Readable spacing'
+                        },
+                        {
+                            title: 'Style the Period Badge',
+                            description: 'Finally, let\'s style the time period badge!',
+                            instruction: 'Add this CSS:',
+                            code: `.artifact-period {
   display: inline-block;
   padding: 0.25rem 0.75rem;
   background: #f3f4f6;
@@ -4885,8 +5889,8 @@ if (typeof lucide !== 'undefined') {
   font-weight: 600;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'Flexbox aligns the image and text side by side!',
-                            explanation: 'We use flexbox to create a horizontal layout with image and info.'
+                            tip: 'The badge makes the time period stand out!',
+                            explanation: 'What this does:\n• display: inline-block - Fits content\n• background: #f3f4f6 - Light gray\n• border-radius: 12px - Pill shape'
                         }
                     ],
                     learningObjectives: [
@@ -4943,48 +5947,64 @@ if (typeof lucide !== 'undefined') {
                 </div>`,
                 workshop: {
                     goal: 'Build a table to display team championship history',
-                    duration: '20 minutes',
+                    duration: '25 minutes',
                     steps: [
                         {
-                            title: 'Create Table HTML',
-                            description: 'Make a table with years and teams!',
+                            title: 'Create Table Container',
+                            description: 'Let\'s start by creating a container for our table!',
                             instruction: 'Add this HTML:',
                             code: `<div class="history-table-container">
   <h3>Championship History</h3>
-  <table class="history-table">
-    <thead>
-      <tr>
-        <th>Year</th>
-        <th>Champion</th>
-        <th>Runner-up</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>2024</td>
-        <td>Team Alpha</td>
-        <td>Team Beta</td>
-      </tr>
-      <tr>
-        <td>2023</td>
-        <td>Team Gamma</td>
-        <td>Team Delta</td>
-      </tr>
-      <tr>
-        <td>2022</td>
-        <td>Team Alpha</td>
-        <td>Team Gamma</td>
-      </tr>
-    </tbody>
-  </table>
 </div>`,
                             codeFile: 'index.html',
-                            tip: 'Tables are perfect for organized data!',
-                            explanation: 'We create a table with thead for headers and tbody for data rows.'
+                            tip: 'Tables are perfect for displaying organized data!',
+                            explanation: 'What this does:\n• <div> - Container for table\n• <h3> - Title for the table'
                         },
                         {
-                            title: 'Style the Table',
-                            description: 'Make it look clean and professional!',
+                            title: 'Create Table Structure',
+                            description: 'Now let\'s create the table with headers!',
+                            instruction: 'Add this table inside the container:',
+                            code: `<table class="history-table">
+  <thead>
+    <tr>
+      <th>Year</th>
+      <th>Champion</th>
+      <th>Runner-up</th>
+    </tr>
+  </thead>
+</table>`,
+                            codeFile: 'index.html',
+                            tip: '<thead> is for table headers - the column titles!',
+                            explanation: 'What this does:\n• <table> - Creates the table\n• <thead> - Header section\n• <tr> - Table row\n• <th> - Header cells'
+                        },
+                        {
+                            title: 'Add Table Data',
+                            description: 'Let\'s add championship records!',
+                            instruction: 'Add this tbody after thead:',
+                            code: `<tbody>
+  <tr>
+    <td>2024</td>
+    <td>Team Alpha</td>
+    <td>Team Beta</td>
+  </tr>
+  <tr>
+    <td>2023</td>
+    <td>Team Gamma</td>
+    <td>Team Delta</td>
+  </tr>
+  <tr>
+    <td>2022</td>
+    <td>Team Alpha</td>
+    <td>Team Gamma</td>
+  </tr>
+</tbody>`,
+                            codeFile: 'index.html',
+                            tip: '<tbody> holds the actual data rows!',
+                            explanation: 'What this does:\n• <tbody> - Body section\n• <tr> - Each championship year\n• <td> - Data cells'
+                        },
+                        {
+                            title: 'Style the Container',
+                            description: 'Let\'s give the container a clean look!',
                             instruction: 'Add this CSS:',
                             code: `.history-table-container {
   background: white;
@@ -4992,15 +6012,29 @@ if (typeof lucide !== 'undefined') {
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.1);
   overflow-x: auto;
-}
-
-.history-table {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'overflow-x: auto makes the table scrollable on small screens!',
+                            explanation: 'What this does:\n• background: white - Clean background\n• padding: 2rem - Space inside\n• overflow-x: auto - Horizontal scroll if needed'
+                        },
+                        {
+                            title: 'Style the Table',
+                            description: 'Let\'s style the table structure!',
+                            instruction: 'Add this CSS:',
+                            code: `.history-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.95rem;
-}
-
-.history-table thead tr {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'border-collapse removes gaps between cells!',
+                            explanation: 'What this does:\n• width: 100% - Full width\n• border-collapse - Merges borders\n• font-size - Readable text'
+                        },
+                        {
+                            title: 'Style Table Headers',
+                            description: 'Let\'s make the headers stand out!',
+                            instruction: 'Add this CSS:',
+                            code: `.history-table thead tr {
   background: #f8fafc;
   border-bottom: 2px solid #e5e7eb;
 }
@@ -5013,9 +6047,16 @@ if (typeof lucide !== 'undefined') {
   text-transform: uppercase;
   font-size: 0.75rem;
   letter-spacing: 0.05em;
-}
-
-.history-table tbody tr {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'text-transform: uppercase makes headers look professional!',
+                            explanation: 'What this does:\n• background: #f8fafc - Light gray header\n• text-transform: uppercase - Capital letters\n• letter-spacing - Spaced out text'
+                        },
+                        {
+                            title: 'Style Table Rows',
+                            description: 'Let\'s style the data rows with hover effects!',
+                            instruction: 'Add this CSS:',
+                            code: `.history-table tbody tr {
   border-bottom: 1px solid #e5e7eb;
   transition: background 0.2s;
 }
@@ -5034,8 +6075,8 @@ if (typeof lucide !== 'undefined') {
   color: #1a1a1a;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'Rows highlight when you hover over them!',
-                            explanation: 'We style the table with borders, padding, and hover effects.'
+                            tip: 'Rows highlight when you hover - makes it easier to read!',
+                            explanation: 'What this does:\n• border-bottom - Lines between rows\n• :hover - Highlights on mouse over\n• :first-child - Makes year column bold'
                         }
                     ],
                     learningObjectives: [
@@ -5090,46 +6131,62 @@ if (typeof lucide !== 'undefined') {
                 </div>`,
                 workshop: {
                     goal: 'Build a player statistics display panel',
-                    duration: '20 minutes',
+                    duration: '25 minutes',
                     steps: [
                         {
-                            title: 'Create Stats Panel HTML',
-                            description: 'Make a panel with player info and stats!',
+                            title: 'Create Panel Container',
+                            description: 'Let\'s start by creating a container for the player stats!',
                             instruction: 'Add this HTML:',
                             code: `<div class="player-stats-panel">
-  <div class="player-header">
-    <img src="player.jpg" alt="Player" class="player-photo">
-    <div class="player-info">
-      <h3 class="player-name">John Doe</h3>
-      <p class="player-position">Forward</p>
-    </div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'This will hold the player photo and statistics!',
+                            explanation: 'What this does:\n• <div class="player-stats-panel"> - Main container'
+                        },
+                        {
+                            title: 'Add Player Header',
+                            description: 'Let\'s add the player photo and name!',
+                            instruction: 'Add this inside the panel:',
+                            code: `<div class="player-header">
+  <img src="player.jpg" alt="Player" class="player-photo">
+  <div class="player-info">
+    <h3 class="player-name">John Doe</h3>
+    <p class="player-position">Forward</p>
   </div>
-  <div class="stats-grid">
-    <div class="stat-box">
-      <div class="stat-value">25.3</div>
-      <div class="stat-label">Points</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-value">12.5</div>
-      <div class="stat-label">Assists</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-value">8.2</div>
-      <div class="stat-label">Rebounds</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-value">2.1</div>
-      <div class="stat-label">Steals</div>
-    </div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'The header shows who the player is!',
+                            explanation: 'What this does:\n• <img> - Player photo\n• <h3> - Player name\n• <p> - Position they play'
+                        },
+                        {
+                            title: 'Add Statistics Grid',
+                            description: 'Now let\'s add the stats boxes!',
+                            instruction: 'Add this after the header:',
+                            code: `<div class="stats-grid">
+  <div class="stat-box">
+    <div class="stat-value">25.3</div>
+    <div class="stat-label">Points</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-value">12.5</div>
+    <div class="stat-label">Assists</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-value">8.2</div>
+    <div class="stat-label">Rebounds</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-value">2.1</div>
+    <div class="stat-label">Steals</div>
   </div>
 </div>`,
                             codeFile: 'index.html',
                             tip: 'Each stat gets its own box!',
-                            explanation: 'We create a panel with player header and a grid of statistics.'
+                            explanation: 'What this does:\n• <div class="stats-grid"> - Container for stats\n• <div class="stat-box"> - Each statistic\n• stat-value - The number\n• stat-label - What it measures'
                         },
                         {
-                            title: 'Style the Stats Panel',
-                            description: 'Make it look professional!',
+                            title: 'Style the Panel',
+                            description: 'Let\'s give the panel a clean look!',
                             instruction: 'Add this CSS:',
                             code: `.player-stats-panel {
   background: white;
@@ -5137,9 +6194,16 @@ if (typeof lucide !== 'undefined') {
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.1);
   max-width: 400px;
-}
-
-.player-header {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'White background makes stats easy to read!',
+                            explanation: 'What this does:\n• background: white - Clean background\n• padding: 2rem - Space inside\n• box-shadow - Adds depth'
+                        },
+                        {
+                            title: 'Style Player Header',
+                            description: 'Let\'s arrange the photo and name side by side!',
+                            instruction: 'Add this CSS:',
+                            code: `.player-header {
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -5151,9 +6215,16 @@ if (typeof lucide !== 'undefined') {
   height: 70px;
   border-radius: 50%;
   object-fit: cover;
-}
-
-.player-name {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'border-radius: 50% makes the photo circular!',
+                            explanation: 'What this does:\n• display: flex - Side by side layout\n• gap: 1rem - Space between photo and text\n• border-radius: 50% - Round photo'
+                        },
+                        {
+                            title: 'Style Player Info',
+                            description: 'Let\'s style the name and position!',
+                            instruction: 'Add this CSS:',
+                            code: `.player-name {
   margin: 0 0 0.25rem 0;
   font-size: 1.25rem;
   font-weight: 700;
@@ -5165,9 +6236,16 @@ if (typeof lucide !== 'undefined') {
   font-size: 0.9rem;
   color: #6b7280;
   font-weight: 600;
-}
-
-.stats-grid {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Bold name makes it stand out!',
+                            explanation: 'What this does:\n• font-weight: 700 - Bold name\n• color: #6b7280 - Gray position\n• Good spacing between elements'
+                        },
+                        {
+                            title: 'Create Stats Grid',
+                            description: 'Let\'s arrange stats in a 2x2 grid!',
+                            instruction: 'Add this CSS:',
+                            code: `.stats-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
@@ -5178,9 +6256,16 @@ if (typeof lucide !== 'undefined') {
   padding: 1rem;
   background: #f8fafc;
   border-radius: 12px;
-}
-
-.stat-value {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Grid makes stats line up perfectly!',
+                            explanation: 'What this does:\n• grid-template-columns - 2 equal columns\n• gap: 1rem - Space between boxes\n• text-align: center - Centers text'
+                        },
+                        {
+                            title: 'Style Stat Values and Labels',
+                            description: 'Finally, let\'s style the numbers and labels!',
+                            instruction: 'Add this CSS:',
+                            code: `.stat-value {
   font-size: 1.75rem;
   font-weight: 800;
   color: #3b82f6;
@@ -5195,8 +6280,8 @@ if (typeof lucide !== 'undefined') {
   letter-spacing: 0.05em;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'Grid makes stats line up perfectly!',
-                            explanation: 'We use flexbox for the header and grid for the stats layout.'
+                            tip: 'Big numbers grab attention!',
+                            explanation: 'What this does:\n• font-size: 1.75rem - Big numbers\n• color: #3b82f6 - Blue for emphasis\n• text-transform: uppercase - Capital labels'
                         }
                     ],
                     learningObjectives: [
@@ -5245,39 +6330,71 @@ if (typeof lucide !== 'undefined') {
                 </div>`,
                 workshop: {
                     goal: 'Build an interactive lesson progress checklist',
-                    duration: '20 minutes',
+                    duration: '30 minutes',
                     steps: [
                         {
-                            title: 'Create Checklist HTML',
-                            description: 'Make checkboxes for each lesson!',
+                            title: 'Create Checklist Container',
+                            description: 'Let\'s start by creating a container for our checklist!',
                             instruction: 'Add this HTML:',
                             code: `<div class="lesson-checklist">
   <h3>Course Progress</h3>
-  <div class="checklist-items">
-    <label class="checklist-item">
-      <input type="checkbox" class="lesson-checkbox">
-      <span class="lesson-title">Lesson 1: Introduction</span>
-    </label>
-    <label class="checklist-item">
-      <input type="checkbox" class="lesson-checkbox">
-      <span class="lesson-title">Lesson 2: Basic Chords</span>
-    </label>
-    <label class="checklist-item">
-      <input type="checkbox" class="lesson-checkbox">
-      <span class="lesson-title">Lesson 3: Rhythm Patterns</span>
-    </label>
-  </div>
-  <div class="progress-summary">
-    <span id="completedCount">0</span> of 3 completed
-  </div>
 </div>`,
                             codeFile: 'index.html',
-                            tip: 'Check boxes to mark lessons complete!',
-                            explanation: 'We create checkbox inputs wrapped in labels for each lesson.'
+                            tip: 'This will hold all our lesson checkboxes!',
+                            explanation: 'What this does:\n• <div class="lesson-checklist"> - Main container\n• <h3> - Title for the checklist'
                         },
                         {
-                            title: 'Style the Checklist',
-                            description: 'Make it look organized!',
+                            title: 'Add Checklist Items Container',
+                            description: 'Now let\'s create a container for the checkbox items!',
+                            instruction: 'Add this inside the checklist:',
+                            code: `<div class="checklist-items">
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'This will hold all the individual lessons!',
+                            explanation: 'What this does:\n• <div class="checklist-items"> - Container for checkboxes'
+                        },
+                        {
+                            title: 'Add First Lesson Checkbox',
+                            description: 'Let\'s add our first lesson with a checkbox!',
+                            instruction: 'Add this inside checklist-items:',
+                            code: `<label class="checklist-item">
+  <input type="checkbox" class="lesson-checkbox">
+  <span class="lesson-title">Lesson 1: Introduction</span>
+</label>`,
+                            codeFile: 'index.html',
+                            tip: '<label> makes the whole item clickable!',
+                            explanation: 'What this does:\n• <label> - Makes entire area clickable\n• <input type="checkbox"> - The checkbox\n• <span> - Lesson name'
+                        },
+                        {
+                            title: 'Add More Lessons',
+                            description: 'Let\'s add two more lessons!',
+                            instruction: 'Add these after the first lesson:',
+                            code: `<label class="checklist-item">
+  <input type="checkbox" class="lesson-checkbox">
+  <span class="lesson-title">Lesson 2: Basic Chords</span>
+</label>
+<label class="checklist-item">
+  <input type="checkbox" class="lesson-checkbox">
+  <span class="lesson-title">Lesson 3: Rhythm Patterns</span>
+</label>`,
+                            codeFile: 'index.html',
+                            tip: 'Now we have 3 lessons to track!',
+                            explanation: 'What this does:\n• Adds two more lessons\n• Same structure as the first\n• All start unchecked'
+                        },
+                        {
+                            title: 'Add Progress Summary',
+                            description: 'Let\'s add a counter to show progress!',
+                            instruction: 'Add this after checklist-items:',
+                            code: `<div class="progress-summary">
+  <span id="completedCount">0</span> of 3 completed
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'This will update automatically when you check boxes!',
+                            explanation: 'What this does:\n• <div class="progress-summary"> - Progress display\n• <span id="completedCount"> - Number that updates\n• Shows X of 3 completed'
+                        },
+                        {
+                            title: 'Style the Container',
+                            description: 'Let\'s style the main container!',
                             instruction: 'Add this CSS:',
                             code: `.lesson-checklist {
   background: white;
@@ -5292,9 +6409,16 @@ if (typeof lucide !== 'undefined') {
   flex-direction: column;
   gap: 0.75rem;
   margin-bottom: 1.5rem;
-}
-
-.checklist-item {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'flex-direction: column stacks items vertically!',
+                            explanation: 'What this does:\n• background: white - Clean background\n• display: flex - Flexbox layout\n• flex-direction: column - Vertical stacking\n• gap: 0.75rem - Space between items'
+                        },
+                        {
+                            title: 'Style Checklist Items',
+                            description: 'Let\'s style each lesson item!',
+                            instruction: 'Add this CSS:',
+                            code: `.checklist-item {
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -5307,9 +6431,16 @@ if (typeof lucide !== 'undefined') {
 
 .checklist-item:hover {
   background: #eff6ff;
-}
-
-.lesson-checkbox {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Items change color when you hover!',
+                            explanation: 'What this does:\n• display: flex - Aligns checkbox and text\n• background: #f8fafc - Light gray\n• cursor: pointer - Shows it\'s clickable\n• :hover - Changes to blue on hover'
+                        },
+                        {
+                            title: 'Style Checkbox and Text',
+                            description: 'Let\'s style the checkbox and lesson title!',
+                            instruction: 'Add this CSS:',
+                            code: `.lesson-checkbox {
   width: 20px;
   height: 20px;
   cursor: pointer;
@@ -5320,9 +6451,16 @@ if (typeof lucide !== 'undefined') {
   font-size: 0.95rem;
   color: #1a1a1a;
   font-weight: 500;
-}
-
-.progress-summary {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'accent-color makes the checkbox green!',
+                            explanation: 'What this does:\n• width/height: 20px - Bigger checkbox\n• accent-color: #10b981 - Green checkmark\n• font-weight: 500 - Medium weight text'
+                        },
+                        {
+                            title: 'Style Progress Summary',
+                            description: 'Let\'s style the progress counter!',
+                            instruction: 'Add this CSS:',
+                            code: `.progress-summary {
   text-align: center;
   padding: 1rem;
   background: #f0fdf4;
@@ -5331,12 +6469,12 @@ if (typeof lucide !== 'undefined') {
   font-weight: 600;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'Items highlight when you hover!',
-                            explanation: 'We style checkboxes and items with backgrounds and hover effects.'
+                            tip: 'Green background matches the checkboxes!',
+                            explanation: 'What this does:\n• background: #f0fdf4 - Light green\n• color: #10b981 - Green text\n• text-align: center - Centered text'
                         },
                         {
-                            title: 'Add Progress Counter',
-                            description: 'Count completed lessons!',
+                            title: 'Add Progress Counter Function',
+                            description: 'Let\'s create a function to count checked boxes!',
                             instruction: 'Add this JavaScript:',
                             code: `const checkboxes = document.querySelectorAll('.lesson-checkbox');
 const completedCount = document.getElementById('completedCount');
@@ -5344,17 +6482,24 @@ const completedCount = document.getElementById('completedCount');
 function updateProgress() {
   const checked = document.querySelectorAll('.lesson-checkbox:checked').length;
   completedCount.textContent = checked;
-}
-
-checkboxes.forEach(checkbox => {
+}`,
+                            codeFile: 'script.js',
+                            tip: ':checked selects only checked boxes!',
+                            explanation: 'What this does:\n• querySelectorAll - Gets all checkboxes\n• :checked - Filters to checked ones\n• .length - Counts them\n• textContent - Updates the number'
+                        },
+                        {
+                            title: 'Add Event Listeners',
+                            description: 'Let\'s make the counter update when boxes are checked!',
+                            instruction: 'Add this JavaScript:',
+                            code: `checkboxes.forEach(checkbox => {
   checkbox.addEventListener('change', updateProgress);
 });
 
 // Initialize count
 updateProgress();`,
                             codeFile: 'script.js',
-                            tip: 'The counter updates automatically!',
-                            explanation: 'We count checked boxes and update the display when checkboxes change.'
+                            tip: 'The counter updates automatically now!',
+                            explanation: 'What this does:\n• forEach - Loops through all checkboxes\n• addEventListener - Watches for changes\n• updateProgress() - Runs when checked/unchecked\n• Initial call sets count to 0'
                         }
                     ],
                     learningObjectives: [
@@ -5405,28 +6550,70 @@ updateProgress();`,
                     duration: '30 minutes',
                     steps: [
                         {
-                            title: 'Create Calculator HTML',
-                            description: 'Make input fields and result display!',
+                            title: 'Create the Calculator Container',
+                            description: 'Let\'s start by creating a container for our BMI calculator!',
                             instruction: 'Add this HTML:',
+                            code: `<div class="bmi-calculator">
+  <h3>BMI Calculator</h3>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'BMI stands for Body Mass Index - it measures if your weight is healthy for your height!',
+                            explanation: 'What this does:\n• <div class="bmi-calculator"> - Container for everything\n• <h3> - The calculator title'
+                        },
+                        {
+                            title: 'Add Height Input',
+                            description: 'Let\'s add an input field where users can type their height!',
+                            instruction: 'Add this input inside the calculator div:',
                             code: `<div class="bmi-calculator">
   <h3>BMI Calculator</h3>
   <div class="calculator-inputs">
     <input type="number" id="height" placeholder="Height (cm)" min="0">
-    <input type="number" id="weight" placeholder="Weight (kg)" min="0">
-    <button id="calculateBtn">Calculate BMI</button>
-  </div>
-  <div class="bmi-result hidden" id="result">
-    <div class="bmi-value" id="bmiValue">0</div>
-    <div class="bmi-category" id="bmiCategory">-</div>
   </div>
 </div>`,
                             codeFile: 'index.html',
-                            tip: 'BMI = weight / (height in meters)-•',
-                            explanation: 'We create input fields for height and weight, and a result display area.'
+                            tip: 'type="number" means only numbers can be typed in this field!',
+                            explanation: 'What this does:\n• <div class="calculator-inputs"> - Container for inputs\n• type="number" - Only allows numbers\n• placeholder - Shows hint text\n• min="0" - Can\'t enter negative numbers'
                         },
                         {
-                            title: 'Style the Calculator',
-                            description: 'Make it look clean!',
+                            title: 'Add Weight Input',
+                            description: 'Now let\'s add an input for weight!',
+                            instruction: 'Add the weight input after the height input:',
+                            code: `<div class="calculator-inputs">
+  <input type="number" id="height" placeholder="Height (cm)" min="0">
+  <input type="number" id="weight" placeholder="Weight (kg)" min="0">
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'We need both height and weight to calculate BMI!',
+                            explanation: 'What this does:\n• Second input for weight in kilograms\n• Same type="number" for numbers only\n• id="weight" so JavaScript can find it'
+                        },
+                        {
+                            title: 'Add Calculate Button',
+                            description: 'Let\'s add a button that will calculate the BMI when clicked!',
+                            instruction: 'Add the button after the weight input:',
+                            code: `<div class="calculator-inputs">
+  <input type="number" id="height" placeholder="Height (cm)" min="0">
+  <input type="number" id="weight" placeholder="Weight (kg)" min="0">
+  <button id="calculateBtn">Calculate BMI</button>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'The button will trigger our JavaScript to do the math!',
+                            explanation: 'What this does:\n• <button> - Clickable button\n• id="calculateBtn" - So JavaScript can detect clicks\n• Text inside tells users what it does'
+                        },
+                        {
+                            title: 'Add Result Display Area',
+                            description: 'Let\'s create a place to show the BMI result!',
+                            instruction: 'Add this result area after the inputs div:',
+                            code: `<div class="bmi-result hidden" id="result">
+  <div class="bmi-value" id="bmiValue">0</div>
+  <div class="bmi-category" id="bmiCategory">-</div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'The "hidden" class will hide this until we calculate!',
+                            explanation: 'What this does:\n• class="hidden" - Starts invisible\n• bmi-value - Shows the number\n• bmi-category - Shows if it\'s healthy or not'
+                        },
+                        {
+                            title: 'Style the Calculator Container',
+                            description: 'Let\'s make the calculator look clean and modern!',
                             instruction: 'Add this CSS:',
                             code: `.bmi-calculator {
   background: white;
@@ -5434,28 +6621,56 @@ updateProgress();`,
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.1);
   max-width: 400px;
-}
-
-.calculator-inputs {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'box-shadow makes it look like it\'s floating!',
+                            explanation: 'What this does:\n• background: white - Clean white background\n• padding: 2rem - Space inside\n• border-radius: 16px - Rounded corners\n• box-shadow - Adds depth'
+                        },
+                        {
+                            title: 'Style the Input Container',
+                            description: 'Let\'s arrange the inputs in a column!',
+                            instruction: 'Add this CSS:',
+                            code: `.calculator-inputs {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   margin-bottom: 1.5rem;
-}
-
-.calculator-inputs input {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'flex-direction: column stacks items vertically!',
+                            explanation: 'What this does:\n• display: flex - Turns on Flexbox\n• flex-direction: column - Stacks vertically\n• gap: 1rem - Space between items\n• margin-bottom - Space below inputs'
+                        },
+                        {
+                            title: 'Style the Input Fields',
+                            description: 'Let\'s make the input fields look nice!',
+                            instruction: 'Add this CSS:',
+                            code: `.calculator-inputs input {
   padding: 0.75rem;
   border: 2px solid #e5e7eb;
   border-radius: 8px;
   font-size: 1rem;
-}
-
-.calculator-inputs input:focus {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Padding makes the input fields bigger and easier to click!',
+                            explanation: 'What this does:\n• padding - Makes fields bigger\n• border - Gray border around fields\n• border-radius - Rounded corners\n• font-size - Makes text readable'
+                        },
+                        {
+                            title: 'Add Input Focus Style',
+                            description: 'Let\'s highlight the input when you click on it!',
+                            instruction: 'Add this CSS:',
+                            code: `.calculator-inputs input:focus {
   outline: none;
   border-color: #3b82f6;
-}
-
-.calculator-inputs button {
+}`,
+                            codeFile: 'styles.css',
+                            tip: ':focus means "when you click on this"!',
+                            explanation: 'What this does:\n• :focus - Applies when input is clicked\n• outline: none - Removes default outline\n• border-color - Changes to blue when active'
+                        },
+                        {
+                            title: 'Style the Calculate Button',
+                            description: 'Let\'s make the button look clickable and attractive!',
+                            instruction: 'Add this CSS:',
+                            code: `.calculator-inputs button {
   padding: 0.75rem;
   background: #3b82f6;
   color: white;
@@ -5464,13 +6679,27 @@ updateProgress();`,
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s;
-}
-
-.calculator-inputs button:hover {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'cursor: pointer makes the mouse cursor change to a hand!',
+                            explanation: 'What this does:\n• background: #3b82f6 - Blue color\n• color: white - White text\n• cursor: pointer - Hand cursor on hover\n• transition - Smooth color change'
+                        },
+                        {
+                            title: 'Add Button Hover Effect',
+                            description: 'Let\'s make the button darker when you hover over it!',
+                            instruction: 'Add this CSS:',
+                            code: `.calculator-inputs button:hover {
   background: #2563eb;
-}
-
-.bmi-result {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Hover effects make buttons feel interactive!',
+                            explanation: 'What this does:\n• :hover - Applies when mouse is over button\n• background: #2563eb - Darker blue\n• Makes button feel responsive'
+                        },
+                        {
+                            title: 'Style the Result Display',
+                            description: 'Let\'s style the area where the BMI result will appear!',
+                            instruction: 'Add this CSS:',
+                            code: `.bmi-result {
   padding: 1.5rem;
   background: #f0fdf4;
   border-radius: 12px;
@@ -5479,36 +6708,80 @@ updateProgress();`,
 
 .bmi-result.hidden {
   display: none;
-}
-
-.bmi-value {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'The hidden class makes it invisible until we calculate!',
+                            explanation: 'What this does:\n• background: #f0fdf4 - Light green background\n• text-align: center - Centers the text\n• .hidden - Hides it completely'
+                        },
+                        {
+                            title: 'Style the BMI Value',
+                            description: 'Let\'s make the BMI number big and bold!',
+                            instruction: 'Add this CSS:',
+                            code: `.bmi-value {
   font-size: 2.5rem;
   font-weight: 800;
   color: #10b981;
   margin-bottom: 0.5rem;
-}
-
-.bmi-category {
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'font-size: 2.5rem makes it really big!',
+                            explanation: 'What this does:\n• font-size: 2.5rem - Makes it huge\n• font-weight: 800 - Extra bold\n• color: #10b981 - Green color'
+                        },
+                        {
+                            title: 'Style the BMI Category',
+                            description: 'Let\'s style the text that says if the BMI is healthy!',
+                            instruction: 'Add this CSS:',
+                            code: `.bmi-category {
   font-size: 1rem;
   color: #6b7280;
   font-weight: 600;
 }`,
                             codeFile: 'styles.css',
-                            tip: 'Result appears after calculation!',
-                            explanation: 'We style inputs, button, and result display with clean modern design.'
+                            tip: 'This will show "Normal Weight", "Overweight", etc.!',
+                            explanation: 'What this does:\n• font-size: 1rem - Normal size\n• color: #6b7280 - Gray color\n• font-weight: 600 - Semi-bold'
                         },
                         {
-                            title: 'Add Calculation Logic',
-                            description: 'Make the calculator work!',
+                            title: 'Get Input Elements in JavaScript',
+                            description: 'Let\'s connect our JavaScript to the HTML elements!',
                             instruction: 'Add this JavaScript:',
                             code: `const heightInput = document.getElementById('height');
 const weightInput = document.getElementById('weight');
 const calculateBtn = document.getElementById('calculateBtn');
 const result = document.getElementById('result');
 const bmiValue = document.getElementById('bmiValue');
-const bmiCategory = document.getElementById('bmiCategory');
-
-calculateBtn.addEventListener('click', () => {
+const bmiCategory = document.getElementById('bmiCategory');`,
+                            codeFile: 'script.js',
+                            tip: 'getElementById finds elements by their id!',
+                            explanation: 'What this does:\n• Gets each element by its id\n• Stores them in variables\n• Now we can use them in our code'
+                        },
+                        {
+                            title: 'Add Click Event Listener',
+                            description: 'Let\'s make the button do something when clicked!',
+                            instruction: 'Add this JavaScript:',
+                            code: `calculateBtn.addEventListener('click', () => {
+  // We'll add the calculation code here
+});`,
+                            codeFile: 'script.js',
+                            tip: 'addEventListener watches for clicks!',
+                            explanation: 'What this does:\n• addEventListener - Watches for events\n• \'click\' - Waits for button click\n• () => { } - Code that runs when clicked'
+                        },
+                        {
+                            title: 'Get Input Values',
+                            description: 'Let\'s get the height and weight that the user typed!',
+                            instruction: 'Add this inside the click listener:',
+                            code: `calculateBtn.addEventListener('click', () => {
+  const height = parseFloat(heightInput.value);
+  const weight = parseFloat(weightInput.value);
+});`,
+                            codeFile: 'script.js',
+                            tip: 'parseFloat converts text to a number!',
+                            explanation: 'What this does:\n• .value gets what user typed\n• parseFloat converts to number\n• Stores in height and weight variables'
+                        },
+                        {
+                            title: 'Validate Input',
+                            description: 'Let\'s check if the user entered both values!',
+                            instruction: 'Add this validation:',
+                            code: `calculateBtn.addEventListener('click', () => {
   const height = parseFloat(heightInput.value);
   const weight = parseFloat(weightInput.value);
   
@@ -5516,26 +6789,47 @@ calculateBtn.addEventListener('click', () => {
     alert('Please enter both height and weight!');
     return;
   }
-  
-  // Calculate BMI (height in meters)
+});`,
+                            codeFile: 'script.js',
+                            tip: '!height means "if height is empty"!',
+                            explanation: 'What this does:\n• Checks if values are missing\n• Shows alert if empty\n• return stops the code'
+                        },
+                        {
+                            title: 'Calculate BMI',
+                            description: 'Now let\'s do the math to calculate BMI!',
+                            instruction: 'Add the calculation:',
+                            code: `  // Calculate BMI (height in meters)
   const heightInMeters = height / 100;
-  const bmi = (weight / (heightInMeters * heightInMeters)).toFixed(1);
-  
-  // Determine category
+  const bmi = (weight / (heightInMeters * heightInMeters)).toFixed(1);`,
+                            codeFile: 'script.js',
+                            tip: 'BMI formula: weight ÷ (height in meters)²',
+                            explanation: 'What this does:\n• Converts cm to meters (÷ 100)\n• Calculates BMI using formula\n• .toFixed(1) rounds to 1 decimal'
+                        },
+                        {
+                            title: 'Determine BMI Category',
+                            description: 'Let\'s figure out if the BMI is healthy or not!',
+                            instruction: 'Add this category logic:',
+                            code: `  // Determine category
   let category = '';
   if (bmi < 18.5) category = 'Underweight';
   else if (bmi < 25) category = 'Normal Weight';
   else if (bmi < 30) category = 'Overweight';
-  else category = 'Obese';
-  
-  // Display result
-  bmiValue.textContent = bmi;
-  bmiCategory.textContent = category;
-  result.classList.remove('hidden');
-});`,
+  else category = 'Obese';`,
                             codeFile: 'script.js',
                             tip: 'BMI categories: <18.5 underweight, 18.5-24.9 normal, 25-29.9 overweight, 30+ obese',
-                            explanation: 'We calculate BMI using the formula and categorize the result.'
+                            explanation: 'What this does:\n• Checks BMI value\n• Assigns category based on ranges\n• Uses if/else to pick the right one'
+                        },
+                        {
+                            title: 'Display the Result',
+                            description: 'Finally, let\'s show the BMI and category to the user!',
+                            instruction: 'Add this display code:',
+                            code: `  // Display result
+  bmiValue.textContent = bmi;
+  bmiCategory.textContent = category;
+  result.classList.remove('hidden');`,
+                            codeFile: 'script.js',
+                            tip: 'classList.remove makes the hidden result visible!',
+                            explanation: 'What this does:\n• textContent updates the text\n• Shows BMI number and category\n• Removes "hidden" class to show result'
                         }
                     ],
                     learningObjectives: [
