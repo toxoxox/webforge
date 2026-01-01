@@ -14,6 +14,22 @@ const ComponentData = {
                 mobileFirst: false,
                 tags: ['Beginner-Friendly', 'Flexbox', 'CSS-Only'],
                 description: 'Build a professional navigation bar with logo, styled links, and dropdown menus. 15 easy-to-follow steps break down each concept.',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="background: #2c3e50; color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; border-radius: 8px;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <div style="width: 40px; height: 40px; background: #667eea; border-radius: 8px;"></div>
+                            <span style="font-weight: 600; font-size: 1.5rem;">My Website</span>
+                        </div>
+                        <ul style="display: flex; list-style: none; gap: 2rem; margin: 0; padding: 0;">
+                            <li><a href="#" style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; background: rgba(255,255,255,0.1);">Home</a></li>
+                            <li><a href="#" style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px;">About</a></li>
+                            <li style="position: relative;">
+                                <a href="#" style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px;">Services <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle;"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
+                            </li>
+                            <li><a href="#" style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px;">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>`,
                 workshop: {
                     goal: 'Build a professional navigation bar with logo and dropdown menu',
                     duration: '40 minutes',
@@ -391,7 +407,7 @@ const ComponentData = {
                             description: 'Let\'s add a dropdown menu to the Services link! This shows more options when you hover over it.',
                             instruction: 'Find the Services <li> in your HTML and replace it with this code:',
                             code: `<li class="dropdown">
-  <a href="#services" class="nav-link">Services G�+</a>
+  <a href="#services" class="nav-link">Services G•+</a>
   <ul class="dropdown-menu">
     <li><a href="#web" class="dropdown-link">Web Design</a></li>
     <li><a href="#app" class="dropdown-link">App Development</a></li>
@@ -399,8 +415,8 @@ const ComponentData = {
   </ul>
 </li>`,
                             codeFile: 'index.html',
-                            tip: 'A dropdown is a menu inside a menu! We\'re putting a <ul> inside a <li>. The G�+ symbol shows users there\'s a menu!',
-                            explanation: 'Here\'s the structure:\n• <li class="dropdown"> - The main menu item. The "dropdown" class tells CSS this one has a submenu.\n• <a href="#services" class="nav-link">Services G�+</a> - The main link you see. The G�+ is a down arrow symbol that hints there\'s a dropdown!\n• <ul class="dropdown-menu"> - A new list INSIDE the list item! This is the hidden menu.\n• Three <li> items inside - These are the dropdown options (Web Design, App Development, SEO).\n• class="dropdown-link" - Styles these links differently from the main menu links.\n\nThink of it like a folder with files inside. The folder is "Services" and the files are the three options!',
+                            tip: 'A dropdown is a menu inside a menu! We\'re putting a <ul> inside a <li>. The G•+ symbol shows users there\'s a menu!',
+                            explanation: 'Here\'s the structure:\n• <li class="dropdown"> - The main menu item. The "dropdown" class tells CSS this one has a submenu.\n• <a href="#services" class="nav-link">Services G•+</a> - The main link you see. The G•+ is a down arrow symbol that hints there\'s a dropdown!\n• <ul class="dropdown-menu"> - A new list INSIDE the list item! This is the hidden menu.\n• Three <li> items inside - These are the dropdown options (Web Design, App Development, SEO).\n• class="dropdown-link" - Styles these links differently from the main menu links.\n\nThink of it like a folder with files inside. The folder is "Services" and the files are the three options!',
                             validation: {
                                 required: [
                                     {
@@ -619,6 +635,16 @@ const ComponentData = {
                 mobileFirst: false,
                 tags: ['Beginner-Friendly', 'Flexbox', 'CSS-Only'],
                 description: 'Eye-catching hero section with gradient background and call-to-action button. Perfect for landing pages!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 3rem 2rem; border-radius: 16px; text-align: center;">
+                        <h1 style="margin: 0 0 1rem 0; font-size: 2.5rem; font-weight: 800;">Welcome to My Website</h1>
+                        <p style="margin: 0 0 2rem 0; font-size: 1.1rem; opacity: 0.95; max-width: 600px; margin-left: auto; margin-right: auto;">Create amazing web experiences with modern design and powerful features that help you build better websites.</p>
+                        <div style="display: flex; gap: 1rem; justify-content: center;">
+                            <button style="background: white; color: #667eea; border: none; padding: 1rem 2rem; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">Get Started</button>
+                            <button style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white; padding: 1rem 2rem; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer;">Learn More</button>
+                        </div>
+                    </div>
+                </div>`,
                 workshop: {
                     goal: 'Build a full-screen hero section with gradient background and CTA button',
                     duration: '25 minutes',
@@ -1026,6 +1052,16 @@ const ComponentData = {
                 mobileFirst: false,
                 tags: ['Beginner-Friendly', 'Box-Shadow', 'CSS-Only'],
                 description: 'Versatile card component for displaying content with image, title, and action button. 7 easy steps!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="background: white; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); overflow: hidden; max-width: 300px; margin: 1rem auto;">
+                        <img src="https://picsum.photos/300/200" style="width: 100%; height: 200px; object-fit: cover; display: block;" alt="Card image">
+                        <div style="padding: 1.5rem;">
+                            <h3 style="margin: 0 0 0.75rem 0; font-size: 1.5rem; font-weight: 700; color: #1a1a1a;">Card Title</h3>
+                            <p style="margin: 0 0 1.5rem 0; font-size: 1rem; color: #6b7280; line-height: 1.6;">This is a description of the card content. It provides information about what this card represents.</p>
+                            <button style="background: #667eea; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; width: 100%;">Learn More</button>
+                        </div>
+                    </div>
+                </div>`,
                 workshop: {
                     goal: 'Build a beautiful card component with image, text, and button',
                     duration: '20 minutes',
@@ -1318,6 +1354,24 @@ const ComponentData = {
                 mobileFirst: true,
                 tags: ['Responsive', 'Validation', 'Accessible'],
                 description: 'Professional contact form with validation and user feedback.',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); max-width: 400px; margin: 1rem auto;">
+                        <h3 style="margin: 0 0 1.5rem 0; font-size: 1.5rem; font-weight: 700; color: #1a1a1a; text-align: center;">Contact Us</h3>
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151; font-size: 0.9rem;">Name</label>
+                            <input type="text" placeholder="Your name" style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 1rem; box-sizing: border-box;">
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151; font-size: 0.9rem;">Email</label>
+                            <input type="email" placeholder="your@email.com" style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 1rem; box-sizing: border-box;">
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 600; color: #374151; font-size: 0.9rem;">Message</label>
+                            <textarea placeholder="Your message..." style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 1rem; height: 120px; resize: vertical; box-sizing: border-box; font-family: inherit;"></textarea>
+                        </div>
+                        <button style="background: #667eea; color: white; border: none; padding: 0.875rem; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; width: 100%;">Send Message</button>
+                    </div>
+                </div>`,
                 workshop: {
                     goal: 'Build a professional contact form with validation and user feedback',
                     duration: '45 minutes',
@@ -1640,6 +1694,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 mobileFirst: true,
                 tags: ['CSS Grid', 'Responsive', 'Images'],
                 description: 'Responsive image gallery using CSS Grid. Perfect for pet adoption photos, game covers, cultural images, and portfolios!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; padding: 1rem; max-width: 400px; margin: 0 auto;">
+                        <div style="aspect-ratio: 1; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px;"></div>
+                        <div style="aspect-ratio: 1; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 12px;"></div>
+                        <div style="aspect-ratio: 1; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 12px;"></div>
+                        <div style="aspect-ratio: 1; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); border-radius: 12px;"></div>
+                        <div style="aspect-ratio: 1; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); border-radius: 12px;"></div>
+                        <div style="aspect-ratio: 1; background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); border-radius: 12px;"></div>
+                    </div>
+                </div>`,
                 workshop: {
                     goal: 'Build a responsive image gallery that works on all devices',
                     duration: '35 minutes',
@@ -1828,6 +1892,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 mobileFirst: true,
                 tags: ['Flexbox', 'History', 'Storytelling'],
                 description: 'Vertical timeline perfect for historical events, game releases, sports history, and cultural milestones!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="padding: 1.5rem; max-width: 350px; margin: 0 auto;">
+                        <div style="position: relative; padding-left: 2.5rem; padding-bottom: 1.5rem; border-left: 3px solid #667eea;">
+                            <div style="position: absolute; left: -8px; top: 0; width: 12px; height: 12px; background: #667eea; border-radius: 50%;"></div>
+                            <div style="color: #667eea; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.4rem;">2024</div>
+                            <h4 style="margin: 0 0 0.4rem 0; font-size: 1rem; font-weight: 700; color: #1a1a1a;">Latest Event</h4>
+                            <p style="margin: 0; font-size: 0.85rem; color: #6b7280; line-height: 1.5;">Something amazing happened this year</p>
+                        </div>
+                        <div style="position: relative; padding-left: 2.5rem; padding-bottom: 1.5rem; border-left: 3px solid #667eea;">
+                            <div style="position: absolute; left: -8px; top: 0; width: 12px; height: 12px; background: #667eea; border-radius: 50%;"></div>
+                            <div style="color: #667eea; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.4rem;">2020</div>
+                            <h4 style="margin: 0 0 0.4rem 0; font-size: 1rem; font-weight: 700; color: #1a1a1a;">Major Milestone</h4>
+                            <p style="margin: 0; font-size: 0.85rem; color: #6b7280; line-height: 1.5;">Important event in our history</p>
+                        </div>
+                        <div style="position: relative; padding-left: 2.5rem; border-left: 3px solid #667eea;">
+                            <div style="position: absolute; left: -8px; top: 0; width: 12px; height: 12px; background: #667eea; border-radius: 50%;"></div>
+                            <div style="color: #667eea; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.4rem;">2015</div>
+                            <h4 style="margin: 0 0 0.4rem 0; font-size: 1rem; font-weight: 700; color: #1a1a1a;">The Beginning</h4>
+                            <p style="margin: 0; font-size: 0.85rem; color: #6b7280; line-height: 1.5;">Where our story started</p>
+                        </div>
+                    </div>
+                </div>`,
                 workshop: {
                     goal: 'Build an engaging timeline to display historical events',
                     duration: '40 minutes',
@@ -2051,6 +2137,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 mobileFirst: true,
                 tags: ['Flexbox', 'Business', 'Responsive'],
                 description: 'Professional pricing table with featured plan highlight. Perfect for salon packages, gym memberships, and lesson pricing!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="display: flex; gap: 1.5rem; padding: 1.5rem; justify-content: center; flex-wrap: wrap;">
+                        <div style="background: white; border: 2px solid #e5e7eb; border-radius: 16px; padding: 2rem 1.5rem; width: 180px; text-align: center;">
+                            <h4 style="margin: 0 0 1rem 0; font-size: 1.25rem; font-weight: 700; color: #1a1a1a;">Basic</h4>
+                            <div style="font-size: 2.5rem; font-weight: 700; color: #667eea; margin-bottom: 1.5rem;">$29<span style="font-size: 1rem; font-weight: 400; color: #6b7280;">/mo</span></div>
+                            <ul style="list-style: none; padding: 0; margin: 0 0 2rem 0; text-align: left; font-size: 0.9rem; color: #6b7280;">
+                                <li style="padding: 0.5rem 0; border-bottom: 1px solid #e5e7eb;">5 Projects</li>
+                                <li style="padding: 0.5rem 0; border-bottom: 1px solid #e5e7eb;">Basic Support</li>
+                                <li style="padding: 0.5rem 0;">1 GB Storage</li>
+                            </ul>
+                            <button style="width: 100%; padding: 0.75rem; background: #667eea; color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer;">Select</button>
+                        </div>
+                        <div style="background: #667eea; border: 2px solid #667eea; border-radius: 16px; padding: 2rem 1.5rem; width: 180px; text-align: center; transform: scale(1.05); position: relative; color: white;">
+                            <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #10b981; color: white; padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700;">Popular</div>
+                            <h4 style="margin: 0 0 1rem 0; font-size: 1.25rem; font-weight: 700;">Pro</h4>
+                            <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1.5rem;">$49<span style="font-size: 1rem; font-weight: 400;">/mo</span></div>
+                            <ul style="list-style: none; padding: 0; margin: 0 0 2rem 0; text-align: left; font-size: 0.9rem;">
+                                <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">Unlimited</li>
+                                <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">Priority Support</li>
+                                <li style="padding: 0.5rem 0;">10 GB Storage</li>
+                            </ul>
+                            <button style="width: 100%; padding: 0.75rem; background: white; color: #667eea; border: none; border-radius: 10px; font-weight: 600; cursor: pointer;">Select</button>
+                        </div>
+                    </div>
+                </div>`,
                 workshop: {
                     goal: 'Build a professional pricing table for services or products',
                     duration: '35 minutes',
@@ -2355,6 +2466,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 mobileFirst: true,
                 tags: ['Flexbox', 'Social Proof', 'Responsive'],
                 description: 'Customer testimonials section with profile photos and quotes. Build trust for your salon, gym, or music school!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; padding: 1.5rem; max-width: 450px; margin: 0 auto;">
+                        <div style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                                <img src="https://i.pravatar.cc/60?img=1" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;" alt="Customer">
+                                <div>
+                                    <h5 style="margin: 0; color: #1a1a1a; font-size: 0.95rem; font-weight: 700;">Sarah Johnson</h5>
+                                    <p style="margin: 0.2rem 0 0 0; color: #667eea; font-size: 0.8rem; font-weight: 600;">Happy Customer</p>
+                                </div>
+                            </div>
+                            <p style="color: #6b7280; line-height: 1.6; font-style: italic; margin: 0; font-size: 0.85rem;">"Amazing service! Highly recommend to everyone."</p>
+                        </div>
+                        <div style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                                <img src="https://i.pravatar.cc/60?img=5" style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;" alt="Customer">
+                                <div>
+                                    <h5 style="margin: 0; color: #1a1a1a; font-size: 0.95rem; font-weight: 700;">Mike Chen</h5>
+                                    <p style="margin: 0.2rem 0 0 0; color: #667eea; font-size: 0.8rem; font-weight: 600;">Regular Client</p>
+                                </div>
+                            </div>
+                            <p style="color: #6b7280; line-height: 1.6; font-style: italic; margin: 0; font-size: 0.85rem;">"Best experience ever! Will definitely come back."</p>
+                        </div>
+                    </div>
+                </div>`,
                 workshop: {
                     goal: 'Build a testimonials section to showcase customer reviews',
                     duration: '30 minutes',
@@ -2577,6 +2712,42 @@ document.addEventListener('DOMContentLoaded', function() {
                 mobileFirst: true,
                 tags: ['Flexbox', 'Social Media', 'Essential'],
                 description: 'Complete footer with contact info, social media links, and copyright. Essential for every website!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="background: #2c3e50; color: white; padding: 2rem 1.5rem 1rem 1.5rem; border-radius: 12px;">
+                        <div style="display: flex; justify-content: space-between; gap: 2rem; margin-bottom: 1.5rem; font-size: 0.85rem; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 150px;">
+                                <h5 style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 700; color: white;">My Company</h5>
+                                <p style="margin: 0; color: #bdc3c7; font-size: 0.8rem; line-height: 1.5;">Building amazing websites since 2024</p>
+                            </div>
+                            <div style="flex: 1; min-width: 120px;">
+                                <h5 style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 700; color: white;">Quick Links</h5>
+                                <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                                    <a href="#" style="color: #bdc3c7; text-decoration: none; font-size: 0.8rem;">Home</a>
+                                    <a href="#" style="color: #bdc3c7; text-decoration: none; font-size: 0.8rem;">About</a>
+                                    <a href="#" style="color: #bdc3c7; text-decoration: none; font-size: 0.8rem;">Contact</a>
+                                </div>
+                            </div>
+                            <div style="flex: 1; min-width: 120px;">
+                                <h5 style="margin: 0 0 0.75rem 0; font-size: 1rem; font-weight: 700; color: white;">Follow Us</h5>
+                                <div style="display: flex; gap: 0.75rem;">
+                                    <div style="width: 36px; height: 36px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                                        </svg>
+                                    </div>
+                                    <div style="width: 36px; height: 36px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="text-align: center; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1);">
+                            <p style="margin: 0; color: #bdc3c7; font-size: 0.8rem;">© 2024 My Company. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>`,
                 workshop: {
                     goal: 'Build a professional footer with contact and social media links',
                     duration: '25 minutes',
@@ -2649,7 +2820,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <p>&copy; 2024 My Company. All rights reserved.</p>
 </div>`,
                             codeFile: 'index.html',
-                            tip: 'The &copy; symbol creates the -� copyright symbol!',
+                            tip: 'The &copy; symbol creates the -• copyright symbol!',
                             explanation: 'A copyright notice protects your content and looks professional!'
                         },
                         {
@@ -4208,7 +4379,7 @@ if (typeof lucide !== 'undefined') {
                         <div style="border-left: 3px solid #3b82f6; padding-left: 1.5rem; position: relative; margin-bottom: 1.5rem;">
                             <div style="position: absolute; left: -9px; top: 0; width: 14px; height: 14px; background: #3b82f6; border-radius: 50%; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);"></div>
                             <div style="font-size: 0.75rem; color: #3b82f6; font-weight: 700; margin-bottom: 0.4rem;">2024</div>
-                            <div style="font-size: 0.95rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.4rem; cursor: pointer;">Major Event G�+</div>
+                            <div style="font-size: 0.95rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.4rem; cursor: pointer;">Major Event G•+</div>
                             <div style="font-size: 0.75rem; color: #6b7280; line-height: 1.5; background: #f8fafc; padding: 0.75rem; border-radius: 8px; margin-top: 0.5rem;">Full details about this event...</div>
                         </div>
                     </div>
@@ -4311,9 +4482,9 @@ timelineTitles.forEach(title => {
     
     // Add arrow indicator
     if (details.classList.contains('hidden')) {
-      title.textContent = title.textContent.replace('•', 'G�+');
+      title.textContent = title.textContent.replace('•', 'G•+');
     } else {
-      title.textContent = title.textContent.replace('G�+', '•');
+      title.textContent = title.textContent.replace('G•+', '•');
     }
   });
 });`,
@@ -5248,7 +5419,7 @@ updateProgress();`,
   </div>
 </div>`,
                             codeFile: 'index.html',
-                            tip: 'BMI = weight / (height in meters)-�',
+                            tip: 'BMI = weight / (height in meters)-•',
                             explanation: 'We create input fields for height and weight, and a result display area.'
                         },
                         {

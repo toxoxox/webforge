@@ -1,38 +1,4 @@
-/**
- * Component Service - Manages the component forge system
- * 
- * Dependencies:
- * - component-data.js (ComponentData)
- * - component-previews.js (ComponentPreviews)
- */
-
-const ComponentService = {
-    // Component data
-    components: [],
-    filteredComponents: [],
-    currentFilters: {
-        type: 'all',
-        difficulty: 'all',
-        recommended: false,
-        layout: false,
-        interactive: false,
-        beginner: false
-    },
-
-    /**
-     * Initialize the component gallery
-     */
-    initializeGallery() {
-        this.loadComponents();
-        this.setupFilters();
-        this.renderGallery();
-    },
-
-    /**
-     * Load component definitions from ComponentData
-     */
-    loadComponents() {
-        // Load components from external data file
+﻿        // Load components from external data file
         if (typeof ComponentData !== 'undefined' && ComponentData.components) {
             this.components = ComponentData.components;
         } else {
@@ -40,13 +6,8 @@ const ComponentService = {
             this.components = [];
         }
         
-        // Assign preview generators to components that don't have preview HTML
+        // Assign preview generators to each component
         this.components.forEach(component => {
-            // Skip if component already has preview HTML defined in data
-            if (component.preview) {
-                return;
-            }
-            
             // Try to get preview from ComponentPreviews
             if (typeof ComponentPreviews !== 'undefined') {
                 const previewMethod = `generate${this.toPascalCase(component.id)}Preview`;
@@ -55,7 +16,7 @@ const ComponentService = {
                 }
             }
             
-            // If still no preview assigned, create a generic one
+            // If no preview assigned, create a generic one
             if (!component.preview) {
                 component.preview = this.generateGenericPreview(component);
             }
