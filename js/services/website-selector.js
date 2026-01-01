@@ -187,7 +187,7 @@ const WebsiteSelectorService = {
 
         // Close modal when clicking overlay
         const modal = document.getElementById('website-selector-modal');
-        const overlay = modal?.querySelector('.modal-overlay');
+        const overlay = modal?.querySelector('.website-selector-overlay');
         if (overlay) {
             overlay.addEventListener('click', () => {
                 // Only close if a website has already been selected

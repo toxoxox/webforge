@@ -3070,23 +3070,28 @@ document.addEventListener('DOMContentLoaded', function() {
     generateNavbarPreview() {
         return `
             <div class="component-preview-placeholder">
-                <div style="background: #2c3e50; color: white; padding: 0.75rem 1rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem;">
-                    <div style="display: flex; align-items: center; gap: 0.5rem;">
-                        <div style="width: 24px; height: 24px; background: #3498db; border-radius: 4px;"></div>
-                        <span style="font-weight: 600; font-size: 0.85rem;">My Website</span>
-                    </div>
-                    <div style="display: flex; gap: 1rem; position: relative;">
-                        <span style="padding: 0.25rem 0.5rem; border-radius: 3px; transition: background 0.3s;">Home</span>
-                        <span style="padding: 0.25rem 0.5rem; border-radius: 3px;">About</span>
-                        <div style="position: relative;">
-                            <span style="padding: 0.25rem 0.5rem; border-radius: 3px; background: rgba(255,255,255,0.1);">Services ▾</span>
-                            <div style="position: absolute; top: 100%; left: 0; background: #34495e; border-radius: 4px; margin-top: 0.25rem; min-width: 120px; font-size: 0.7rem; box-shadow: 0 2px 8px rgba(0,0,0,0.2);">
-                                <div style="padding: 0.5rem 0.75rem;">Web Design</div>
-                                <div style="padding: 0.5rem 0.75rem;">App Dev</div>
-                                <div style="padding: 0.5rem 0.75rem;">SEO</div>
-                            </div>
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3); border-radius: 12px;">
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div style="width: 32px; height: 32px; background: rgba(255,255,255,0.25); backdrop-filter: blur(10px); border-radius: 8px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                <path d="M2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                            </svg>
                         </div>
-                        <span style="padding: 0.25rem 0.5rem; border-radius: 3px;">Contact</span>
+                        <span style="font-weight: 700; font-size: 0.95rem; letter-spacing: -0.02em;">WebForge</span>
+                    </div>
+                    <div style="display: flex; gap: 1.5rem; position: relative; align-items: center;">
+                        <span style="padding: 0.4rem 0.75rem; border-radius: 8px; transition: all 0.3s; background: rgba(255,255,255,0.15); font-weight: 500;">Home</span>
+                        <span style="padding: 0.4rem 0.75rem; border-radius: 8px; font-weight: 500; opacity: 0.9;">About</span>
+                        <div style="position: relative;">
+                            <span style="padding: 0.4rem 0.75rem; border-radius: 8px; background: rgba(255,255,255,0.1); font-weight: 500; display: flex; align-items: center; gap: 0.3rem;">
+                                Services
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </span>
+                        </div>
+                        <span style="padding: 0.4rem 0.75rem; border-radius: 8px; font-weight: 500; opacity: 0.9;">Contact</span>
                     </div>
                 </div>
             </div>
@@ -3096,18 +3101,22 @@ document.addEventListener('DOMContentLoaded', function() {
     generateHeroPreview() {
         return `
             <div class="component-preview-placeholder">
-                <div style="background: #667eea; color: white; padding: 1.5rem; height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem 1.5rem; height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; border-radius: 16px; box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);">
                     <div style="flex: 1; max-width: 55%;">
-                        <h3 style="margin: 0 0 0.5rem 0; font-size: 1rem; font-weight: 700;">Hi, I'm Learning to Code!</h3>
-                        <p style="margin: 0 0 0.75rem 0; font-size: 0.7rem; opacity: 0.9; line-height: 1.3;">Building awesome websites</p>
-                        <button style="background: #4CAF50; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);">See My Projects</button>
+                        <div style="display: inline-block; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 0.3rem 0.75rem; border-radius: 20px; font-size: 0.65rem; font-weight: 600; margin-bottom: 0.75rem; border: 1px solid rgba(255,255,255,0.3);">✨ Welcome</div>
+                        <h3 style="margin: 0 0 0.5rem 0; font-size: 1.2rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.2;">Build Amazing Websites</h3>
+                        <p style="margin: 0 0 1rem 0; font-size: 0.75rem; opacity: 0.95; line-height: 1.5;">Create stunning web experiences with modern design and powerful features</p>
+                        <div style="display: flex; gap: 0.75rem;">
+                            <button style="background: white; color: #667eea; border: none; padding: 0.6rem 1.2rem; border-radius: 10px; font-size: 0.75rem; font-weight: 700; box-shadow: 0 8px 24px rgba(0,0,0,0.15); cursor: pointer;">Get Started</button>
+                            <button style="background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); color: white; border: 1px solid rgba(255,255,255,0.3); padding: 0.6rem 1.2rem; border-radius: 10px; font-size: 0.75rem; font-weight: 600; cursor: pointer;">Learn More</button>
+                        </div>
                     </div>
                     <div style="flex: 1; max-width: 45%; display: flex; align-items: center; justify-content: center;">
-                        <div style="width: 100%; aspect-ratio: 1; background: rgba(255,255,255,0.2); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                                <polyline points="21 15 16 10 5 21"></polyline>
+                        <div style="width: 100%; aspect-ratio: 1; background: rgba(255,255,255,0.15); backdrop-filter: blur(20px); border-radius: 20px; display: flex; align-items: center; justify-content: center; border: 2px solid rgba(255,255,255,0.2); box-shadow: 0 20px 40px rgba(0,0,0,0.2);">
+                            <svg width="70" height="70" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
                             </svg>
                         </div>
                     </div>
@@ -3119,12 +3128,15 @@ document.addEventListener('DOMContentLoaded', function() {
     generateCardPreview() {
         return `
             <div class="component-preview-placeholder">
-                <div style="background: white; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; max-width: 200px; margin: 1rem auto;">
-                    <img src="https://picsum.photos/200/100" style="width: 100%; height: 100px; object-fit: cover; display: block;" alt="Card preview">
-                    <div style="padding: 1.2rem;">
-                        <h4 style="margin: 0 0 0.5rem 0; font-size: 0.95rem; font-weight: 700; color: #1a1a1a; letter-spacing: -0.02em;">Amazing Discovery</h4>
-                        <p style="margin: 0 0 0.85rem 0; font-size: 0.7rem; color: #6b7280; line-height: 1.5;">Explore the beauty of nature...</p>
-                        <button style="background: #667eea; color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.7rem; width: 100%; font-weight: 600;">Learn More</button>
+                <div style="background: white; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.12); overflow: hidden; max-width: 220px; margin: 1rem auto; border: 1px solid rgba(0,0,0,0.05); transition: transform 0.3s;">
+                    <div style="position: relative; overflow: hidden;">
+                        <img src="https://picsum.photos/220/140" style="width: 100%; height: 140px; object-fit: cover; display: block;" alt="Card preview">
+                        <div style="position: absolute; top: 0.75rem; right: 0.75rem; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); padding: 0.3rem 0.6rem; border-radius: 20px; font-size: 0.65rem; font-weight: 700; color: #667eea; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">Featured</div>
+                    </div>
+                    <div style="padding: 1.5rem;">
+                        <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem; font-weight: 800; color: #1a1a1a; letter-spacing: -0.03em; line-height: 1.3;">Amazing Discovery</h4>
+                        <p style="margin: 0 0 1rem 0; font-size: 0.75rem; color: #6b7280; line-height: 1.6;">Explore the beauty of modern web design with stunning components</p>
+                        <button style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 0.65rem 1.25rem; border-radius: 12px; font-size: 0.75rem; width: 100%; font-weight: 700; box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3); cursor: pointer;">Learn More</button>
                     </div>
                 </div>
             </div>
@@ -3134,18 +3146,19 @@ document.addEventListener('DOMContentLoaded', function() {
     generateFormPreview() {
         return `
             <div class="component-preview-placeholder">
-                <div style="background: #667eea; padding: 1.2rem; border-radius: 16px; box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3); max-width: 250px; margin: 0.5rem auto;">
-                    <h4 style="margin: 0 0 1rem 0; font-size: 0.95rem; font-weight: 700; color: white; text-align: center;">Get In Touch</h4>
-                    <div style="margin-bottom: 0.75rem;">
-                        <input type="text" placeholder="Your Name" style="width: 100%; background: rgba(255,255,255,0.95); border: none; padding: 0.6rem; border-radius: 8px; font-size: 0.7rem; box-sizing: border-box;">
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 1.75rem; border-radius: 20px; box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4); max-width: 280px; margin: 0.5rem auto; border: 1px solid rgba(255,255,255,0.2);">
+                    <h4 style="margin: 0 0 0.5rem 0; font-size: 1.1rem; font-weight: 800; color: white; text-align: center; letter-spacing: -0.02em;">Get In Touch</h4>
+                    <p style="margin: 0 0 1.25rem 0; font-size: 0.7rem; color: rgba(255,255,255,0.9); text-align: center;">We'd love to hear from you</p>
+                    <div style="margin-bottom: 0.85rem;">
+                        <input type="text" placeholder="Your Name" style="width: 100%; background: rgba(255,255,255,0.95); border: 2px solid transparent; padding: 0.75rem; border-radius: 12px; font-size: 0.75rem; box-sizing: border-box; font-weight: 500; transition: all 0.3s;">
                     </div>
-                    <div style="margin-bottom: 0.75rem;">
-                        <input type="email" placeholder="your@email.com" style="width: 100%; background: rgba(255,255,255,0.95); border: none; padding: 0.6rem; border-radius: 8px; font-size: 0.7rem; box-sizing: border-box;">
+                    <div style="margin-bottom: 0.85rem;">
+                        <input type="email" placeholder="your@email.com" style="width: 100%; background: rgba(255,255,255,0.95); border: 2px solid transparent; padding: 0.75rem; border-radius: 12px; font-size: 0.75rem; box-sizing: border-box; font-weight: 500;">
                     </div>
-                    <div style="margin-bottom: 0.75rem;">
-                        <textarea placeholder="Your message..." style="width: 100%; background: rgba(255,255,255,0.95); border: none; padding: 0.6rem; border-radius: 8px; font-size: 0.7rem; height: 50px; resize: none; box-sizing: border-box;"></textarea>
+                    <div style="margin-bottom: 1rem;">
+                        <textarea placeholder="Your message..." style="width: 100%; background: rgba(255,255,255,0.95); border: 2px solid transparent; padding: 0.75rem; border-radius: 12px; font-size: 0.75rem; height: 70px; resize: none; box-sizing: border-box; font-weight: 500; font-family: inherit;"></textarea>
                     </div>
-                    <button style="background: white; color: #667eea; border: none; padding: 0.6rem; border-radius: 8px; font-size: 0.75rem; width: 100%; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">Send Message</button>
+                    <button style="background: white; color: #667eea; border: none; padding: 0.75rem; border-radius: 12px; font-size: 0.8rem; width: 100%; font-weight: 700; box-shadow: 0 8px 24px rgba(0,0,0,0.15); cursor: pointer;">Send Message</button>
                 </div>
             </div>
         `;
@@ -3154,13 +3167,13 @@ document.addEventListener('DOMContentLoaded', function() {
     generateGalleryPreview() {
         return `
             <div class="component-preview-placeholder">
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; padding: 1rem; max-width: 300px; margin: 0 auto;">
-                    <div style="aspect-ratio: 1; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px;"></div>
-                    <div style="aspect-ratio: 1; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 8px;"></div>
-                    <div style="aspect-ratio: 1; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 8px;"></div>
-                    <div style="aspect-ratio: 1; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); border-radius: 8px;"></div>
-                    <div style="aspect-ratio: 1; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); border-radius: 8px;"></div>
-                    <div style="aspect-ratio: 1; background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); border-radius: 8px;"></div>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; padding: 1rem; max-width: 320px; margin: 0 auto;">
+                    <div style="aspect-ratio: 1; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3); transition: transform 0.3s;"></div>
+                    <div style="aspect-ratio: 1; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 16px; box-shadow: 0 8px 24px rgba(240, 147, 251, 0.3);"></div>
+                    <div style="aspect-ratio: 1; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); border-radius: 16px; box-shadow: 0 8px 24px rgba(79, 172, 254, 0.3);"></div>
+                    <div style="aspect-ratio: 1; background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); border-radius: 16px; box-shadow: 0 8px 24px rgba(67, 233, 123, 0.3);"></div>
+                    <div style="aspect-ratio: 1; background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); border-radius: 16px; box-shadow: 0 8px 24px rgba(250, 112, 154, 0.3);"></div>
+                    <div style="aspect-ratio: 1; background: linear-gradient(135deg, #30cfd0 0%, #330867 100%); border-radius: 16px; box-shadow: 0 8px 24px rgba(48, 207, 208, 0.3);"></div>
                 </div>
             </div>
         `;
@@ -3169,18 +3182,18 @@ document.addEventListener('DOMContentLoaded', function() {
     generateTimelinePreview() {
         return `
             <div class="component-preview-placeholder">
-                <div style="padding: 1rem; max-width: 280px; margin: 0 auto;">
-                    <div style="border-left: 3px solid #667eea; padding-left: 1.5rem; position: relative; margin-bottom: 1.5rem;">
-                        <div style="position: absolute; left: -8px; top: 0; width: 12px; height: 12px; background: #667eea; border-radius: 50%;"></div>
-                        <div style="font-size: 0.75rem; color: #667eea; font-weight: 600; margin-bottom: 0.3rem;">2024</div>
-                        <div style="font-size: 0.9rem; font-weight: 600; color: #333; margin-bottom: 0.3rem;">Event Title</div>
-                        <div style="font-size: 0.75rem; color: #666;">Brief description</div>
+                <div style="padding: 1.5rem; max-width: 300px; margin: 0 auto;">
+                    <div style="border-left: 4px solid #667eea; padding-left: 2rem; position: relative; margin-bottom: 2rem;">
+                        <div style="position: absolute; left: -10px; top: 0; width: 16px; height: 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);"></div>
+                        <div style="font-size: 0.7rem; color: #667eea; font-weight: 700; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.05em;">2024</div>
+                        <div style="font-size: 0.95rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.4rem; letter-spacing: -0.02em;">Major Milestone</div>
+                        <div style="font-size: 0.75rem; color: #6b7280; line-height: 1.5;">Achieved significant progress in our journey</div>
                     </div>
-                    <div style="border-left: 3px solid #667eea; padding-left: 1.5rem; position: relative;">
-                        <div style="position: absolute; left: -8px; top: 0; width: 12px; height: 12px; background: #667eea; border-radius: 50%;"></div>
-                        <div style="font-size: 0.75rem; color: #667eea; font-weight: 600; margin-bottom: 0.3rem;">2023</div>
-                        <div style="font-size: 0.9rem; font-weight: 600; color: #333; margin-bottom: 0.3rem;">Event Title</div>
-                        <div style="font-size: 0.75rem; color: #666;">Brief description</div>
+                    <div style="border-left: 4px solid #667eea; padding-left: 2rem; position: relative;">
+                        <div style="position: absolute; left: -10px; top: 0; width: 16px; height: 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);"></div>
+                        <div style="font-size: 0.7rem; color: #667eea; font-weight: 700; margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.05em;">2023</div>
+                        <div style="font-size: 0.95rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.4rem; letter-spacing: -0.02em;">Foundation Built</div>
+                        <div style="font-size: 0.75rem; color: #6b7280; line-height: 1.5;">Started our amazing adventure</div>
                     </div>
                 </div>
             </div>
@@ -3190,16 +3203,18 @@ document.addEventListener('DOMContentLoaded', function() {
     generatePricingPreview() {
         return `
             <div class="component-preview-placeholder">
-                <div style="display: flex; gap: 0.5rem; padding: 1rem; justify-content: center;">
-                    <div style="background: white; border: 2px solid #e5e7eb; border-radius: 12px; padding: 1rem; width: 120px; text-align: center;">
-                        <div style="font-size: 0.75rem; color: #666; margin-bottom: 0.5rem;">Basic</div>
-                        <div style="font-size: 1.5rem; font-weight: 700; color: #333; margin-bottom: 0.5rem;">$29</div>
-                        <button style="width: 100%; background: #e5e7eb; color: #333; border: none; padding: 0.4rem; border-radius: 6px; font-size: 0.7rem; font-weight: 600;">Select</button>
+                <div style="display: flex; gap: 0.75rem; padding: 1rem; justify-content: center;">
+                    <div style="background: white; border: 2px solid #e5e7eb; border-radius: 16px; padding: 1.25rem; width: 130px; text-align: center; transition: transform 0.3s;">
+                        <div style="font-size: 0.7rem; color: #6b7280; margin-bottom: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Basic</div>
+                        <div style="font-size: 1.75rem; font-weight: 800; color: #1a1a1a; margin-bottom: 0.25rem; letter-spacing: -0.03em;">$29</div>
+                        <div style="font-size: 0.65rem; color: #9ca3af; margin-bottom: 1rem;">per month</div>
+                        <button style="width: 100%; background: #f3f4f6; color: #374151; border: none; padding: 0.6rem; border-radius: 10px; font-size: 0.75rem; font-weight: 700; cursor: pointer;">Choose Plan</button>
                     </div>
-                    <div style="background: #667eea; border: 2px solid #667eea; border-radius: 12px; padding: 1rem; width: 120px; text-align: center; transform: scale(1.05);">
-                        <div style="font-size: 0.75rem; color: white; margin-bottom: 0.5rem;">Pro</div>
-                        <div style="font-size: 1.5rem; font-weight: 700; color: white; margin-bottom: 0.5rem;">$49</div>
-                        <button style="width: 100%; background: white; color: #667eea; border: none; padding: 0.4rem; border-radius: 6px; font-size: 0.7rem; font-weight: 600;">Select</button>
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: 2px solid #667eea; border-radius: 16px; padding: 1.25rem; width: 130px; text-align: center; transform: scale(1.08); box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);">
+                        <div style="font-size: 0.7rem; color: rgba(255,255,255,0.95); margin-bottom: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Pro</div>
+                        <div style="font-size: 1.75rem; font-weight: 800; color: white; margin-bottom: 0.25rem; letter-spacing: -0.03em;">$49</div>
+                        <div style="font-size: 0.65rem; color: rgba(255,255,255,0.85); margin-bottom: 1rem;">per month</div>
+                        <button style="width: 100%; background: white; color: #667eea; border: none; padding: 0.6rem; border-radius: 10px; font-size: 0.75rem; font-weight: 700; box-shadow: 0 8px 24px rgba(0,0,0,0.15); cursor: pointer;">Choose Plan</button>
                     </div>
                 </div>
             </div>
@@ -3209,15 +3224,27 @@ document.addEventListener('DOMContentLoaded', function() {
     generateTestimonialPreview() {
         return `
             <div class="component-preview-placeholder">
-                <div style="background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 280px; margin: 1rem auto;">
-                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-                        <div style="width: 50px; height: 50px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%;"></div>
+                <div style="background: white; border-radius: 20px; padding: 1.75rem; box-shadow: 0 20px 60px rgba(0,0,0,0.12); max-width: 300px; margin: 1rem auto; border: 1px solid rgba(0,0,0,0.05); position: relative;">
+                    <div style="position: absolute; top: 1.25rem; right: 1.25rem; opacity: 0.1;">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="#667eea">
+                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                        </svg>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem;">
+                        <div style="width: 56px; height: 56px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);"></div>
                         <div>
-                            <div style="font-size: 0.9rem; font-weight: 600; color: #333;">Customer Name</div>
-                            <div style="font-size: 0.75rem; color: #666;">Happy Client</div>
+                            <div style="font-size: 0.95rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.2rem; letter-spacing: -0.02em;">Sarah Johnson</div>
+                            <div style="font-size: 0.75rem; color: #6b7280; font-weight: 500;">Happy Client</div>
                         </div>
                     </div>
-                    <p style="margin: 0; font-size: 0.85rem; color: #666; line-height: 1.5; font-style: italic;">"This service exceeded my expectations. Highly recommended!"</p>
+                    <p style="margin: 0; font-size: 0.85rem; color: #4b5563; line-height: 1.7; font-style: italic;">"This service exceeded my expectations. The attention to detail and quality is outstanding!"</p>
+                    <div style="display: flex; gap: 0.25rem; margin-top: 1rem;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="#fbbf24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
                 </div>
             </div>
         `;
@@ -3226,19 +3253,32 @@ document.addEventListener('DOMContentLoaded', function() {
     generateFooterPreview() {
         return `
             <div class="component-preview-placeholder">
-                <div style="background: #2c3e50; color: white; padding: 1.5rem; border-radius: 8px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; font-size: 0.75rem;">
-                        <div>
-                            <div style="font-weight: 600; margin-bottom: 0.3rem;">Company Name</div>
-                            <div style="opacity: 0.8;">contact@example.com</div>
+                <div style="background: linear-gradient(135deg, #1f2937 0%, #111827 100%); color: white; padding: 2rem 1.5rem; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1.5rem; font-size: 0.75rem; flex-wrap: wrap; gap: 1.5rem;">
+                        <div style="flex: 1; min-width: 150px;">
+                            <div style="font-weight: 800; margin-bottom: 0.75rem; font-size: 1rem; letter-spacing: -0.02em;">WebForge</div>
+                            <div style="opacity: 0.8; line-height: 1.6; font-size: 0.7rem; margin-bottom: 0.5rem;">Building the future of web development</div>
+                            <div style="opacity: 0.7; font-size: 0.7rem;">contact@webforge.dev</div>
                         </div>
-                        <div style="display: flex; gap: 0.5rem;">
-                            <div style="width: 24px; height: 24px; background: rgba(255,255,255,0.2); border-radius: 50%;"></div>
-                            <div style="width: 24px; height: 24px; background: rgba(255,255,255,0.2); border-radius: 50%;"></div>
-                            <div style="width: 24px; height: 24px; background: rgba(255,255,255,0.2); border-radius: 50%;"></div>
+                        <div style="display: flex; gap: 0.75rem; align-items: center;">
+                            <div style="width: 36px; height: 36px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2); cursor: pointer; transition: all 0.3s;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                </svg>
+                            </div>
+                            <div style="width: 36px; height: 36px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2); cursor: pointer;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                                </svg>
+                            </div>
+                            <div style="width: 36px; height: 36px; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.2); cursor: pointer;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+                                    <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                            </div>
                         </div>
                     </div>
-                    <div style="text-align: center; font-size: 0.7rem; opacity: 0.7; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 1rem;">© 2024 All rights reserved</div>
+                    <div style="text-align: center; font-size: 0.7rem; opacity: 0.6; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.25rem; font-weight: 500;">© 2024 WebForge. All rights reserved.</div>
                 </div>
             </div>
         `;
