@@ -259,7 +259,7 @@ const TutorialEngine = {
                         'Add the basic navigation container to your HTML.',
                         'index.html',
                         'body',
-                        '<nav class="navbar">\n  <div class="nav-brand">My Site</div>\n  <ul class="nav-links">\n    <li><a href="#home">Home</a></li>\n    <li><a href="#about">About</a></li>\n    <li><a href="#contact">Contact</a></li>\n  </ul>\n</nav>',
+                        '<nav class="navbar">\n  <div class="nav-brand">\n    <img src="img/workshop-icon.png" alt="Workshop Logo" class="nav-logo">\n    <span>My Site</span>\n  </div>\n  <ul class="nav-links">\n    <li><a href="#home">Home</a></li>\n    <li><a href="#about">About</a></li>\n    <li><a href="#contact">Contact</a></li>\n  </ul>\n</nav>',
                         'The nav element provides semantic structure for navigation.',
                         'Add the nav element inside the body tag.'
                     ),
@@ -268,7 +268,7 @@ const TutorialEngine = {
                         'Add CSS to make the navigation look professional.',
                         'styles.css',
                         '/* Navigation styles */',
-                        '.navbar {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 1rem 2rem;\n  background: #333;\n  color: white;\n}',
+                        '.navbar {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 1rem 2rem;\n  background: #333;\n  color: white;\n}\n\n.nav-brand {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n\n.nav-logo {\n  width: 32px;\n  height: 32px;\n}',
                         'Flexbox makes it easy to align navigation items.',
                         'Use display: flex to make the navbar a flex container.'
                     ),

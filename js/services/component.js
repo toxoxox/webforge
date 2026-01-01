@@ -1345,6 +1345,17 @@ const ComponentService = {
                 tags: ['Responsive', 'Validation', 'Accessible'],
                 description: 'Professional contact form with validation and user feedback.',
                 preview: this.generateFormPreview(),
+                workshop: {
+                    goal: 'Build a professional contact form with validation and user feedback',
+                    duration: '45 minutes',
+                    steps: [],
+                    learningObjectives: [
+                        'Learn how to structure HTML forms',
+                        'Understand form validation with JavaScript',
+                        'Master form styling with CSS',
+                        'Create responsive forms for mobile devices'
+                    ]
+                },
                 html: `<form class="contact-form" id="contact-form">
   <h2>Get In Touch</h2>
   <div class="form-group">
