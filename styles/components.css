@@ -2091,6 +2091,32 @@
     height: 16px;
 }
 
+/* ===== WEBSITE TYPE SELECTOR BUTTON (Always Visible) ===== */
+.website-type-selector-btn {
+    background: var(--modern-primary) !important;
+    border-color: var(--modern-primary) !important;
+    color: white !important;
+    font-weight: 600;
+    min-width: 200px;
+    justify-content: center;
+}
+
+.website-type-selector-btn:hover {
+    background: var(--modern-primary-hover) !important;
+    border-color: var(--modern-primary-hover) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
+}
+
+.website-type-selector-btn i {
+    width: 18px;
+    height: 18px;
+}
+
+#current-website-type-text {
+    font-weight: 600;
+}
+
 /* ===== RECOMMENDED BADGE ===== */
 .component-card.recommended {
     border: 2px solid var(--modern-primary);

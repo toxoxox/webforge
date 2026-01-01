@@ -177,10 +177,18 @@ const WebsiteSelectorService = {
             });
         });
 
-        // Change website button
+        // Change website button (in banner)
         const changeBtn = document.getElementById('change-website-btn');
         if (changeBtn) {
             changeBtn.addEventListener('click', () => {
+                this.showModal();
+            });
+        }
+
+        // Website type selector button (always visible in filters)
+        const selectorBtn = document.getElementById('website-type-selector-btn');
+        if (selectorBtn) {
+            selectorBtn.addEventListener('click', () => {
                 this.showModal();
             });
         }
@@ -247,11 +255,17 @@ const WebsiteSelectorService = {
         const banner = document.getElementById('selected-website-banner');
         const text = document.getElementById('website-type-text');
         const recommendedFilter = document.getElementById('recommended-filter-group');
+        const selectorBtnText = document.getElementById('current-website-type-text');
 
         if (!this.selectedWebsite || this.selectedWebsite === 'other') {
             // Hide banner and recommended filter for "other"
             if (banner) banner.style.display = 'none';
             if (recommendedFilter) recommendedFilter.style.display = 'none';
+            
+            // Update selector button to show "Show All"
+            if (selectorBtnText) {
+                selectorBtnText.textContent = 'Show All Components';
+            }
             return;
         }
 
@@ -266,6 +280,11 @@ const WebsiteSelectorService = {
         // Show recommended filter
         if (recommendedFilter) {
             recommendedFilter.style.display = 'block';
+        }
+
+        // Update selector button text
+        if (selectorBtnText) {
+            selectorBtnText.textContent = websiteInfo.name;
         }
 
         // Reinitialize icons
