@@ -2843,6 +2843,2577 @@ document.addEventListener('DOMContentLoaded', function() {
                         description: 'Link to social profiles and contact information'
                     }
                 ]
+            },
+
+            // NEW COMPONENTS START HERE
+
+            // Before-After Image Slider
+            {
+                id: 'before-after-slider',
+                name: 'Before-After Image Slider',
+                type: 'ui-elements',
+                difficulty: 'intermediate',
+                hasJS: true,
+                mobileFirst: false,
+                tags: ['Interactive', 'JavaScript', 'Images'],
+                description: 'Interactive slider to compare two images side by side. Perfect for showing transformations!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="position: relative; width: 280px; height: 180px; margin: 1rem auto; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.15);">
+                        <div style="position: absolute; width: 50%; height: 100%; background: #e5e7eb; display: flex; align-items: center; justify-content: center; color: #6b7280; font-weight: 600;">Before</div>
+                        <div style="position: absolute; right: 0; width: 50%; height: 100%; background: #3b82f6; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">After</div>
+                        <div style="position: absolute; left: 50%; top: 0; bottom: 0; width: 3px; background: white; box-shadow: 0 0 10px rgba(0,0,0,0.3);"></div>
+                        <div style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; background: white; border-radius: 50%; box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2">
+                                <polyline points="15 18 9 12 15 6"></polyline>
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                </div>`,
+                workshop: {
+                    goal: 'Build an interactive before-after image comparison slider',
+                    duration: '30 minutes',
+                    steps: [
+                        {
+                            title: 'Create the Container',
+                            description: 'Let\'s make a box to hold our before and after images!',
+                            instruction: 'Add this HTML:',
+                            code: `<div class="before-after-slider">
+  <div class="before-image">
+    <img src="before.jpg" alt="Before">
+  </div>
+  <div class="after-image">
+    <img src="after.jpg" alt="After">
+  </div>
+  <div class="slider-handle"></div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'The slider will let users drag to compare images!',
+                            explanation: 'We create a container with before/after images and a draggable handle.'
+                        },
+                        {
+                            title: 'Style the Container',
+                            description: 'Make the container look nice!',
+                            instruction: 'Add this CSS:',
+                            code: `.before-after-slider {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.before-image, .after-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.before-image img, .after-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.after-image {
+  clip-path: inset(0 50% 0 0);
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'clip-path cuts the after image in half!',
+                            explanation: 'We position images absolutely and use clip-path to show only half of the after image.'
+                        },
+                        {
+                            title: 'Add the Slider Handle',
+                            description: 'Create the draggable handle in the middle!',
+                            instruction: 'Add this CSS:',
+                            code: `.slider-handle {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: white;
+  cursor: ew-resize;
+  transform: translateX(-50%);
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.slider-handle::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'The handle shows where to drag!',
+                            explanation: 'We create a vertical line with a circular handle in the middle.'
+                        },
+                        {
+                            title: 'Add JavaScript for Dragging',
+                            description: 'Make the slider interactive!',
+                            instruction: 'Add this JavaScript:',
+                            code: `const slider = document.querySelector('.before-after-slider');
+const handle = document.querySelector('.slider-handle');
+const afterImage = document.querySelector('.after-image');
+
+let isDragging = false;
+
+handle.addEventListener('mousedown', () => {
+  isDragging = true;
+});
+
+document.addEventListener('mouseup', () => {
+  isDragging = false;
+});
+
+document.addEventListener('mousemove', (e) => {
+  if (!isDragging) return;
+  
+  const rect = slider.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const percent = (x / rect.width) * 100;
+  
+  if (percent >= 0 && percent <= 100) {
+    handle.style.left = percent + '%';
+    afterImage.style.clipPath = \`inset(0 \${100 - percent}% 0 0)\`;
+  }
+});`,
+                            codeFile: 'script.js',
+                            tip: 'Now you can drag the handle to compare!',
+                            explanation: 'We track mouse movement and update the handle position and clip-path.'
+                        }
+                    ],
+                    learningObjectives: [
+                        'Use clip-path for image masking',
+                        'Handle mouse drag events',
+                        'Calculate percentages for positioning',
+                        'Create interactive UI elements'
+                    ]
+                },
+                useCases: [
+                    {
+                        title: 'Salon Websites',
+                        description: 'Show before/after photos of haircuts or treatments'
+                    },
+                    {
+                        title: 'Portfolio Sites',
+                        description: 'Display design improvements or photo editing work'
+                    }
+                ]
+            },
+
+            // Appointment Time Slot Selector
+            {
+                id: 'appointment-selector',
+                name: 'Appointment Time Slot Selector',
+                type: 'forms',
+                difficulty: 'intermediate',
+                hasJS: true,
+                mobileFirst: false,
+                tags: ['Interactive', 'JavaScript', 'Forms'],
+                description: 'Interactive time slot picker for booking appointments. Click to select available times!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); max-width: 300px; margin: 1rem auto;">
+                        <h4 style="margin: 0 0 1rem 0; font-size: 1rem; font-weight: 700; color: #1a1a1a;">Select Time</h4>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem;">
+                            <div style="padding: 0.6rem; border: 2px solid #e5e7eb; border-radius: 8px; text-align: center; font-size: 0.75rem; font-weight: 600; cursor: pointer;">9:00 AM</div>
+                            <div style="padding: 0.6rem; border: 2px solid #3b82f6; background: #3b82f6; color: white; border-radius: 8px; text-align: center; font-size: 0.75rem; font-weight: 600;">10:00 AM</div>
+                            <div style="padding: 0.6rem; border: 2px solid #e5e7eb; border-radius: 8px; text-align: center; font-size: 0.75rem; font-weight: 600;">11:00 AM</div>
+                            <div style="padding: 0.6rem; background: #f3f4f6; color: #9ca3af; border: 2px solid #e5e7eb; border-radius: 8px; text-align: center; font-size: 0.75rem; font-weight: 600;">1:00 PM</div>
+                            <div style="padding: 0.6rem; border: 2px solid #e5e7eb; border-radius: 8px; text-align: center; font-size: 0.75rem; font-weight: 600;">2:00 PM</div>
+                            <div style="padding: 0.6rem; border: 2px solid #e5e7eb; border-radius: 8px; text-align: center; font-size: 0.75rem; font-weight: 600;">3:00 PM</div>
+                        </div>
+                    </div>
+                </div>`,
+                workshop: {
+                    goal: 'Build a clickable time slot selector for appointments',
+                    duration: '25 minutes',
+                    steps: [
+                        {
+                            title: 'Create Time Slots',
+                            description: 'Let\'s make buttons for different appointment times!',
+                            instruction: 'Add this HTML:',
+                            code: `<div class="appointment-selector">
+  <h3>Select Your Time</h3>
+  <div class="time-slots">
+    <button class="time-slot" data-time="9:00">9:00 AM</button>
+    <button class="time-slot" data-time="10:00">10:00 AM</button>
+    <button class="time-slot" data-time="11:00">11:00 AM</button>
+    <button class="time-slot" data-time="13:00">1:00 PM</button>
+    <button class="time-slot" data-time="14:00">2:00 PM</button>
+    <button class="time-slot" data-time="15:00">3:00 PM</button>
+  </div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Each button is a time slot users can pick!',
+                            explanation: 'We create buttons for each available time slot with data attributes.'
+                        },
+                        {
+                            title: 'Style the Time Slots',
+                            description: 'Make the time slots look like buttons!',
+                            instruction: 'Add this CSS:',
+                            code: `.appointment-selector {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  max-width: 400px;
+}
+
+.time-slots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.time-slot {
+  padding: 0.75rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.time-slot:hover {
+  border-color: #3b82f6;
+  background: #eff6ff;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Grid makes the slots line up nicely!',
+                            explanation: 'We use CSS Grid to arrange time slots in rows of 3.'
+                        },
+                        {
+                            title: 'Add Selected State',
+                            description: 'Show which time is selected!',
+                            instruction: 'Add this CSS:',
+                            code: `.time-slot.selected {
+  border-color: #3b82f6;
+  background: #3b82f6;
+  color: white;
+}
+
+.time-slot.unavailable {
+  background: #f3f4f6;
+  color: #9ca3af;
+  cursor: not-allowed;
+  border-color: #e5e7eb;
+}
+
+.time-slot.unavailable:hover {
+  background: #f3f4f6;
+  border-color: #e5e7eb;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Selected slots turn blue!',
+                            explanation: 'We style selected slots differently and disable unavailable ones.'
+                        },
+                        {
+                            title: 'Add Click Functionality',
+                            description: 'Make slots clickable!',
+                            instruction: 'Add this JavaScript:',
+                            code: `const timeSlots = document.querySelectorAll('.time-slot');
+
+timeSlots.forEach(slot => {
+  slot.addEventListener('click', () => {
+    // Remove selected from all slots
+    timeSlots.forEach(s => s.classList.remove('selected'));
+    
+    // Add selected to clicked slot
+    slot.classList.add('selected');
+    
+    // Get the selected time
+    const selectedTime = slot.dataset.time;
+    console.log('Selected time:', selectedTime);
+  });
+});`,
+                            codeFile: 'script.js',
+                            tip: 'Now you can click to select a time!',
+                            explanation: 'We add click listeners to toggle the selected state.'
+                        }
+                    ],
+                    learningObjectives: [
+                        'Create interactive button grids',
+                        'Handle click events',
+                        'Toggle CSS classes with JavaScript',
+                        'Use data attributes for values'
+                    ]
+                },
+                useCases: [
+                    {
+                        title: 'Salon Websites',
+                        description: 'Let customers book appointment times'
+                    },
+                    {
+                        title: 'Medical Sites',
+                        description: 'Schedule doctor appointments'
+                    }
+                ]
+            },
+
+            // Genre Filter Tabs
+            {
+                id: 'genre-filter-tabs',
+                name: 'Genre Filter Tabs',
+                type: 'interactions',
+                difficulty: 'beginner',
+                hasJS: true,
+                mobileFirst: false,
+                tags: ['Interactive', 'JavaScript', 'Filters'],
+                description: 'Clickable tabs to filter content by category. Perfect for organizing games, products, or articles!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); max-width: 320px; margin: 1rem auto;">
+                        <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; border-bottom: 2px solid #e5e7eb;">
+                            <button style="padding: 0.75rem 1.25rem; border: none; background: none; font-weight: 600; color: #3b82f6; border-bottom: 2px solid #3b82f6; margin-bottom: -2px; cursor: pointer;">Action</button>
+                            <button style="padding: 0.75rem 1.25rem; border: none; background: none; font-weight: 600; color: #6b7280; cursor: pointer;">RPG</button>
+                            <button style="padding: 0.75rem 1.25rem; border: none; background: none; font-weight: 600; color: #6b7280; cursor: pointer;">Sports</button>
+                        </div>
+                        <div style="font-size: 0.85rem; color: #4b5563; line-height: 1.6;">Showing Action games...</div>
+                    </div>
+                </div>`,
+                workshop: {
+                    goal: 'Build clickable filter tabs that show different content',
+                    duration: '20 minutes',
+                    steps: [
+                        {
+                            title: 'Create the Tabs',
+                            description: 'Make buttons for each category!',
+                            instruction: 'Add this HTML:',
+                            code: `<div class="genre-tabs">
+  <button class="tab active" data-genre="action">Action</button>
+  <button class="tab" data-genre="rpg">RPG</button>
+  <button class="tab" data-genre="sports">Sports</button>
+  <button class="tab" data-genre="puzzle">Puzzle</button>
+</div>
+<div class="content-area">
+  <p>Showing Action games...</p>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Each tab will filter different content!',
+                            explanation: 'We create tab buttons with data attributes to identify each genre.'
+                        },
+                        {
+                            title: 'Style the Tabs',
+                            description: 'Make tabs look clickable!',
+                            instruction: 'Add this CSS:',
+                            code: `.genre-tabs {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 2px solid #e5e7eb;
+  margin-bottom: 1.5rem;
+}
+
+.tab {
+  padding: 0.75rem 1.25rem;
+  border: none;
+  background: none;
+  font-weight: 600;
+  color: #6b7280;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  color: #3b82f6;
+}
+
+.tab.active {
+  color: #3b82f6;
+  border-bottom-color: #3b82f6;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Active tab has a blue underline!',
+                            explanation: 'We style tabs with an underline for the active one.'
+                        },
+                        {
+                            title: 'Add Click Functionality',
+                            description: 'Make tabs switch when clicked!',
+                            instruction: 'Add this JavaScript:',
+                            code: `const tabs = document.querySelectorAll('.tab');
+const contentArea = document.querySelector('.content-area');
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    // Remove active from all tabs
+    tabs.forEach(t => t.classList.remove('active'));
+    
+    // Add active to clicked tab
+    tab.classList.add('active');
+    
+    // Update content
+    const genre = tab.dataset.genre;
+    contentArea.innerHTML = \`<p>Showing \${genre.toUpperCase()} games...</p>\`;
+  });
+});`,
+                            codeFile: 'script.js',
+                            tip: 'Now tabs switch when you click them!',
+                            explanation: 'We toggle the active class and update content based on the selected tab.'
+                        }
+                    ],
+                    learningObjectives: [
+                        'Create tab navigation',
+                        'Toggle active states',
+                        'Update content dynamically',
+                        'Use data attributes'
+                    ]
+                },
+                useCases: [
+                    {
+                        title: 'Game Websites',
+                        description: 'Filter games by genre'
+                    },
+                    {
+                        title: 'Portfolio Sites',
+                        description: 'Filter projects by category'
+                    }
+                ]
+            },
+
+            // Progress Bar Component
+            {
+                id: 'progress-bar',
+                name: 'Progress Bar Component',
+                type: 'ui-elements',
+                difficulty: 'beginner',
+                hasJS: true,
+                mobileFirst: false,
+                tags: ['Beginner-Friendly', 'JavaScript', 'Visual'],
+                description: 'Animated progress bar to show completion status. Great for fitness goals, learning progress, or loading!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); max-width: 320px; margin: 1rem auto;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
+                            <span style="font-weight: 600; color: #1a1a1a; font-size: 0.9rem;">Workout Progress</span>
+                            <span style="font-weight: 700; color: #3b82f6; font-size: 0.9rem;">75%</span>
+                        </div>
+                        <div style="width: 100%; height: 12px; background: #e5e7eb; border-radius: 20px; overflow: hidden;">
+                            <div style="width: 75%; height: 100%; background: #3b82f6; border-radius: 20px; transition: width 0.3s;"></div>
+                        </div>
+                    </div>
+                </div>`,
+                workshop: {
+                    goal: 'Build an animated progress bar that shows completion percentage',
+                    duration: '15 minutes',
+                    steps: [
+                        {
+                            title: 'Create Progress Bar HTML',
+                            description: 'Make the progress bar structure!',
+                            instruction: 'Add this HTML:',
+                            code: `<div class="progress-container">
+  <div class="progress-header">
+    <span class="progress-label">Workout Progress</span>
+    <span class="progress-percent">0%</span>
+  </div>
+  <div class="progress-bar">
+    <div class="progress-fill"></div>
+  </div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'The fill div will grow to show progress!',
+                            explanation: 'We create a container with a label, percentage, and the progress bar.'
+                        },
+                        {
+                            title: 'Style the Progress Bar',
+                            description: 'Make it look nice!',
+                            instruction: 'Add this CSS:',
+                            code: `.progress-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.progress-label {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.progress-percent {
+  font-weight: 700;
+  color: #3b82f6;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background: #e5e7eb;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #3b82f6;
+  border-radius: 20px;
+  width: 0%;
+  transition: width 0.5s ease;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'The fill starts at 0% width!',
+                            explanation: 'We style the bar with a background and a fill that will animate.'
+                        },
+                        {
+                            title: 'Add JavaScript to Update Progress',
+                            description: 'Make the bar fill up!',
+                            instruction: 'Add this JavaScript:',
+                            code: `function setProgress(percent) {
+  const fill = document.querySelector('.progress-fill');
+  const percentText = document.querySelector('.progress-percent');
+  
+  fill.style.width = percent + '%';
+  percentText.textContent = percent + '%';
+}
+
+// Example: Set to 75%
+setProgress(75);
+
+// Example: Animate from 0 to 100
+let progress = 0;
+const interval = setInterval(() => {
+  progress += 1;
+  setProgress(progress);
+  if (progress >= 100) clearInterval(interval);
+}, 30);`,
+                            codeFile: 'script.js',
+                            tip: 'Call setProgress() to update the bar!',
+                            explanation: 'We create a function to update the width and percentage text.'
+                        }
+                    ],
+                    learningObjectives: [
+                        'Create progress indicators',
+                        'Animate CSS properties',
+                        'Update elements with JavaScript',
+                        'Use setInterval for animations'
+                    ]
+                },
+                useCases: [
+                    {
+                        title: 'Fitness Websites',
+                        description: 'Show workout completion'
+                    },
+                    {
+                        title: 'Learning Platforms',
+                        description: 'Display course progress'
+                    }
+                ]
+            },
+
+            // Announcement Banner
+            {
+                id: 'announcement-banner',
+                name: 'Announcement / Alert Banner',
+                type: 'ui-elements',
+                difficulty: 'beginner',
+                hasJS: true,
+                mobileFirst: false,
+                tags: ['Beginner-Friendly', 'JavaScript'],
+                description: 'Eye-catching banner for important announcements. Can be dismissed by users!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="background: #3b82f6; color: white; padding: 1rem 1.5rem; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); max-width: 320px; margin: 1rem auto;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="16" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                            </svg>
+                            <span style="font-weight: 600; font-size: 0.9rem;">New event this weekend!</span>
+                        </div>
+                        <button style="background: none; border: none; color: white; cursor: pointer; padding: 0.25rem; font-size: 1.25rem;">&times;</button>
+                    </div>
+                </div>`,
+                workshop: {
+                    goal: 'Build a dismissible announcement banner',
+                    duration: '15 minutes',
+                    steps: [
+                        {
+                            title: 'Create the Banner',
+                            description: 'Make an announcement banner!',
+                            instruction: 'Add this HTML:',
+                            code: `<div class="announcement-banner" id="announcement">
+  <div class="banner-content">
+    <i data-lucide="info"></i>
+    <span>New event this weekend!</span>
+  </div>
+  <button class="close-btn" onclick="closeBanner()">
+    <i data-lucide="x"></i>
+  </button>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'The X button will close the banner!',
+                            explanation: 'We create a banner with content and a close button.'
+                        },
+                        {
+                            title: 'Style the Banner',
+                            description: 'Make it stand out!',
+                            instruction: 'Add this CSS:',
+                            code: `.announcement-banner {
+  background: #3b82f6;
+  color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  margin-bottom: 2rem;
+}
+
+.banner-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+}
+
+.close-btn:hover {
+  opacity: 0.8;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Blue background makes it noticeable!',
+                            explanation: 'We style the banner with flexbox to align content and button.'
+                        },
+                        {
+                            title: 'Add Close Functionality',
+                            description: 'Make the X button work!',
+                            instruction: 'Add this JavaScript:',
+                            code: `function closeBanner() {
+  const banner = document.getElementById('announcement');
+  banner.style.display = 'none';
+}
+
+// Initialize Lucide icons
+if (typeof lucide !== 'undefined') {
+  lucide.createIcons();
+}`,
+                            codeFile: 'script.js',
+                            tip: 'Clicking X hides the banner!',
+                            explanation: 'We create a function to hide the banner when the close button is clicked.'
+                        }
+                    ],
+                    learningObjectives: [
+                        'Create notification banners',
+                        'Handle click events',
+                        'Hide elements with JavaScript',
+                        'Use Lucide icons'
+                    ]
+                },
+                useCases: [
+                    {
+                        title: 'City Websites',
+                        description: 'Announce events or alerts'
+                    },
+                    {
+                        title: 'All Websites',
+                        description: 'Show important messages'
+                    }
+                ]
+            },
+
+            // Difficulty Badge System
+            {
+                id: 'difficulty-badge',
+                name: 'Difficulty Badge System',
+                type: 'ui-elements',
+                difficulty: 'beginner',
+                hasJS: false,
+                mobileFirst: false,
+                tags: ['Beginner-Friendly', 'CSS-Only', 'Visual'],
+                description: 'Color-coded badges to show difficulty levels. Perfect for tutorials, lessons, or challenges!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; padding: 1.5rem; justify-content: center;">
+                        <span style="padding: 0.4rem 0.9rem; background: #10b981; color: white; border-radius: 20px; font-size: 0.75rem; font-weight: 700;">Beginner</span>
+                        <span style="padding: 0.4rem 0.9rem; background: #f59e0b; color: white; border-radius: 20px; font-size: 0.75rem; font-weight: 700;">Intermediate</span>
+                        <span style="padding: 0.4rem 0.9rem; background: #ef4444; color: white; border-radius: 20px; font-size: 0.75rem; font-weight: 700;">Advanced</span>
+                    </div>
+                </div>`,
+                workshop: {
+                    goal: 'Create color-coded difficulty badges',
+                    duration: '10 minutes',
+                    steps: [
+                        {
+                            title: 'Create Badge HTML',
+                            description: 'Make badges for each difficulty!',
+                            instruction: 'Add this HTML:',
+                            code: `<div class="difficulty-badges">
+  <span class="badge beginner">Beginner</span>
+  <span class="badge intermediate">Intermediate</span>
+  <span class="badge advanced">Advanced</span>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Each badge has a different class for colors!',
+                            explanation: 'We create span elements with classes for each difficulty level.'
+                        },
+                        {
+                            title: 'Style the Badges',
+                            description: 'Add colors for each level!',
+                            instruction: 'Add this CSS:',
+                            code: `.badge {
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: white;
+  display: inline-block;
+}
+
+.badge.beginner {
+  background: #10b981;
+}
+
+.badge.intermediate {
+  background: #f59e0b;
+}
+
+.badge.advanced {
+  background: #ef4444;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Green = easy, Orange = medium, Red = hard!',
+                            explanation: 'We style badges with different colors for each difficulty level.'
+                        }
+                    ],
+                    learningObjectives: [
+                        'Create badge components',
+                        'Use CSS classes for variants',
+                        'Apply color coding',
+                        'Style inline elements'
+                    ]
+                },
+                useCases: [
+                    {
+                        title: 'Music Tutorial Sites',
+                        description: 'Show lesson difficulty'
+                    },
+                    {
+                        title: 'Learning Platforms',
+                        description: 'Indicate content complexity'
+                    }
+                ]
+            },
+
+            // Adoption Status Badge
+            {
+                id: 'adoption-status-badge',
+                name: 'Adoption Status Badge',
+                type: 'ui-elements',
+                difficulty: 'beginner',
+                hasJS: false,
+                mobileFirst: false,
+                tags: ['Beginner-Friendly', 'CSS-Only', 'Visual'],
+                description: 'Status badges for pet adoption listings. Show if pets are available, pending, or adopted!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; padding: 1.5rem; justify-content: center;">
+                        <span style="padding: 0.4rem 0.9rem; background: #10b981; color: white; border-radius: 20px; font-size: 0.75rem; font-weight: 700; display: flex; align-items: center; gap: 0.4rem;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            Available
+                        </span>
+                        <span style="padding: 0.4rem 0.9rem; background: #f59e0b; color: white; border-radius: 20px; font-size: 0.75rem; font-weight: 700;">Pending</span>
+                        <span style="padding: 0.4rem 0.9rem; background: #6b7280; color: white; border-radius: 20px; font-size: 0.75rem; font-weight: 700;">Adopted</span>
+                    </div>
+                </div>`,
+                workshop: {
+                    goal: 'Create status badges for pet adoption listings',
+                    duration: '10 minutes',
+                    steps: [
+                        {
+                            title: 'Create Status Badges',
+                            description: 'Make badges for adoption status!',
+                            instruction: 'Add this HTML:',
+                            code: `<div class="pet-card">
+  <img src="dog.jpg" alt="Cute dog">
+  <h3>Max</h3>
+  <span class="status-badge available">
+    <i data-lucide="check"></i>
+    Available
+  </span>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Change the class to show different statuses!',
+                            explanation: 'We create a badge with an icon and text for the adoption status.'
+                        },
+                        {
+                            title: 'Style the Badges',
+                            description: 'Add colors for each status!',
+                            instruction: 'Add this CSS:',
+                            code: `.status-badge {
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.status-badge.available {
+  background: #10b981;
+}
+
+.status-badge.pending {
+  background: #f59e0b;
+}
+
+.status-badge.adopted {
+  background: #6b7280;
+}
+
+.status-badge i {
+  width: 14px;
+  height: 14px;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Green = available, Orange = pending, Gray = adopted!',
+                            explanation: 'We style badges with different colors for each adoption status.'
+                        }
+                    ],
+                    learningObjectives: [
+                        'Create status indicators',
+                        'Use color coding for states',
+                        'Combine icons with text',
+                        'Style badge components'
+                    ]
+                },
+                useCases: [
+                    {
+                        title: 'Pet Adoption Sites',
+                        description: 'Show pet availability status'
+                    },
+                    {
+                        title: 'E-commerce Sites',
+                        description: 'Display product availability'
+                    }
+                ]
+            },
+
+            // Pet Type Filter Toggle
+            {
+                id: 'pet-type-filter',
+                name: 'Pet Type Filter Toggle',
+                type: 'interactions',
+                difficulty: 'beginner',
+                hasJS: true,
+                mobileFirst: false,
+                tags: ['Beginner-Friendly', 'JavaScript', 'Filters'],
+                description: 'Toggle buttons to filter between dogs and cats. Simple and effective filtering!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); max-width: 280px; margin: 1rem auto;">
+                        <div style="display: flex; gap: 0.5rem; background: #f3f4f6; padding: 0.25rem; border-radius: 10px;">
+                            <button style="flex: 1; padding: 0.6rem; background: #3b82f6; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Dogs</button>
+                            <button style="flex: 1; padding: 0.6rem; background: transparent; color: #6b7280; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Cats</button>
+                        </div>
+                        <div style="margin-top: 1rem; font-size: 0.85rem; color: #6b7280;">Showing dogs...</div>
+                    </div>
+                </div>`,
+                workshop: {
+                    goal: 'Build a toggle filter for pet types',
+                    duration: '15 minutes',
+                    steps: [
+                        {
+                            title: 'Create Toggle Buttons',
+                            description: 'Make buttons to switch between dogs and cats!',
+                            instruction: 'Add this HTML:',
+                            code: `<div class="pet-filter">
+  <div class="toggle-buttons">
+    <button class="toggle-btn active" data-type="dogs">
+      <i data-lucide="dog"></i>
+      Dogs
+    </button>
+    <button class="toggle-btn" data-type="cats">
+      <i data-lucide="cat"></i>
+      Cats
+    </button>
+  </div>
+  <div class="results">Showing dogs...</div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'The active button shows which filter is on!',
+                            explanation: 'We create toggle buttons with icons for dogs and cats.'
+                        },
+                        {
+                            title: 'Style the Toggle',
+                            description: 'Make it look like a switch!',
+                            instruction: 'Add this CSS:',
+                            code: `.toggle-buttons {
+  display: flex;
+  gap: 0.5rem;
+  background: #f3f4f6;
+  padding: 0.25rem;
+  border-radius: 10px;
+}
+
+.toggle-btn {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  background: transparent;
+  color: #6b7280;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.toggle-btn.active {
+  background: #3b82f6;
+  color: white;
+}
+
+.toggle-btn i {
+  width: 18px;
+  height: 18px;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Active button has blue background!',
+                            explanation: 'We style the toggle with a background container and highlight the active button.'
+                        },
+                        {
+                            title: 'Add Toggle Functionality',
+                            description: 'Make buttons switch the filter!',
+                            instruction: 'Add this JavaScript:',
+                            code: `const toggleBtns = document.querySelectorAll('.toggle-btn');
+const results = document.querySelector('.results');
+
+toggleBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Remove active from all
+    toggleBtns.forEach(b => b.classList.remove('active'));
+    
+    // Add active to clicked
+    btn.classList.add('active');
+    
+    // Update results
+    const type = btn.dataset.type;
+    results.textContent = \`Showing \${type}...\`;
+  });
+});
+
+// Initialize icons
+if (typeof lucide !== 'undefined') {
+  lucide.createIcons();
+}`,
+                            codeFile: 'script.js',
+                            tip: 'Now you can toggle between dogs and cats!',
+                            explanation: 'We add click listeners to toggle the active state and update the display.'
+                        }
+                    ],
+                    learningObjectives: [
+                        'Create toggle switches',
+                        'Handle button groups',
+                        'Toggle active states',
+                        'Filter content dynamically'
+                    ]
+                },
+                useCases: [
+                    {
+                        title: 'Pet Adoption Sites',
+                        description: 'Filter between dogs and cats'
+                    },
+                    {
+                        title: 'E-commerce Sites',
+                        description: 'Toggle between product categories'
+                    }
+                ]
+            },
+
+            // City Statistics Strip
+            {
+                id: 'city-statistics',
+                name: 'City Statistics Strip',
+                type: 'ui-elements',
+                difficulty: 'beginner',
+                hasJS: false,
+                mobileFirst: false,
+                tags: ['Beginner-Friendly', 'CSS-Only', 'Flexbox'],
+                description: 'Display key city statistics in a clean, organized strip. Perfect for showcasing numbers!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); max-width: 320px; margin: 1rem auto;">
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; text-align: center;">
+                            <div>
+                                <div style="font-size: 1.75rem; font-weight: 800; color: #3b82f6; margin-bottom: 0.25rem;">2.5M</div>
+                                <div style="font-size: 0.75rem; color: #6b7280; font-weight: 600;">Population</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 1.75rem; font-weight: 800; color: #10b981; margin-bottom: 0.25rem;">150+</div>
+                                <div style="font-size: 0.75rem; color: #6b7280; font-weight: 600;">Parks</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 1.75rem; font-weight: 800; color: #f59e0b; margin-bottom: 0.25rem;">50</div>
+                                <div style="font-size: 0.75rem; color: #6b7280; font-weight: 600;">Schools</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`,
+                workshop: {
+                    goal: 'Build a statistics display strip for city data',
+                    duration: '15 minutes',
+                    steps: [
+                        {
+                            title: 'Create Statistics HTML',
+                            description: 'Make boxes for each statistic!',
+                            instruction: 'Add this HTML:',
+                            code: `<div class="city-stats">
+  <div class="stat-item">
+    <div class="stat-number">2.5M</div>
+    <div class="stat-label">Population</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">150+</div>
+    <div class="stat-label">Parks</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">50</div>
+    <div class="stat-label">Schools</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">25</div>
+    <div class="stat-label">Museums</div>
+  </div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Each stat has a big number and a label!',
+                            explanation: 'We create stat items with numbers and labels for each city statistic.'
+                        },
+                        {
+                            title: 'Style the Statistics',
+                            description: 'Make them look organized!',
+                            instruction: 'Add this CSS:',
+                            code: `.city-stats {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 2rem;
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #3b82f6;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Grid makes stats line up perfectly!',
+                            explanation: 'We use CSS Grid to arrange statistics in equal columns.'
+                        },
+                        {
+                            title: 'Add Different Colors',
+                            description: 'Make each stat unique!',
+                            instruction: 'Add this CSS:',
+                            code: `.stat-item:nth-child(1) .stat-number {
+  color: #3b82f6;
+}
+
+.stat-item:nth-child(2) .stat-number {
+  color: #10b981;
+}
+
+.stat-item:nth-child(3) .stat-number {
+  color: #f59e0b;
+}
+
+.stat-item:nth-child(4) .stat-number {
+  color: #ef4444;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Each number gets a different color!',
+                            explanation: 'We use nth-child to give each stat a unique color.'
+                        }
+                    ],
+                    learningObjectives: [
+                        'Display statistics effectively',
+                        'Use CSS Grid for layouts',
+                        'Style numbers prominently',
+                        'Use nth-child selectors'
+                    ]
+                },
+                useCases: [
+                    {
+                        title: 'City Websites',
+                        description: 'Show city facts and figures'
+                    },
+                    {
+                        title: 'Business Sites',
+                        description: 'Display company statistics'
+                    }
+                ]
+            },
+
+            // Quote Highlight Block
+            {
+                id: 'quote-highlight',
+                name: 'Quote Highlight Block',
+                type: 'ui-elements',
+                difficulty: 'beginner',
+                hasJS: false,
+                mobileFirst: false,
+                tags: ['Beginner-Friendly', 'CSS-Only', 'Typography'],
+                description: 'Beautiful quote display with decorative styling. Perfect for testimonials or important messages!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="background: #f8fafc; padding: 2rem; border-radius: 16px; border-left: 4px solid #3b82f6; max-width: 300px; margin: 1rem auto; position: relative;">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="#3b82f6" style="opacity: 0.2; position: absolute; top: 1rem; right: 1rem;">
+                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                        </svg>
+                        <p style="font-size: 1rem; font-style: italic; color: #1a1a1a; line-height: 1.6; margin: 0 0 1rem 0;">"This is an inspiring quote that captures the essence of our culture."</p>
+                        <div style="font-size: 0.85rem; font-weight: 600; color: #6b7280;">— Elder Name</div>
+                    </div>
+                </div>`,
+                workshop: {
+                    goal: 'Create a styled quote block with attribution',
+                    duration: '15 minutes',
+                    steps: [
+                        {
+                            title: 'Create Quote HTML',
+                            description: 'Make a quote with attribution!',
+                            instruction: 'Add this HTML:',
+                            code: `<blockquote class="quote-block">
+  <i data-lucide="quote" class="quote-icon"></i>
+  <p class="quote-text">
+    "This is an inspiring quote that captures the essence of our culture and traditions."
+  </p>
+  <cite class="quote-author">— Elder Name</cite>
+</blockquote>`,
+                            codeFile: 'index.html',
+                            tip: 'Use blockquote for quotes - it\'s semantic HTML!',
+                            explanation: 'We use the blockquote element with a quote icon, text, and author citation.'
+                        },
+                        {
+                            title: 'Style the Quote Block',
+                            description: 'Make it stand out!',
+                            instruction: 'Add this CSS:',
+                            code: `.quote-block {
+  background: #f8fafc;
+  padding: 2rem;
+  border-radius: 16px;
+  border-left: 4px solid #3b82f6;
+  position: relative;
+  margin: 2rem 0;
+}
+
+.quote-icon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 32px;
+  height: 32px;
+  color: #3b82f6;
+  opacity: 0.2;
+}
+
+.quote-text {
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #1a1a1a;
+  line-height: 1.6;
+  margin: 0 0 1rem 0;
+}
+
+.quote-author {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #6b7280;
+  font-style: normal;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'The left border makes it look like a quote!',
+                            explanation: 'We style the quote with a background, border, and decorative icon.'
+                        }
+                    ],
+                    learningObjectives: [
+                        'Use semantic HTML (blockquote)',
+                        'Position elements absolutely',
+                        'Style text for emphasis',
+                        'Create decorative borders'
+                    ]
+                },
+                useCases: [
+                    {
+                        title: 'Indigenous People Sites',
+                        description: 'Display cultural wisdom and quotes'
+                    },
+                    {
+                        title: 'Blog Sites',
+                        description: 'Highlight important messages'
+                    }
+                ]
+            },
+
+            // Workout Schedule Grid
+            {
+                id: 'workout-schedule',
+                name: 'Workout Schedule Grid',
+                type: 'ui-elements',
+                difficulty: 'beginner',
+                hasJS: false,
+                mobileFirst: false,
+                tags: ['Beginner-Friendly', 'CSS-Only', 'Grid'],
+                description: 'Weekly workout schedule in a clean grid layout. Perfect for fitness plans!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); max-width: 320px; margin: 1rem auto;">
+                        <h4 style="margin: 0 0 1rem 0; font-size: 1rem; font-weight: 700; color: #1a1a1a;">Weekly Schedule</h4>
+                        <div style="display: grid; gap: 0.5rem;">
+                            <div style="display: flex; justify-content: space-between; padding: 0.75rem; background: #eff6ff; border-left: 3px solid #3b82f6; border-radius: 8px;">
+                                <span style="font-weight: 600; color: #1a1a1a; font-size: 0.85rem;">Monday</span>
+                                <span style="color: #6b7280; font-size: 0.85rem;">Cardio</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; padding: 0.75rem; background: #f0fdf4; border-left: 3px solid #10b981; border-radius: 8px;">
+                                <span style="font-weight: 600; color: #1a1a1a; font-size: 0.85rem;">Wednesday</span>
+                                <span style="color: #6b7280; font-size: 0.85rem;">Strength</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; padding: 0.75rem; background: #fef3c7; border-left: 3px solid #f59e0b; border-radius: 8px;">
+                                <span style="font-weight: 600; color: #1a1a1a; font-size: 0.85rem;">Friday</span>
+                                <span style="color: #6b7280; font-size: 0.85rem;">Yoga</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>`,
+                workshop: {
+                    goal: 'Build a weekly workout schedule grid',
+                    duration: '20 minutes',
+                    steps: [
+                        {
+                            title: 'Create Schedule HTML',
+                            description: 'Make a list of workout days!',
+                            instruction: 'Add this HTML:',
+                            code: `<div class="workout-schedule">
+  <h3>Weekly Schedule</h3>
+  <div class="schedule-grid">
+    <div class="schedule-item">
+      <span class="day">Monday</span>
+      <span class="workout">Cardio</span>
+    </div>
+    <div class="schedule-item">
+      <span class="day">Wednesday</span>
+      <span class="workout">Strength Training</span>
+    </div>
+    <div class="schedule-item">
+      <span class="day">Friday</span>
+      <span class="workout">Yoga & Stretching</span>
+    </div>
+  </div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Each item shows a day and workout type!',
+                            explanation: 'We create schedule items with day and workout information.'
+                        },
+                        {
+                            title: 'Style the Schedule',
+                            description: 'Make it look organized!',
+                            instruction: 'Add this CSS:',
+                            code: `.workout-schedule {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+.schedule-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.schedule-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #f8fafc;
+  border-left: 3px solid #3b82f6;
+  border-radius: 8px;
+  transition: transform 0.2s;
+}
+
+.schedule-item:hover {
+  transform: translateX(4px);
+}
+
+.day {
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.workout {
+  color: #6b7280;
+  font-size: 0.9rem;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Items slide when you hover over them!',
+                            explanation: 'We style schedule items with flexbox and add a hover effect.'
+                        },
+                        {
+                            title: 'Add Color Variations',
+                            description: 'Give each day a different color!',
+                            instruction: 'Add this CSS:',
+                            code: `.schedule-item:nth-child(1) {
+  background: #eff6ff;
+  border-left-color: #3b82f6;
+}
+
+.schedule-item:nth-child(2) {
+  background: #f0fdf4;
+  border-left-color: #10b981;
+}
+
+.schedule-item:nth-child(3) {
+  background: #fef3c7;
+  border-left-color: #f59e0b;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Different colors make it easier to scan!',
+                            explanation: 'We use nth-child to give each day a unique color scheme.'
+                        }
+                    ],
+                    learningObjectives: [
+                        'Create schedule layouts',
+                        'Use flexbox for alignment',
+                        'Add hover effects',
+                        'Apply color variations'
+                    ]
+                },
+                useCases: [
+                    {
+                        title: 'Fitness Websites',
+                        description: 'Display workout schedules'
+                    },
+                    {
+                        title: 'Class Schedules',
+                        description: 'Show weekly class times'
+                    }
+                ]
+            },
+
+            // Expandable Timeline Details
+            {
+                id: 'expandable-timeline',
+                name: 'Expandable Timeline Details',
+                type: 'interactions',
+                difficulty: 'intermediate',
+                hasJS: true,
+                mobileFirst: false,
+                tags: ['Interactive', 'JavaScript', 'Timeline'],
+                description: 'Timeline with expandable details. Click to reveal more information about each event!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="padding: 1.5rem; max-width: 300px; margin: 0 auto;">
+                        <div style="border-left: 3px solid #3b82f6; padding-left: 1.5rem; position: relative; margin-bottom: 1.5rem;">
+                            <div style="position: absolute; left: -9px; top: 0; width: 14px; height: 14px; background: #3b82f6; border-radius: 50%; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);"></div>
+                            <div style="font-size: 0.75rem; color: #3b82f6; font-weight: 700; margin-bottom: 0.4rem;">2024</div>
+                            <div style="font-size: 0.95rem; font-weight: 700; color: #1a1a1a; margin-bottom: 0.4rem; cursor: pointer;">Major Event ▼</div>
+                            <div style="font-size: 0.75rem; color: #6b7280; line-height: 1.5; background: #f8fafc; padding: 0.75rem; border-radius: 8px; margin-top: 0.5rem;">Full details about this event...</div>
+                        </div>
+                    </div>
+                </div>`,
+                workshop: {
+                    goal: 'Build a timeline with clickable expandable details',
+                    duration: '25 minutes',
+                    steps: [
+                        {
+                            title: 'Create Timeline HTML',
+                            description: 'Make timeline items with hidden details!',
+                            instruction: 'Add this HTML:',
+                            code: `<div class="expandable-timeline">
+  <div class="timeline-item">
+    <div class="timeline-year">2024</div>
+    <div class="timeline-title">Major Championship</div>
+    <div class="timeline-details hidden">
+      <p>Full details about this championship, including teams, scores, and memorable moments.</p>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-year">2023</div>
+    <div class="timeline-title">Historic Victory</div>
+    <div class="timeline-details hidden">
+      <p>Details about this historic victory and its significance.</p>
+    </div>
+  </div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Details start hidden and expand when clicked!',
+                            explanation: 'We create timeline items with titles and hidden detail sections.'
+                        },
+                        {
+                            title: 'Style the Timeline',
+                            description: 'Make it look like a timeline!',
+                            instruction: 'Add this CSS:',
+                            code: `.timeline-item {
+  border-left: 3px solid #3b82f6;
+  padding-left: 2rem;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -9px;
+  top: 0;
+  width: 14px;
+  height: 14px;
+  background: #3b82f6;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+}
+
+.timeline-year {
+  font-size: 0.875rem;
+  color: #3b82f6;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
+.timeline-title:hover {
+  color: #3b82f6;
+}
+
+.timeline-details {
+  background: #f8fafc;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 0.75rem;
+  line-height: 1.6;
+}
+
+.timeline-details.hidden {
+  display: none;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'The dot and line create the timeline look!',
+                            explanation: 'We style the timeline with a vertical line and dots for each event.'
+                        },
+                        {
+                            title: 'Add Click to Expand',
+                            description: 'Make titles clickable to show details!',
+                            instruction: 'Add this JavaScript:',
+                            code: `const timelineTitles = document.querySelectorAll('.timeline-title');
+
+timelineTitles.forEach(title => {
+  title.addEventListener('click', () => {
+    const details = title.nextElementSibling;
+    details.classList.toggle('hidden');
+    
+    // Add arrow indicator
+    if (details.classList.contains('hidden')) {
+      title.textContent = title.textContent.replace('▲', '▼');
+    } else {
+      title.textContent = title.textContent.replace('▼', '▲');
+    }
+  });
+});`,
+                            codeFile: 'script.js',
+                            tip: 'Click titles to expand and collapse details!',
+                            explanation: 'We toggle the hidden class to show/hide details when titles are clicked.'
+                        }
+                    ],
+                    learningObjectives: [
+                        'Create expandable sections',
+                        'Toggle visibility with JavaScript',
+                        'Use nextElementSibling',
+                        'Add interactive indicators'
+                    ]
+                },
+                useCases: [
+                    {
+                        title: 'History Websites',
+                        description: 'Show detailed historical events'
+                    },
+                    {
+                        title: 'PBA History Sites',
+                        description: 'Display championship details'
+                    }
+                ]
+            },
+
+            // Game Info Modal
+            {
+                id: 'game-info-modal',
+                name: 'Game Info Modal',
+                type: 'interactions',
+                difficulty: 'intermediate',
+                hasJS: true,
+                mobileFirst: false,
+                tags: ['Interactive', 'JavaScript', 'Modal'],
+                description: 'Popup modal to display detailed game information. Click to open, click outside to close!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="padding: 1.5rem; text-align: center;">
+                        <button style="padding: 0.75rem 1.5rem; background: #3b82f6; color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);">View Game Info</button>
+                        <div style="margin-top: 1rem; font-size: 0.75rem; color: #6b7280;">Click to see modal</div>
+                    </div>
+                </div>`,
+                workshop: {
+                    goal: 'Build a modal popup for game information',
+                    duration: '25 minutes',
+                    steps: [
+                        {
+                            title: 'Create Modal HTML',
+                            description: 'Make a button and hidden modal!',
+                            instruction: 'Add this HTML:',
+                            code: `<button class="open-modal-btn" id="openModal">View Game Info</button>
+
+<div class="game-modal hidden" id="gameModal">
+  <div class="modal-overlay"></div>
+  <div class="modal-content">
+    <button class="close-modal" id="closeModal">
+      <i data-lucide="x"></i>
+    </button>
+    <h3>Game Title</h3>
+    <p><strong>Genre:</strong> Action RPG</p>
+    <p><strong>Release:</strong> 1998</p>
+    <p><strong>Description:</strong> An epic adventure game...</p>
+  </div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Modal starts hidden and appears when button is clicked!',
+                            explanation: 'We create a button to open the modal and a modal with overlay and content.'
+                        },
+                        {
+                            title: 'Style the Modal',
+                            description: 'Make it appear over the page!',
+                            instruction: 'Add this CSS:',
+                            code: `.game-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-modal.hidden {
+  display: none;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  position: relative;
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  z-index: 1001;
+}
+
+.close-modal {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  color: #6b7280;
+}
+
+.close-modal:hover {
+  color: #1a1a1a;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'The overlay darkens the background!',
+                            explanation: 'We position the modal fixed and center it with flexbox.'
+                        },
+                        {
+                            title: 'Add Open/Close Functionality',
+                            description: 'Make buttons work!',
+                            instruction: 'Add this JavaScript:',
+                            code: `const openBtn = document.getElementById('openModal');
+const closeBtn = document.getElementById('closeModal');
+const modal = document.getElementById('gameModal');
+const overlay = modal.querySelector('.modal-overlay');
+
+openBtn.addEventListener('click', () => {
+  modal.classList.remove('hidden');
+});
+
+closeBtn.addEventListener('click', () => {
+  modal.classList.add('hidden');
+});
+
+overlay.addEventListener('click', () => {
+  modal.classList.add('hidden');
+});
+
+// Initialize icons
+if (typeof lucide !== 'undefined') {
+  lucide.createIcons();
+}`,
+                            codeFile: 'script.js',
+                            tip: 'Click outside the modal to close it!',
+                            explanation: 'We add event listeners to open and close the modal.'
+                        }
+                    ],
+                    learningObjectives: [
+                        'Create modal popups',
+                        'Use fixed positioning',
+                        'Handle overlay clicks',
+                        'Toggle visibility'
+                    ]
+                },
+                useCases: [
+                    {
+                        title: 'Game History Sites',
+                        description: 'Show detailed game information'
+                    },
+                    {
+                        title: 'Portfolio Sites',
+                        description: 'Display project details'
+                    }
+                ]
+            },
+
+            // Tribe Profile Section
+            {
+                id: 'tribe-profile',
+                name: 'Tribe Profile Section',
+                type: 'layout',
+                difficulty: 'beginner',
+                hasJS: false,
+                mobileFirst: false,
+                tags: ['Beginner-Friendly', 'CSS-Only', 'Flexbox'],
+                description: 'Profile card for indigenous tribes with image and information. Clean and respectful design!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,0.1); max-width: 320px; margin: 1rem auto;">
+                        <div style="height: 140px; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);"></div>
+                        <div style="padding: 1.5rem;">
+                            <h3 style="margin: 0 0 0.5rem 0; font-size: 1.25rem; font-weight: 700; color: #1a1a1a;">Tribe Name</h3>
+                            <p style="margin: 0 0 1rem 0; font-size: 0.85rem; color: #6b7280; line-height: 1.6;">Region: Northern Philippines</p>
+                            <p style="margin: 0; font-size: 0.85rem; color: #4b5563; line-height: 1.6;">Known for their rich cultural heritage and traditional crafts...</p>
+                        </div>
+                    </div>
+                </div>`,
+                workshop: {
+                    goal: 'Build a profile card for indigenous tribes',
+                    duration: '20 minutes',
+                    steps: [
+                        {
+                            title: 'Create Profile HTML',
+                            description: 'Make a card with tribe information!',
+                            instruction: 'Add this HTML:',
+                            code: `<div class="tribe-profile">
+  <div class="tribe-image">
+    <img src="tribe-photo.jpg" alt="Tribe name">
+  </div>
+  <div class="tribe-info">
+    <h3 class="tribe-name">Ifugao People</h3>
+    <p class="tribe-region">
+      <i data-lucide="map-pin"></i>
+      Cordillera Region, Northern Philippines
+    </p>
+    <p class="tribe-description">
+      Known for the magnificent rice terraces and rich cultural heritage passed down through generations.
+    </p>
+  </div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Each tribe gets its own profile card!',
+                            explanation: 'We create a card with an image section and information section.'
+                        },
+                        {
+                            title: 'Style the Profile Card',
+                            description: 'Make it look professional!',
+                            instruction: 'Add this CSS:',
+                            code: `.tribe-profile {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  max-width: 400px;
+}
+
+.tribe-image {
+  height: 200px;
+  overflow: hidden;
+}
+
+.tribe-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tribe-info {
+  padding: 2rem;
+}
+
+.tribe-name {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.tribe-region {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 1rem 0;
+  font-size: 0.9rem;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.tribe-region i {
+  width: 16px;
+  height: 16px;
+}
+
+.tribe-description {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #4b5563;
+  line-height: 1.6;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'The image fills the top of the card!',
+                            explanation: 'We style the card with an image header and padded content area.'
+                        }
+                    ],
+                    learningObjectives: [
+                        'Create profile cards',
+                        'Use object-fit for images',
+                        'Structure information clearly',
+                        'Add location icons'
+                    ]
+                },
+                useCases: [
+                    {
+                        title: 'Indigenous People Sites',
+                        description: 'Display tribe profiles'
+                    },
+                    {
+                        title: 'Cultural Sites',
+                        description: 'Show community information'
+                    }
+                ]
+            },
+
+            // Cultural Artifact Highlight
+            {
+                id: 'cultural-artifact',
+                name: 'Cultural Artifact Highlight',
+                type: 'ui-elements',
+                difficulty: 'beginner',
+                hasJS: false,
+                mobileFirst: false,
+                tags: ['Beginner-Friendly', 'CSS-Only', 'Grid'],
+                description: 'Showcase cultural artifacts with image and description. Perfect for museums and cultural sites!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); max-width: 300px; margin: 1rem auto; display: flex; gap: 1rem; align-items: center;">
+                        <div style="width: 80px; height: 80px; background: #f3f4f6; border-radius: 12px; flex-shrink: 0;"></div>
+                        <div>
+                            <h4 style="margin: 0 0 0.25rem 0; font-size: 0.95rem; font-weight: 700; color: #1a1a1a;">Traditional Weaving</h4>
+                            <p style="margin: 0; font-size: 0.75rem; color: #6b7280; line-height: 1.5;">Ancient textile art passed through generations</p>
+                        </div>
+                    </div>
+                </div>`,
+                workshop: {
+                    goal: 'Build a cultural artifact display component',
+                    duration: '15 minutes',
+                    steps: [
+                        {
+                            title: 'Create Artifact HTML',
+                            description: 'Make a card for cultural items!',
+                            instruction: 'Add this HTML:',
+                            code: `<div class="artifact-highlight">
+  <div class="artifact-image">
+    <img src="artifact.jpg" alt="Traditional weaving">
+  </div>
+  <div class="artifact-info">
+    <h4 class="artifact-name">Traditional Weaving</h4>
+    <p class="artifact-description">
+      Ancient textile art passed down through generations, featuring intricate patterns.
+    </p>
+    <span class="artifact-period">Pre-colonial Era</span>
+  </div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Each artifact gets an image and description!',
+                            explanation: 'We create a card with an image and information about the artifact.'
+                        },
+                        {
+                            title: 'Style the Artifact Card',
+                            description: 'Make it look museum-quality!',
+                            instruction: 'Add this CSS:',
+                            code: `.artifact-highlight {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.artifact-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.artifact-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.artifact-name {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.artifact-description {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.875rem;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.artifact-period {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: #f3f4f6;
+  color: #6b7280;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Flexbox aligns the image and text side by side!',
+                            explanation: 'We use flexbox to create a horizontal layout with image and info.'
+                        }
+                    ],
+                    learningObjectives: [
+                        'Create horizontal card layouts',
+                        'Use flexbox for alignment',
+                        'Style period badges',
+                        'Handle image sizing'
+                    ]
+                },
+                useCases: [
+                    {
+                        title: 'Indigenous People Sites',
+                        description: 'Showcase cultural artifacts'
+                    },
+                    {
+                        title: 'Museum Sites',
+                        description: 'Display collection items'
+                    }
+                ]
+            },
+
+            // Team History Table
+            {
+                id: 'team-history-table',
+                name: 'Team History Table',
+                type: 'ui-elements',
+                difficulty: 'beginner',
+                hasJS: false,
+                mobileFirst: false,
+                tags: ['Beginner-Friendly', 'CSS-Only', 'Tables'],
+                description: 'Clean table to display team championship history. Perfect for sports websites!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); max-width: 320px; margin: 1rem auto; overflow: hidden;">
+                        <h4 style="margin: 0 0 1rem 0; font-size: 1rem; font-weight: 700; color: #1a1a1a;">Championship History</h4>
+                        <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+                            <thead>
+                                <tr style="background: #f8fafc; border-bottom: 2px solid #e5e7eb;">
+                                    <th style="padding: 0.75rem; text-align: left; font-weight: 600; color: #6b7280;">Year</th>
+                                    <th style="padding: 0.75rem; text-align: left; font-weight: 600; color: #6b7280;">Team</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom: 1px solid #e5e7eb;">
+                                    <td style="padding: 0.75rem; color: #1a1a1a; font-weight: 600;">2024</td>
+                                    <td style="padding: 0.75rem; color: #4b5563;">Team Alpha</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #e5e7eb;">
+                                    <td style="padding: 0.75rem; color: #1a1a1a; font-weight: 600;">2023</td>
+                                    <td style="padding: 0.75rem; color: #4b5563;">Team Beta</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>`,
+                workshop: {
+                    goal: 'Build a table to display team championship history',
+                    duration: '20 minutes',
+                    steps: [
+                        {
+                            title: 'Create Table HTML',
+                            description: 'Make a table with years and teams!',
+                            instruction: 'Add this HTML:',
+                            code: `<div class="history-table-container">
+  <h3>Championship History</h3>
+  <table class="history-table">
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>Champion</th>
+        <th>Runner-up</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>2024</td>
+        <td>Team Alpha</td>
+        <td>Team Beta</td>
+      </tr>
+      <tr>
+        <td>2023</td>
+        <td>Team Gamma</td>
+        <td>Team Delta</td>
+      </tr>
+      <tr>
+        <td>2022</td>
+        <td>Team Alpha</td>
+        <td>Team Gamma</td>
+      </tr>
+    </tbody>
+  </table>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Tables are perfect for organized data!',
+                            explanation: 'We create a table with thead for headers and tbody for data rows.'
+                        },
+                        {
+                            title: 'Style the Table',
+                            description: 'Make it look clean and professional!',
+                            instruction: 'Add this CSS:',
+                            code: `.history-table-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  overflow-x: auto;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.history-table thead tr {
+  background: #f8fafc;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.history-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.history-table tbody tr {
+  border-bottom: 1px solid #e5e7eb;
+  transition: background 0.2s;
+}
+
+.history-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.history-table td {
+  padding: 1rem;
+  color: #4b5563;
+}
+
+.history-table td:first-child {
+  font-weight: 600;
+  color: #1a1a1a;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Rows highlight when you hover over them!',
+                            explanation: 'We style the table with borders, padding, and hover effects.'
+                        }
+                    ],
+                    learningObjectives: [
+                        'Create HTML tables',
+                        'Style table headers and rows',
+                        'Add hover effects',
+                        'Make tables responsive'
+                    ]
+                },
+                useCases: [
+                    {
+                        title: 'PBA History Sites',
+                        description: 'Display championship records'
+                    },
+                    {
+                        title: 'Sports Sites',
+                        description: 'Show team statistics'
+                    }
+                ]
+            },
+
+            // Player Stats Panel
+            {
+                id: 'player-stats-panel',
+                name: 'Player Stats Panel',
+                type: 'ui-elements',
+                difficulty: 'beginner',
+                hasJS: false,
+                mobileFirst: false,
+                tags: ['Beginner-Friendly', 'CSS-Only', 'Grid'],
+                description: 'Display player statistics in an organized panel. Great for sports profiles!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); max-width: 300px; margin: 1rem auto;">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div style="width: 60px; height: 60px; background: #3b82f6; border-radius: 50%;"></div>
+                            <div>
+                                <h4 style="margin: 0 0 0.25rem 0; font-size: 1.1rem; font-weight: 700; color: #1a1a1a;">Player Name</h4>
+                                <p style="margin: 0; font-size: 0.85rem; color: #6b7280;">Forward</p>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                            <div style="text-align: center; padding: 0.75rem; background: #f8fafc; border-radius: 8px;">
+                                <div style="font-size: 1.5rem; font-weight: 800; color: #3b82f6;">25</div>
+                                <div style="font-size: 0.75rem; color: #6b7280; font-weight: 600;">Points</div>
+                            </div>
+                            <div style="text-align: center; padding: 0.75rem; background: #f8fafc; border-radius: 8px;">
+                                <div style="font-size: 1.5rem; font-weight: 800; color: #10b981;">12</div>
+                                <div style="font-size: 0.75rem; color: #6b7280; font-weight: 600;">Assists</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`,
+                workshop: {
+                    goal: 'Build a player statistics display panel',
+                    duration: '20 minutes',
+                    steps: [
+                        {
+                            title: 'Create Stats Panel HTML',
+                            description: 'Make a panel with player info and stats!',
+                            instruction: 'Add this HTML:',
+                            code: `<div class="player-stats-panel">
+  <div class="player-header">
+    <img src="player.jpg" alt="Player" class="player-photo">
+    <div class="player-info">
+      <h3 class="player-name">John Doe</h3>
+      <p class="player-position">Forward</p>
+    </div>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-box">
+      <div class="stat-value">25.3</div>
+      <div class="stat-label">Points</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">12.5</div>
+      <div class="stat-label">Assists</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">8.2</div>
+      <div class="stat-label">Rebounds</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">2.1</div>
+      <div class="stat-label">Steals</div>
+    </div>
+  </div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Each stat gets its own box!',
+                            explanation: 'We create a panel with player header and a grid of statistics.'
+                        },
+                        {
+                            title: 'Style the Stats Panel',
+                            description: 'Make it look professional!',
+                            instruction: 'Add this CSS:',
+                            code: `.player-stats-panel {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  max-width: 400px;
+}
+
+.player-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.player-photo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.player-name {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.player-position {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #6b7280;
+  font-weight: 600;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.stat-box {
+  text-align: center;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 12px;
+}
+
+.stat-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #3b82f6;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Grid makes stats line up perfectly!',
+                            explanation: 'We use flexbox for the header and grid for the stats layout.'
+                        }
+                    ],
+                    learningObjectives: [
+                        'Create player profile cards',
+                        'Display statistics in grids',
+                        'Style circular images',
+                        'Organize data visually'
+                    ]
+                },
+                useCases: [
+                    {
+                        title: 'PBA History Sites',
+                        description: 'Show player statistics'
+                    },
+                    {
+                        title: 'Sports Sites',
+                        description: 'Display athlete profiles'
+                    }
+                ]
+            },
+
+            // Lesson Progress Checklist
+            {
+                id: 'lesson-progress',
+                name: 'Lesson Progress Checklist',
+                type: 'interactions',
+                difficulty: 'beginner',
+                hasJS: true,
+                mobileFirst: false,
+                tags: ['Beginner-Friendly', 'JavaScript', 'Interactive'],
+                description: 'Interactive checklist to track lesson completion. Check off items as you complete them!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="background: white; padding: 1.5rem; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); max-width: 300px; margin: 1rem auto;">
+                        <h4 style="margin: 0 0 1rem 0; font-size: 1rem; font-weight: 700; color: #1a1a1a;">Course Progress</h4>
+                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <label style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; background: #f8fafc; border-radius: 8px; cursor: pointer;">
+                                <input type="checkbox" checked style="width: 18px; height: 18px; accent-color: #10b981;">
+                                <span style="font-size: 0.9rem; color: #1a1a1a;">Lesson 1: Basics</span>
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; background: #f8fafc; border-radius: 8px; cursor: pointer;">
+                                <input type="checkbox" style="width: 18px; height: 18px; accent-color: #10b981;">
+                                <span style="font-size: 0.9rem; color: #1a1a1a;">Lesson 2: Chords</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>`,
+                workshop: {
+                    goal: 'Build an interactive lesson progress checklist',
+                    duration: '20 minutes',
+                    steps: [
+                        {
+                            title: 'Create Checklist HTML',
+                            description: 'Make checkboxes for each lesson!',
+                            instruction: 'Add this HTML:',
+                            code: `<div class="lesson-checklist">
+  <h3>Course Progress</h3>
+  <div class="checklist-items">
+    <label class="checklist-item">
+      <input type="checkbox" class="lesson-checkbox">
+      <span class="lesson-title">Lesson 1: Introduction</span>
+    </label>
+    <label class="checklist-item">
+      <input type="checkbox" class="lesson-checkbox">
+      <span class="lesson-title">Lesson 2: Basic Chords</span>
+    </label>
+    <label class="checklist-item">
+      <input type="checkbox" class="lesson-checkbox">
+      <span class="lesson-title">Lesson 3: Rhythm Patterns</span>
+    </label>
+  </div>
+  <div class="progress-summary">
+    <span id="completedCount">0</span> of 3 completed
+  </div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'Check boxes to mark lessons complete!',
+                            explanation: 'We create checkbox inputs wrapped in labels for each lesson.'
+                        },
+                        {
+                            title: 'Style the Checklist',
+                            description: 'Make it look organized!',
+                            instruction: 'Add this CSS:',
+                            code: `.lesson-checklist {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  max-width: 400px;
+}
+
+.checklist-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.checklist-item:hover {
+  background: #eff6ff;
+}
+
+.lesson-checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #10b981;
+}
+
+.lesson-title {
+  font-size: 0.95rem;
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.progress-summary {
+  text-align: center;
+  padding: 1rem;
+  background: #f0fdf4;
+  border-radius: 8px;
+  color: #10b981;
+  font-weight: 600;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Items highlight when you hover!',
+                            explanation: 'We style checkboxes and items with backgrounds and hover effects.'
+                        },
+                        {
+                            title: 'Add Progress Counter',
+                            description: 'Count completed lessons!',
+                            instruction: 'Add this JavaScript:',
+                            code: `const checkboxes = document.querySelectorAll('.lesson-checkbox');
+const completedCount = document.getElementById('completedCount');
+
+function updateProgress() {
+  const checked = document.querySelectorAll('.lesson-checkbox:checked').length;
+  completedCount.textContent = checked;
+}
+
+checkboxes.forEach(checkbox => {
+  checkbox.addEventListener('change', updateProgress);
+});
+
+// Initialize count
+updateProgress();`,
+                            codeFile: 'script.js',
+                            tip: 'The counter updates automatically!',
+                            explanation: 'We count checked boxes and update the display when checkboxes change.'
+                        }
+                    ],
+                    learningObjectives: [
+                        'Create interactive checklists',
+                        'Handle checkbox events',
+                        'Count checked items',
+                        'Update UI dynamically'
+                    ]
+                },
+                useCases: [
+                    {
+                        title: 'Music Tutorial Sites',
+                        description: 'Track lesson completion'
+                    },
+                    {
+                        title: 'Learning Platforms',
+                        description: 'Monitor course progress'
+                    }
+                ]
+            },
+
+            // BMI Calculator
+            {
+                id: 'bmi-calculator',
+                name: 'BMI Calculator (Frontend Only)',
+                type: 'interactions',
+                difficulty: 'intermediate',
+                hasJS: true,
+                mobileFirst: false,
+                tags: ['Interactive', 'JavaScript', 'Forms'],
+                description: 'Calculate Body Mass Index with instant results. Enter height and weight to see your BMI!',
+                preview: `<div class="component-preview-placeholder">
+                    <div style="background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.1); max-width: 300px; margin: 1rem auto;">
+                        <h4 style="margin: 0 0 1.5rem 0; font-size: 1.1rem; font-weight: 700; color: #1a1a1a; text-align: center;">BMI Calculator</h4>
+                        <div style="display: flex; flex-direction: column; gap: 1rem;">
+                            <input type="number" placeholder="Height (cm)" style="padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;">
+                            <input type="number" placeholder="Weight (kg)" style="padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 0.9rem;">
+                            <button style="padding: 0.75rem; background: #3b82f6; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Calculate</button>
+                        </div>
+                        <div style="margin-top: 1.5rem; padding: 1rem; background: #f0fdf4; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 2rem; font-weight: 800; color: #10b981; margin-bottom: 0.25rem;">22.5</div>
+                            <div style="font-size: 0.85rem; color: #6b7280; font-weight: 600;">Normal Weight</div>
+                        </div>
+                    </div>
+                </div>`,
+                workshop: {
+                    goal: 'Build a BMI calculator with instant results',
+                    duration: '30 minutes',
+                    steps: [
+                        {
+                            title: 'Create Calculator HTML',
+                            description: 'Make input fields and result display!',
+                            instruction: 'Add this HTML:',
+                            code: `<div class="bmi-calculator">
+  <h3>BMI Calculator</h3>
+  <div class="calculator-inputs">
+    <input type="number" id="height" placeholder="Height (cm)" min="0">
+    <input type="number" id="weight" placeholder="Weight (kg)" min="0">
+    <button id="calculateBtn">Calculate BMI</button>
+  </div>
+  <div class="bmi-result hidden" id="result">
+    <div class="bmi-value" id="bmiValue">0</div>
+    <div class="bmi-category" id="bmiCategory">-</div>
+  </div>
+</div>`,
+                            codeFile: 'index.html',
+                            tip: 'BMI = weight / (height in meters)²',
+                            explanation: 'We create input fields for height and weight, and a result display area.'
+                        },
+                        {
+                            title: 'Style the Calculator',
+                            description: 'Make it look clean!',
+                            instruction: 'Add this CSS:',
+                            code: `.bmi-calculator {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  max-width: 400px;
+}
+
+.calculator-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.calculator-inputs input {
+  padding: 0.75rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.calculator-inputs input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.calculator-inputs button {
+  padding: 0.75rem;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.calculator-inputs button:hover {
+  background: #2563eb;
+}
+
+.bmi-result {
+  padding: 1.5rem;
+  background: #f0fdf4;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.bmi-result.hidden {
+  display: none;
+}
+
+.bmi-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #10b981;
+  margin-bottom: 0.5rem;
+}
+
+.bmi-category {
+  font-size: 1rem;
+  color: #6b7280;
+  font-weight: 600;
+}`,
+                            codeFile: 'styles.css',
+                            tip: 'Result appears after calculation!',
+                            explanation: 'We style inputs, button, and result display with clean modern design.'
+                        },
+                        {
+                            title: 'Add Calculation Logic',
+                            description: 'Make the calculator work!',
+                            instruction: 'Add this JavaScript:',
+                            code: `const heightInput = document.getElementById('height');
+const weightInput = document.getElementById('weight');
+const calculateBtn = document.getElementById('calculateBtn');
+const result = document.getElementById('result');
+const bmiValue = document.getElementById('bmiValue');
+const bmiCategory = document.getElementById('bmiCategory');
+
+calculateBtn.addEventListener('click', () => {
+  const height = parseFloat(heightInput.value);
+  const weight = parseFloat(weightInput.value);
+  
+  if (!height || !weight) {
+    alert('Please enter both height and weight!');
+    return;
+  }
+  
+  // Calculate BMI (height in meters)
+  const heightInMeters = height / 100;
+  const bmi = (weight / (heightInMeters * heightInMeters)).toFixed(1);
+  
+  // Determine category
+  let category = '';
+  if (bmi < 18.5) category = 'Underweight';
+  else if (bmi < 25) category = 'Normal Weight';
+  else if (bmi < 30) category = 'Overweight';
+  else category = 'Obese';
+  
+  // Display result
+  bmiValue.textContent = bmi;
+  bmiCategory.textContent = category;
+  result.classList.remove('hidden');
+});`,
+                            codeFile: 'script.js',
+                            tip: 'BMI categories: <18.5 underweight, 18.5-24.9 normal, 25-29.9 overweight, 30+ obese',
+                            explanation: 'We calculate BMI using the formula and categorize the result.'
+                        }
+                    ],
+                    learningObjectives: [
+                        'Handle number inputs',
+                        'Perform calculations',
+                        'Validate user input',
+                        'Display dynamic results'
+                    ]
+                },
+                useCases: [
+                    {
+                        title: 'Fitness Websites',
+                        description: 'Calculate BMI for users'
+                    },
+                    {
+                        title: 'Health Sites',
+                        description: 'Provide health calculators'
+                    }
+                ]
             }
         ];
 
