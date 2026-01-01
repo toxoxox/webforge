@@ -476,8 +476,14 @@ const WorkshopManager = {
         
         console.log('Rendering step:', this.currentStep + 1, step.title);
         
-        // Render step content
+        // Calculate progress percentage
+        const progressPercent = ((this.currentStep + 1) / this.totalSteps) * 100;
+        
+        // Render step content with progress bar
         content.innerHTML = `
+            <div class="workshop-progress-bar">
+                <div class="workshop-progress-fill" style="width: ${progressPercent}%"></div>
+            </div>
             <div class="workshop-step">
                 <div class="workshop-step-number">Step ${this.currentStep + 1} of ${this.totalSteps}</div>
                 <h2 class="workshop-step-title">${step.title}</h2>
@@ -494,6 +500,10 @@ const WorkshopManager = {
                     <div class="workshop-code-block">
                         <div class="workshop-code-block-header">
                             <span class="workshop-code-block-title">${step.codeFile || 'Code'}</span>
+                            <button class="btn-copy-code" onclick="WorkshopManager.copyCode(this)" title="Copy code">
+                                <i data-lucide="copy"></i>
+                                <span>Copy</span>
+                            </button>
                         </div>
                         <pre><code>${this.escapeHtml(step.code)}</code></pre>
                     </div>
@@ -789,18 +799,21 @@ const WorkshopManager = {
         this.showCelebration();
         
         if (typeof showToast === 'function') {
-            showToast('🎉 Amazing work! You completed the workshop!', 'success', 'Workshop Complete');
+            showToast('Amazing work! You completed the workshop!', 'success');
         }
         
         // Show completion message
         const content = document.getElementById('workshop-step-content');
         if (content) {
             content.innerHTML = `
+                <div class="workshop-progress-bar">
+                    <div class="workshop-progress-fill" style="width: 100%"></div>
+                </div>
                 <div class="workshop-welcome workshop-complete">
                     <div class="workshop-complete-icon">
                         <i data-lucide="trophy"></i>
                     </div>
-                    <h3>🎉 Workshop Complete!</h3>
+                    <h3>Workshop Complete!</h3>
                     <p>You've successfully built the ${this.currentComponent.name}. Keep building amazing things!</p>
                     <div class="workshop-complete-actions">
                         <button class="btn btn-primary" onclick="window.location.href='components.html'">
@@ -874,13 +887,27 @@ const WorkshopManager = {
         const code = codeBlock.querySelector('code').textContent;
         
         navigator.clipboard.writeText(code).then(() => {
-            button.textContent = 'Copied!';
+            // Update button state
+            button.classList.add('copied');
+            const originalHTML = button.innerHTML;
+            button.innerHTML = '<i data-lucide="check"></i><span>Copied!</span>';
+            
+            // Re-initialize icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+            
+            // Reset button after 2 seconds
             setTimeout(() => {
-                button.textContent = 'Copy';
+                button.classList.remove('copied');
+                button.innerHTML = originalHTML;
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
             }, 2000);
             
             if (typeof showToast === 'function') {
-                showToast('Code copied to clipboard', 'success');
+                showToast('Code copied to clipboard!', 'success');
             }
         }).catch(err => {
             console.error('Failed to copy:', err);

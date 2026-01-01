@@ -137,7 +137,8 @@ const ComponentService = {
             });
         });
 
-        // Checkbox-style filters (removed recommended filter)
+        // Checkbox-style filters
+        this.setupToggleFilter('[data-recommended]', 'recommended');
         this.setupToggleFilter('[data-layout]', 'layout');
         this.setupToggleFilter('[data-interactive]', 'interactive');
         this.setupToggleFilter('[data-beginner]', 'beginner');
@@ -182,14 +183,13 @@ const ComponentService = {
      */
     applyFilters() {
         this.filteredComponents = this.components.filter(component => {
-            // Auto-show recommended components when website type is selected (not "other")
-            const hasWebsiteType = typeof WebsiteSelectorService !== 'undefined' && 
-                                   WebsiteSelectorService.selectedWebsite && 
-                                   WebsiteSelectorService.selectedWebsite !== 'other';
-            
-            if (hasWebsiteType) {
-                // Only show recommended components for the selected website type
-                if (!WebsiteSelectorService.isRecommended(component.id)) {
+            // Recommended filter (only if website type is selected and filter is active)
+            if (this.currentFilters.recommended) {
+                const hasWebsiteType = typeof WebsiteSelectorService !== 'undefined' && 
+                                       WebsiteSelectorService.selectedWebsite && 
+                                       WebsiteSelectorService.selectedWebsite !== 'other';
+                
+                if (hasWebsiteType && !WebsiteSelectorService.isRecommended(component.id)) {
                     return false;
                 }
             }

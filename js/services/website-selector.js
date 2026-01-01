@@ -255,13 +255,13 @@ const WebsiteSelectorService = {
     updateUI() {
         const banner = document.getElementById('selected-website-banner');
         const text = document.getElementById('website-type-text');
-        const recommendedFilter = document.getElementById('recommended-filter-group');
         const selectorBtnText = document.getElementById('current-website-type-text');
+        const recommendedFilterBtn = document.getElementById('recommended-filter-btn');
 
         if (!this.selectedWebsite || this.selectedWebsite === 'other') {
             // Hide banner and recommended filter for "other"
             if (banner) banner.style.display = 'none';
-            if (recommendedFilter) recommendedFilter.style.display = 'none';
+            if (recommendedFilterBtn) recommendedFilterBtn.style.display = 'none';
             
             // Update selector button to show "Show All"
             if (selectorBtnText) {
@@ -278,9 +278,9 @@ const WebsiteSelectorService = {
             text.textContent = `Building a ${websiteInfo.name}`;
         }
 
-        // Show recommended filter
-        if (recommendedFilter) {
-            recommendedFilter.style.display = 'block';
+        // Show recommended filter button
+        if (recommendedFilterBtn) {
+            recommendedFilterBtn.style.display = 'flex';
         }
 
         // Update selector button text
