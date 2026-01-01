@@ -864,7 +864,8 @@ h3 {
     to { opacity: 1; }
 }
 
-.modal {
+/* Modal dialogs (not component tags) */
+.modal:not(.component-tag) {
     display: block;
     position: fixed;
     top: 50%;
@@ -894,14 +895,14 @@ h3 {
     }
 }
 
-.modal h2 {
+.modal:not(.component-tag) h2 {
     margin-bottom: 1.25rem;
     color: var(--text-primary);
     font-size: 1.5rem;
     font-weight: 700;
 }
 
-.modal input[type="text"] {
+.modal:not(.component-tag) input[type="text"] {
     width: 100%;
     padding: 0.75rem 1rem;
     border: 2px solid var(--border-color);
@@ -913,7 +914,7 @@ h3 {
     color: var(--text-primary);
 }
 
-.modal input[type="text"]:focus {
+.modal:not(.component-tag) input[type="text"]:focus {
     outline: none;
     border-color: var(--primary);
     background: var(--bg-primary);

@@ -245,6 +245,7 @@ const WebsiteSelectorService = {
         // Trigger component gallery refresh
         if (typeof ComponentService !== 'undefined') {
             ComponentService.applyFilters();
+            ComponentService.renderGallery();
         }
     },
 
