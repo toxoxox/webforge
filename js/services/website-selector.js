@@ -148,18 +148,20 @@ const WebsiteSelectorService = {
      * Initialize the website selector
      */
     init() {
+        // Setup event listeners first
+        this.setupEventListeners();
+        
         // Check if website type is already selected
         const saved = localStorage.getItem('webforge_selected_website_type');
         if (saved && this.websiteTypes[saved]) {
             this.selectedWebsite = saved;
             this.updateUI();
         } else {
-            // Show modal on first visit
-            this.showModal();
+            // Show modal on first visit (with small delay to ensure DOM is ready)
+            setTimeout(() => {
+                this.showModal();
+            }, 100);
         }
-
-        // Setup event listeners
-        this.setupEventListeners();
     },
 
     /**
@@ -180,6 +182,18 @@ const WebsiteSelectorService = {
         if (changeBtn) {
             changeBtn.addEventListener('click', () => {
                 this.showModal();
+            });
+        }
+
+        // Close modal when clicking overlay
+        const modal = document.getElementById('website-selector-modal');
+        const overlay = modal?.querySelector('.modal-overlay');
+        if (overlay) {
+            overlay.addEventListener('click', () => {
+                // Only close if a website has already been selected
+                if (this.selectedWebsite) {
+                    this.hideModal();
+                }
             });
         }
     },
