@@ -42,14 +42,51 @@ const WorkshopManager = {
     formatWorkshopText(text) {
         if (!text) return '';
         
-        console.log('Original text:', JSON.stringify(text));
-        
-        // Convert literal \n strings to actual newlines
+        // Convert literal \n strings to actual newlines first
         let formatted = text.replace(/\\n/g, '\n');
         
-        console.log('Formatted text:', JSON.stringify(formatted));
+        // Split into lines
+        const lines = formatted.split('\n');
+        let result = '';
+        let inList = false;
         
-        return formatted;
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i].trim();
+            
+            if (line.startsWith('•') || line.startsWith('-')) {
+                // This is a list item
+                if (!inList) {
+                    result += '<ul>';
+                    inList = true;
+                }
+                // Remove the bullet/dash and ALL leading dashes from content
+                let content = line.replace(/^[•-]\s*/, ''); // Remove initial bullet/dash
+                content = content.replace(/^-+\s*/, ''); // Remove any remaining leading dashes
+                
+                // Escape HTML in the content to prevent it from being rendered as HTML
+                content = this.escapeHtml(content);
+                
+                result += `<li>${content}</li>`;
+            } else {
+                // This is regular text
+                if (inList) {
+                    result += '</ul>';
+                    inList = false;
+                }
+                if (line) {
+                    // Escape HTML in regular text too
+                    const escapedLine = this.escapeHtml(line);
+                    result += `<p>${escapedLine}</p>`;
+                }
+            }
+        }
+        
+        // Close any open list
+        if (inList) {
+            result += '</ul>';
+        }
+        
+        return result;
     },
 
     /**
@@ -503,12 +540,12 @@ const WorkshopManager = {
             <div class="workshop-step">
                 <div class="workshop-step-number">Step ${this.currentStep + 1} of ${this.totalSteps}</div>
                 <h2 class="workshop-step-title">${step.title}</h2>
-                <p class="workshop-step-description">${this.formatWorkshopText(step.description)}</p>
+                <p class="workshop-step-description"></p>
                 
                 ${step.instruction ? `
                     <div class="workshop-step-instruction">
                         <div class="workshop-step-instruction-title">What to do:</div>
-                        <div class="workshop-step-instruction-text">${this.formatWorkshopText(step.instruction)}</div>
+                        <div class="workshop-step-instruction-text"></div>
                     </div>
                 ` : ''}
                 
@@ -531,7 +568,7 @@ const WorkshopManager = {
                             <i data-lucide="lightbulb"></i>
                             <span>Tip</span>
                         </div>
-                        <div class="workshop-tip-text">${this.formatWorkshopText(step.tip)}</div>
+                        <div class="workshop-tip-text"></div>
                     </div>
                 ` : ''}
                 
@@ -541,7 +578,7 @@ const WorkshopManager = {
                             <i data-lucide="info"></i>
                             <span>Why?</span>
                         </div>
-                        <div class="workshop-explanation-text">${this.formatWorkshopText(step.explanation)}</div>
+                        <div class="workshop-explanation-text"></div>
                     </div>
                 ` : ''}
                 
@@ -551,11 +588,37 @@ const WorkshopManager = {
                             <i data-lucide="alert-triangle"></i>
                             <span>Watch Out</span>
                         </div>
-                        <div class="workshop-warning-text">${step.warning.replace(/\\n/g, '\n')}</div>
+                        <div class="workshop-warning-text"></div>
                     </div>
                 ` : ''}
             </div>
         `;
+        
+        // Now set the formatted text content using innerHTML for each element
+        const descriptionEl = content.querySelector('.workshop-step-description');
+        if (descriptionEl && step.description) {
+            descriptionEl.innerHTML = this.formatWorkshopText(step.description);
+        }
+        
+        const instructionEl = content.querySelector('.workshop-step-instruction-text');
+        if (instructionEl && step.instruction) {
+            instructionEl.innerHTML = this.formatWorkshopText(step.instruction);
+        }
+        
+        const tipEl = content.querySelector('.workshop-tip-text');
+        if (tipEl && step.tip) {
+            tipEl.innerHTML = this.formatWorkshopText(step.tip);
+        }
+        
+        const explanationEl = content.querySelector('.workshop-explanation-text');
+        if (explanationEl && step.explanation) {
+            explanationEl.innerHTML = this.formatWorkshopText(step.explanation);
+        }
+        
+        const warningEl = content.querySelector('.workshop-warning-text');
+        if (warningEl && step.warning) {
+            warningEl.innerHTML = this.formatWorkshopText(step.warning);
+        }
         
         // Update navigation
         this.updateNavigation();

@@ -253,7 +253,7 @@
     font-size: 0.875rem;
     color: #d1d5db;
     line-height: 1.6;
-    white-space: pre-line;
+    white-space: pre-line !important;
 }
 
 /* Fix bullet point formatting */
@@ -265,6 +265,45 @@
     /* Ensure bullet points stay with their text */
     word-break: keep-all;
     overflow-wrap: break-word;
+    white-space: pre-line !important;
+}
+
+/* Ultra-specific rules to ensure newlines work */
+#workshop-panel .workshop-explanation .workshop-explanation-text,
+#workshop-panel .workshop-step-instruction .workshop-step-instruction-text,
+#workshop-panel .workshop-tip .workshop-tip-text,
+#workshop-panel .workshop-warning .workshop-warning-text,
+#workshop-panel .workshop-step-description {
+    white-space: pre-line !important;
+    display: block !important;
+}
+
+/* Style lists in workshop content */
+.workshop-explanation-text ul,
+.workshop-step-instruction-text ul,
+.workshop-tip-text ul,
+.workshop-warning-text ul,
+.workshop-step-description ul {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+    list-style-type: disc;
+}
+
+.workshop-explanation-text li,
+.workshop-step-instruction-text li,
+.workshop-tip-text li,
+.workshop-warning-text li,
+.workshop-step-description li {
+    margin: 0.25rem 0;
+    line-height: 1.5;
+}
+
+.workshop-explanation-text p,
+.workshop-step-instruction-text p,
+.workshop-tip-text p,
+.workshop-warning-text p,
+.workshop-step-description p {
+    margin: 0.5rem 0;
 }
 
 /* Warning Block */
