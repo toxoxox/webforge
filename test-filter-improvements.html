@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Improvements Test - WebForge</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Component Filter Improvements Test</h1>
+        
+        <!-- Test the new streamlined filter layout -->
+        <section class="component-filters-section">
+            <div class="container">
+                <!-- Primary Filters (Always Visible) -->
+                <div class="primary-filters">
+                    <!-- Search Filter -->
+                    <div class="search-filter-container">
+                        <div class="search-input-container">
+                            <input 
+                                type="text" 
+                                id="component-search" 
+                                class="search-input" 
+                                placeholder="Search components..."
+                                autocomplete="off"
+                            >
+                            <i data-lucide="search" class="search-icon"></i>
+                            <button class="search-clear-btn" id="search-clear-btn" style="display: none;">
+                                <i data-lucide="x"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Filters -->
+                    <div class="quick-filters">
+                        <button class="filter-btn website-type-selector-btn">
+                            <i data-lucide="layout-template"></i>
+                            <span>Select Website Type</span>
+                        </button>
+                        
+                        <div class="filter-divider"></div>
+                        
+                        <button class="filter-btn active" data-filter="all">
+                            <i data-lucide="grid-3x3"></i>
+                            <span>All Components</span>
+                        </button>
+                        <button class="filter-btn" data-difficulty="beginner">
+                            <i data-lucide="graduation-cap"></i>
+                            <span>Beginner</span>
+                        </button>
+                        <button class="filter-btn" data-recommended="true" style="display: none;">
+                            <i data-lucide="star"></i>
+                            <span>Recommended</span>
+                        </button>
+                    </div>
+
+                    <!-- Advanced Filters Toggle -->
+                    <div class="advanced-filters-toggle">
+                        <button class="toggle-advanced-btn" id="toggle-advanced-filters">
+                            <i data-lucide="sliders-horizontal"></i>
+                            <span>More Filters</span>
+                            <i data-lucide="chevron-down" class="toggle-icon"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Advanced Filters (Collapsible) -->
+                <div class="advanced-filters" id="advanced-filters" style="display: none;">
+                    <div class="advanced-filters-content">
+                        <div class="filter-group">
+                            <label class="filter-label">Component Type</label>
+                            <div class="filter-buttons">
+                                <button class="filter-btn" data-filter="navigation">
+                                    <i data-lucide="menu"></i>
+                                    <span>Navigation</span>
+                                </button>
+                                <button class="filter-btn" data-filter="layout">
+                                    <i data-lucide="layout"></i>
+                                    <span>Layout</span>
+                                </button>
+                                <button class="filter-btn" data-filter="forms">
+                                    <i data-lucide="form-input"></i>
+                                    <span>Forms</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <label class="filter-label">Difficulty Level</label>
+                            <div class="filter-buttons">
+                                <button class="filter-btn" data-difficulty="intermediate">
+                                    <i data-lucide="trending-up"></i>
+                                    <span>Intermediate</span>
+                                </button>
+                                <button class="filter-btn" data-difficulty="advanced">
+                                    <i data-lucide="zap"></i>
+                                    <span>Advanced</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="filter-actions">
+                            <button class="filter-btn clear-all-btn" id="clear-all-filters-btn">
+                                <i data-lucide="refresh-ccw"></i>
+                                <span>Clear All Filters</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div style="margin-top: 2rem; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+            <h3>Test Instructions:</h3>
+            <ol>
+                <li>Click "More Filters" to expand/collapse advanced options</li>
+                <li>Try typing in the search box</li>
+                <li>Click different filter buttons to see active states</li>
+                <li>Test on mobile by resizing the window</li>
+                <li>Click "Clear All Filters" to reset everything</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // Initialize icons
+        lucide.createIcons();
+        
+        // Test the advanced filters toggle
+        const toggleBtn = document.getElementById('toggle-advanced-filters');
+        const advancedFilters = document.getElementById('advanced-filters');
+        
+        if (toggleBtn && advancedFilters) {
+            toggleBtn.addEventListener('click', () => {
+                const isVisible = advancedFilters.style.display !== 'none';
+                
+                if (isVisible) {
+                    advancedFilters.style.display = 'none';
+                    toggleBtn.classList.remove('active');
+                } else {
+                    advancedFilters.style.display = 'block';
+                    toggleBtn.classList.add('active');
+                }
+            });
+        }
+
+        // Test filter button states
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Toggle active state for demo
+                if (!btn.classList.contains('website-type-selector-btn') && 
+                    !btn.classList.contains('toggle-advanced-btn') &&
+                    !btn.classList.contains('clear-all-btn')) {
+                    btn.classList.toggle('active');
+                }
+            });
+        });
+
+        // Test search functionality
+        const searchInput = document.getElementById('component-search');
+        const clearBtn = document.getElementById('search-clear-btn');
+        
+        if (searchInput && clearBtn) {
+            searchInput.addEventListener('input', (e) => {
+                clearBtn.style.display = e.target.value.length > 0 ? 'flex' : 'none';
+            });
+            
+            clearBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                clearBtn.style.display = 'none';
+            });
+        }
+
+        // Test clear all functionality
+        const clearAllBtn = document.getElementById('clear-all-filters-btn');
+        if (clearAllBtn) {
+            clearAllBtn.addEventListener('click', () => {
+                // Reset search
+                if (searchInput) searchInput.value = '';
+                if (clearBtn) clearBtn.style.display = 'none';
+                
+                // Reset filter buttons
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.filter === 'all') {
+                        btn.classList.add('active');
+                    }
+                });
+                
+                // Hide advanced filters
+                if (advancedFilters) advancedFilters.style.display = 'none';
+                if (toggleBtn) toggleBtn.classList.remove('active');
+                
+                alert('All filters cleared!');
+            });
+        }
+    </script>
+</body>
+</html>

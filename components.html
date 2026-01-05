@@ -121,16 +121,16 @@
                         </button>
                     </div>
 
-                    <div class="filters-toolbar">
+                    <!-- Primary Filters (Always Visible) -->
+                    <div class="primary-filters">
                         <!-- Search Filter -->
-                        <div class="filter-group">
-                            <label class="filter-label">Search Components</label>
+                        <div class="search-filter-container">
                             <div class="search-input-container">
                                 <input 
                                     type="text" 
                                     id="component-search" 
                                     class="search-input" 
-                                    placeholder="Search by name, tags, or description..."
+                                    placeholder="Search components..."
                                     autocomplete="off"
                                 >
                                 <i data-lucide="search" class="search-icon"></i>
@@ -140,77 +140,101 @@
                             </div>
                         </div>
 
-                        <!-- Website Type Selector Button (Always Visible) -->
-                        <div class="filter-group">
-                            <label class="filter-label">Website Type</label>
-                            <div class="filter-buttons">
-                                <button class="filter-btn website-type-selector-btn" id="website-type-selector-btn">
-                                    <i data-lucide="layout-template"></i>
-                                    <span id="current-website-type-text">Select Website Type</span>
-                                </button>
-                            </div>
-                            <p class="filter-hint">
-                                <i data-lucide="info"></i>
-                                <span>Click here to change your website type</span>
-                            </p>
+                        <!-- Quick Filters -->
+                        <div class="quick-filters">
+                            <button class="filter-btn website-type-selector-btn" id="website-type-selector-btn">
+                                <i data-lucide="layout-template"></i>
+                                <span id="current-website-type-text">Select Website Type</span>
+                            </button>
+                            
+                            <div class="filter-divider"></div>
+                            
+                            <button class="filter-btn active" data-filter="all">
+                                <i data-lucide="grid-3x3"></i>
+                                <span>All Components</span>
+                            </button>
+                            <button class="filter-btn" data-difficulty="beginner">
+                                <i data-lucide="graduation-cap"></i>
+                                <span>Beginner</span>
+                            </button>
+                            <button class="filter-btn" data-recommended="true" id="recommended-filter-btn" style="display: none;">
+                                <i data-lucide="star"></i>
+                                <span>Recommended</span>
+                            </button>
                         </div>
 
-                        <div class="filter-group">
-                            <label class="filter-label">Component Type</label>
-                            <div class="filter-buttons">
-                                <button class="filter-btn active" data-filter="all">
-                                    <i data-lucide="grid-3x3"></i>
-                                    <span>All</span>
-                                </button>
-                                <button class="filter-btn" data-filter="navigation">
-                                    <i data-lucide="menu"></i>
-                                    <span>Navigation</span>
-                                </button>
-                                <button class="filter-btn" data-filter="layout">
-                                    <i data-lucide="layout"></i>
-                                    <span>Layout</span>
-                                </button>
-                                <button class="filter-btn" data-filter="forms">
-                                    <i data-lucide="form-input"></i>
-                                    <span>Forms</span>
-                                </button>
-                                <button class="filter-btn" data-filter="ui-elements">
-                                    <i data-lucide="box"></i>
-                                    <span>UI Elements</span>
-                                </button>
-                                <button class="filter-btn" data-filter="interactions">
-                                    <i data-lucide="zap"></i>
-                                    <span>Interactions</span>
-                                </button>
-                            </div>
+                        <!-- Advanced Filters Toggle -->
+                        <div class="advanced-filters-toggle">
+                            <button class="toggle-advanced-btn" id="toggle-advanced-filters">
+                                <i data-lucide="sliders-horizontal"></i>
+                                <span>More Filters</span>
+                                <i data-lucide="chevron-down" class="toggle-icon"></i>
+                            </button>
                         </div>
-                        
-                        <div class="filter-group">
-                            <label class="filter-label">Difficulty</label>
-                            <div class="filter-buttons">
-                                <button class="filter-btn active" data-difficulty="all">All</button>
-                                <button class="filter-btn" data-difficulty="beginner">Beginner</button>
-                                <button class="filter-btn" data-difficulty="intermediate">Intermediate</button>
-                                <button class="filter-btn" data-difficulty="advanced">Advanced</button>
-                            </div>
-                        </div>
-                        
-                        <div class="filter-group">
-                            <label class="filter-label">Features</label>
-                            <div class="filter-buttons">
-                                <button class="filter-btn" data-recommended="true" id="recommended-filter-btn" style="display: none;">
-                                    <i data-lucide="star"></i>
-                                    <span>Recommended Only</span>
-                                </button>
-                                <button class="filter-btn" data-layout="true">Layout</button>
-                                <button class="filter-btn" data-interactive="true">Interactive (JS)</button>
-                                <button class="filter-btn" data-beginner="true">Beginner Friendly</button>
-                            </div>
-                        </div>
+                    </div>
 
-                        <div class="filter-group">
-                            <label class="filter-label">Actions</label>
-                            <div class="filter-buttons">
+                    <!-- Advanced Filters (Collapsible) -->
+                    <div class="advanced-filters" id="advanced-filters" style="display: none;">
+                        <div class="advanced-filters-content">
+                            <div class="filter-group">
+                                <label class="filter-label">Component Type</label>
+                                <div class="filter-buttons">
+                                    <button class="filter-btn" data-filter="navigation">
+                                        <i data-lucide="menu"></i>
+                                        <span>Navigation</span>
+                                    </button>
+                                    <button class="filter-btn" data-filter="layout">
+                                        <i data-lucide="layout"></i>
+                                        <span>Layout</span>
+                                    </button>
+                                    <button class="filter-btn" data-filter="forms">
+                                        <i data-lucide="form-input"></i>
+                                        <span>Forms</span>
+                                    </button>
+                                    <button class="filter-btn" data-filter="ui-elements">
+                                        <i data-lucide="box"></i>
+                                        <span>UI Elements</span>
+                                    </button>
+                                    <button class="filter-btn" data-filter="interactions">
+                                        <i data-lucide="zap"></i>
+                                        <span>Interactive</span>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label class="filter-label">Difficulty Level</label>
+                                <div class="filter-buttons">
+                                    <button class="filter-btn" data-difficulty="intermediate">
+                                        <i data-lucide="trending-up"></i>
+                                        <span>Intermediate</span>
+                                    </button>
+                                    <button class="filter-btn" data-difficulty="advanced">
+                                        <i data-lucide="zap"></i>
+                                        <span>Advanced</span>
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="filter-group">
+                                <label class="filter-label">Features</label>
+                                <div class="filter-buttons">
+                                    <button class="filter-btn" data-interactive="true">
+                                        <i data-lucide="mouse-pointer-click"></i>
+                                        <span>JavaScript</span>
+                                    </button>
+                                    <button class="filter-btn" data-layout="true">
+                                        <i data-lucide="layout"></i>
+                                        <span>Layout Focus</span>
+                                    </button>
+                                    <button class="filter-btn" data-beginner="true">
+                                        <i data-lucide="heart"></i>
+                                        <span>Beginner Friendly</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="filter-actions">
                                 <button class="filter-btn clear-all-btn" id="clear-all-filters-btn">
                                     <i data-lucide="refresh-ccw"></i>
                                     <span>Clear All Filters</span>

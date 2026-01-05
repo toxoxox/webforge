@@ -123,6 +123,9 @@ const ComponentService = {
         // Search input
         this.setupSearchFilter();
 
+        // Advanced filters toggle
+        this.setupAdvancedFiltersToggle();
+
         // Type filters (radio-style)
         document.querySelectorAll('[data-filter]').forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -154,6 +157,30 @@ const ComponentService = {
                 this.clearAllFilters();
             });
         }
+    },
+
+    /**
+     * Setup advanced filters toggle functionality
+     */
+    setupAdvancedFiltersToggle() {
+        const toggleBtn = document.getElementById('toggle-advanced-filters');
+        const advancedFilters = document.getElementById('advanced-filters');
+        
+        if (!toggleBtn || !advancedFilters) return;
+
+        toggleBtn.addEventListener('click', () => {
+            const isVisible = advancedFilters.style.display !== 'none';
+            
+            if (isVisible) {
+                // Hide advanced filters
+                advancedFilters.style.display = 'none';
+                toggleBtn.classList.remove('active');
+            } else {
+                // Show advanced filters
+                advancedFilters.style.display = 'block';
+                toggleBtn.classList.add('active');
+            }
+        });
     },
 
     /**
@@ -701,6 +728,16 @@ const ComponentService = {
         document.querySelectorAll('[data-recommended], [data-layout], [data-interactive], [data-beginner]').forEach(btn => {
             btn.classList.remove('active');
         });
+
+        // Hide advanced filters and reset toggle button
+        const advancedFilters = document.getElementById('advanced-filters');
+        const toggleBtn = document.getElementById('toggle-advanced-filters');
+        if (advancedFilters) {
+            advancedFilters.style.display = 'none';
+        }
+        if (toggleBtn) {
+            toggleBtn.classList.remove('active');
+        }
 
         // Apply filters and re-render
         this.applyFilters();
