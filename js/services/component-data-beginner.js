@@ -14,9 +14,9 @@ const BeginnerComponentData = {
             hasJS: false,
             mobileFirst: false,
             tags: ['Beginner-Friendly', 'Flexbox', 'CSS-Only'],
-            description: 'Build a professional navigation bar with logo, styled links, and dropdown menus. 15 easy-to-follow steps break down each concept.',
+            description: 'Build a professional navigation bar with logo, styled links, and CSS-only dropdown menus. Learn positioning, hover effects, and accessibility features.',
             preview: `<div class="component-preview-placeholder">
-                <div style="background: #2c3e50; color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; border-radius: 8px;">
+                <div style="background: #2c3e50; color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; border-radius: 8px; position: relative;">
                     <div style="display: flex; align-items: center; gap: 0.75rem;">
                         <div style="width: 40px; height: 40px; background: #667eea; border-radius: 8px;"></div>
                         <span style="font-weight: 600; font-size: 1.5rem;">My Website</span>
@@ -24,14 +24,32 @@ const BeginnerComponentData = {
                     <ul style="display: flex; list-style: none; gap: 2rem; margin: 0; padding: 0;">
                         <li><a href="#" style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; background: rgba(255,255,255,0.1);">Home</a></li>
                         <li><a href="#" style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px;">About</a></li>
-                        <li><a href="#" style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px;">Services</a></li>
+                        <li style="position: relative;">
+                            <a href="#" style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; display: flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.1);">
+                                Services 
+                                <span style="font-size: 0.8rem;">▼</span>
+                            </a>
+                            <ul style="position: absolute; top: 100%; left: 0; background: white; min-width: 180px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 8px; padding: 0.5rem 0; list-style: none; margin: 0;">
+                                <li><a href="#" style="display: block; padding: 0.75rem 1.5rem; color: #2c3e50; text-decoration: none; font-size: 0.9rem;">Web Design</a></li>
+                                <li><a href="#" style="display: block; padding: 0.75rem 1.5rem; color: #2c3e50; text-decoration: none; font-size: 0.9rem;">Development</a></li>
+                                <li><a href="#" style="display: block; padding: 0.75rem 1.5rem; color: #2c3e50; text-decoration: none; font-size: 0.9rem;">SEO Services</a></li>
+                                <li><a href="#" style="display: block; padding: 0.75rem 1.5rem; color: #2c3e50; text-decoration: none; font-size: 0.9rem;">Consulting</a></li>
+                            </ul>
+                        </li>
                         <li><a href="#" style="color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px;">Contact</a></li>
                     </ul>
                 </div>
             </div>`,
             workshop: {
                 goal: 'Build a professional navigation bar with logo and dropdown menu',
-                duration: '40 minutes',
+                duration: '35 minutes',
+                learningObjectives: [
+                    'Create semantic HTML navigation structure',
+                    'Build CSS-only dropdown menus',
+                    'Style professional navigation bars',
+                    'Add smooth hover animations',
+                    'Understand positioning and z-index'
+                ],
                 steps: [
                     {
                         title: 'Create the Navbar Container',
@@ -70,8 +88,8 @@ const BeginnerComponentData = {
                         }
                     },
                     {
-                        title: 'Add Navigation Menu',
-                        description: 'Now let\'s add the main navigation menu with links to different pages.',
+                        title: 'Add Navigation Menu with Dropdown',
+                        description: 'Now let\'s add the main navigation menu. One of the items will have a dropdown submenu!',
                         instruction: 'Add this menu list after the nav-brand div:',
                         code: `  <ul class="nav-menu">
     <li class="nav-item">
@@ -80,16 +98,22 @@ const BeginnerComponentData = {
     <li class="nav-item">
       <a href="#about" class="nav-link">About</a>
     </li>
-    <li class="nav-item">
-      <a href="#services" class="nav-link">Services</a>
+    <li class="nav-item dropdown">
+      <a href="#services" class="nav-link">Services <i data-lucide="chevron-down"></i></a>
+      <ul class="dropdown-menu">
+        <li><a href="#web-design" class="dropdown-link">Web Design</a></li>
+        <li><a href="#development" class="dropdown-link">Development</a></li>
+        <li><a href="#seo" class="dropdown-link">SEO Services</a></li>
+        <li><a href="#consulting" class="dropdown-link">Consulting</a></li>
+      </ul>
     </li>
     <li class="nav-item">
       <a href="#contact" class="nav-link">Contact</a>
     </li>
   </ul>`,
                         codeFile: 'index.html',
-                        tip: 'The <ul> tag creates an "unordered list" - perfect for navigation menus!',
-                        explanation: 'Navigation menus are just lists of links:\n• <ul class="nav-menu"> - Creates a list container\n• <li class="nav-item"> - Each list item holds one menu link\n• <a href="#home" class="nav-link"> - The actual clickable link\n• class="active" - Shows which page we\'re currently on\n\nThe href="#home" creates links to sections on the same page. You can change these to actual page URLs like "about.html" later!',
+                        tip: 'The dropdown class and nested <ul> create our dropdown menu structure. The chevron-down icon shows users there\'s a submenu!',
+                        explanation: 'Dropdown menu structure:\n• <li class="nav-item dropdown"> - The parent item that contains the dropdown\n• <i data-lucide="chevron-down"></i> - A down arrow icon to indicate dropdown\n• <ul class="dropdown-menu"> - The hidden submenu that will appear on hover\n• <a class="dropdown-link"> - Links inside the dropdown menu\n\nThis creates a "Services" menu item that will show a dropdown with 4 service options when you hover over it!',
                         validation: {
                             required: [
                                 {
@@ -100,9 +124,15 @@ const BeginnerComponentData = {
                                 },
                                 {
                                     type: 'class',
-                                    value: 'nav-menu',
-                                    message: 'Add class="nav-menu" to your <ul> tag!',
-                                    hint: 'This class will help us style the menu'
+                                    value: 'dropdown',
+                                    message: 'Add a dropdown menu item!',
+                                    hint: 'Use class="nav-item dropdown"'
+                                },
+                                {
+                                    type: 'class',
+                                    value: 'dropdown-menu',
+                                    message: 'Add the dropdown submenu!',
+                                    hint: 'Use <ul class="dropdown-menu">'
                                 }
                             ]
                         }
@@ -118,10 +148,12 @@ const BeginnerComponentData = {
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: relative;
+  z-index: 1000;
 }`,
                         codeFile: 'style.css',
-                        tip: 'Flexbox is perfect for navigation bars - it automatically spaces items and keeps them aligned!',
-                        explanation: 'Let\'s break down each CSS property:\n• background-color: #2c3e50 - Dark blue-gray background\n• padding: 1rem 2rem - Space inside the navbar (top/bottom: 1rem, left/right: 2rem)\n• display: flex - Makes items line up horizontally\n• justify-content: space-between - Pushes logo left, menu right\n• align-items: center - Centers items vertically\n• box-shadow - Adds a subtle shadow below the navbar',
+                        tip: 'The z-index: 1000 ensures our navbar stays above other content, especially important for dropdown menus!',
+                        explanation: 'Let\'s break down each CSS property:\n• background-color: #2c3e50 - Dark blue-gray background\n• padding: 1rem 2rem - Space inside the navbar (top/bottom: 1rem, left/right: 2rem)\n• display: flex - Makes items line up horizontally\n• justify-content: space-between - Pushes logo left, menu right\n• align-items: center - Centers items vertically\n• position: relative; z-index: 1000 - Ensures navbar stays on top of other elements\n• box-shadow - Adds a subtle shadow below the navbar',
                         validation: {
                             required: [
                                 {
@@ -171,7 +203,7 @@ const BeginnerComponentData = {
                     },
                     {
                         title: 'Style the Navigation Menu',
-                        description: 'Now let\'s make the navigation links look professional and remove the default list styling.',
+                        description: 'Now let\'s make the navigation links look professional and prepare for dropdown functionality.',
                         instruction: 'Add this CSS for the navigation menu:',
                         code: `.nav-menu {
   display: flex;
@@ -182,6 +214,7 @@ const BeginnerComponentData = {
 }
 
 .nav-item {
+  position: relative;
   margin: 0;
 }
 
@@ -191,10 +224,13 @@ const BeginnerComponentData = {
   padding: 0.5rem 1rem;
   border-radius: 6px;
   transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }`,
                         codeFile: 'style.css',
-                        tip: 'Always remove default list styling (bullets, margins, padding) when creating navigation menus!',
-                        explanation: 'Menu styling explained:\n• list-style: none - Removes bullet points\n• margin: 0; padding: 0 - Removes default spacing\n• display: flex - Lines up menu items horizontally\n• gap: 2rem - Space between menu items\n• text-decoration: none - Removes underlines from links\n• transition - Smooth color changes on hover (we\'ll add hover next!)',
+                        tip: 'The position: relative on nav-item is crucial - it creates a positioning context for our dropdown menus!',
+                        explanation: 'Menu styling explained:\n• list-style: none - Removes bullet points\n• margin: 0; padding: 0 - Removes default spacing\n• display: flex - Lines up menu items horizontally\n• position: relative - Creates positioning context for dropdowns\n• gap: 2rem - Space between menu items\n• display: flex; align-items: center - Lines up text and icons in nav links\n• transition - Smooth color changes on hover',
                         validation: {
                             required: [
                                 {
@@ -207,8 +243,88 @@ const BeginnerComponentData = {
                         }
                     },
                     {
-                        title: 'Add Hover Effects',
-                        description: 'Let\'s add smooth hover effects to make the navigation interactive and engaging.',
+                        title: 'Create the Dropdown Menu Styles',
+                        description: 'Now for the exciting part - let\'s create the dropdown menu that appears when you hover over "Services"!',
+                        instruction: 'Add this CSS for the dropdown functionality:',
+                        code: `.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  min-width: 200px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  border-radius: 8px;
+  padding: 0.5rem 0;
+  list-style: none;
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}`,
+                        codeFile: 'style.css',
+                        tip: 'The transform: translateY(-10px) makes the dropdown slide down smoothly when it appears!',
+                        explanation: 'Dropdown magic explained:\n• position: absolute - Positions dropdown relative to its parent nav-item\n• top: 100% - Places dropdown just below the nav item\n• opacity: 0; visibility: hidden - Hides dropdown by default\n• transform: translateY(-10px) - Starts dropdown 10px higher\n• transition: all 0.3s ease - Smooth animation\n• .dropdown:hover .dropdown-menu - Shows dropdown when hovering over parent\n• transform: translateY(0) - Slides dropdown to final position',
+                        validation: {
+                            required: [
+                                {
+                                    type: 'css-rule',
+                                    value: '.dropdown-menu',
+                                    message: 'Add CSS styling for the .dropdown-menu class!',
+                                    hint: 'Create the dropdown menu styles'
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        title: 'Style Dropdown Links',
+                        description: 'Let\'s make the links inside our dropdown menu look great and add hover effects.',
+                        instruction: 'Add this CSS for dropdown link styling:',
+                        code: `.dropdown-link {
+  display: block;
+  padding: 0.75rem 1.5rem;
+  color: #2c3e50;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-link:hover {
+  background-color: #f8f9fa;
+  color: #2c3e50;
+}
+
+.nav-link i {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s ease;
+}
+
+.dropdown:hover .nav-link i {
+  transform: rotate(180deg);
+}`,
+                        codeFile: 'style.css',
+                        tip: 'The rotating chevron icon gives users visual feedback that the dropdown is open!',
+                        explanation: 'Dropdown link styling:\n• display: block - Makes links fill the full width\n• padding: 0.75rem 1.5rem - Comfortable click area\n• color: #2c3e50 - Dark text on light background\n• transition - Smooth hover effects\n• :hover background-color - Light gray background on hover\n• transform: rotate(180deg) - Flips the chevron icon when dropdown is open',
+                        validation: {
+                            required: [
+                                {
+                                    type: 'css-rule',
+                                    value: '.dropdown-link',
+                                    message: 'Add CSS styling for the .dropdown-link class!',
+                                    hint: 'Style the dropdown menu links'
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        title: 'Add Main Navigation Hover Effects',
+                        description: 'Let\'s add smooth hover effects to the main navigation links to make them interactive.',
                         instruction: 'Add these hover and active states:',
                         code: `.nav-link:hover {
   background-color: rgba(255, 255, 255, 0.1);
@@ -221,10 +337,14 @@ const BeginnerComponentData = {
 
 .nav-link.active:hover {
   background-color: rgba(255, 255, 255, 0.3);
+}
+
+.dropdown .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }`,
                         codeFile: 'style.css',
-                        tip: 'Using rgba() with transparency creates subtle, professional-looking hover effects!',
-                        explanation: 'Interactive states explained:\n• :hover - Styles when mouse is over the link\n• .active - Styles the current page link\n• rgba(255, 255, 255, 0.1) - White with 10% opacity\n• The transition we added earlier makes these changes smooth\n• Active links get slightly more background and bold text',
+                        tip: 'Using rgba() with transparency creates subtle, professional-looking hover effects that work on any background!',
+                        explanation: 'Interactive states explained:\n• :hover - Styles when mouse is over the link\n• .active - Styles the current page link\n• rgba(255, 255, 255, 0.1) - White with 10% opacity\n• The transition we added earlier makes these changes smooth\n• Active links get slightly more background and bold text\n• Dropdown parent links also get hover effects',
                         validation: {
                             required: [
                                 {
@@ -237,143 +357,50 @@ const BeginnerComponentData = {
                         }
                     },
                     {
-                        title: 'Make It Responsive - Mobile Menu Button',
-                        description: 'On small screens, we need a hamburger menu button. Let\'s add it to the HTML first.',
-                        instruction: 'Add this mobile menu button inside the navbar, after the nav-brand:',
-                        code: `  <button class="mobile-menu-btn" aria-label="Toggle mobile menu">
-    <span class="hamburger-line"></span>
-    <span class="hamburger-line"></span>
-    <span class="hamburger-line"></span>
-  </button>`,
-                        codeFile: 'index.html',
-                        tip: 'The aria-label helps screen readers understand what the button does - great for accessibility!',
-                        explanation: 'Mobile menu button breakdown:\n• <button> - Clickable element (better than <div> for accessibility)\n• aria-label - Describes the button for screen readers\n• Three <span> elements create the hamburger icon lines\n• We\'ll style these spans to look like a hamburger menu',
-                        validation: {
-                            required: [
-                                {
-                                    type: 'class',
-                                    value: 'mobile-menu-btn',
-                                    message: 'Add the mobile menu button!',
-                                    hint: 'Add <button class="mobile-menu-btn">'
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        title: 'Style the Mobile Menu Button',
-                        description: 'Let\'s create a nice-looking hamburger menu icon that\'s hidden on desktop.',
-                        instruction: 'Add this CSS for the mobile menu button:',
-                        code: `.mobile-menu-btn {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.hamburger-line {
-  width: 25px;
-  height: 3px;
-  background-color: white;
-  border-radius: 2px;
-  transition: all 0.3s ease;
-}`,
-                        codeFile: 'style.css',
-                        tip: 'We use display: none to hide the button on desktop - it will show on mobile with media queries!',
-                        explanation: 'Hamburger button styling:\n• display: none - Hidden by default (desktop)\n• background: none; border: none - Removes default button styling\n• flex-direction: column - Stacks the lines vertically\n• gap: 4px - Space between hamburger lines\n• width: 25px; height: 3px - Makes thin horizontal lines\n• transition - Smooth animations when we add interactions later',
-                        validation: {
-                            required: [
-                                {
-                                    type: 'css-rule',
-                                    value: '.mobile-menu-btn',
-                                    message: 'Add CSS styling for the mobile menu button!',
-                                    hint: 'Style the .mobile-menu-btn class'
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        title: 'Add Mobile Responsive Styles',
-                        description: 'Now let\'s make the navbar work perfectly on mobile devices with a media query.',
-                        instruction: 'Add this mobile-responsive CSS:',
-                        code: `@media (max-width: 768px) {
-  .navbar {
-    flex-wrap: wrap;
-    padding: 1rem;
+                        title: 'Initialize Lucide Icons',
+                        description: 'Finally, let\'s add a small bit of JavaScript to make sure our chevron icon displays properly.',
+                        instruction: 'Add this JavaScript to initialize the icons:',
+                        code: `// Initialize Lucide icons for the dropdown chevron
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize Lucide icons
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
   }
   
-  .mobile-menu-btn {
-    display: flex;
-  }
+  // Optional: Add keyboard navigation for accessibility
+  const dropdownItems = document.querySelectorAll('.dropdown');
   
-  .nav-menu {
-    display: none;
-    width: 100%;
-    flex-direction: column;
-    gap: 0;
-    margin-top: 1rem;
-  }
-  
-  .nav-menu.active {
-    display: flex;
-  }
-  
-  .nav-link {
-    padding: 1rem;
-    border-radius: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-}`,
-                        codeFile: 'style.css',
-                        tip: 'Media queries let you apply different styles based on screen size - essential for responsive design!',
-                        explanation: 'Mobile responsive breakdown:\n• @media (max-width: 768px) - Applies styles only on screens smaller than 768px\n• flex-wrap: wrap - Allows navbar items to wrap to new lines\n• mobile-menu-btn display: flex - Shows the hamburger button on mobile\n• nav-menu display: none - Hides menu by default on mobile\n• .nav-menu.active - Shows menu when "active" class is added\n• flex-direction: column - Stacks menu items vertically on mobile',
-                        validation: {
-                            required: [
-                                {
-                                    type: 'css-rule',
-                                    value: '@media',
-                                    message: 'Add mobile responsive styles with a media query!',
-                                    hint: 'Use @media (max-width: 768px)'
-                                }
-                            ]
-                        }
-                    },
-                    {
-                        title: 'Add JavaScript for Mobile Menu',
-                        description: 'Finally, let\'s add JavaScript to make the mobile menu button actually work!',
-                        instruction: 'Add this JavaScript to make the mobile menu interactive:',
-                        code: `// Mobile menu toggle functionality
-const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-const navMenu = document.querySelector('.nav-menu');
-
-mobileMenuBtn.addEventListener('click', () => {
-  navMenu.classList.toggle('active');
-  
-  // Animate hamburger lines
-  const lines = mobileMenuBtn.querySelectorAll('.hamburger-line');
-  lines.forEach((line, index) => {
-    if (navMenu.classList.contains('active')) {
-      if (index === 0) line.style.transform = 'rotate(45deg) translate(6px, 6px)';
-      if (index === 1) line.style.opacity = '0';
-      if (index === 2) line.style.transform = 'rotate(-45deg) translate(6px, -6px)';
-    } else {
-      line.style.transform = 'none';
-      line.style.opacity = '1';
-    }
+  dropdownItems.forEach(item => {
+    const link = item.querySelector('.nav-link');
+    const menu = item.querySelector('.dropdown-menu');
+    
+    // Show dropdown on focus (keyboard navigation)
+    link.addEventListener('focus', () => {
+      menu.style.opacity = '1';
+      menu.style.visibility = 'visible';
+      menu.style.transform = 'translateY(0)';
+    });
+    
+    // Hide dropdown when focus leaves the dropdown area
+    item.addEventListener('focusout', (e) => {
+      if (!item.contains(e.relatedTarget)) {
+        menu.style.opacity = '0';
+        menu.style.visibility = 'hidden';
+        menu.style.transform = 'translateY(-10px)';
+      }
+    });
   });
 });`,
                         codeFile: 'script.js',
-                        tip: 'The toggle() method is perfect here - it adds the class if it\'s not there, removes it if it is!',
-                        explanation: 'JavaScript functionality:\n• querySelector() - Finds elements by CSS selector\n• addEventListener() - Listens for button clicks\n• classList.toggle() - Adds/removes the "active" class\n• transform: rotate() - Rotates hamburger lines into an X\n• opacity: 0 - Hides the middle line\n• This creates a smooth hamburger-to-X animation!',
+                        tip: 'This JavaScript also adds keyboard accessibility - users can navigate the dropdown with Tab and Enter keys!',
+                        explanation: 'JavaScript functionality:\n• DOMContentLoaded - Waits for HTML to load before running\n• lucide.createIcons() - Converts icon elements to actual icons\n• focus/focusout events - Makes dropdown work with keyboard navigation\n• contains() - Checks if focus is still within the dropdown area\n• This makes your navbar accessible to users who navigate with keyboards!',
                         validation: {
                             required: [
                                 {
-                                    type: 'js-variable',
-                                    value: 'mobileMenuBtn',
-                                    message: 'Add JavaScript to make the mobile menu work!',
-                                    hint: 'Create variables for the menu button and menu'
+                                    type: 'js-function',
+                                    value: 'addEventListener',
+                                    message: 'Add JavaScript to initialize icons and accessibility!',
+                                    hint: 'Use addEventListener for DOMContentLoaded'
                                 }
                             ]
                         }
