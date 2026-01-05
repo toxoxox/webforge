@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Responsive Navbar Component</title>
+</head>
+<body>
+    <h1>Testing Responsive Navbar Component</h1>
+    <div id="test-results"></div>
+
+    <!-- Load component data files in correct order -->
+    <script src="js/services/component-data-beginner.js"></script>
+    <script src="js/services/component-data-intermediate.js"></script>
+    <script src="js/services/component-data-advanced.js"></script>
+    <script src="js/services/component-data.js"></script>
+    <script src="js/services/component.js"></script>
+
+    <script>
+        // Test the responsive-navbar component
+        function testResponsiveNavbar() {
+            const results = document.getElementById('test-results');
+            
+            try {
+                // Initialize component data
+                if (typeof ComponentData !== 'undefined') {
+                    ComponentData.init();
+                }
+                
+                // Find the responsive-navbar component
+                const component = ComponentService.getComponent('responsive-navbar');
+                
+                if (!component) {
+                    results.innerHTML = '<p style="color: red;">❌ Component not found!</p>';
+                    return;
+                }
+                
+                results.innerHTML += `<p style="color: green;">✅ Component found: ${component.name}</p>`;
+                
+                // Check if it has workshop data
+                if (!component.workshop) {
+                    results.innerHTML += '<p style="color: red;">❌ No workshop data!</p>';
+                    return;
+                }
+                
+                results.innerHTML += `<p style="color: green;">✅ Workshop data found</p>`;
+                
+                // Check if it has steps
+                if (!component.workshop.steps || component.workshop.steps.length === 0) {
+                    results.innerHTML += '<p style="color: red;">❌ No workshop steps!</p>';
+                    return;
+                }
+                
+                results.innerHTML += `<p style="color: green;">✅ Workshop has ${component.workshop.steps.length} steps</p>`;
+                
+                // List all steps
+                results.innerHTML += '<h3>Workshop Steps:</h3><ol>';
+                component.workshop.steps.forEach((step, index) => {
+                    results.innerHTML += `<li>${step.title}</li>`;
+                });
+                results.innerHTML += '</ol>';
+                
+                results.innerHTML += '<p style="color: green; font-weight: bold;">🎉 All tests passed! The responsive-navbar component is working correctly.</p>';
+                
+            } catch (error) {
+                results.innerHTML += `<p style="color: red;">❌ Error: ${error.message}</p>`;
+                console.error('Test error:', error);
+            }
+        }
+        
+        // Run test when page loads
+        window.addEventListener('load', testResponsiveNavbar);
+    </script>
+</body>
+</html>

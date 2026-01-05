@@ -122,6 +122,24 @@
                     </div>
 
                     <div class="filters-toolbar">
+                        <!-- Search Filter -->
+                        <div class="filter-group">
+                            <label class="filter-label">Search Components</label>
+                            <div class="search-input-container">
+                                <input 
+                                    type="text" 
+                                    id="component-search" 
+                                    class="search-input" 
+                                    placeholder="Search by name, tags, or description..."
+                                    autocomplete="off"
+                                >
+                                <i data-lucide="search" class="search-icon"></i>
+                                <button class="search-clear-btn" id="search-clear-btn" style="display: none;">
+                                    <i data-lucide="x"></i>
+                                </button>
+                            </div>
+                        </div>
+
                         <!-- Website Type Selector Button (Always Visible) -->
                         <div class="filter-group">
                             <label class="filter-label">Website Type</label>
@@ -187,6 +205,16 @@
                                 <button class="filter-btn" data-layout="true">Layout</button>
                                 <button class="filter-btn" data-interactive="true">Interactive (JS)</button>
                                 <button class="filter-btn" data-beginner="true">Beginner Friendly</button>
+                            </div>
+                        </div>
+
+                        <div class="filter-group">
+                            <label class="filter-label">Actions</label>
+                            <div class="filter-buttons">
+                                <button class="filter-btn clear-all-btn" id="clear-all-filters-btn">
+                                    <i data-lucide="refresh-ccw"></i>
+                                    <span>Clear All Filters</span>
+                                </button>
                             </div>
                         </div>
                     </div>

@@ -16,7 +16,8 @@ const ComponentService = {
         recommended: false,
         layout: false,
         interactive: false,
-        beginner: false
+        beginner: false,
+        search: ''
     },
 
     /**
@@ -119,6 +120,9 @@ const ComponentService = {
      * Setup filter event listeners
      */
     setupFilters() {
+        // Search input
+        this.setupSearchFilter();
+
         // Type filters (radio-style)
         document.querySelectorAll('[data-filter]').forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -142,6 +146,63 @@ const ComponentService = {
         this.setupToggleFilter('[data-layout]', 'layout');
         this.setupToggleFilter('[data-interactive]', 'interactive');
         this.setupToggleFilter('[data-beginner]', 'beginner');
+
+        // Clear all filters button
+        const clearAllBtn = document.getElementById('clear-all-filters-btn');
+        if (clearAllBtn) {
+            clearAllBtn.addEventListener('click', () => {
+                this.clearAllFilters();
+            });
+        }
+    },
+
+    /**
+     * Setup search filter functionality
+     */
+    setupSearchFilter() {
+        const searchInput = document.getElementById('component-search');
+        const clearBtn = document.getElementById('search-clear-btn');
+        
+        if (!searchInput) return;
+
+        // Debounced search function
+        let searchTimeout;
+        const performSearch = (query) => {
+            this.setFilter('search', query.trim());
+        };
+
+        // Search input event listener
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value;
+            
+            // Show/hide clear button
+            if (clearBtn) {
+                clearBtn.style.display = query.length > 0 ? 'flex' : 'none';
+            }
+            
+            // Debounce search
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => performSearch(query), 300);
+        });
+
+        // Clear button event listener
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                clearBtn.style.display = 'none';
+                this.setFilter('search', '');
+                searchInput.focus();
+            });
+        }
+
+        // Handle Enter key
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                clearTimeout(searchTimeout);
+                performSearch(searchInput.value);
+            }
+        });
     },
 
     /**
@@ -183,6 +244,21 @@ const ComponentService = {
      */
     applyFilters() {
         this.filteredComponents = this.components.filter(component => {
+            // Search filter
+            if (this.currentFilters.search) {
+                const searchTerm = this.currentFilters.search.toLowerCase();
+                const searchableText = [
+                    component.name,
+                    component.description || '',
+                    ...component.tags,
+                    component.type.replace('-', ' ')
+                ].join(' ').toLowerCase();
+                
+                if (!searchableText.includes(searchTerm)) {
+                    return false;
+                }
+            }
+
             // Recommended filter (only if website type is selected and filter is active)
             if (this.currentFilters.recommended) {
                 const hasWebsiteType = typeof WebsiteSelectorService !== 'undefined' && 
@@ -243,12 +319,17 @@ const ComponentService = {
         const gallery = document.getElementById('component-gallery');
         
         if (this.filteredComponents.length === 0) {
-            gallery.innerHTML = `
-                <div class="component-gallery-empty">
-                    <h3>No components found</h3>
-                    <p>Try adjusting your filters to see more components.</p>
-                </div>
-            `;
+            // Check if it's a search with no results
+            if (this.currentFilters.search) {
+                gallery.innerHTML = this.renderSearchEmptyState();
+            } else {
+                gallery.innerHTML = `
+                    <div class="component-gallery-empty">
+                        <h3>No components found</h3>
+                        <p>Try adjusting your filters to see more components.</p>
+                    </div>
+                `;
+            }
             return;
         }
 
@@ -260,6 +341,7 @@ const ComponentService = {
         gallery.innerHTML = this.filteredComponents.map(component => {
             const isRecommended = showRecommended && WebsiteSelectorService.isRecommended(component.id);
             const recommendedClass = isRecommended ? 'recommended' : '';
+            const searchMatchClass = this.currentFilters.search ? 'search-match' : '';
             const recommendedBadge = isRecommended ? `
                 <div class="recommended-badge">
                     <i data-lucide="star"></i>
@@ -267,19 +349,25 @@ const ComponentService = {
                 </div>
             ` : '';
 
+            // Highlight search terms in title and tags
+            const highlightedTitle = this.highlightSearchTerm(component.name, this.currentFilters.search);
+            const highlightedTags = component.tags.map(tag => 
+                this.highlightSearchTerm(tag, this.currentFilters.search)
+            );
+
             return `
-                <div class="component-card ${recommendedClass}" data-component="${component.id}">
+                <div class="component-card ${recommendedClass} ${searchMatchClass}" data-component="${component.id}">
                     ${recommendedBadge}
                     <div class="component-preview">
                         ${component.preview}
                     </div>
                     <div class="component-info">
                         <div class="component-header">
-                            <h3 class="component-title">${component.name}</h3>
+                            <h3 class="component-title">${highlightedTitle}</h3>
                             <span class="component-difficulty ${component.difficulty}">${component.difficulty}</span>
                         </div>
                         <div class="component-tags">
-                            ${component.tags.map(tag => `
+                            ${highlightedTags.map(tag => `
                                 <span class="component-tag ${tag.toLowerCase().replace(/[^a-z0-9]/g, '-')}">${tag}</span>
                             `).join('')}
                         </div>
@@ -300,6 +388,77 @@ const ComponentService = {
 
         // Re-initialize Lucide icons
         lucide.createIcons();
+    },
+
+    /**
+     * Render search empty state with suggestions
+     */
+    renderSearchEmptyState() {
+        const searchTerm = this.currentFilters.search;
+        const suggestions = this.getSearchSuggestions();
+        
+        return `
+            <div class="search-empty-state">
+                <h3>
+                    <i data-lucide="search-x"></i>
+                    No components found for "${this.escapeHtml(searchTerm)}"
+                </h3>
+                <p>We couldn't find any components matching your search. Try different keywords or browse our suggestions below.</p>
+                ${suggestions.length > 0 ? `
+                    <div class="search-suggestions">
+                        ${suggestions.map(suggestion => `
+                            <button class="search-suggestion" onclick="ComponentService.applySuggestion('${suggestion}')">
+                                ${suggestion}
+                            </button>
+                        `).join('')}
+                    </div>
+                ` : ''}
+            </div>
+        `;
+    },
+
+    /**
+     * Get search suggestions based on available components
+     */
+    getSearchSuggestions() {
+        const allTags = [...new Set(this.components.flatMap(c => c.tags))];
+        const allTypes = [...new Set(this.components.map(c => c.type.replace('-', ' ')))];
+        const popularTerms = ['responsive', 'navigation', 'card', 'form', 'button', 'layout'];
+        
+        return [...allTypes, ...popularTerms, ...allTags.slice(0, 5)]
+            .filter(term => term.toLowerCase() !== this.currentFilters.search.toLowerCase())
+            .slice(0, 8);
+    },
+
+    /**
+     * Apply a search suggestion
+     */
+    applySuggestion(suggestion) {
+        const searchInput = document.getElementById('component-search');
+        if (searchInput) {
+            searchInput.value = suggestion;
+            searchInput.focus();
+            this.setFilter('search', suggestion);
+            
+            // Show clear button
+            const clearBtn = document.getElementById('search-clear-btn');
+            if (clearBtn) {
+                clearBtn.style.display = 'flex';
+            }
+        }
+    },
+
+    /**
+     * Highlight search terms in text
+     */
+    highlightSearchTerm(text, searchTerm) {
+        if (!searchTerm || !text) return this.escapeHtml(text);
+        
+        const escapedText = this.escapeHtml(text);
+        const escapedSearchTerm = this.escapeHtml(searchTerm);
+        const regex = new RegExp(`(${escapedSearchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+        
+        return escapedText.replace(regex, '<span class="search-highlight">$1</span>');
     },
 
     /**
@@ -496,6 +655,56 @@ const ComponentService = {
             toast.style.animation = 'toast-slide-out 0.3s ease-out forwards';
             setTimeout(() => toast.remove(), 300);
         }, 3000);
+    },
+
+    /**
+     * Clear all filters and reset to default state
+     */
+    clearAllFilters() {
+        // Reset all filters to default
+        this.currentFilters = {
+            type: 'all',
+            difficulty: 'all',
+            recommended: false,
+            layout: false,
+            interactive: false,
+            beginner: false,
+            search: ''
+        };
+
+        // Clear search input
+        const searchInput = document.getElementById('component-search');
+        const clearBtn = document.getElementById('search-clear-btn');
+        if (searchInput) {
+            searchInput.value = '';
+        }
+        if (clearBtn) {
+            clearBtn.style.display = 'none';
+        }
+
+        // Reset filter buttons
+        document.querySelectorAll('[data-filter]').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.dataset.filter === 'all') {
+                btn.classList.add('active');
+            }
+        });
+
+        document.querySelectorAll('[data-difficulty]').forEach(btn => {
+            btn.classList.remove('active');
+            if (btn.dataset.difficulty === 'all') {
+                btn.classList.add('active');
+            }
+        });
+
+        // Reset toggle filters
+        document.querySelectorAll('[data-recommended], [data-layout], [data-interactive], [data-beginner]').forEach(btn => {
+            btn.classList.remove('active');
+        });
+
+        // Apply filters and re-render
+        this.applyFilters();
+        this.renderGallery();
     },
 
     /**
