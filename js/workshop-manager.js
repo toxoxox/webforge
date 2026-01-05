@@ -37,6 +37,22 @@ const WorkshopManager = {
     },
     
     /**
+     * Format text with proper bullet point handling
+     */
+    formatWorkshopText(text) {
+        if (!text) return '';
+        
+        console.log('Original text:', JSON.stringify(text));
+        
+        // Convert literal \n strings to actual newlines
+        let formatted = text.replace(/\\n/g, '\n');
+        
+        console.log('Formatted text:', JSON.stringify(formatted));
+        
+        return formatted;
+    },
+
+    /**
      * Restore workshop if there's an active one
      */
     restoreWorkshopIfActive() {
@@ -487,12 +503,12 @@ const WorkshopManager = {
             <div class="workshop-step">
                 <div class="workshop-step-number">Step ${this.currentStep + 1} of ${this.totalSteps}</div>
                 <h2 class="workshop-step-title">${step.title}</h2>
-                <p class="workshop-step-description">${step.description}</p>
+                <p class="workshop-step-description">${this.formatWorkshopText(step.description)}</p>
                 
                 ${step.instruction ? `
                     <div class="workshop-step-instruction">
                         <div class="workshop-step-instruction-title">What to do:</div>
-                        <div class="workshop-step-instruction-text">${step.instruction}</div>
+                        <div class="workshop-step-instruction-text">${this.formatWorkshopText(step.instruction)}</div>
                     </div>
                 ` : ''}
                 
@@ -515,7 +531,7 @@ const WorkshopManager = {
                             <i data-lucide="lightbulb"></i>
                             <span>Tip</span>
                         </div>
-                        <div class="workshop-tip-text">${step.tip}</div>
+                        <div class="workshop-tip-text">${this.formatWorkshopText(step.tip)}</div>
                     </div>
                 ` : ''}
                 
@@ -525,7 +541,7 @@ const WorkshopManager = {
                             <i data-lucide="info"></i>
                             <span>Why?</span>
                         </div>
-                        <div class="workshop-explanation-text">${step.explanation}</div>
+                        <div class="workshop-explanation-text">${this.formatWorkshopText(step.explanation)}</div>
                     </div>
                 ` : ''}
                 
@@ -535,7 +551,7 @@ const WorkshopManager = {
                             <i data-lucide="alert-triangle"></i>
                             <span>Watch Out</span>
                         </div>
-                        <div class="workshop-warning-text">${step.warning}</div>
+                        <div class="workshop-warning-text">${step.warning.replace(/\\n/g, '\n')}</div>
                     </div>
                 ` : ''}
             </div>

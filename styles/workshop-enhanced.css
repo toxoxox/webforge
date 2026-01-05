@@ -9,7 +9,7 @@
     );
     border: 1px solid rgba(75, 85, 99, 0.5);
     border-radius: 12px;
-    padding: 1.5rem;
+    padding: 0.5rem;
     margin-bottom: 1.5rem;
     box-shadow: 
         0 4px 6px -1px rgba(0, 0, 0, 0.3),
@@ -62,6 +62,7 @@
     color: #d1d5db;
     line-height: 1.6;
     margin: 0 0 1.25rem 0;
+    white-space: pre-line;
 }
 
 /* Instruction Block */
@@ -98,6 +99,7 @@
     font-size: 0.9375rem;
     color: #e5e7eb;
     line-height: 1.6;
+    white-space: pre-line;
 }
 
 /* Code Block - Enhanced */
@@ -218,6 +220,7 @@
     font-size: 0.875rem;
     color: #d1d5db;
     line-height: 1.6;
+    white-space: pre-line;
 }
 
 /* Explanation Block */
@@ -250,6 +253,18 @@
     font-size: 0.875rem;
     color: #d1d5db;
     line-height: 1.6;
+    white-space: pre-line;
+}
+
+/* Fix bullet point formatting */
+.workshop-explanation-text,
+.workshop-step-instruction-text,
+.workshop-tip-text,
+.workshop-warning-text,
+.workshop-step-description {
+    /* Ensure bullet points stay with their text */
+    word-break: keep-all;
+    overflow-wrap: break-word;
 }
 
 /* Warning Block */
@@ -282,6 +297,7 @@
     font-size: 0.875rem;
     color: #d1d5db;
     line-height: 1.6;
+    white-space: pre-line;
 }
 
 /* Workshop Welcome/Complete Screens */
@@ -365,7 +381,8 @@
     background: rgba(31, 41, 55, 0.8);
     border-radius: 3px;
     overflow: hidden;
-    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .workshop-progress-fill {

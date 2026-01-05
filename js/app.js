@@ -188,7 +188,7 @@ if (typeof require !== 'undefined') {
         fontLigatures: true,
         wordWrap: 'on',
         wrappingIndent: 'indent',
-        scrollBeyondLastLine: false,
+        scrollBeyondLastLine: true,
         smoothScrolling: true,
         cursorBlinking: 'smooth',
         cursorSmoothCaretAnimation: true,

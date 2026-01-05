@@ -412,7 +412,7 @@ require(['vs/editor/editor.main'], function () {
                 fontSize: 14,
                 lineNumbers: 'on',
                 roundedSelection: false,
-                scrollBeyondLastLine: false,
+                scrollBeyondLastLine: true,
                 readOnly: false,
                 wordWrap: 'on',
                 // VS Code-like autocomplete settings

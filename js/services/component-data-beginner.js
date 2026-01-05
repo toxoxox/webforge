@@ -51,7 +51,7 @@ const BeginnerComponentData = {
 </nav>`,
             "codeFile": "index.html",
             "tip": "The <nav> tag tells the browser \"this is a navigation menu!\" It helps people using screen readers understand your website better.",
-            "explanation": "Let's break down each line:\\n• <nav class=\"navbar\"> - Creates a navigation container. The class=\"navbar\" gives it a name so we can style it later.\\n• <div class=\"nav-brand\"> - A box to hold our logo and website name together.\\n• <img src=\"img/webforge-icon.png\" alt=\"Logo\" class=\"nav-logo\"> - Shows an image. \"src\" tells where to find the image file. \"alt\" describes it for people who can't see it (important for accessibility!).\\n• <span class=\"brand-name\"> - Holds text. Unlike <div>, <span> doesn't start a new line.\\n• </nav> - Closes the navigation container.\\n\\nNote: You can replace \"img/webforge-icon.png\" with your own logo image path!",
+            "explanation": "What we just added:\\n• <nav class=\"navbar\"> - Creates a navigation container with the class \"navbar\" for styling\\n• <div class=\"nav-brand\"> - A container to hold our logo and website name together\\n• <img src=\"img/webforge-icon.png\" alt=\"Logo\" class=\"nav-logo\"> - Displays our logo image (you can replace with your own image path)\\n• <span class=\"brand-name\"> - Holds the website name text\\n• </nav> - Closes the navigation container\\n\\nThis creates the basic structure for our navbar with a logo and brand name on the left side.",
             "validation": {
               "required": [
                 {
@@ -65,6 +65,247 @@ const BeginnerComponentData = {
                   "value": "navbar",
                   "message": "Add class=\"navbar\" to your <nav> tag!",
                   "hint": "The navbar class will help us style it later"
+                },
+                {
+                  "type": "class",
+                  "value": "nav-brand",
+                  "message": "We need a div with class=\"nav-brand\" for the logo area!",
+                  "hint": "Add <div class=\"nav-brand\"> inside your nav"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Add the Navigation Menu List",
+            "description": "Now let's add the main navigation menu. We'll create a list of menu items that will appear on the right side of our navbar.",
+            "instruction": "Add this menu list after the nav-brand div (but still inside the nav tag):",
+            "code": `  <ul class="nav-menu">
+    <li class="nav-item">
+      <a href="#home" class="nav-link active">Home</a>
+    </li>
+    <li class="nav-item">
+      <a href="#about" class="nav-link">About</a>
+    </li>
+    <li class="nav-item">
+      <a href="#contact" class="nav-link">Contact</a>
+    </li>
+  </ul>`,
+            "codeFile": "index.html",
+            "tip": "We use <ul> (unordered list) because navigation menus are essentially lists of links!",
+            "explanation": "What we just added:\\n• <ul class=\"nav-menu\"> - Creates an unordered list to hold our navigation items\\n• <li class=\"nav-item\"> - Each list item represents one menu item\\n• <a href=\"#home\" class=\"nav-link active\"> - Creates clickable links for each menu item\\n• class=\"active\" - Marks the current page (Home) as active\\n• href=\"#home\" - Links to different sections (you can change these to actual pages)\\n\\nThis creates three menu items: Home, About, and Contact that will appear horizontally.",
+            "validation": {
+              "required": [
+                {
+                  "type": "tag",
+                  "value": "ul",
+                  "message": "Add a <ul> tag for the navigation menu!",
+                  "hint": "Use <ul class=\"nav-menu\">"
+                },
+                {
+                  "type": "class",
+                  "value": "nav-menu",
+                  "message": "Add class=\"nav-menu\" to your <ul> tag!",
+                  "hint": "This class will help us style the menu"
+                },
+                {
+                  "type": "class",
+                  "value": "nav-item",
+                  "message": "Add nav-item classes to your list items!",
+                  "hint": "Each <li> should have class=\"nav-item\""
+                }
+              ]
+            }
+          },
+          {
+            "title": "Add a Dropdown Menu Item",
+            "description": "Let's make our navbar more interesting by adding a dropdown menu! We'll add a \"Services\" menu that shows more options when you hover over it.",
+            "instruction": "Replace the Contact menu item with this dropdown menu item:",
+            "code": `    <li class="nav-item dropdown">
+      <a href="#services" class="nav-link">
+        Services <i data-lucide="chevron-down"></i>
+      </a>
+      <ul class="dropdown-menu">
+        <li><a href="#web-design" class="dropdown-link">Web Design</a></li>
+        <li><a href="#development" class="dropdown-link">Development</a></li>
+        <li><a href="#seo" class="dropdown-link">SEO Services</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a href="#contact" class="nav-link">Contact</a>
+    </li>`,
+            "codeFile": "index.html",
+            "tip": "The chevron-down icon shows users that this menu item has a dropdown submenu!",
+            "explanation": "What we just added:\\n• class=\"dropdown\" - Marks this menu item as having a dropdown\\n• <i data-lucide=\"chevron-down\"></i> - Adds a down arrow icon next to \"Services\"\\n• <ul class=\"dropdown-menu\"> - Creates a submenu that will be hidden initially\\n• <a class=\"dropdown-link\"> - Links inside the dropdown menu\\n• We moved Contact after Services so the dropdown appears in the right order\\n\\nThis creates a \"Services\" menu item that will show three service options when you hover over it.",
+            "validation": {
+              "required": [
+                {
+                  "type": "class",
+                  "value": "dropdown",
+                  "message": "Add a dropdown menu item!",
+                  "hint": "Use class=\"nav-item dropdown\""
+                },
+                {
+                  "type": "class",
+                  "value": "dropdown-menu",
+                  "message": "Add the dropdown submenu!",
+                  "hint": "Use <ul class=\"dropdown-menu\">"
+                },
+                {
+                  "type": "attribute",
+                  "value": "data-lucide",
+                  "message": "Add the chevron-down icon!",
+                  "hint": "Use <i data-lucide=\"chevron-down\"></i>"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Style the Navbar Container",
+            "description": "Time to make our navbar look professional! We'll start with the basic container styling to give it a dark background and proper layout.",
+            "instruction": "Add this CSS to your style.css file:",
+            "code": `.navbar {
+  background-color: #2c3e50;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}`,
+            "codeFile": "style.css",
+            "tip": "Flexbox makes it super easy to align items horizontally and push them to opposite sides!",
+            "explanation": "What each CSS property does:\\n• background-color: #2c3e50 - Gives the navbar a dark blue-gray background\\n• padding: 1rem 2rem - Adds space inside the navbar (1rem top/bottom, 2rem left/right)\\n• display: flex - Makes the navbar use flexbox layout for easy alignment\\n• justify-content: space-between - Pushes the logo to the left and menu to the right\\n• align-items: center - Centers everything vertically in the navbar\\n• position: relative - Needed for the dropdown menu positioning later\\n\\nThis transforms our plain HTML into a professional-looking dark navbar.",
+            "validation": {
+              "required": [
+                {
+                  "type": "css-rule",
+                  "value": ".navbar",
+                  "message": "Add CSS styling for the .navbar class!",
+                  "hint": "Create a .navbar rule in your CSS"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Style the Brand Section",
+            "description": "Let's make the logo and brand name look great together by aligning them nicely and styling the text.",
+            "instruction": "Add this CSS for the brand area:",
+            "code": `.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.nav-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+.brand-name {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+}`,
+            "codeFile": "style.css",
+            "tip": "The \"gap\" property is a modern way to add space between flex items - much cleaner than using margins!",
+            "explanation": "What each style does:\\n• .nav-brand display: flex - Lines up the logo and text horizontally\\n• align-items: center - Centers the logo and text vertically with each other\\n• gap: 0.75rem - Adds consistent space between the logo and brand name\\n• .nav-logo width/height: 40px - Makes the logo a perfect 40x40 pixel square\\n• border-radius: 8px - Rounds the corners of the logo slightly\\n• .brand-name color: white - Makes the text white to show on dark background\\n• font-size: 1.5rem - Makes the brand name larger and more prominent\\n• font-weight: 600 - Makes the text semi-bold for better visibility\\n\\nThis creates a professional logo and brand name combination on the left side.",
+            "validation": {
+              "required": [
+                {
+                  "type": "css-rule",
+                  "value": ".nav-brand",
+                  "message": "Add CSS styling for the .nav-brand class!",
+                  "hint": "Style the brand container with flexbox"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Style the Navigation Menu",
+            "description": "Now let's style the navigation links to look clean and professional with nice hover effects.",
+            "instruction": "Add this CSS for the navigation menu:",
+            "code": `.nav-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background-color: rgba(255, 255, 255, 0.1);
+}`,
+            "codeFile": "style.css",
+            "tip": "The rgba color with 0.1 opacity creates a subtle semi-transparent white background for hover effects!",
+            "explanation": "What each style does:\\n• .nav-menu display: flex - Lines up all menu items horizontally\\n• list-style: none - Removes the bullet points from the list\\n• margin: 0; padding: 0 - Removes default spacing from the list\\n• gap: 2rem - Adds space between each menu item\\n• .nav-link color: white - Makes all link text white\\n• text-decoration: none - Removes the underline from links\\n• padding: 0.5rem 1rem - Adds clickable area around each link\\n• border-radius: 6px - Rounds the corners of the hover area\\n• display: flex; align-items: center - Aligns text and icons nicely\\n• :hover and .active - Adds a subtle background when hovering or on current page\\n\\nThis creates clean, professional navigation links with smooth hover effects.",
+            "validation": {
+              "required": [
+                {
+                  "type": "css-rule",
+                  "value": ".nav-menu",
+                  "message": "Add CSS styling for the .nav-menu class!",
+                  "hint": "Style the navigation menu with flexbox"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Create the Dropdown Menu Effect",
+            "description": "Time for the exciting part - let's make the dropdown menu appear smoothly when you hover over the Services link!",
+            "instruction": "Add this CSS for the dropdown functionality:",
+            "code": `.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  min-width: 200px;
+  border-radius: 8px;
+  padding: 0.5rem 0;
+  list-style: none;
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-link {
+  display: block;
+  padding: 0.75rem 1.5rem;
+  color: #2c3e50;
+  text-decoration: none;
+}
+
+.dropdown-link:hover {
+  background-color: #f8f9fa;
+}`,
+            "codeFile": "style.css",
+            "tip": "The transform and opacity properties create a smooth slide-down animation when the dropdown appears!",
+            "explanation": "What creates the dropdown magic:\\n• position: absolute - Positions the dropdown relative to its parent menu item\\n• top: 100% - Places the dropdown just below the Services link\\n• background: white - Gives the dropdown a white background (different from navbar)\\n• opacity: 0; visibility: hidden - Hides the dropdown initially\\n• transform: translateY(-10px) - Starts the dropdown slightly above its final position\\n• transition: all 0.3s ease - Makes all changes animate smoothly over 0.3 seconds\\n• .dropdown:hover .dropdown-menu - Shows the dropdown when hovering over Services\\n• opacity: 1; visibility: visible; transform: translateY(0) - Makes dropdown appear and slide down\\n• .dropdown-link styles - Makes each dropdown item look clickable with hover effects\\n\\nThis creates a smooth, professional dropdown that slides down when you hover over Services!",
+            "validation": {
+              "required": [
+                {
+                  "type": "css-rule",
+                  "value": ".dropdown-menu",
+                  "message": "Add CSS styling for the .dropdown-menu class!",
+                  "hint": "Style the dropdown menu with positioning"
                 }
               ]
             }
