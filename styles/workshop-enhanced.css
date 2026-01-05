@@ -433,12 +433,35 @@
 }
 
 /* Enhanced Footer Buttons */
+.workshop-footer {
+    background: #252526;
+    border-top: 1px solid #2d2d30;
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem; /* Increased gap for better spacing */
+    flex-shrink: 0;
+}
+
 .workshop-footer .btn {
-    padding: 0.625rem 1rem;
+    padding: 0.625rem 0.75rem; /* Reduced horizontal padding from 1rem to 0.75rem */
     border-radius: 8px;
     font-weight: 600;
     font-size: 0.875rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 80px; /* Set a smaller minimum width */
+    max-width: 100px; /* Limit maximum width */
+    flex-shrink: 0; /* Prevent buttons from shrinking */
+}
+
+/* Give more space to the step indicator */
+.workshop-progress {
+    flex: 1;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #9ca3af;
+    font-weight: 500;
 }
 
 .workshop-footer .btn-primary {
