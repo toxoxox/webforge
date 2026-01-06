@@ -122,7 +122,7 @@ const BeginnerComponentData = {
             "instruction": "Replace the Contact menu item with this dropdown menu item:",
             "code": `    <li class="nav-item dropdown">
       <a href="#services" class="nav-link">
-        Services <i data-lucide="chevron-down"></i>
+        Services <span class="dropdown-arrow">▼</span>
       </a>
       <ul class="dropdown-menu">
         <li><a href="#web-design" class="dropdown-link">Web Design</a></li>
@@ -135,7 +135,7 @@ const BeginnerComponentData = {
     </li>`,
             "codeFile": "index.html",
             "tip": "The chevron-down icon shows users that this menu item has a dropdown submenu!",
-            "explanation": "What we just added:\\n• class=\"dropdown\" - Marks this menu item as having a dropdown\\n• <i data-lucide=\"chevron-down\"></i> - Adds a down arrow icon next to \"Services\"\\n• <ul class=\"dropdown-menu\"> - Creates a submenu that will be hidden initially\\n• <a class=\"dropdown-link\"> - Links inside the dropdown menu\\n• We moved Contact after Services so the dropdown appears in the right order\\n\\nThis creates a \"Services\" menu item that will show three service options when you hover over it.",
+            "explanation": "What we just added:\\n• class=\"dropdown\" - Marks this menu item as having a dropdown\\n• <span class=\"dropdown-arrow\">▼</span> - Adds a down arrow using a Unicode character\\n• The ▼ symbol is a simple down-pointing triangle that works in all browsers\\n• <ul class=\"dropdown-menu\"> - Creates a submenu that will be hidden initially\\n• <a class=\"dropdown-link\"> - Links inside the dropdown menu\\n• We moved Contact after Services so the dropdown appears in the right order\\n\\nThis creates a \"Services\" menu item with a down arrow that will show three service options when you hover over it.",
             "validation": {
               "required": [
                 {
@@ -151,10 +151,10 @@ const BeginnerComponentData = {
                   "hint": "Use <ul class=\"dropdown-menu\">"
                 },
                 {
-                  "type": "attribute",
-                  "value": "data-lucide",
-                  "message": "Add the chevron-down icon!",
-                  "hint": "Use <i data-lucide=\"chevron-down\"></i>"
+                  "type": "class",
+                  "value": "dropdown-arrow",
+                  "message": "Add the dropdown arrow!",
+                  "hint": "Use <span class=\"dropdown-arrow\">▼</span>"
                 }
               ]
             }
@@ -245,6 +245,15 @@ const BeginnerComponentData = {
 .nav-link:hover,
 .nav-link.active {
   background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-arrow {
+  font-size: 0.8rem;
+  transition: transform 0.2s ease;
+}
+
+.dropdown:hover .dropdown-arrow {
+  transform: rotate(180deg);
 }`,
             "codeFile": "style.css",
             "tip": "The rgba color with 0.1 opacity creates a subtle semi-transparent white background for hover effects!",
@@ -264,7 +273,11 @@ const BeginnerComponentData = {
             "title": "Create the Dropdown Menu Effect",
             "description": "Time for the exciting part - let's make the dropdown menu appear smoothly when you hover over the Services link!",
             "instruction": "Add this CSS for the dropdown functionality:",
-            "code": `.dropdown-menu {
+            "code": `.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
   position: absolute;
   top: 100%;
   left: 0;
@@ -278,6 +291,8 @@ const BeginnerComponentData = {
   visibility: hidden;
   transform: translateY(-10px);
   transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
 }
 
 .dropdown:hover .dropdown-menu {
@@ -291,6 +306,7 @@ const BeginnerComponentData = {
   padding: 0.75rem 1.5rem;
   color: #2c3e50;
   text-decoration: none;
+  transition: background-color 0.2s ease;
 }
 
 .dropdown-link:hover {
@@ -298,7 +314,7 @@ const BeginnerComponentData = {
 }`,
             "codeFile": "style.css",
             "tip": "The transform and opacity properties create a smooth slide-down animation when the dropdown appears!",
-            "explanation": "What creates the dropdown magic:\\n• position: absolute - Positions the dropdown relative to its parent menu item\\n• top: 100% - Places the dropdown just below the Services link\\n• background: white - Gives the dropdown a white background (different from navbar)\\n• opacity: 0; visibility: hidden - Hides the dropdown initially\\n• transform: translateY(-10px) - Starts the dropdown slightly above its final position\\n• transition: all 0.3s ease - Makes all changes animate smoothly over 0.3 seconds\\n• .dropdown:hover .dropdown-menu - Shows the dropdown when hovering over Services\\n• opacity: 1; visibility: visible; transform: translateY(0) - Makes dropdown appear and slide down\\n• .dropdown-link styles - Makes each dropdown item look clickable with hover effects\\n\\nThis creates a smooth, professional dropdown that slides down when you hover over Services!",
+            "explanation": "What creates the dropdown magic:\\n• .dropdown position: relative - CRITICAL! This makes the dropdown position relative to the Services menu item\\n• .dropdown-menu position: absolute - Positions the dropdown relative to its parent (.dropdown)\\n• top: 100% - Places the dropdown just below the Services link\\n• left: 0 - Aligns the dropdown with the left edge of Services\\n• background: white - Gives the dropdown a white background (different from navbar)\\n• box-shadow - Adds a subtle shadow to make the dropdown stand out\\n• z-index: 1000 - Ensures the dropdown appears above other content\\n• opacity: 0; visibility: hidden - Hides the dropdown initially\\n• transform: translateY(-10px) - Starts the dropdown slightly above its final position\\n• transition: all 0.3s ease - Makes all changes animate smoothly over 0.3 seconds\\n• .dropdown:hover .dropdown-menu - Shows the dropdown when hovering over Services\\n• opacity: 1; visibility: visible; transform: translateY(0) - Makes dropdown appear and slide down\\n\\nThis creates a smooth, professional dropdown that slides down when you hover over Services!",
             "validation": {
               "required": [
                 {

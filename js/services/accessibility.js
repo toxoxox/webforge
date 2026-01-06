@@ -16,8 +16,19 @@ const AccessibilityService = {
         try {
             const iframeDoc = iframeElement.contentDocument || iframeElement.contentWindow.document;
             
-            // Run axe-core on the iframe content
-            const results = await axe.run(iframeDoc, {
+            // Check if axe is available
+            if (typeof axe === 'undefined') {
+                console.warn('axe-core library not loaded');
+                return { violations: [], passes: [], incomplete: [] };
+            }
+            
+            // Ensure the document has content
+            if (!iframeDoc || !iframeDoc.body) {
+                return { violations: [], passes: [], incomplete: [] };
+            }
+            
+            // Run axe-core on the iframe content with proper context
+            const results = await axe.run(iframeDoc.body, {
                 runOnly: {
                     type: 'tag',
                     values: ['wcag2a', 'wcag2aa', 'best-practice']

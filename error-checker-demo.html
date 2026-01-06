@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebForge Error Checker Demo</title>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <!-- Error Checker Styles -->
+    <link rel="stylesheet" href="styles/error-panel.css">
+    
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8fafc;
+            line-height: 1.6;
+        }
+        
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .demo-header {
+            background: #2563eb;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .demo-header h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 2rem;
+        }
+        
+        .demo-header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+        
+        .demo-content {
+            padding: 2rem;
+        }
+        
+        .demo-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+        }
+        
+        .demo-section h2 {
+            margin: 0 0 1rem 0;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .demo-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .demo-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .demo-btn:hover {
+            background: #1d4ed8;
+        }
+        
+        .demo-btn.secondary {
+            background: #6b7280;
+        }
+        
+        .demo-btn.secondary:hover {
+            background: #4b5563;
+        }
+        
+        .demo-btn.success {
+            background: #16a34a;
+        }
+        
+        .demo-btn.success:hover {
+            background: #15803d;
+        }
+        
+        .demo-btn.warning {
+            background: #d97706;
+        }
+        
+        .demo-btn.warning:hover {
+            background: #b45309;
+        }
+        
+        .code-example {
+            background: #1f2937;
+            color: #f9fafb;
+            padding: 1rem;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .error-demo {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .error-demo.success {
+            background: #f0fdf4;
+            border-color: #bbf7d0;
+        }
+        
+        .status-display {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: monospace;
+            font-size: 0.875rem;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            margin: 0 0 0.5rem 0;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .feature-card p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 0.875rem;
+        }
+        
+        @media (max-width: 768px) {
+            .demo-controls {
+                flex-direction: column;
+            }
+            
+            .demo-btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1>
+                <i data-lucide="shield-check"></i>
+                WebForge Error Checker Demo
+            </h1>
+            <p>Experience beginner-friendly error detection and guidance</p>
+        </div>
+        
+        <div class="demo-content">
+            <!-- Demo Controls -->
+            <div class="demo-section">
+                <h2>
+                    <i data-lucide="play-circle"></i>
+                    Try the Error Checker
+                </h2>
+                <p>Click the buttons below to see different types of errors and how they're presented to students.</p>
+                
+                <div class="demo-controls">
+                    <button class="demo-btn" onclick="showCriticalError()">
+                        <i data-lucide="x-circle"></i>
+                        Critical Error
+                    </button>
+                    <button class="demo-btn warning" onclick="showStructuralError()">
+                        <i data-lucide="alert-triangle"></i>
+                        Structure Issue
+                    </button>
+                    <button class="demo-btn secondary" onclick="showSyntaxError()">
+                        <i data-lucide="alert-circle"></i>
+                        Syntax Error
+                    </button>
+                    <button class="demo-btn success" onclick="showSuggestion()">
+                        <i data-lucide="lightbulb"></i>
+                        Helpful Tip
+                    </button>
+                    <button class="demo-btn" onclick="showMultipleErrors()">
+                        <i data-lucide="list"></i>
+                        Multiple Errors
+                    </button>
+                    <button class="demo-btn secondary" onclick="clearErrors()">
+                        <i data-lucide="x"></i>
+                        Clear All
+                    </button>
+                </div>
+                
+                <div id="demo-status" class="status-display">
+                    Click a button above to see error checking in action...
+                </div>
+            </div>
+            
+            <!-- Features Overview -->
+            <div class="demo-section">
+                <h2>
+                    <i data-lucide="star"></i>
+                    Key Features
+                </h2>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>
+                            <i data-lucide="graduation-cap"></i>
+                            Beginner-Friendly
+                        </h3>
+                        <p>Clear, jargon-free explanations with helpful tips and learning guidance designed specifically for students.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>
+                            <i data-lucide="search"></i>
+                            Smart Detection
+                        </h3>
+                        <p>Detects structural issues, syntax errors, and predicts common beginner mistakes before they become problems.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>
+                            <i data-lucide="zap"></i>
+                            Quick Fixes
+                        </h3>
+                        <p>Automatic fixes for common errors like missing semicolons, with explanations of what was changed and why.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>
+                            <i data-lucide="book-open"></i>
+                            Educational
+                        </h3>
+                        <p>Each error includes explanations, fix instructions, and learning tips to help students understand and improve.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>
+                            <i data-lucide="layers"></i>
+                            Integrated
+                        </h3>
+                        <p>Works seamlessly with Monaco Editor, tutorial system, and file management for real-time feedback.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>
+                            <i data-lucide="settings"></i>
+                            Customizable
+                        </h3>
+                        <p>Configurable error categories, beginner mode toggle, and website-specific component requirements.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Code Examples -->
+            <div class="demo-section">
+                <h2>
+                    <i data-lucide="code"></i>
+                    Error Examples
+                </h2>
+                
+                <h3>HTML Structure Error</h3>
+                <div class="code-example"><!-- Missing DOCTYPE declaration -->
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;My Website&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+                <div class="error-demo">
+                    <strong>Error:</strong> Missing DOCTYPE Declaration<br>
+                    <strong>Fix:</strong> Add &lt;!DOCTYPE html&gt; as the first line<br>
+                    <strong>Tip:</strong> Think of DOCTYPE as introducing yourself to the browser!
+                </div>
+                
+                <h3>CSS Selector Issue</h3>
+                <div class="code-example">/* CSS */
+.navigation {
+    background: #333;
+    color: white;
+}
+
+/* HTML */
+&lt;nav class="navbar"&gt;...&lt;/nav&gt;</div>
+                <div class="error-demo">
+                    <strong>Error:</strong> CSS selector ".navigation" doesn't match any HTML elements<br>
+                    <strong>Fix:</strong> Change CSS to ".navbar" or HTML to class="navigation"<br>
+                    <strong>Tip:</strong> CSS is like giving instructions - make sure the element exists!
+                </div>
+                
+                <h3>JavaScript DOM Safety</h3>
+                <div class="code-example">// Unsafe - element might not exist
+document.getElementById('myButton').onclick = function() {
+    alert('Clicked!');
+};</div>
+                <div class="error-demo">
+                    <strong>Error:</strong> Element with id="myButton" not found in HTML<br>
+                    <strong>Fix:</strong> Check if element exists before using it<br>
+                    <strong>Tip:</strong> Always verify elements exist before adding event listeners!
+                </div>
+                
+                <h3>Corrected Version</h3>
+                <div class="code-example">// Safe - checks if element exists
+const button = document.getElementById('myButton');
+if (button) {
+    button.onclick = function() {
+        alert('Clicked!');
+    };
+} else {
+    console.log('Button not found!');
+}</div>
+                <div class="error-demo success">
+                    <strong>✓ Good:</strong> This code safely handles missing elements and won't cause errors.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mock WebForge environment for demo
+        window.currentProject = {
+            name: 'Demo Project',
+            files: [
+                {
+                    id: '1',
+                    name: 'index.html',
+                    type: 'html',
+                    content: '<html><head><title>Test</title></head><body><h1>Hello</h1></body></html>'
+                },
+                {
+                    id: '2',
+                    name: 'styles.css',
+                    type: 'css',
+                    content: '.navigation { background: #333 }'
+                },
+                {
+                    id: '3',
+                    name: 'script.js',
+                    type: 'javascript',
+                    content: 'document.getElementById("missing").onclick = function() { alert("test"); };'
+                }
+            ]
+        };
+        
+        window.currentFile = window.currentProject.files[0];
+        
+        // Mock FileType enum
+        window.FileType = {
+            HTML: 'html',
+            CSS: 'css',
+            JAVASCRIPT: 'javascript',
+            ASSET: 'asset'
+        };
+        
+        // Mock showToast function
+        window.showToast = function(message, type = 'info') {
+            updateStatus('Toast: ' + type.toUpperCase() + ' - ' + message);
+        };
+        
+        // Mock error examples since we can't load external files in demo
+        window.ErrorExamples = {
+            getErrorsByCategory: function(category) {
+                const examples = {
+                    'CRITICAL': [{
+                        category: 'CRITICAL',
+                        title: 'Missing DOCTYPE Declaration',
+                        message: 'Your HTML file should start with <!DOCTYPE html>',
+                        file: 'index.html',
+                        line: 1,
+                        explanation: 'DOCTYPE tells the browser what version of HTML you\'re using.',
+                        fix: 'Add <!DOCTYPE html> as the very first line of your HTML file',
+                        beginnerTip: 'Think of DOCTYPE as introducing yourself to the browser!'
+                    }],
+                    'STRUCTURAL': [{
+                        category: 'STRUCTURAL',
+                        title: 'Missing Navigation Component',
+                        message: 'Portfolio websites typically need a navigation section.',
+                        file: 'index.html',
+                        line: 0,
+                        explanation: 'Navigation helps visitors move around your portfolio easily.',
+                        fix: 'Add a <nav> element with links to different sections',
+                        beginnerTip: 'Think of navigation like a map for your website!'
+                    }],
+                    'SYNTAX': [{
+                        category: 'SYNTAX',
+                        title: 'Unclosed HTML Tag',
+                        message: 'The <div> tag is not properly closed.',
+                        file: 'index.html',
+                        line: 23,
+                        explanation: 'Every opening HTML tag needs a matching closing tag.',
+                        fix: 'Add </div> to close the tag',
+                        beginnerTip: 'HTML tags are like containers - you need to open them AND close them!'
+                    }],
+                    'SUGGESTION': [{
+                        category: 'SUGGESTION',
+                        title: 'Consider Using Flexbox',
+                        message: 'You\'re using float for layout. Flexbox might be easier.',
+                        file: 'styles.css',
+                        line: 28,
+                        explanation: 'Flexbox is a modern way to create layouts.',
+                        fix: 'Try using display: flex instead of float',
+                        beginnerTip: 'Flexbox is like having a smart assistant that arranges your elements!'
+                    }]
+                };
+                return examples[category] || [];
+            },
+            generateDemoErrors: function(count) {
+                const allErrors = [
+                    {
+                        category: 'CRITICAL',
+                        title: 'Missing DOCTYPE Declaration',
+                        message: 'Your HTML file should start with <!DOCTYPE html>',
+                        file: 'index.html',
+                        line: 1,
+                        explanation: 'DOCTYPE tells the browser what version of HTML you\'re using.',
+                        fix: 'Add <!DOCTYPE html> as the very first line',
+                        beginnerTip: 'Think of DOCTYPE as introducing yourself to the browser!'
+                    },
+                    {
+                        category: 'STRUCTURAL',
+                        title: 'Missing Navigation',
+                        message: 'Your website needs a navigation section.',
+                        file: 'index.html',
+                        line: 0,
+                        explanation: 'Navigation helps visitors find their way around.',
+                        fix: 'Add a <nav> element',
+                        beginnerTip: 'Navigation is like a map for your website!'
+                    },
+                    {
+                        category: 'SYNTAX',
+                        title: 'Missing Semicolon',
+                        message: 'CSS properties should end with a semicolon.',
+                        file: 'styles.css',
+                        line: 12,
+                        explanation: 'Semicolons separate CSS properties.',
+                        fix: 'Add a semicolon (;) at the end of this line',
+                        beginnerTip: 'Think of semicolons as periods at the end of CSS sentences!'
+                    },
+                    {
+                        category: 'SUGGESTION',
+                        title: 'Use Modern CSS',
+                        message: 'Consider using CSS Grid for this layout.',
+                        file: 'styles.css',
+                        line: 45,
+                        explanation: 'CSS Grid makes complex layouts easier.',
+                        fix: 'Try display: grid instead',
+                        beginnerTip: 'Grid is perfect for two-dimensional layouts!'
+                    }
+                ];
+                return allErrors.slice(0, count);
+            }
+        };
+        
+        // Mock ErrorCheckerService
+        window.ErrorCheckerService = {
+            formatError: function(error) {
+                return {
+                    ...error,
+                    categoryInfo: { 
+                        icon: error.category === 'CRITICAL' ? 'x-circle' : 
+                              error.category === 'STRUCTURAL' ? 'alert-triangle' :
+                              error.category === 'SYNTAX' ? 'alert-circle' : 'lightbulb',
+                        color: error.category === 'CRITICAL' ? '#dc2626' : 
+                               error.category === 'STRUCTURAL' ? '#ea580c' :
+                               error.category === 'SYNTAX' ? '#d97706' : '#16a34a'
+                    },
+                    displayTitle: error.title,
+                    displayMessage: error.message + (error.explanation ? '\n\n💡 ' + error.explanation : '') + 
+                                   (error.beginnerTip ? '\n\n🎯 ' + error.beginnerTip : ''),
+                    canAutoFix: false,
+                    learnMoreUrl: null
+                };
+            }
+        };
+        
+        // Mock ErrorDisplayService
+        window.ErrorDisplayService = {
+            currentErrors: [],
+            isVisible: false,
+            
+            init: function() {
+                // Create error panel if it doesn't exist
+                if (!document.getElementById('error-panel')) {
+                    const panelHTML = '<div id="error-panel" class="error-panel hidden"><div class="error-panel-header"><div class="error-panel-title"><i data-lucide="alert-triangle"></i><span>Code Helper</span><span id="error-count-badge" class="error-count-badge">0</span></div><div class="error-panel-controls"><button id="error-close-btn" class="error-control-btn"><i data-lucide="x"></i></button></div></div><div class="error-panel-content"><div id="error-summary" class="error-summary hidden"><div class="error-summary-stats"><div class="error-stat critical"><span class="error-stat-count" id="critical-count">0</span><span class="error-stat-label">Critical</span></div><div class="error-stat structural"><span class="error-stat-count" id="structural-count">0</span><span class="error-stat-label">Structure</span></div><div class="error-stat syntax"><span class="error-stat-count" id="syntax-count">0</span><span class="error-stat-label">Syntax</span></div><div class="error-stat suggestion"><span class="error-stat-count" id="suggestion-count">0</span><span class="error-stat-label">Tips</span></div></div></div><div id="error-list" class="error-list"></div><div id="error-empty-state" class="error-empty-state"><div class="error-empty-icon"><i data-lucide="check-circle"></i></div><h3>Great job! No issues found</h3><p>Your code looks good. Keep up the excellent work!</p></div></div></div>';
+                    document.body.insertAdjacentHTML('beforeend', panelHTML);
+                    
+                    // Add close button handler
+                    document.getElementById('error-close-btn').addEventListener('click', () => {
+                        this.hide();
+                    });
+                }
+            },
+            
+            displayErrors: function(errorResult) {
+                this.currentErrors = errorResult.errors || [];
+                
+                // Update count badge
+                const badge = document.getElementById('error-count-badge');
+                if (badge) {
+                    badge.textContent = errorResult.totalFound || 0;
+                }
+                
+                // Update summary
+                if (errorResult.summary) {
+                    Object.keys(errorResult.summary).forEach(category => {
+                        const element = document.getElementById(category + '-count');
+                        if (element) {
+                            element.textContent = errorResult.summary[category];
+                        }
+                    });
+                }
+                
+                // Show/hide sections
+                const emptyState = document.getElementById('error-empty-state');
+                const errorList = document.getElementById('error-list');
+                const summary = document.getElementById('error-summary');
+                
+                if (this.currentErrors.length === 0) {
+                    emptyState.classList.remove('hidden');
+                    errorList.classList.add('hidden');
+                    summary.classList.add('hidden');
+                } else {
+                    emptyState.classList.add('hidden');
+                    errorList.classList.remove('hidden');
+                    summary.classList.remove('hidden');
+                    this.renderErrorList();
+                }
+            },
+            
+            renderErrorList: function() {
+                const errorList = document.getElementById('error-list');
+                if (!errorList) return;
+                
+                errorList.innerHTML = this.currentErrors.map((error, index) => {
+                    const formattedError = ErrorCheckerService.formatError(error);
+                    return '<div class="error-item ' + error.category.toLowerCase() + '"><div class="error-item-header"><div class="error-item-icon"><i data-lucide="' + formattedError.categoryInfo.icon + '" style="color: ' + formattedError.categoryInfo.color + '"></i></div><div class="error-item-main"><div class="error-item-title">' + formattedError.displayTitle + '</div><div class="error-item-location">' + error.file + (error.line > 0 ? ':' + error.line : '') + '</div></div></div><div class="error-item-details hidden"><div class="error-message">' + error.message + '</div>' + (error.explanation ? '<div class="error-explanation"><i data-lucide="lightbulb"></i>' + error.explanation + '</div>' : '') + (error.fix ? '<div class="error-fix-section"><h4><i data-lucide="wrench"></i>How to fix:</h4><p>' + error.fix + '</p></div>' : '') + (error.beginnerTip ? '<div class="error-tip"><i data-lucide="target"></i>' + error.beginnerTip + '</div>' : '') + '</div></div>';
+                }).join('');
+                
+                // Re-initialize icons
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+            },
+            
+            show: function() {
+                const panel = document.getElementById('error-panel');
+                if (panel) {
+                    panel.classList.remove('hidden');
+                    this.isVisible = true;
+                }
+            },
+            
+            hide: function() {
+                const panel = document.getElementById('error-panel');
+                if (panel) {
+                    panel.classList.add('hidden');
+                    this.isVisible = false;
+                }
+            }
+        };
+        
+        // Demo functions
+        function updateStatus(message) {
+            document.getElementById('demo-status').textContent = message;
+        }
+        
+        function showCriticalError() {
+            const error = ErrorExamples.getErrorsByCategory('CRITICAL')[0];
+            ErrorDisplayService.displayErrors({
+                errors: [error],
+                totalFound: 1,
+                hasMoreErrors: false,
+                summary: { critical: 1, structural: 0, syntax: 0, style: 0, suggestion: 0 }
+            });
+            ErrorDisplayService.show();
+            updateStatus('Showing critical error example');
+        }
+        
+        function showStructuralError() {
+            const error = ErrorExamples.getErrorsByCategory('STRUCTURAL')[0];
+            ErrorDisplayService.displayErrors({
+                errors: [error],
+                totalFound: 1,
+                hasMoreErrors: false,
+                summary: { critical: 0, structural: 1, syntax: 0, style: 0, suggestion: 0 }
+            });
+            ErrorDisplayService.show();
+            updateStatus('Showing structural error example');
+        }
+        
+        function showSyntaxError() {
+            const error = ErrorExamples.getErrorsByCategory('SYNTAX')[0];
+            ErrorDisplayService.displayErrors({
+                errors: [error],
+                totalFound: 1,
+                hasMoreErrors: false,
+                summary: { critical: 0, structural: 0, syntax: 1, style: 0, suggestion: 0 }
+            });
+            ErrorDisplayService.show();
+            updateStatus('Showing syntax error example');
+        }
+        
+        function showSuggestion() {
+            const error = ErrorExamples.getErrorsByCategory('SUGGESTION')[0];
+            ErrorDisplayService.displayErrors({
+                errors: [error],
+                totalFound: 1,
+                hasMoreErrors: false,
+                summary: { critical: 0, structural: 0, syntax: 0, style: 0, suggestion: 1 }
+            });
+            ErrorDisplayService.show();
+            updateStatus('Showing helpful suggestion example');
+        }
+        
+        function showMultipleErrors() {
+            const errors = ErrorExamples.generateDemoErrors(4);
+            const summary = {
+                critical: errors.filter(e => e.category === 'CRITICAL').length,
+                structural: errors.filter(e => e.category === 'STRUCTURAL').length,
+                syntax: errors.filter(e => e.category === 'SYNTAX').length,
+                style: errors.filter(e => e.category === 'STYLE').length,
+                suggestion: errors.filter(e => e.category === 'SUGGESTION').length
+            };
+            
+            ErrorDisplayService.displayErrors({
+                errors: errors,
+                totalFound: errors.length,
+                hasMoreErrors: false,
+                summary: summary
+            });
+            ErrorDisplayService.show();
+            updateStatus('Showing ' + errors.length + ' mixed error examples');
+        }
+        
+        function clearErrors() {
+            ErrorDisplayService.displayErrors({
+                errors: [],
+                totalFound: 0,
+                hasMoreErrors: false,
+                summary: { critical: 0, structural: 0, syntax: 0, style: 0, suggestion: 0 }
+            });
+            updateStatus('All errors cleared - great job!');
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize error display service
+            ErrorDisplayService.init();
+            
+            // Initialize icons
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+            
+            updateStatus('Demo ready! Click buttons above to see error checking in action.');
+        });
+    </script>
+</body>
+</html>

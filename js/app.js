@@ -1472,6 +1472,12 @@ function togglePreviewFullscreen() {
     const sidebar = document.querySelector('.sidebar');
     const btn = document.getElementById('preview-fullscreen-btn');
     
+    // Check if required elements exist
+    if (!previewContainer || !editorContainer || !sidebar || !btn) {
+        console.warn('Preview fullscreen: Required elements not found');
+        return;
+    }
+    
     isPreviewFullscreen = !isPreviewFullscreen;
     
     if (isPreviewFullscreen) {

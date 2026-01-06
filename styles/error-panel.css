@@ -1,0 +1,780 @@
+/**
+ * Error Panel Styles - Beginner-friendly error display system
+ * 
+ * Follows WebForge design patterns with clean, educational styling
+ * that helps students learn from their mistakes.
+ */
+
+/* Error Panel Container */
+.error-panel {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    width: 400px;
+    max-width: calc(100vw - 40px);
+    max-height: calc(100vh - 120px);
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    border: 1px solid #e5e7eb;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.error-panel.hidden {
+    transform: translateX(100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Dark theme support */
+[data-theme="dark"] .error-panel {
+    background: #1f2937;
+    border-color: #374151;
+    color: #f9fafb;
+}
+
+/* Error Panel Header */
+.error-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e5e7eb;
+    background: #f9fafb;
+}
+
+[data-theme="dark"] .error-panel-header {
+    background: #111827;
+    border-color: #374151;
+}
+
+.error-panel-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    color: #1f2937;
+}
+
+[data-theme="dark"] .error-panel-title {
+    color: #f9fafb;
+}
+
+.error-panel-icon {
+    width: 20px;
+    height: 20px;
+    color: #f59e0b;
+}
+
+.error-count-badge {
+    background: #e5e7eb;
+    color: #6b7280;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    min-width: 20px;
+    text-align: center;
+}
+
+.error-count-badge.success {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.error-count-badge.warning {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.error-count-badge.error {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+[data-theme="dark"] .error-count-badge {
+    background: #374151;
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .error-count-badge.success {
+    background: #064e3b;
+    color: #6ee7b7;
+}
+
+[data-theme="dark"] .error-count-badge.warning {
+    background: #78350f;
+    color: #fbbf24;
+}
+
+[data-theme="dark"] .error-count-badge.error {
+    background: #7f1d1d;
+    color: #fca5a5;
+}
+
+.error-panel-controls {
+    display: flex;
+    gap: 4px;
+}
+
+.error-control-btn {
+    background: none;
+    border: none;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #6b7280;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-control-btn:hover {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+[data-theme="dark"] .error-control-btn {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .error-control-btn:hover {
+    background: #374151;
+    color: #f3f4f6;
+}
+
+.error-control-btn i {
+    width: 16px;
+    height: 16px;
+}
+
+.error-control-btn.spinning i {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Error Panel Content */
+.error-panel-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0;
+}
+
+/* Error Summary */
+.error-summary {
+    padding: 16px 20px;
+    border-bottom: 1px solid #e5e7eb;
+    background: #f9fafb;
+}
+
+[data-theme="dark"] .error-summary {
+    background: #111827;
+    border-color: #374151;
+}
+
+.error-summary-stats {
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+}
+
+.error-stat {
+    text-align: center;
+    flex: 1;
+}
+
+.error-stat-count {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.error-stat-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #6b7280;
+}
+
+[data-theme="dark"] .error-stat-label {
+    color: #9ca3af;
+}
+
+.error-stat.critical .error-stat-count { color: #dc2626; }
+.error-stat.structural .error-stat-count { color: #ea580c; }
+.error-stat.syntax .error-stat-count { color: #d97706; }
+.error-stat.style .error-stat-count { color: #2563eb; }
+.error-stat.suggestion .error-stat-count { color: #16a34a; }
+
+/* Error List */
+.error-list {
+    padding: 0;
+}
+
+.error-item {
+    border-bottom: 1px solid #f3f4f6;
+    transition: all 0.2s ease;
+}
+
+[data-theme="dark"] .error-item {
+    border-color: #374151;
+}
+
+.error-item:last-child {
+    border-bottom: none;
+}
+
+.error-item:hover {
+    background: #f9fafb;
+}
+
+[data-theme="dark"] .error-item:hover {
+    background: #1f2937;
+}
+
+/* Error Item Header */
+.error-item-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+    cursor: pointer;
+}
+
+.error-item-icon {
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.error-item-icon i {
+    width: 18px;
+    height: 18px;
+}
+
+.error-item-main {
+    flex: 1;
+    min-width: 0;
+}
+
+.error-item-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #1f2937;
+    margin-bottom: 4px;
+    line-height: 1.3;
+}
+
+[data-theme="dark"] .error-item-title {
+    color: #f9fafb;
+}
+
+.error-item-location {
+    font-size: 12px;
+    color: #6b7280;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+[data-theme="dark"] .error-item-location {
+    color: #9ca3af;
+}
+
+.error-item-controls {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.error-quick-fix-btn,
+.error-expand-btn {
+    background: none;
+    border: none;
+    padding: 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #6b7280;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-quick-fix-btn:hover,
+.error-expand-btn:hover {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+[data-theme="dark"] .error-quick-fix-btn,
+[data-theme="dark"] .error-expand-btn {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .error-quick-fix-btn:hover,
+[data-theme="dark"] .error-expand-btn:hover {
+    background: #374151;
+    color: #f3f4f6;
+}
+
+.error-quick-fix-btn i,
+.error-expand-btn i {
+    width: 14px;
+    height: 14px;
+}
+
+.error-quick-fix-btn {
+    color: #f59e0b;
+}
+
+.error-quick-fix-btn:hover {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+[data-theme="dark"] .error-quick-fix-btn {
+    color: #fbbf24;
+}
+
+[data-theme="dark"] .error-quick-fix-btn:hover {
+    background: #78350f;
+    color: #fcd34d;
+}
+
+/* Error Item Details */
+.error-item-details {
+    padding: 0 20px 16px 50px;
+    border-top: 1px solid #f3f4f6;
+    margin-top: 8px;
+    animation: slideDown 0.2s ease;
+}
+
+[data-theme="dark"] .error-item-details {
+    border-color: #374151;
+}
+
+.error-item-details.hidden {
+    display: none;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.error-message {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #4b5563;
+    margin-bottom: 16px;
+}
+
+[data-theme="dark"] .error-message {
+    color: #d1d5db;
+}
+
+.error-explanation {
+    background: #eff6ff;
+    border: 1px solid #dbeafe;
+    border-radius: 8px;
+    padding: 12px;
+    margin: 12px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+[data-theme="dark"] .error-explanation {
+    background: #1e3a8a;
+    border-color: #1d4ed8;
+}
+
+.error-explanation i {
+    width: 16px;
+    height: 16px;
+    color: #2563eb;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+[data-theme="dark"] .error-explanation i {
+    color: #60a5fa;
+}
+
+.error-tip {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 8px;
+    padding: 12px;
+    margin: 12px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+[data-theme="dark"] .error-tip {
+    background: #14532d;
+    border-color: #16a34a;
+}
+
+.error-tip i {
+    width: 16px;
+    height: 16px;
+    color: #16a34a;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+[data-theme="dark"] .error-tip i {
+    color: #4ade80;
+}
+
+.error-fix-section {
+    background: #fefce8;
+    border: 1px solid #fde047;
+    border-radius: 8px;
+    padding: 12px;
+    margin: 12px 0;
+}
+
+[data-theme="dark"] .error-fix-section {
+    background: #713f12;
+    border-color: #a16207;
+}
+
+.error-fix-section h4 {
+    margin: 0 0 8px 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #a16207;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+[data-theme="dark"] .error-fix-section h4 {
+    color: #fbbf24;
+}
+
+.error-fix-section h4 i {
+    width: 14px;
+    height: 14px;
+}
+
+.error-fix-section p {
+    margin: 0;
+    font-size: 13px;
+    color: #713f12;
+    line-height: 1.4;
+}
+
+[data-theme="dark"] .error-fix-section p {
+    color: #fef3c7;
+}
+
+.error-learn-more {
+    margin: 12px 0;
+}
+
+.error-learn-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #2563eb;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.error-learn-link:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+}
+
+[data-theme="dark"] .error-learn-link {
+    color: #60a5fa;
+}
+
+[data-theme="dark"] .error-learn-link:hover {
+    color: #93c5fd;
+}
+
+.error-learn-link i {
+    width: 12px;
+    height: 12px;
+}
+
+.error-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+}
+
+/* Error Empty State */
+.error-empty-state {
+    padding: 40px 20px;
+    text-align: center;
+    color: #6b7280;
+}
+
+[data-theme="dark"] .error-empty-state {
+    color: #9ca3af;
+}
+
+.error-empty-icon {
+    margin-bottom: 16px;
+}
+
+.error-empty-icon i {
+    width: 48px;
+    height: 48px;
+    color: #10b981;
+}
+
+.error-empty-state h3 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+[data-theme="dark"] .error-empty-state h3 {
+    color: #f9fafb;
+}
+
+.error-empty-state p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Error Panel Footer */
+.error-panel-footer {
+    padding: 12px 20px;
+    border-top: 1px solid #e5e7eb;
+    background: #f9fafb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+[data-theme="dark"] .error-panel-footer {
+    background: #111827;
+    border-color: #374151;
+}
+
+.error-footer-btn {
+    background: none;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    color: #6b7280;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.error-footer-btn:hover {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+[data-theme="dark"] .error-footer-btn {
+    color: #9ca3af;
+}
+
+[data-theme="dark"] .error-footer-btn:hover {
+    background: #374151;
+    color: #f3f4f6;
+}
+
+.error-footer-btn i {
+    width: 14px;
+    height: 14px;
+}
+
+/* Button Styles */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: white;
+    color: #374151;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    background: #f9fafb;
+    border-color: #9ca3af;
+}
+
+.btn.btn-primary {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: white;
+}
+
+.btn.btn-primary:hover {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+}
+
+.btn.btn-small {
+    padding: 6px 10px;
+    font-size: 12px;
+}
+
+[data-theme="dark"] .btn {
+    background: #374151;
+    border-color: #4b5563;
+    color: #f9fafb;
+}
+
+[data-theme="dark"] .btn:hover {
+    background: #4b5563;
+    border-color: #6b7280;
+}
+
+.btn i {
+    width: 14px;
+    height: 14px;
+}
+
+.btn.btn-small i {
+    width: 12px;
+    height: 12px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .error-panel {
+        top: 60px;
+        right: 10px;
+        left: 10px;
+        width: auto;
+        max-width: none;
+    }
+    
+    .error-summary-stats {
+        gap: 8px;
+    }
+    
+    .error-stat-count {
+        font-size: 16px;
+    }
+    
+    .error-stat-label {
+        font-size: 10px;
+    }
+    
+    .error-item-header {
+        padding: 12px 16px;
+    }
+    
+    .error-item-details {
+        padding: 0 16px 12px 44px;
+    }
+    
+    .error-actions {
+        flex-direction: column;
+    }
+    
+    .btn {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .error-panel {
+        top: 10px;
+        bottom: 10px;
+        max-height: none;
+    }
+    
+    .error-panel-header {
+        padding: 12px 16px;
+    }
+    
+    .error-panel-footer {
+        padding: 8px 16px;
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .error-footer-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Animation for error highlighting */
+.error-highlight {
+    animation: errorPulse 2s ease-in-out;
+}
+
+@keyframes errorPulse {
+    0%, 100% { 
+        background-color: transparent; 
+    }
+    50% { 
+        background-color: rgba(239, 68, 68, 0.1); 
+    }
+}
+
+/* Accessibility improvements */
+.error-panel:focus-within {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 0 0 2px #2563eb;
+}
+
+.error-control-btn:focus,
+.error-footer-btn:focus,
+.btn:focus {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .error-panel {
+        border-width: 2px;
+    }
+    
+    .error-item {
+        border-bottom-width: 2px;
+    }
+    
+    .btn {
+        border-width: 2px;
+    }
+}
