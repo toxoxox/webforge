@@ -612,10 +612,38 @@ require(['vs/editor/editor.main'], function () {
                 const workshop = JSON.parse(workshopData);
                 console.log('Parsed workshop data:', workshop);
                 
-                // Always create a new project (don't check for existing)
-                console.log('Creating new workshop project...');
-                const workshopProject = createWorkshopProject(workshop);
-                console.log('Workshop project created:', workshopProject.id);
+                let workshopProject = null;
+                
+                // Check if we have an existing project for this workshop
+                if (existingProjectId) {
+                    console.log('Checking for existing project:', existingProjectId);
+                    workshopProject = ProjectService.getProject(existingProjectId);
+                    
+                    if (workshopProject) {
+                        console.log('Reusing existing workshop project:', workshopProject.name);
+                        
+                        // Verify the project has the required files
+                        const hasHTML = workshopProject.files.some(f => f.type === 'html');
+                        const hasCSS = workshopProject.files.some(f => f.type === 'css');
+                        const hasJS = workshopProject.files.some(f => f.type === 'javascript');
+                        
+                        if (!hasHTML || !hasCSS || !hasJS) {
+                            console.log('Existing project missing required files, will create new one');
+                            workshopProject = null;
+                        }
+                    } else {
+                        console.log('Existing project not found, will create new one');
+                    }
+                }
+                
+                // Only create new project if we don't have an existing one
+                if (!workshopProject) {
+                    console.log('Creating new workshop project...');
+                    workshopProject = createWorkshopProject(workshop);
+                    console.log('Workshop project created:', workshopProject.id);
+                } else {
+                    console.log('Using existing project:', workshopProject.id);
+                }
                 
                 loadProject(workshopProject.id);
                 console.log('Workshop project loaded');

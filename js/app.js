@@ -1208,6 +1208,29 @@ function restoreTutorialState() {
 // Save tutorial state when leaving
 window.addEventListener('beforeunload', saveTutorialState);
 
+// Save current project changes before page unload to prevent data loss
+window.addEventListener('beforeunload', function(e) {
+    // Clear any pending auto-save timeout
+    if (autoSaveTimeout) {
+        clearTimeout(autoSaveTimeout);
+    }
+    
+    // Save current project immediately if there are changes
+    if (currentProject && currentFile && editor) {
+        try {
+            // Update current file content with editor content
+            currentFile.content = editor.getValue();
+            
+            // Save project immediately (synchronous)
+            ProjectService.saveProject(currentProject);
+            
+            console.log('Project saved before page unload');
+        } catch (error) {
+            console.error('Failed to save project before unload:', error);
+        }
+    }
+});
+
 // Enhanced tutorial exit (safe element check)
 const tutorialExitBtn = document.getElementById('tutorial-exit-btn');
 if (tutorialExitBtn) {
@@ -1576,9 +1599,14 @@ document.addEventListener('keydown', (e) => {
     // Ctrl/Cmd + S to save (prevent browser save dialog)
     if ((e.ctrlKey || e.metaKey) && e.key === 's') {
         e.preventDefault();
-        if (currentProject) {
+        if (currentProject && currentFile && editor) {
+            // Update current file content with editor content
+            currentFile.content = editor.getValue();
+            
+            // Save project
             ProjectService.saveProject(currentProject);
             showToast('Project saved', 'success');
+            showSaveIndicator();
         }
     }
 });
@@ -1624,9 +1652,14 @@ function initializeEditorEventListeners() {
     const saveBtn = document.getElementById('save-btn');
     if (saveBtn) {
         saveBtn.onclick = () => {
-            if (currentProject) {
+            if (currentProject && currentFile && editor) {
+                // Update current file content with editor content
+                currentFile.content = editor.getValue();
+                
+                // Save project
                 ProjectService.saveProject(currentProject);
                 showSaveIndicator();
+                showToast('Project saved', 'success');
             }
         };
     }

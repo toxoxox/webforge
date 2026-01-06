@@ -549,20 +549,9 @@ const WorkshopErrorChecker = {
     }
 };
 
-// Initialize after all other systems are ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        // Wait for other systems to initialize first
-        setTimeout(() => {
-            WorkshopErrorChecker.init();
-        }, 2000);
-    });
-} else {
-    // Page already loaded, wait a bit then initialize
-    setTimeout(() => {
-        WorkshopErrorChecker.init();
-    }, 2000);
-}
+// Manual initialization only - do not auto-initialize
+// Call WorkshopErrorChecker.init() manually when needed
+// This prevents interference with workshop state restoration
 
 // Export for use in other modules
 if (typeof module !== 'undefined' && module.exports) {
