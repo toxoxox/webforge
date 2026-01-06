@@ -1465,18 +1465,78 @@ function setPreviewWidth(width) {
 
 // Fullscreen Preview Management
 let isPreviewFullscreen = false;
+let isPreviewCollapsed = false;
 
-function togglePreviewFullscreen() {
-    const previewContainer = document.querySelector('.preview-container');
-    const editorContainer = document.querySelector('.editor-container');
-    const sidebar = document.querySelector('.sidebar');
-    const btn = document.getElementById('preview-fullscreen-btn');
+// Reset preview states when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    // Reset preview states on page load
+    isPreviewFullscreen = false;
+    isPreviewCollapsed = false;
+});
+
+function togglePreviewCollapse() {
+    console.log('togglePreviewCollapse called');
     
-    // Check if required elements exist
-    if (!previewContainer || !editorContainer || !sidebar || !btn) {
-        console.warn('Preview fullscreen: Required elements not found');
+    // Check if we're on the editor page
+    if (!document.querySelector('.preview-container')) {
+        console.log('Preview container not found - not on editor page');
         return;
     }
+    
+    const previewContainer = document.querySelector('.preview-container');
+    const previewCollapsedTab = document.getElementById('preview-collapsed-tab');
+    
+    console.log('Elements found:', {
+        previewContainer: !!previewContainer,
+        previewCollapsedTab: !!previewCollapsedTab
+    });
+    
+    if (!previewContainer || !previewCollapsedTab) {
+        console.log('Some required elements missing for collapse');
+        return;
+    }
+    
+    console.log('Toggling collapse, current state:', isPreviewCollapsed);
+    
+    isPreviewCollapsed = !isPreviewCollapsed;
+    
+    if (isPreviewCollapsed) {
+        previewContainer.classList.add('collapsed');
+        previewCollapsedTab.classList.remove('hidden');
+    } else {
+        previewContainer.classList.remove('collapsed');
+        previewCollapsedTab.classList.add('hidden');
+    }
+}
+
+function togglePreviewFullscreen() {
+    console.log('togglePreviewFullscreen called');
+    
+    // UPDATED: Check if we're on the editor page - no console messages
+    if (!document.querySelector('.preview-container')) {
+        console.log('Preview container not found - not on editor page');
+        return;
+    }
+    
+    const previewContainer = document.querySelector('.preview-container');
+    const editorContainer = document.querySelector('.editor-container');
+    const sidebar = document.querySelector('.workshop-panel'); // Fixed: use .workshop-panel instead of .sidebar
+    const btn = document.getElementById('preview-fullscreen-btn');
+    
+    console.log('Elements found:', {
+        previewContainer: !!previewContainer,
+        editorContainer: !!editorContainer,
+        sidebar: !!sidebar,
+        btn: !!btn
+    });
+    
+    // UPDATED: Check if required elements exist - no console messages
+    if (!previewContainer || !editorContainer || !sidebar || !btn) {
+        console.log('Some required elements missing');
+        return;
+    }
+    
+    console.log('Toggling fullscreen, current state:', isPreviewFullscreen);
     
     isPreviewFullscreen = !isPreviewFullscreen;
     
@@ -1501,9 +1561,16 @@ function togglePreviewFullscreen() {
 
 // Keyboard shortcuts
 document.addEventListener('keydown', (e) => {
-    // Escape to exit fullscreen
+    // Escape to exit fullscreen (only on editor page and when actually in fullscreen)
     if (e.key === 'Escape' && isPreviewFullscreen) {
-        togglePreviewFullscreen();
+        // Double-check we're on the right page and elements exist
+        const previewContainer = document.querySelector('.preview-container');
+        if (previewContainer && previewContainer.classList.contains('fullscreen')) {
+            togglePreviewFullscreen();
+        } else {
+            // Reset state if we're not actually in fullscreen
+            isPreviewFullscreen = false;
+        }
     }
     
     // Ctrl/Cmd + S to save (prevent browser save dialog)
@@ -1757,9 +1824,37 @@ function toggleMobileNav() {
     // Fullscreen preview button
     const previewFullscreenBtn = document.getElementById('preview-fullscreen-btn');
     if (previewFullscreenBtn) {
+        console.log('Preview fullscreen button found, attaching event handler');
         previewFullscreenBtn.onclick = () => {
+            console.log('Preview fullscreen button clicked');
             togglePreviewFullscreen();
         };
+    } else {
+        console.log('Preview fullscreen button NOT found');
+    }
+    
+    // Preview collapse button
+    const previewCollapseBtn = document.getElementById('preview-collapse-btn');
+    if (previewCollapseBtn) {
+        console.log('Preview collapse button found, attaching event handler');
+        previewCollapseBtn.onclick = () => {
+            console.log('Preview collapse button clicked');
+            togglePreviewCollapse();
+        };
+    } else {
+        console.log('Preview collapse button NOT found');
+    }
+    
+    // Preview expand button
+    const previewExpandBtn = document.getElementById('preview-expand-btn');
+    if (previewExpandBtn) {
+        console.log('Preview expand button found, attaching event handler');
+        previewExpandBtn.onclick = () => {
+            console.log('Preview expand button clicked');
+            togglePreviewCollapse();
+        };
+    } else {
+        console.log('Preview expand button NOT found');
     }
 
     const snippetsBtn = document.getElementById('snippets-btn');
