@@ -51,6 +51,7 @@ const AdvancedComponentData = {
                 </div>
             </div>`,
             workshop: {
+                comingSoon: true,
                 goal: 'Build a complete real-time booking system with calendar and payments',
                 duration: '120 minutes',
                 steps: [
@@ -553,6 +554,7 @@ clearBtn.addEventListener('click', function() {
                 </div>
             </div>`,
             workshop: {
+                comingSoon: true,
                 goal: 'Create an advanced game database with API integration and complex search',
                 duration: '180 minutes',
                 steps: [
@@ -1708,6 +1710,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>`,
             workshop: {
+                comingSoon: true,
                 goal: 'Build a complete admin panel for managing pet listings with full CRUD operations',
                 duration: '240 minutes',
                 steps: [
@@ -2916,6 +2919,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>`,
             workshop: {
+                comingSoon: true,
                 goal: 'Create a real-time emergency alert system with geolocation and notifications',
                 duration: 'Coming Soon',
                 comingSoon: true,
@@ -3000,6 +3004,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>`,
             workshop: {
+                comingSoon: true,
                 goal: 'Build a comprehensive digital archive system for cultural preservation',
                 duration: 'Coming Soon',
                 comingSoon: true,
@@ -3074,6 +3079,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>`,
             workshop: {
+                comingSoon: true,
                 goal: 'Create a real-time sports game tracking system with live updates',
                 duration: 'Coming Soon',
                 comingSoon: true,
@@ -3165,6 +3171,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>`,
             workshop: {
+                comingSoon: true,
                 goal: 'Build an interactive music composition tool with Web Audio API',
                 duration: 'Coming Soon',
                 comingSoon: true,
@@ -3255,6 +3262,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>`,
             workshop: {
+                comingSoon: true,
                 goal: 'Create an AI-powered workout planning system with adaptive algorithms',
                 duration: 'Coming Soon',
                 comingSoon: true,
