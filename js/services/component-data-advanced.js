@@ -61,7 +61,7 @@ const AdvancedComponentData = {
                         code: `<div class="pet-admin-panel">
   <div class="admin-header">
     <div class="admin-icon">
-      <i data-lucide="settings"></i>
+      <span class="icon">⚙️</span>
     </div>
     <div class="admin-title">
       <h2>Pet Admin Panel</h2>
@@ -71,7 +71,7 @@ const AdvancedComponentData = {
 </div>`,
                         codeFile: 'index.html',
                         tip: 'Admin panels should be clearly labeled so staff know they\'re in the management area!',
-                        explanation: 'What this creates:\n• <div class="pet-admin-panel"> - Main container for the entire admin system\n• <div class="admin-header"> - Top section with title and icon\n• <i data-lucide="settings"> - Settings icon using Lucide icons\n• <h2> and <p> - Clear title and subtitle for the admin area'
+                        explanation: 'What this creates:\n• <div class="pet-admin-panel"> - Main container for the entire admin system\n• <div class="admin-header"> - Top section with title and icon\n• ⚙️ - Settings icon using Unicode emoji\n• <h2> and <p> - Clear title and subtitle for the admin area'
                     },
                     {
                         title: 'Add the Pet Information Form',
@@ -103,7 +103,7 @@ const AdvancedComponentData = {
   <label>Pet Photo</label>
   <div class="upload-area" id="uploadArea">
     <div class="upload-icon">
-      <i data-lucide="camera"></i>
+      <span class="icon">📷</span>
     </div>
     <p>Click to upload photo or drag and drop</p>
     <input type="file" id="petPhoto" name="petPhoto" accept="image/*" hidden>
@@ -111,7 +111,7 @@ const AdvancedComponentData = {
 </div>`,
                         codeFile: 'index.html',
                         tip: 'The accept="image/*" attribute only allows image files to be selected!',
-                        explanation: 'What this upload area does:\n• <div class="upload-area"> - Creates a clickable area for file uploads\n• <input type="file"> - The actual file input (hidden for better design)\n• accept="image/*" - Only allows image files (jpg, png, etc.)\n• <i data-lucide="camera"> - Camera icon shows this is for photos'
+                        explanation: 'What this upload area does:\n• <div class="upload-area"> - Creates a clickable area for file uploads\n• <input type="file"> - The actual file input (hidden for better design)\n• accept="image/*" - Only allows image files (jpg, png, etc.)\n• 📷 - Camera icon shows this is for photos'
                     },
                     {
                         title: 'Add Pet Type and Status Dropdowns',
@@ -288,15 +288,15 @@ const AdvancedComponentData = {
                         instruction: 'Add these action buttons after your form:',
                         code: `<div class="form-actions">
   <button type="submit" class="btn btn-primary" id="addPetBtn">
-    <i data-lucide="plus"></i>
+    <span class="icon">➕</span>
     Add Pet
   </button>
   <button type="button" class="btn btn-secondary" id="previewBtn">
-    <i data-lucide="eye"></i>
+    <span class="icon">👁️</span>
     Preview
   </button>
   <button type="button" class="btn btn-danger" id="clearBtn">
-    <i data-lucide="trash-2"></i>
+    <span class="icon">🗑️</span>
     Clear Form
   </button>
 </div>`,
@@ -487,7 +487,7 @@ previewBtn.addEventListener('click', function() {
 clearBtn.addEventListener('click', function() {
   petForm.reset();
   uploadArea.innerHTML = \`
-    <div class="upload-icon"><i data-lucide="camera"></i></div>
+    <div class="upload-icon"><span class="icon">📷</span></div>
     <p>Click to upload photo or drag and drop</p>
   \`;
 });`,
@@ -1657,8 +1657,8 @@ document.addEventListener('DOMContentLoaded', function() {
             preview: `<div class="component-preview-placeholder">
                 <div style="background: #f8fafc; padding: 2rem; border-radius: 16px; border: 2px solid #e2e8f0; max-width: 500px; margin: 1rem auto;">
                     <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-                        <div style="width: 50px; height: 50px; background: #3b82f6; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white;">
-                            <i data-lucide="settings"></i>
+                        <div style="width: 50px; height: 50px; background: #3b82f6; border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem;">
+                            ⚙️
                         </div>
                         <div>
                             <h3 style="margin: 0; color: #1e293b; font-size: 1.2rem;">Pet Admin Panel</h3>
@@ -1679,8 +1679,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div style="margin-bottom: 1rem;">
                             <label style="display: block; margin-bottom: 0.5rem; font-size: 0.8rem; font-weight: 600; color: #374151;">Photo Upload</label>
                             <div style="border: 2px dashed #d1d5db; border-radius: 8px; padding: 1rem; text-align: center; background: #f9fafb;">
-                                <div style="width: 40px; height: 40px; background: #fbbf24; border-radius: 50%; margin: 0 auto 0.5rem; display: flex; align-items: center; justify-content: center;">
-                                    <i data-lucide="camera"></i>
+                                <div style="width: 40px; height: 40px; background: #fbbf24; border-radius: 50%; margin: 0 auto 0.5rem; display: flex; align-items: center; justify-content: center; font-size: 1.25rem;">
+                                    📷
                                 </div>
                                 <p style="margin: 0; font-size: 0.75rem; color: #6b7280;">Click to upload photo</p>
                             </div>
@@ -1699,10 +1699,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                     <div style="display: flex; gap: 0.75rem;">
                         <button style="flex: 1; padding: 0.75rem; background: #10b981; color: white; border: none; border-radius: 8px; font-size: 0.8rem; font-weight: 600;">
-                            <i data-lucide="plus"></i> Add Pet
+                            ➕ Add Pet
                         </button>
                         <button style="flex: 1; padding: 0.75rem; background: #6366f1; color: white; border: none; border-radius: 8px; font-size: 0.8rem; font-weight: 600;">
-                            <i data-lucide="eye"></i> Preview
+                            👁️ Preview
                         </button>
                     </div>
                 </div>
@@ -1712,29 +1712,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 duration: '240 minutes',
                 steps: [
                     {
-                        title: 'Set Up Lucide Icons Library',
-                        description: 'Before we start building, let\'s add the Lucide icons library. This gives us beautiful, professional icons for our admin panel!',
-                        instruction: 'Add these two lines to your HTML - the script tag goes in the <head> section, and the initialization goes at the end of <body>:',
-                        code: `<!-- Add this in your <head> section -->
-<script src="https://unpkg.com/lucide@latest"></script>
-
-<!-- Add this at the end of your <body>, before closing </body> tag -->
-<script>
-  // Initialize Lucide icons - this makes all the icons appear
-  lucide.createIcons();
-</script>`,
-                        codeFile: 'index.html',
-                        tip: 'Lucide icons use data-lucide attributes. After adding new icons to your HTML, call lucide.createIcons() to render them!',
-                        explanation: 'What this does:\n• Loads the Lucide icon library from a CDN (no download needed)\n• lucide.createIcons() scans your page for <i data-lucide="icon-name"> elements\n• It replaces them with actual SVG icons\n• You can call createIcons() again after adding new HTML with icons\n\nWe\'ll use icons like "settings", "camera", "plus", "edit", and "trash-2" throughout this tutorial.'
-                    },
-                    {
                         title: 'Create the Admin Panel Container',
-                        description: 'Now let\'s build the main container for our pet management system with a clean, professional look!',
+                        description: 'Let\'s build the main container for our pet management system with a clean, professional look!',
                         instruction: 'Add this HTML structure:',
                         code: `<div class="pet-admin-panel">
   <div class="admin-header">
     <div class="admin-icon">
-      <i data-lucide="settings"></i>
+      <span class="icon">⚙️</span>
     </div>
     <div class="admin-title">
       <h2>Pet Admin Panel</h2>
@@ -1744,7 +1728,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>`,
                         codeFile: 'index.html',
                         tip: 'Admin panels should be clearly labeled so staff know they\'re in the management area!',
-                        explanation: 'What this creates:\\n• Main container for the admin system\\n• Header with settings icon using Lucide\\n• Title and subtitle for clear navigation\\n• We\'ll add the form and pet list next'
+                        explanation: 'What this creates:\n• Main container for the admin system\n• Header with settings icon (⚙️)\n• Title and subtitle for clear navigation\n• We\'ll add the form and pet list next'
                     },
                     {
                         title: 'Add Stats Summary Bar',
@@ -1778,7 +1762,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         instruction: 'Add this form structure inside the admin panel:',
                         code: `  <div class="pet-form-container">
     <h3 class="form-title">
-      <i data-lucide="plus-circle"></i> Add New Pet
+      <span class="icon">➕</span> Add New Pet
     </h3>
     <form class="pet-form" id="petForm">
       <div class="form-row">
@@ -1795,7 +1779,7 @@ document.addEventListener('DOMContentLoaded', function() {
   </div>`,
                         codeFile: 'index.html',
                         tip: 'Using placeholder text shows staff exactly what format to use!',
-                        explanation: 'What this form does:\\n• Creates a form for data collection\\n• Groups related fields in rows\\n• Labels tell users what each field is for\\n• required attribute ensures fields aren\'t empty'
+                        explanation: 'What this form does:\n• Creates a form for data collection\n• Groups related fields in rows\n• Labels tell users what each field is for\n• required attribute ensures fields aren\'t empty'
                     },
                     {
                         title: 'Add Pet Description Field',
@@ -1818,7 +1802,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <label>Pet Photo</label>
         <div class="upload-area" id="uploadArea">
           <div class="upload-icon">
-            <i data-lucide="camera"></i>
+            <span class="icon">📷</span>
           </div>
           <p class="upload-text">Click to upload photo or drag and drop</p>
           <p class="upload-hint">PNG, JPG up to 5MB</p>
@@ -1827,13 +1811,13 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="photo-preview" id="photoPreview" hidden>
           <img id="previewImage" alt="Pet photo preview">
           <button type="button" class="remove-photo" id="removePhoto">
-            <i data-lucide="x"></i>
+            <span class="icon">✕</span>
           </button>
         </div>
       </div>`,
                         codeFile: 'index.html',
                         tip: 'The accept="image/*" attribute only allows image files!',
-                        explanation: 'What this upload area does:\\n• Creates a clickable upload zone\\n• Hidden file input for better design\\n• Camera icon shows this is for photos\\n• Preview area shows selected image\\n• Remove button lets staff change their selection'
+                        explanation: 'What this upload area does:\n• Creates a clickable upload zone\n• Hidden file input for better design\n• Camera icon shows this is for photos\n• Preview area shows selected image\n• Remove button lets staff change their selection'
                     },
                     {
                         title: 'Add Pet Type and Status Dropdowns',
@@ -1885,20 +1869,20 @@ document.addEventListener('DOMContentLoaded', function() {
                         instruction: 'Add these buttons after your form fields:',
                         code: `      <div class="form-actions">
         <button type="submit" class="btn btn-primary" id="addPetBtn">
-          <i data-lucide="plus"></i> Add Pet
+          <span class="icon">➕</span> Add Pet
         </button>
         <button type="button" class="btn btn-secondary" id="previewBtn">
-          <i data-lucide="eye"></i> Preview
+          <span class="icon">👁️</span> Preview
         </button>
         <button type="button" class="btn btn-danger" id="clearBtn">
-          <i data-lucide="trash-2"></i> Clear
+          <span class="icon">🗑️</span> Clear
         </button>
       </div>
     </form>
   </div>`,
                         codeFile: 'index.html',
                         tip: 'Different button colors help users understand each action!',
-                        explanation: 'What these buttons do:\\n• Add Pet (green) - Saves the new pet to the system\\n• Preview (blue) - Shows how the pet card will look\\n• Clear (red) - Resets all form fields\\n• Icons make buttons easier to scan'
+                        explanation: 'What these buttons do:\n• Add Pet (green) - Saves the new pet to the system\n• Preview (blue) - Shows how the pet card will look\n• Clear (red) - Resets all form fields\n• Icons make buttons easier to scan'
                     },
                     {
                         title: 'Add Pet Listing Table',
@@ -1906,7 +1890,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         instruction: 'Add this table section after the form:',
                         code: `  <div class="pet-list-container">
     <div class="list-header">
-      <h3><i data-lucide="list"></i> Pet Listings</h3>
+      <h3><span class="icon">📋</span> Pet Listings</h3>
       <div class="list-controls">
         <input type="text" id="searchPets" placeholder="Search pets..." class="search-input">
         <select id="filterStatus" class="filter-select">
@@ -2489,17 +2473,14 @@ let searchTerm = '';`,
       <td><span class="status-badge status-\${pet.status}">\${pet.status}</span></td>
       <td class="table-actions">
         <button class="btn-icon btn-edit" onclick="editPet(\${pet.id})" aria-label="Edit">
-          <i data-lucide="pencil"></i>
+          <span class="icon">✏️</span>
         </button>
         <button class="btn-icon btn-delete" onclick="deletePet(\${pet.id})" aria-label="Delete">
-          <i data-lucide="trash-2"></i>
+          <span class="icon">🗑️</span>
         </button>
       </td>
     </tr>
   \`).join('');
-  
-  // Re-initialize icons
-  if (typeof lucide !== 'undefined') lucide.createIcons();
 }`,
                         codeFile: 'script.js',
                         tip: 'Template literals make it easy to create HTML with dynamic data!',
@@ -2708,8 +2689,7 @@ function editPet(id) {
   }
   
   // Change button text
-  document.getElementById('addPetBtn').innerHTML = '<i data-lucide="save"></i> Update Pet';
-  if (typeof lucide !== 'undefined') lucide.createIcons();
+  document.getElementById('addPetBtn').innerHTML = '<span class="icon">💾</span> Update Pet';
   
   // Scroll to form
   petForm.scrollIntoView({ behavior: 'smooth' });
@@ -2746,7 +2726,7 @@ petForm.addEventListener('submit', function(e) {
       showNotification('Pet updated successfully!', 'success');
     }
     editingPetId = null;
-    document.getElementById('addPetBtn').innerHTML = '<i data-lucide="plus"></i> Add Pet';
+    document.getElementById('addPetBtn').innerHTML = '<span class="icon">➕</span> Add Pet';
   } else {
     // Add new pet
     petData.id = Date.now();
@@ -2759,7 +2739,6 @@ petForm.addEventListener('submit', function(e) {
   resetPhotoUpload();
   currentPhotoData = null;
   renderPets();
-  if (typeof lucide !== 'undefined') lucide.createIcons();
 });`,
                         codeFile: 'script.js',
                         tip: 'The spread operator merges existing data with updates!',
@@ -2778,12 +2757,11 @@ petForm.addEventListener('submit', function(e) {
   const notification = document.createElement('div');
   notification.className = \`notification notification-\${type}\`;
   notification.innerHTML = \`
-    <i data-lucide="\${type === 'success' ? 'check-circle' : 'info'}"></i>
+    <span class="icon">\${type === 'success' ? '✅' : 'ℹ️'}</span>
     <span>\${message}</span>
   \`;
   
   document.body.appendChild(notification);
-  if (typeof lucide !== 'undefined') lucide.createIcons();
   
   // Auto-remove after 3 seconds
   setTimeout(() => notification.remove(), 3000);
@@ -2812,7 +2790,7 @@ const notificationStyles = \`
 \`;`,
                         codeFile: 'script.js',
                         tip: 'Toast notifications give feedback without interrupting workflow!',
-                        explanation: 'What this does:\\n• Creates floating notification\\n• Different colors for success/info\\n• Auto-removes after 3 seconds\\n• Smooth slide-in animation'
+                        explanation: 'What this does:\n• Creates floating notification\n• Different colors for success/info\n• Auto-removes after 3 seconds\n• Smooth slide-in animation'
                     },
                     {
                         title: 'Add Clear Form Handler',
@@ -2828,13 +2806,12 @@ clearBtn.addEventListener('click', function() {
   // Reset edit mode if active
   if (editingPetId) {
     editingPetId = null;
-    document.getElementById('addPetBtn').innerHTML = '<i data-lucide="plus"></i> Add Pet';
-    if (typeof lucide !== 'undefined') lucide.createIcons();
+    document.getElementById('addPetBtn').innerHTML = '<span class="icon">➕</span> Add Pet';
   }
 });`,
                         codeFile: 'script.js',
                         tip: 'Clear should also cancel any edit in progress!',
-                        explanation: 'What this does:\\n• Resets all form fields\\n• Clears photo upload\\n• Cancels edit mode\\n• Restores Add button text'
+                        explanation: 'What this does:\n• Resets all form fields\n• Clears photo upload\n• Cancels edit mode\n• Restores Add button text'
                     },
                     {
                         title: 'Initialize and Make Responsive',
