@@ -175,7 +175,7 @@ const IntermediateComponentData = {
                     },
                     {
                         title: 'Add Submit Button',
-                        description: 'Finally, let\'s add a submit button so users can send their message.',
+                        description: 'Now let\'s add a submit button so users can send their message.',
                         instruction: 'Add this submit button at the end of the form:',
                         code: `      <div class="form-group">
         <button type="submit" class="form-button">
@@ -199,6 +199,173 @@ const IntermediateComponentData = {
                                     value: 'data-lucide',
                                     message: 'Add a Lucide icon to the button!',
                                     hint: 'Use <i data-lucide="send"></i>'
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        title: 'Style the Contact Form',
+                        description: 'Let\'s add CSS to make our contact form look professional and inviting.',
+                        instruction: 'Add this CSS for the contact form styling:',
+                        code: `.contact-section {
+  padding: 4rem 2rem;
+  background: #f8fafc;
+}
+
+.contact-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #1a1a1a;
+}
+
+.contact-subtitle {
+  text-align: center;
+  color: #6b7280;
+  margin-bottom: 2rem;
+}
+
+.contact-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.form-input, .form-textarea {
+  width: 100%;
+  padding: 0.875rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-input:focus, .form-textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 120px;
+  font-family: inherit;
+}
+
+.form-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-button:hover {
+  background: #5a67d8;
+}`,
+                        codeFile: 'style.css',
+                        tip: 'The focus styles with box-shadow help users see which field they\'re typing in!',
+                        explanation: 'What each CSS property does:\n• padding: 4rem 2rem - Generous spacing around the form section\n• max-width: 600px - Keeps form readable and not too wide\n• background: white on form - Clean white background for the form\n• border-radius: 16px - Rounded corners for modern look\n• box-shadow - Subtle shadow for depth\n• transition: border-color - Smooth focus effects\n• :focus styles - Blue border and glow when input is selected\n• display: flex on button - Centers icon and text\n\nThis creates a professional, user-friendly contact form.',
+                        validation: {
+                            required: [
+                                {
+                                    type: 'css-rule',
+                                    value: '.contact-form',
+                                    message: 'Add CSS styling for the contact form!',
+                                    hint: 'Style the .contact-form with background and padding'
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        title: 'Add Form Validation with JavaScript',
+                        description: 'Finally, let\'s add JavaScript to validate the form and show feedback to users when they submit.',
+                        instruction: 'Add this JavaScript for form validation:',
+                        code: `// Get the form element
+const contactForm = document.getElementById('contactForm');
+
+// Add submit event listener
+contactForm.addEventListener('submit', function(event) {
+  // Prevent the form from actually submitting (refreshing the page)
+  event.preventDefault();
+  
+  // Get the input values
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const message = document.getElementById('message').value.trim();
+  
+  // Simple validation
+  if (name === '') {
+    alert('Please enter your name');
+    return;
+  }
+  
+  if (email === '') {
+    alert('Please enter your email');
+    return;
+  }
+  
+  // Check if email looks valid (has @ and .)
+  if (!email.includes('@') || !email.includes('.')) {
+    alert('Please enter a valid email address');
+    return;
+  }
+  
+  if (message === '') {
+    alert('Please enter a message');
+    return;
+  }
+  
+  // If all validation passes, show success message
+  alert('Thank you, ' + name + '! Your message has been sent.');
+  
+  // Clear the form
+  contactForm.reset();
+});`,
+                        codeFile: 'script.js',
+                        tip: 'Using event.preventDefault() stops the form from refreshing the page, letting us handle it with JavaScript!',
+                        explanation: 'How the JavaScript works:\n\n1. Get the form: We grab the form element using its ID.\n\n2. Listen for submit: When the form is submitted, our function runs.\n\n3. Prevent default: Stops the page from refreshing so we can validate.\n\n4. Get values: We get each input\'s value and trim whitespace.\n\n5. Validate each field:\n   • Check if name is empty\n   • Check if email is empty\n   • Check if email has @ and . (basic email check)\n   • Check if message is empty\n\n6. Show feedback: Alert the user if something is wrong, or show success.\n\n7. Reset form: Clear all fields after successful submission.\n\nThis creates a user-friendly form that validates input before "sending"!',
+                        validation: {
+                            required: [
+                                {
+                                    type: 'keyword',
+                                    value: 'addEventListener',
+                                    message: 'Add an event listener for form submission!',
+                                    hint: 'Use contactForm.addEventListener(\'submit\', ...)'
+                                },
+                                {
+                                    type: 'keyword',
+                                    value: 'preventDefault',
+                                    message: 'Prevent the default form submission!',
+                                    hint: 'Use event.preventDefault() to stop page refresh'
                                 }
                             ]
                         }
@@ -1526,6 +1693,93 @@ document.addEventListener('touchend', function() {
                                 }
                             ]
                         }
+                    },
+                    {
+                        title: 'Add Time Slot Selection JavaScript',
+                        description: 'Finally, let\'s add JavaScript to handle time slot selection and enable the booking button.',
+                        instruction: 'Add this JavaScript to make the time slots interactive:',
+                        code: `// Get all the elements we need
+const timeSlots = document.querySelectorAll('.time-slot.available');
+const dateInput = document.getElementById('appointmentDate');
+const bookBtn = document.getElementById('bookAppointmentBtn');
+const selectedDisplay = document.getElementById('selectedTimeDisplay');
+
+// Track selected time
+let selectedTime = null;
+
+// Add click event to each available time slot
+timeSlots.forEach(function(slot) {
+  slot.addEventListener('click', function() {
+    // Remove selected class from all slots
+    timeSlots.forEach(function(s) {
+      s.classList.remove('selected');
+    });
+    
+    // Add selected class to clicked slot
+    this.classList.add('selected');
+    
+    // Store the selected time
+    selectedTime = this.getAttribute('data-time');
+    
+    // Update the display and check if we can enable booking
+    updateBookingStatus();
+  });
+});
+
+// Listen for date changes
+dateInput.addEventListener('change', function() {
+  updateBookingStatus();
+});
+
+// Function to update booking button and display
+function updateBookingStatus() {
+  const selectedDate = dateInput.value;
+  
+  if (selectedDate && selectedTime) {
+    // Both date and time selected - enable booking
+    bookBtn.disabled = false;
+    
+    // Format the display nicely
+    const dateObj = new Date(selectedDate);
+    const formattedDate = dateObj.toLocaleDateString('en-US', {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric'
+    });
+    
+    selectedDisplay.textContent = formattedDate + ' at ' + selectedTime;
+  } else {
+    // Missing date or time - keep button disabled
+    bookBtn.disabled = true;
+    selectedDisplay.textContent = 'Please select a date and time';
+  }
+}
+
+// Handle booking button click
+bookBtn.addEventListener('click', function() {
+  if (!this.disabled) {
+    alert('Appointment booked for ' + selectedDisplay.textContent + '!');
+  }
+});`,
+                        codeFile: 'script.js',
+                        tip: 'We track both date and time selection to only enable booking when both are chosen!',
+                        explanation: 'How the JavaScript works:\n\n1. Get elements: We grab all available time slots, the date input, booking button, and display area.\n\n2. Track selection: The selectedTime variable remembers which time was clicked.\n\n3. Time slot clicks:\n   • Remove "selected" class from all slots first\n   • Add "selected" class to the clicked slot\n   • Store the time from data-time attribute\n   • Update the booking status\n\n4. Date changes: When date is selected, update booking status.\n\n5. updateBookingStatus function:\n   • Checks if both date AND time are selected\n   • If yes: enables button and shows formatted date/time\n   • If no: keeps button disabled with placeholder text\n\n6. Booking click: Shows confirmation when button is clicked.\n\nNow users can select a date and time, and book their appointment!',
+                        validation: {
+                            required: [
+                                {
+                                    type: 'function',
+                                    value: 'updateBookingStatus',
+                                    message: 'Add the updateBookingStatus function!',
+                                    hint: 'This function checks if date and time are selected'
+                                },
+                                {
+                                    type: 'keyword',
+                                    value: 'addEventListener',
+                                    message: 'Add event listeners for time slot clicks!',
+                                    hint: 'Use addEventListener to handle clicks on time slots'
+                                }
+                            ]
+                        }
                     }
                 ]
             },
@@ -1880,6 +2134,62 @@ document.addEventListener('touchend', function() {
                                     value: '.content-image',
                                     message: 'Add CSS styling for content images!',
                                     hint: 'Style the .content-image with dimensions and centering'
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        title: 'Add Filter Functionality with JavaScript',
+                        description: 'Finally, let\'s add JavaScript to make the filter tabs actually filter the content when clicked.',
+                        instruction: 'Add this JavaScript to make the filtering work:',
+                        code: `// Get all the tab buttons and content items
+const tabButtons = document.querySelectorAll('.tab-button');
+const contentItems = document.querySelectorAll('.content-item');
+
+// Add click event to each tab button
+tabButtons.forEach(function(button) {
+  button.addEventListener('click', function() {
+    // Get the filter value from the clicked button
+    const filterValue = this.getAttribute('data-filter');
+    
+    // Remove active class from all buttons
+    tabButtons.forEach(function(btn) {
+      btn.classList.remove('active');
+    });
+    
+    // Add active class to clicked button
+    this.classList.add('active');
+    
+    // Filter the content items
+    contentItems.forEach(function(item) {
+      // Get the genre of this content item
+      const itemGenre = item.getAttribute('data-genre');
+      
+      // Show all items if "all" is selected, otherwise check if genre matches
+      if (filterValue === 'all' || itemGenre === filterValue) {
+        item.classList.remove('hidden');
+      } else {
+        item.classList.add('hidden');
+      }
+    });
+  });
+});`,
+                        codeFile: 'script.js',
+                        tip: 'The "all" filter shows everything by checking if filterValue equals "all" before comparing genres!',
+                        explanation: 'How the JavaScript works:\n\n1. Get elements: We grab all tab buttons and all content items.\n\n2. Add click listeners: Each tab button gets a click event listener.\n\n3. When a tab is clicked:\n   • Get the data-filter value (e.g., "all", "action", "comedy")\n   • Remove "active" class from all buttons\n   • Add "active" class to the clicked button\n\n4. Filter content:\n   • Loop through each content item\n   • Get its data-genre attribute\n   • If filter is "all" OR genre matches filter: show the item\n   • Otherwise: hide the item by adding "hidden" class\n\n5. The CSS .hidden class (display: none) hides filtered items.\n\nNow clicking tabs will filter the content to show only matching genres!',
+                        validation: {
+                            required: [
+                                {
+                                    type: 'keyword',
+                                    value: 'querySelectorAll',
+                                    message: 'Use querySelectorAll to get all tab buttons!',
+                                    hint: 'Get all buttons with document.querySelectorAll(\'.tab-button\')'
+                                },
+                                {
+                                    type: 'keyword',
+                                    value: 'addEventListener',
+                                    message: 'Add event listeners for tab clicks!',
+                                    hint: 'Use addEventListener to handle clicks on tab buttons'
                                 }
                             ]
                         }
@@ -2592,6 +2902,90 @@ document.addEventListener('touchend', function() {
                                 }
                             ]
                         }
+                    },
+                    {
+                        title: 'Add Toggle Filter JavaScript',
+                        description: 'Finally, let\'s add JavaScript to make the toggle buttons filter the pet cards.',
+                        instruction: 'Add this JavaScript to make the filtering work:',
+                        code: `// Get all toggle buttons and pet cards
+const toggleButtons = document.querySelectorAll('.toggle-button');
+const petCards = document.querySelectorAll('.pet-card');
+const resultsText = document.getElementById('resultsText');
+
+// Track which filters are active (can have multiple)
+let activeFilters = ['dogs']; // Start with dogs selected
+
+// Add click event to each toggle button
+toggleButtons.forEach(function(button) {
+  button.addEventListener('click', function() {
+    const petType = this.getAttribute('data-pet-type');
+    
+    // Toggle the active state of this button
+    if (this.classList.contains('active')) {
+      // If already active, deactivate it
+      this.classList.remove('active');
+      // Remove from active filters
+      activeFilters = activeFilters.filter(function(type) {
+        return type !== petType;
+      });
+    } else {
+      // If not active, activate it
+      this.classList.add('active');
+      // Add to active filters
+      activeFilters.push(petType);
+    }
+    
+    // Update the displayed pets
+    filterPets();
+  });
+});
+
+// Function to filter pets based on active filters
+function filterPets() {
+  let visibleCount = 0;
+  
+  petCards.forEach(function(card) {
+    const cardType = card.getAttribute('data-type');
+    
+    // Show card if its type is in active filters, or if no filters are active (show all)
+    if (activeFilters.length === 0 || activeFilters.includes(cardType)) {
+      card.classList.remove('hidden');
+      visibleCount++;
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+  
+  // Update the results text
+  if (activeFilters.length === 0) {
+    resultsText.textContent = 'Showing all pets available for adoption';
+  } else {
+    const typeNames = activeFilters.join(', ');
+    resultsText.textContent = 'Showing ' + visibleCount + ' ' + typeNames + ' available for adoption';
+  }
+}
+
+// Run filter on page load
+filterPets();`,
+                        codeFile: 'script.js',
+                        tip: 'Unlike tabs, toggle buttons can have multiple active at once - users can filter by dogs AND cats!',
+                        explanation: 'How the JavaScript works:\n\n1. Get elements: We grab all toggle buttons, pet cards, and the results text.\n\n2. Track active filters: An array stores which pet types are currently selected.\n\n3. Toggle button clicks:\n   • Get the pet type from data-pet-type attribute\n   • If button is active: deactivate it and remove from array\n   • If button is inactive: activate it and add to array\n   • Call filterPets() to update the display\n\n4. filterPets function:\n   • Loop through each pet card\n   • Check if card\'s type is in activeFilters array\n   • Show matching cards, hide non-matching ones\n   • Count visible cards for the results text\n   • Update results text with count and filter names\n\n5. If no filters active, show all pets.\n\nNow users can toggle multiple pet types on/off to filter the results!',
+                        validation: {
+                            required: [
+                                {
+                                    type: 'function',
+                                    value: 'filterPets',
+                                    message: 'Add the filterPets function!',
+                                    hint: 'This function shows/hides pets based on active filters'
+                                },
+                                {
+                                    type: 'keyword',
+                                    value: 'addEventListener',
+                                    message: 'Add event listeners for toggle button clicks!',
+                                    hint: 'Use addEventListener to handle clicks on toggle buttons'
+                                }
+                            ]
+                        }
                     }
                 ]
             },
@@ -2995,6 +3389,62 @@ document.addEventListener('touchend', function() {
                                     value: '.expand-button',
                                     message: 'Add CSS styling for expand buttons!',
                                     hint: 'Style the .expand-button with hover and transition effects'
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        title: 'Add Expand/Collapse JavaScript',
+                        description: 'Finally, let\'s add JavaScript to make the timeline events expand and collapse when clicked.',
+                        instruction: 'Add this JavaScript to make the expand functionality work:',
+                        code: `// Get all timeline headers (the clickable parts)
+const timelineHeaders = document.querySelectorAll('.timeline-header');
+
+// Add click event to each header
+timelineHeaders.forEach(function(header) {
+  header.addEventListener('click', function() {
+    // Get the parent card element
+    const card = this.closest('.timeline-card');
+    
+    // Get the expand button and details section
+    const expandButton = this.querySelector('.expand-button');
+    const expandableId = card.getAttribute('data-expandable');
+    const details = document.getElementById(expandableId);
+    
+    // Check if this card is already expanded
+    const isExpanded = details.classList.contains('expanded');
+    
+    // First, close all other expanded cards
+    document.querySelectorAll('.timeline-details.expanded').forEach(function(openDetails) {
+      openDetails.classList.remove('expanded');
+    });
+    document.querySelectorAll('.expand-button.expanded').forEach(function(openButton) {
+      openButton.classList.remove('expanded');
+    });
+    
+    // If this card wasn't expanded, expand it
+    if (!isExpanded) {
+      details.classList.add('expanded');
+      expandButton.classList.add('expanded');
+    }
+  });
+});`,
+                        codeFile: 'script.js',
+                        tip: 'We close other cards first so only one timeline event is expanded at a time - this keeps the interface clean!',
+                        explanation: 'How the JavaScript works:\n\n1. Get headers: We grab all timeline headers (the clickable parts).\n\n2. Add click listeners: Each header gets a click event listener.\n\n3. When a header is clicked:\n   • Find the parent card using closest()\n   • Get the expand button inside the header\n   • Get the details section ID from data-expandable attribute\n   • Find the details element by that ID\n\n4. Check current state: See if this card is already expanded.\n\n5. Close all others:\n   • Remove "expanded" class from all open details sections\n   • Remove "expanded" class from all open buttons\n\n6. Toggle this card:\n   • If it wasn\'t expanded, add "expanded" class to details and button\n   • If it was expanded, it stays closed (we already removed the class)\n\nThe CSS handles the animation - JavaScript just toggles the classes!',
+                        validation: {
+                            required: [
+                                {
+                                    type: 'keyword',
+                                    value: 'querySelectorAll',
+                                    message: 'Use querySelectorAll to get all timeline headers!',
+                                    hint: 'Get all headers with document.querySelectorAll(\'.timeline-header\')'
+                                },
+                                {
+                                    type: 'keyword',
+                                    value: 'addEventListener',
+                                    message: 'Add event listeners for header clicks!',
+                                    hint: 'Use addEventListener to handle clicks on timeline headers'
                                 }
                             ]
                         }
@@ -3466,6 +3916,65 @@ document.addEventListener('touchend', function() {
                                 }
                             ]
                         }
+                    },
+                    {
+                        title: 'Add Modal Open/Close JavaScript',
+                        description: 'Finally, let\'s add JavaScript to open and close the modal when buttons are clicked.',
+                        instruction: 'Add this JavaScript to make the modal work:',
+                        code: `// Get the modal elements
+const openModalBtn = document.querySelector('.open-modal-btn');
+const closeModalBtn = document.querySelector('.close-modal-btn');
+const modalOverlay = document.getElementById('gameModal');
+
+// Open modal when button is clicked
+openModalBtn.addEventListener('click', function() {
+  modalOverlay.classList.add('active');
+  // Prevent scrolling on the body when modal is open
+  document.body.style.overflow = 'hidden';
+});
+
+// Close modal when X button is clicked
+closeModalBtn.addEventListener('click', function() {
+  modalOverlay.classList.remove('active');
+  // Re-enable scrolling
+  document.body.style.overflow = '';
+});
+
+// Close modal when clicking outside the modal content
+modalOverlay.addEventListener('click', function(event) {
+  // Only close if clicking the overlay itself, not the modal content
+  if (event.target === modalOverlay) {
+    modalOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
+
+// Close modal when pressing Escape key
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape' && modalOverlay.classList.contains('active')) {
+    modalOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});`,
+                        codeFile: 'script.js',
+                        tip: 'Adding keyboard support (Escape key) and click-outside-to-close makes the modal more user-friendly!',
+                        explanation: 'How the JavaScript works:\n\n1. Get elements: We grab the open button, close button, and modal overlay.\n\n2. Open modal:\n   • Add "active" class to show the modal\n   • Set body overflow to "hidden" to prevent background scrolling\n\n3. Close modal (X button):\n   • Remove "active" class to hide the modal\n   • Reset body overflow to re-enable scrolling\n\n4. Click outside to close:\n   • Listen for clicks on the overlay\n   • Check if the click target is the overlay itself (not modal content)\n   • If so, close the modal\n\n5. Escape key to close:\n   • Listen for keydown events on the document\n   • If Escape is pressed and modal is open, close it\n\nThe CSS handles the fade animation - JavaScript just toggles the "active" class!',
+                        validation: {
+                            required: [
+                                {
+                                    type: 'keyword',
+                                    value: 'addEventListener',
+                                    message: 'Add event listeners for modal interactions!',
+                                    hint: 'Use addEventListener to handle open, close, and keyboard events'
+                                },
+                                {
+                                    type: 'keyword',
+                                    value: 'classList',
+                                    message: 'Use classList to toggle the active class!',
+                                    hint: 'Use classList.add(\'active\') and classList.remove(\'active\')'
+                                }
+                            ]
+                        }
                     }
                 ]
             },
@@ -3871,6 +4380,83 @@ document.addEventListener('touchend', function() {
                                 }
                             ]
                         }
+                    },
+                    {
+                        title: 'Add Progress Tracking JavaScript',
+                        description: 'Finally, let\'s add JavaScript to track lesson completion and update the progress bar.',
+                        instruction: 'Add this JavaScript to make the progress tracking work:',
+                        code: `// Get all the elements we need
+const checkboxes = document.querySelectorAll('.checkbox-input');
+const progressFill = document.getElementById('progressFill');
+const progressBadge = document.getElementById('progressBadge');
+const completedCount = document.getElementById('completedCount');
+const totalLessons = checkboxes.length;
+
+// Function to update the progress display
+function updateProgress() {
+  // Count how many checkboxes are checked
+  let completed = 0;
+  checkboxes.forEach(function(checkbox) {
+    if (checkbox.checked) {
+      completed++;
+      // Add completed class to parent lesson item
+      checkbox.closest('.lesson-item').classList.add('completed');
+    } else {
+      // Remove completed class if unchecked
+      checkbox.closest('.lesson-item').classList.remove('completed');
+    }
+  });
+  
+  // Calculate percentage
+  const percentage = Math.round((completed / totalLessons) * 100);
+  
+  // Update the progress bar width
+  progressFill.style.width = percentage + '%';
+  
+  // Update the badge text
+  progressBadge.textContent = percentage + '% Complete';
+  
+  // Update the completed count
+  completedCount.textContent = completed;
+  
+  // Change badge color based on progress
+  if (percentage === 100) {
+    progressBadge.style.background = '#10b981';
+    progressBadge.style.color = 'white';
+  } else {
+    progressBadge.style.background = '#f0fdf4';
+    progressBadge.style.color = '#065f46';
+  }
+}
+
+// Add change event to each checkbox
+checkboxes.forEach(function(checkbox) {
+  checkbox.addEventListener('change', function() {
+    updateProgress();
+  });
+});
+
+// Run once on page load to set initial state
+updateProgress();`,
+                        codeFile: 'script.js',
+                        tip: 'The progress bar width is set as a percentage, so it automatically scales to any number of lessons!',
+                        explanation: 'How the JavaScript works:\n\n1. Get elements: We grab all checkboxes, progress bar, badge, and count display.\n\n2. updateProgress function:\n   • Loop through all checkboxes\n   • Count how many are checked\n   • Add/remove "completed" class on lesson items\n   • Calculate percentage: (completed / total) * 100\n   • Update progress bar width with percentage\n   • Update badge text with percentage\n   • Update completed count number\n   • Change badge color to green when 100% complete\n\n3. Event listeners:\n   • Each checkbox gets a "change" event listener\n   • When checked/unchecked, updateProgress() runs\n\n4. Initial call: Run updateProgress() on page load to set starting state.\n\nNow checking lessons updates the progress bar in real-time!',
+                        validation: {
+                            required: [
+                                {
+                                    type: 'function',
+                                    value: 'updateProgress',
+                                    message: 'Add the updateProgress function!',
+                                    hint: 'This function calculates and displays the current progress'
+                                },
+                                {
+                                    type: 'keyword',
+                                    value: 'addEventListener',
+                                    message: 'Add event listeners for checkbox changes!',
+                                    hint: 'Use addEventListener to handle checkbox change events'
+                                }
+                            ]
+                        }
                     }
                 ]
             },
@@ -4233,6 +4819,94 @@ document.addEventListener('touchend', function() {
                                     value: '.calculate-btn',
                                     message: 'Add CSS styling for the calculate button!',
                                     hint: 'Style the .calculate-btn with background and layout'
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        title: 'Add BMI Calculation JavaScript',
+                        description: 'Finally, let\'s add JavaScript to calculate the BMI and display the results with health categories.',
+                        instruction: 'Add this JavaScript to make the calculator work:',
+                        code: `// Get all the elements we need
+const heightInput = document.getElementById('height');
+const weightInput = document.getElementById('weight');
+const calculateBtn = document.getElementById('calculateBtn');
+const resultCard = document.getElementById('resultCard');
+const bmiNumber = document.getElementById('bmiNumber');
+const bmiCategory = document.getElementById('bmiCategory');
+const bmiDescription = document.getElementById('bmiDescription');
+
+// Add click event to calculate button
+calculateBtn.addEventListener('click', function() {
+  // Get the input values
+  const height = parseFloat(heightInput.value);
+  const weight = parseFloat(weightInput.value);
+  
+  // Validate inputs
+  if (!height || height <= 0) {
+    alert('Please enter a valid height');
+    return;
+  }
+  
+  if (!weight || weight <= 0) {
+    alert('Please enter a valid weight');
+    return;
+  }
+  
+  // Calculate BMI: weight (kg) / height (m)^2
+  // Height is in cm, so divide by 100 to get meters
+  const heightInMeters = height / 100;
+  const bmi = weight / (heightInMeters * heightInMeters);
+  
+  // Round to 1 decimal place
+  const bmiRounded = Math.round(bmi * 10) / 10;
+  
+  // Determine category and description
+  let category, description, colorClass;
+  
+  if (bmi < 18.5) {
+    category = 'Underweight';
+    description = 'Your BMI suggests you are underweight. Consider consulting a healthcare provider.';
+    colorClass = 'underweight';
+  } else if (bmi < 25) {
+    category = 'Normal Weight';
+    description = 'Great! Your BMI is in the healthy range. Keep up the good work!';
+    colorClass = 'normal';
+  } else if (bmi < 30) {
+    category = 'Overweight';
+    description = 'Your BMI suggests you are overweight. Consider a balanced diet and exercise.';
+    colorClass = 'overweight';
+  } else {
+    category = 'Obese';
+    description = 'Your BMI suggests obesity. Please consult a healthcare provider for guidance.';
+    colorClass = 'obese';
+  }
+  
+  // Update the display
+  bmiNumber.textContent = bmiRounded;
+  bmiCategory.textContent = category;
+  bmiDescription.textContent = description;
+  
+  // Remove all category classes and add the correct one
+  resultCard.classList.remove('hidden', 'underweight', 'normal', 'overweight', 'obese');
+  resultCard.classList.add(colorClass);
+});`,
+                        codeFile: 'script.js',
+                        tip: 'The BMI formula is weight in kg divided by height in meters squared - we convert cm to meters first!',
+                        explanation: 'How the JavaScript works:\n\n1. Get elements: We grab inputs, button, and result display elements.\n\n2. Click event: When calculate button is clicked, run the calculation.\n\n3. Get and validate inputs:\n   • parseFloat converts text to numbers\n   • Check if values are valid (not empty, not zero or negative)\n   • Show alert if invalid\n\n4. Calculate BMI:\n   • Convert height from cm to meters (divide by 100)\n   • BMI = weight / (height * height)\n   • Round to 1 decimal place for display\n\n5. Determine category:\n   • Under 18.5 = Underweight\n   • 18.5 to 24.9 = Normal\n   • 25 to 29.9 = Overweight\n   • 30+ = Obese\n\n6. Update display:\n   • Set the BMI number, category, and description text\n   • Remove "hidden" class to show results\n   • Add appropriate color class for the category\n\nNow users can enter their height and weight to see their BMI!',
+                        validation: {
+                            required: [
+                                {
+                                    type: 'keyword',
+                                    value: 'addEventListener',
+                                    message: 'Add an event listener for the calculate button!',
+                                    hint: 'Use calculateBtn.addEventListener(\'click\', ...)'
+                                },
+                                {
+                                    type: 'keyword',
+                                    value: 'parseFloat',
+                                    message: 'Use parseFloat to convert input values to numbers!',
+                                    hint: 'parseFloat converts text like "175" to the number 175'
                                 }
                             ]
                         }

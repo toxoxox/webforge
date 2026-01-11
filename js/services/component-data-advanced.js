@@ -557,8 +557,24 @@ clearBtn.addEventListener('click', function() {
                 duration: '180 minutes',
                 steps: [
                     {
+                        title: 'Set Up Lucide Icons Library',
+                        description: 'Before we start building, let\'s add the Lucide icons library. This gives us beautiful, professional icons for our game database!',
+                        instruction: 'Add these two lines to your HTML - the script tag goes in the <head> section, and the initialization goes at the end of <body>:',
+                        code: `<!-- Add this in your <head> section -->
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<!-- Add this at the end of your <body>, before closing </body> tag -->
+<script>
+  // Initialize Lucide icons - this makes all the icons appear
+  lucide.createIcons();
+</script>`,
+                        codeFile: 'index.html',
+                        tip: 'Lucide icons use data-lucide attributes. After adding new icons to your HTML, call lucide.createIcons() to render them!',
+                        explanation: 'What this does:\n• Loads the Lucide icon library from a CDN (no download needed)\n• lucide.createIcons() scans your page for <i data-lucide="icon-name"> elements\n• It replaces them with actual SVG icons\n• You can call createIcons() again after adding new HTML with icons\n\nWe\'ll use icons like "gamepad-2", "search", "star", "heart", and more throughout this tutorial.'
+                    },
+                    {
                         title: 'Create the Database Container',
-                        description: 'Let\'s start by building the main container for our game database with a dark gaming theme!',
+                        description: 'Now let\'s build the main container for our game database with a dark gaming theme!',
                         instruction: 'Add this HTML structure:',
                         code: `<div class="game-database">
   <div class="database-header">
@@ -1696,8 +1712,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 duration: '240 minutes',
                 steps: [
                     {
+                        title: 'Set Up Lucide Icons Library',
+                        description: 'Before we start building, let\'s add the Lucide icons library. This gives us beautiful, professional icons for our admin panel!',
+                        instruction: 'Add these two lines to your HTML - the script tag goes in the <head> section, and the initialization goes at the end of <body>:',
+                        code: `<!-- Add this in your <head> section -->
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<!-- Add this at the end of your <body>, before closing </body> tag -->
+<script>
+  // Initialize Lucide icons - this makes all the icons appear
+  lucide.createIcons();
+</script>`,
+                        codeFile: 'index.html',
+                        tip: 'Lucide icons use data-lucide attributes. After adding new icons to your HTML, call lucide.createIcons() to render them!',
+                        explanation: 'What this does:\n• Loads the Lucide icon library from a CDN (no download needed)\n• lucide.createIcons() scans your page for <i data-lucide="icon-name"> elements\n• It replaces them with actual SVG icons\n• You can call createIcons() again after adding new HTML with icons\n\nWe\'ll use icons like "settings", "camera", "plus", "edit", and "trash-2" throughout this tutorial.'
+                    },
+                    {
                         title: 'Create the Admin Panel Container',
-                        description: 'Let\'s start by building the main container for our pet management system with a clean, professional look!',
+                        description: 'Now let\'s build the main container for our pet management system with a clean, professional look!',
                         instruction: 'Add this HTML structure:',
                         code: `<div class="pet-admin-panel">
   <div class="admin-header">
@@ -2908,226 +2940,24 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>`,
             workshop: {
                 goal: 'Create a real-time emergency alert system with geolocation and notifications',
-                duration: '160 minutes',
+                duration: 'Coming Soon',
+                comingSoon: true,
                 steps: [
                     {
-                        title: 'Create the Alert Container',
-                        description: 'Let\'s build the main emergency alert banner with a striking red design!',
-                        instruction: 'Add this HTML structure:',
-                        code: `<div class="emergency-alert" id="emergencyAlert">
-  <div class="alert-header">
-    <div class="alert-icon">
-      <i data-lucide="alert-triangle"></i>
-    </div>
-    <div class="alert-title">
-      <h3>EMERGENCY ALERT</h3>
-      <p class="alert-location">Active Now • Downtown Area</p>
-    </div>
-    <button class="alert-close" aria-label="Dismiss alert">
-      <i data-lucide="x"></i>
-    </button>
-  </div>
-</div>`,
-                        codeFile: 'index.html',
-                        tip: 'Emergency alerts need to be immediately visible and attention-grabbing!',
-                        explanation: 'What this creates:\\n• Main alert container\\n• Warning icon and title\\n• Location indicator\\n• Dismiss button'
-                    },
-                    {
-                        title: 'Add Alert Message Content',
-                        description: 'Now let\'s add the alert message and action buttons!',
-                        instruction: 'Add this content inside the alert container:',
-                        code: `  <div class="alert-content">
-    <p class="alert-message">Severe weather warning in effect. Seek shelter immediately. Avoid downtown area until further notice.</p>
-  </div>
-  <div class="alert-actions">
-    <button class="alert-btn alert-btn-info">
-      <i data-lucide="info"></i> More Info
-    </button>
-    <button class="alert-btn alert-btn-share">
-      <i data-lucide="share-2"></i> Share
-    </button>
-  </div>`,
-                        codeFile: 'index.html',
-                        tip: 'Clear, actionable messages help people respond quickly!',
-                        explanation: 'What this adds:\\n• Alert message text\\n• More Info button for details\\n• Share button for spreading awareness'
-                    },
-                    {
-                        title: 'Style the Alert Container',
-                        description: 'Let\'s create an urgent red design that demands attention!',
-                        instruction: 'Add this CSS:',
-                        code: `.emergency-alert {
-  background: #dc2626;
-  color: white;
-  padding: 1.5rem;
-  border-radius: 12px;
-  max-width: 500px;
-  margin: 2rem auto;
-  position: relative;
-  overflow: hidden;
-  animation: pulse-border 2s infinite;
-}
-
-@keyframes pulse-border {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
-  50% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
-}`,
-                        codeFile: 'styles.css',
-                        tip: 'The pulsing animation draws attention to the alert!',
-                        explanation: 'What this does:\\n• Bright red background for urgency\\n• Pulsing shadow animation\\n• Rounded corners for modern look'
-                    },
-                    {
-                        title: 'Style the Alert Header',
-                        description: 'Let\'s arrange the icon, title, and close button!',
-                        instruction: 'Add this CSS:',
-                        code: `.alert-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.alert-icon {
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.alert-title h3 {
-  margin: 0;
-  font-size: 1.1rem;
-  letter-spacing: 0.05em;
-}
-
-.alert-location {
-  margin: 0;
-  font-size: 0.8rem;
-  opacity: 0.9;
-}
-
-.alert-close {
-  margin-left: auto;
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  color: white;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}`,
-                        codeFile: 'styles.css',
-                        tip: 'Semi-transparent backgrounds work great on colored containers!',
-                        explanation: 'What this does:\\n• Flexbox layout for header\\n• Circular icon and close button\\n• Auto margin pushes close button right'
-                    },
-                    {
-                        title: 'Style the Alert Content',
-                        description: 'Let\'s style the message and action buttons!',
-                        instruction: 'Add this CSS:',
-                        code: `.alert-message {
-  margin: 0 0 1rem;
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
-
-.alert-actions {
-  display: flex;
-  gap: 0.75rem;
-}
-
-.alert-btn {
-  flex: 1;
-  padding: 0.75rem;
-  border: none;
-  border-radius: 8px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  transition: background 0.3s;
-}
-
-.alert-btn-info {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-}
-
-.alert-btn-share {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-}
-
-.alert-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-}`,
-                        codeFile: 'styles.css',
-                        tip: 'Consistent button styling keeps the interface clean!',
-                        explanation: 'What this does:\\n• Readable message text\\n• Equal-width action buttons\\n• Hover effects for interactivity'
-                    },
-                    {
-                        title: 'Add Dismiss Functionality',
-                        description: 'Let\'s make the close button dismiss the alert!',
-                        instruction: 'Add this JavaScript:',
-                        code: `const alertElement = document.getElementById('emergencyAlert');
-const closeBtn = alertElement.querySelector('.alert-close');
-
-closeBtn.addEventListener('click', function() {
-  alertElement.style.animation = 'slideOut 0.3s ease forwards';
-  setTimeout(() => {
-    alertElement.style.display = 'none';
-  }, 300);
-});
-
-// Add slide out animation
-const style = document.createElement('style');
-style.textContent = \`
-  @keyframes slideOut {
-    to {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-  }
-\`;
-document.head.appendChild(style);`,
-                        codeFile: 'script.js',
-                        tip: 'Smooth animations make dismissing feel natural!',
-                        explanation: 'What this does:\\n• Adds click handler to close button\\n• Animates the alert sliding out\\n• Hides element after animation'
-                    },
-                    {
-                        title: 'Add Alert Sound (Optional)',
-                        description: 'Let\'s add an optional alert sound for urgent notifications!',
-                        instruction: 'Add this JavaScript:',
-                        code: `// Function to play alert sound
-function playAlertSound() {
-  // Create audio context for alert tone
-  const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-  const oscillator = audioContext.createOscillator();
-  const gainNode = audioContext.createGain();
-  
-  oscillator.connect(gainNode);
-  gainNode.connect(audioContext.destination);
-  
-  oscillator.frequency.value = 800;
-  oscillator.type = 'sine';
-  gainNode.gain.value = 0.3;
-  
-  oscillator.start();
-  setTimeout(() => oscillator.stop(), 200);
-}
-
-// Uncomment to play sound when alert appears
-// playAlertSound();`,
-                        codeFile: 'script.js',
-                        tip: 'Audio alerts should be optional and not too loud!',
-                        explanation: 'What this does:\\n• Creates a simple alert tone\\n• Uses Web Audio API\\n• Commented out by default'
+                        title: 'Coming Soon',
+                        description: 'This comprehensive tutorial is currently being developed. Check back soon for a full step-by-step guide covering real-time alerts, geolocation targeting, and push notifications!',
+                        instruction: 'This tutorial will include:',
+                        code: `// Coming Soon Features:
+// - Real-time WebSocket connections
+// - Geolocation API integration
+// - Push notification system
+// - Alert severity levels
+// - Admin broadcast controls
+// - Multi-channel notifications
+// - Alert history and analytics`,
+                        codeFile: 'preview.js',
+                        tip: 'This advanced tutorial is being crafted to provide comprehensive coverage of emergency alert systems.',
+                        explanation: 'What you\'ll learn:\\n• WebSocket real-time connections\\n• Geolocation API for targeted alerts\\n• Push notification implementation\\n• Emergency broadcast protocols\\n• Administrative alert management'
                     }
                 ],
                 learningObjectives: [
@@ -3194,270 +3024,24 @@ function playAlertSound() {
             </div>`,
             workshop: {
                 goal: 'Build a comprehensive digital archive system for cultural preservation',
-                duration: '200 minutes',
+                duration: 'Coming Soon',
+                comingSoon: true,
                 steps: [
                     {
-                        title: 'Create the Archive Container',
-                        description: 'Let\'s build the main container with a warm, cultural theme!',
-                        instruction: 'Add this HTML structure:',
-                        code: `<div class="digital-archive">
-  <div class="archive-header">
-    <div class="archive-icon">
-      <i data-lucide="archive"></i>
-    </div>
-    <div class="archive-title">
-      <h2>Cultural Archive</h2>
-      <p>Preserving Heritage • 1,247 Items</p>
-    </div>
-  </div>
-</div>`,
-                        codeFile: 'index.html',
-                        tip: 'Warm colors like amber and brown evoke tradition and heritage!',
-                        explanation: 'What this creates:\\n• Main archive container\\n• Header with icon and title\\n• Item count shows collection size'
-                    },
-                    {
-                        title: 'Add Category Cards',
-                        description: 'Let\'s add cards showing different archive categories!',
-                        instruction: 'Add these category cards:',
-                        code: `  <div class="archive-categories">
-    <div class="category-card">
-      <div class="category-icon">
-        <i data-lucide="image"></i>
-      </div>
-      <p class="category-name">Photos</p>
-      <p class="category-count">342</p>
-    </div>
-    <div class="category-card">
-      <div class="category-icon">
-        <i data-lucide="mic"></i>
-      </div>
-      <p class="category-name">Audio</p>
-      <p class="category-count">89</p>
-    </div>
-    <div class="category-card">
-      <div class="category-icon">
-        <i data-lucide="scroll"></i>
-      </div>
-      <p class="category-name">Stories</p>
-      <p class="category-count">156</p>
-    </div>
-  </div>`,
-                        codeFile: 'index.html',
-                        tip: 'Category cards help users navigate large collections!',
-                        explanation: 'What this adds:\\n• Three category cards\\n• Icons representing each type\\n• Item counts for each category'
-                    },
-                    {
-                        title: 'Add Search and Explore Button',
-                        description: 'Let\'s add a search bar and explore button!',
-                        instruction: 'Add this search section:',
-                        code: `  <div class="archive-search">
-    <input type="text" placeholder="Search the archive..." class="search-input">
-    <button class="search-btn">
-      <i data-lucide="search"></i>
-    </button>
-  </div>
-  <button class="explore-btn">
-    <i data-lucide="compass"></i> Explore Archive
-  </button>`,
-                        codeFile: 'index.html',
-                        tip: 'A prominent explore button encourages discovery!',
-                        explanation: 'What this adds:\\n• Search input for finding items\\n• Search button with icon\\n• Large explore button'
-                    },
-                    {
-                        title: 'Style the Archive Container',
-                        description: 'Let\'s create a warm, heritage-inspired design!',
-                        instruction: 'Add this CSS:',
-                        code: `.digital-archive {
-  background: #f7f3e9;
-  padding: 2rem;
-  border-radius: 16px;
-  max-width: 500px;
-  margin: 2rem auto;
-  border: 2px solid #d97706;
-}
-
-.archive-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.archive-icon {
-  width: 50px;
-  height: 50px;
-  background: #d97706;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-}
-
-.archive-title h2 {
-  margin: 0;
-  color: #92400e;
-  font-size: 1.25rem;
-}
-
-.archive-title p {
-  margin: 0;
-  color: #a16207;
-  font-size: 0.85rem;
-}`,
-                        codeFile: 'styles.css',
-                        tip: 'Amber and brown tones feel warm and traditional!',
-                        explanation: 'What this does:\\n• Warm cream background\\n• Amber accent colors\\n• Brown text for readability'
-                    },
-                    {
-                        title: 'Style the Category Cards',
-                        description: 'Let\'s make the category cards look inviting!',
-                        instruction: 'Add this CSS:',
-                        code: `.archive-categories {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.category-card {
-  background: white;
-  padding: 1rem;
-  border-radius: 12px;
-  text-align: center;
-  border: 1px solid #fbbf24;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.category-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(217, 119, 6, 0.15);
-}
-
-.category-icon {
-  width: 40px;
-  height: 40px;
-  background: #fbbf24;
-  border-radius: 8px;
-  margin: 0 auto 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #92400e;
-}
-
-.category-name {
-  margin: 0;
-  font-size: 0.85rem;
-  color: #92400e;
-  font-weight: 600;
-}
-
-.category-count {
-  margin: 0.25rem 0 0;
-  font-size: 0.75rem;
-  color: #a16207;
-}`,
-                        codeFile: 'styles.css',
-                        tip: 'Hover effects make cards feel interactive!',
-                        explanation: 'What this does:\\n• Three-column grid layout\\n• White cards with amber borders\\n• Lift effect on hover'
-                    },
-                    {
-                        title: 'Style the Search and Button',
-                        description: 'Let\'s style the search bar and explore button!',
-                        instruction: 'Add this CSS:',
-                        code: `.archive-search {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.archive-search .search-input {
-  flex: 1;
-  padding: 0.75rem 1rem;
-  border: 1px solid #d97706;
-  border-radius: 8px;
-  background: white;
-  font-size: 0.9rem;
-}
-
-.archive-search .search-btn {
-  padding: 0.75rem 1rem;
-  background: #d97706;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.explore-btn {
-  width: 100%;
-  padding: 1rem;
-  background: #d97706;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  transition: background 0.3s;
-}
-
-.explore-btn:hover {
-  background: #b45309;
-}`,
-                        codeFile: 'styles.css',
-                        tip: 'The explore button is the main call-to-action!',
-                        explanation: 'What this does:\\n• Flexbox search layout\\n• Amber-themed buttons\\n• Full-width explore button'
-                    },
-                    {
-                        title: 'Add Search Functionality',
-                        description: 'Let\'s make the search bar functional!',
-                        instruction: 'Add this JavaScript:',
-                        code: `const searchInput = document.querySelector('.archive-search .search-input');
-const searchBtn = document.querySelector('.archive-search .search-btn');
-
-function performSearch() {
-  const query = searchInput.value.trim();
-  if (query) {
-    console.log('Searching for:', query);
-    // In a real app, this would search the database
-    alert(\`Searching archive for: "\${query}"\`);
-  }
-}
-
-searchBtn.addEventListener('click', performSearch);
-searchInput.addEventListener('keypress', function(e) {
-  if (e.key === 'Enter') {
-    performSearch();
-  }
-});`,
-                        codeFile: 'script.js',
-                        tip: 'Supporting Enter key makes search more accessible!',
-                        explanation: 'What this does:\\n• Handles search button click\\n• Supports Enter key to search\\n• Shows search query (demo)'
-                    },
-                    {
-                        title: 'Add Category Click Handlers',
-                        description: 'Let\'s make the category cards clickable!',
-                        instruction: 'Add this JavaScript:',
-                        code: `const categoryCards = document.querySelectorAll('.category-card');
-
-categoryCards.forEach(card => {
-  card.style.cursor = 'pointer';
-  card.addEventListener('click', function() {
-    const categoryName = this.querySelector('.category-name').textContent;
-    console.log('Browsing category:', categoryName);
-    // In a real app, this would filter the archive
-    alert(\`Browsing \${categoryName} collection\`);
-  });
-});`,
-                        codeFile: 'script.js',
-                        tip: 'Visual cursor change shows cards are clickable!',
-                        explanation: 'What this does:\\n• Makes cards clickable\\n• Gets category name on click\\n• Would filter archive in real app'
+                        title: 'Coming Soon',
+                        description: 'This comprehensive tutorial is currently being developed. Check back soon for a full step-by-step guide covering digital archives, media management, and cultural preservation!',
+                        instruction: 'This tutorial will include:',
+                        code: `// Coming Soon Features:
+// - Advanced database search systems
+// - Media file management (photos, audio, video)
+// - Collaborative contribution features
+// - Cultural sensitivity interfaces
+// - Large-scale data organization
+// - Tagging and categorization
+// - Timeline and historical views`,
+                        codeFile: 'preview.js',
+                        tip: 'This advanced tutorial is being crafted to provide comprehensive coverage of digital archive systems.',
+                        explanation: 'What you\'ll learn:\\n• Advanced database search systems\\n• Media file management\\n• Collaborative contribution features\\n• Cultural sensitivity interfaces\\n• Large-scale data organization'
                     }
                 ],
                 learningObjectives: [
@@ -3514,262 +3098,24 @@ categoryCards.forEach(card => {
             </div>`,
             workshop: {
                 goal: 'Create a real-time sports game tracking system with live updates',
-                duration: '170 minutes',
+                duration: 'Coming Soon',
+                comingSoon: true,
                 steps: [
                     {
-                        title: 'Create the Game Tracker Container',
-                        description: 'Let\'s build the main scoreboard with a dark sports theme!',
-                        instruction: 'Add this HTML structure:',
-                        code: `<div class="game-tracker">
-  <div class="scoreboard">
-    <div class="team team-home">
-      <div class="team-logo">SMB</div>
-      <p class="team-name">San Miguel</p>
-    </div>
-    <div class="score-center">
-      <div class="score">98 - 102</div>
-      <div class="game-status">LIVE • Q4 2:34</div>
-    </div>
-    <div class="team team-away">
-      <div class="team-logo">GIN</div>
-      <p class="team-name">Ginebra</p>
-    </div>
-  </div>
-</div>`,
-                        codeFile: 'index.html',
-                        tip: 'Sports interfaces need to show scores prominently!',
-                        explanation: 'What this creates:\\n• Main tracker container\\n• Two team sections\\n• Central score display\\n• Live game status'
-                    },
-                    {
-                        title: 'Add Play-by-Play Section',
-                        description: 'Let\'s add a section showing the latest play!',
-                        instruction: 'Add this play-by-play section:',
-                        code: `  <div class="latest-play">
-    <p class="play-label">Latest Play:</p>
-    <p class="play-text">Thompson scores 3-pointer! Ginebra extends lead.</p>
-  </div>`,
-                        codeFile: 'index.html',
-                        tip: 'Play-by-play keeps fans engaged with the action!',
-                        explanation: 'What this adds:\\n• Latest play label\\n• Play description text\\n• Updates in real-time'
-                    },
-                    {
-                        title: 'Add Action Buttons',
-                        description: 'Let\'s add buttons for stats, plays, and sharing!',
-                        instruction: 'Add these action buttons:',
-                        code: `  <div class="tracker-actions">
-    <button class="tracker-btn active">
-      <i data-lucide="bar-chart-2"></i> Stats
-    </button>
-    <button class="tracker-btn">
-      <i data-lucide="list"></i> Plays
-    </button>
-    <button class="tracker-btn">
-      <i data-lucide="share-2"></i> Share
-    </button>
-  </div>`,
-                        codeFile: 'index.html',
-                        tip: 'Quick access buttons improve user experience!',
-                        explanation: 'What this adds:\\n• Stats button (active by default)\\n• Plays history button\\n• Share button'
-                    },
-                    {
-                        title: 'Style the Game Tracker',
-                        description: 'Let\'s create a dark, sporty design!',
-                        instruction: 'Add this CSS:',
-                        code: `.game-tracker {
-  background: #1f2937;
-  color: white;
-  padding: 2rem;
-  border-radius: 16px;
-  max-width: 450px;
-  margin: 2rem auto;
-}
-
-.scoreboard {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-}
-
-.team {
-  text-align: center;
-}
-
-.team-logo {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 0.9rem;
-  margin: 0 auto 0.5rem;
-}
-
-.team-home .team-logo {
-  background: #dc2626;
-}
-
-.team-away .team-logo {
-  background: #2563eb;
-}
-
-.team-name {
-  margin: 0;
-  font-size: 0.85rem;
-}`,
-                        codeFile: 'styles.css',
-                        tip: 'Team colors help fans identify their team quickly!',
-                        explanation: 'What this does:\\n• Dark background for sports feel\\n• Flexbox scoreboard layout\\n• Colored team logos'
-                    },
-                    {
-                        title: 'Style the Score Display',
-                        description: 'Let\'s make the score big and prominent!',
-                        instruction: 'Add this CSS:',
-                        code: `.score-center {
-  text-align: center;
-}
-
-.score {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-.game-status {
-  background: #dc2626;
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  display: inline-block;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
-}`,
-                        codeFile: 'styles.css',
-                        tip: 'The pulsing LIVE indicator shows the game is active!',
-                        explanation: 'What this does:\\n• Large, bold score\\n• Red LIVE badge\\n• Pulsing animation for attention'
-                    },
-                    {
-                        title: 'Style the Play-by-Play',
-                        description: 'Let\'s style the latest play section!',
-                        instruction: 'Add this CSS:',
-                        code: `.latest-play {
-  background: #374151;
-  padding: 1rem;
-  border-radius: 12px;
-  margin-bottom: 1rem;
-}
-
-.play-label {
-  margin: 0;
-  font-size: 0.8rem;
-  color: #9ca3af;
-}
-
-.play-text {
-  margin: 0.25rem 0 0;
-  font-size: 0.95rem;
-}`,
-                        codeFile: 'styles.css',
-                        tip: 'Subtle background separates the play from the score!',
-                        explanation: 'What this does:\\n• Darker background for contrast\\n• Small label text\\n• Clear play description'
-                    },
-                    {
-                        title: 'Style the Action Buttons',
-                        description: 'Let\'s create toggle-style action buttons!',
-                        instruction: 'Add this CSS:',
-                        code: `.tracker-actions {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
-}
-
-.tracker-btn {
-  padding: 0.75rem;
-  background: #374151;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 0.8rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  transition: background 0.3s;
-}
-
-.tracker-btn:hover {
-  background: #4b5563;
-}
-
-.tracker-btn.active {
-  background: #4f46e5;
-}`,
-                        codeFile: 'styles.css',
-                        tip: 'The active state shows which view is selected!',
-                        explanation: 'What this does:\\n• Three equal-width buttons\\n• Purple active state\\n• Hover effects'
-                    },
-                    {
-                        title: 'Add Button Toggle JavaScript',
-                        description: 'Let\'s make the buttons toggle between views!',
-                        instruction: 'Add this JavaScript:',
-                        code: `const trackerBtns = document.querySelectorAll('.tracker-btn');
-
-trackerBtns.forEach(btn => {
-  btn.addEventListener('click', function() {
-    // Remove active from all buttons
-    trackerBtns.forEach(b => b.classList.remove('active'));
-    // Add active to clicked button
-    this.classList.add('active');
-    
-    // Get button text to determine action
-    const action = this.textContent.trim();
-    console.log('Switched to:', action);
-  });
-});`,
-                        codeFile: 'script.js',
-                        tip: 'Toggle buttons provide clear visual feedback!',
-                        explanation: 'What this does:\\n• Handles button clicks\\n• Updates active state\\n• Logs the selected view'
-                    },
-                    {
-                        title: 'Add Score Update Simulation',
-                        description: 'Let\'s simulate live score updates!',
-                        instruction: 'Add this JavaScript:',
-                        code: `const scoreElement = document.querySelector('.score');
-const playText = document.querySelector('.play-text');
-
-const plays = [
-  'Thompson scores 3-pointer! Ginebra extends lead.',
-  'Fajardo with the slam dunk! San Miguel responds.',
-  'Timeout called by San Miguel.',
-  'Free throw made by Brownlee.',
-  'Turnover! San Miguel steals the ball.'
-];
-
-let homeScore = 98;
-let awayScore = 102;
-
-// Simulate score updates every 10 seconds
-setInterval(() => {
-  // Random score update
-  if (Math.random() > 0.5) {
-    homeScore += Math.floor(Math.random() * 3) + 1;
-  } else {
-    awayScore += Math.floor(Math.random() * 3) + 1;
-  }
-  
-  scoreElement.textContent = \`\${homeScore} - \${awayScore}\`;
-  playText.textContent = plays[Math.floor(Math.random() * plays.length)];
-}, 10000);`,
-                        codeFile: 'script.js',
-                        tip: 'In a real app, this would connect to a live data feed!',
-                        explanation: 'What this does:\\n• Simulates score changes\\n• Updates play-by-play text\\n• Runs every 10 seconds'
+                        title: 'Coming Soon',
+                        description: 'This comprehensive tutorial is currently being developed. Check back soon for a full step-by-step guide covering real-time sports tracking, live scores, and play-by-play commentary!',
+                        instruction: 'This tutorial will include:',
+                        code: `// Coming Soon Features:
+// - Real-time WebSocket data streaming
+// - Live score updates
+// - Play-by-play commentary system
+// - Team statistics visualization
+// - Quarter/period tracking
+// - Player stats integration
+// - Social sharing features`,
+                        codeFile: 'preview.js',
+                        tip: 'This advanced tutorial is being crafted to provide comprehensive coverage of live sports tracking systems.',
+                        explanation: 'What you\'ll learn:\\n• Real-time data streaming\\n• Sports statistics visualizations\\n• Live commentary systems\\n• Responsive sports interfaces\\n• Real-time state management'
                     }
                 ],
                 learningObjectives: [
@@ -3843,338 +3189,24 @@ setInterval(() => {
             </div>`,
             workshop: {
                 goal: 'Build an interactive music composition tool with Web Audio API',
-                duration: '240 minutes',
+                duration: 'Coming Soon',
+                comingSoon: true,
                 steps: [
                     {
-                        title: 'Create the Composer Container',
-                        description: 'Let\'s build the main container for our music composer!',
-                        instruction: 'Add this HTML structure:',
-                        code: `<div class="music-composer">
-  <div class="composer-header">
-    <div class="composer-icon">
-      <i data-lucide="music"></i>
-    </div>
-    <div class="composer-title">
-      <h2>Music Composer</h2>
-      <p>Create • Record • Share</p>
-    </div>
-  </div>
-</div>`,
-                        codeFile: 'index.html',
-                        tip: 'Music apps need a clean interface so users can focus on creating!',
-                        explanation: 'What this creates:\\n• Main composer container\\n• Header with music icon\\n• Title and subtitle'
-                    },
-                    {
-                        title: 'Add the Piano Keys',
-                        description: 'Let\'s create a simple piano keyboard interface!',
-                        instruction: 'Add this piano section:',
-                        code: `  <div class="piano-container">
-    <div class="piano-keys">
-      <button class="piano-key white" data-note="C4">C</button>
-      <button class="piano-key black" data-note="C#4"></button>
-      <button class="piano-key white" data-note="D4">D</button>
-      <button class="piano-key black" data-note="D#4"></button>
-      <button class="piano-key white" data-note="E4">E</button>
-      <button class="piano-key white" data-note="F4">F</button>
-      <button class="piano-key black" data-note="F#4"></button>
-      <button class="piano-key white" data-note="G4">G</button>
-    </div>
-  </div>`,
-                        codeFile: 'index.html',
-                        tip: 'data-note attributes store the musical note for each key!',
-                        explanation: 'What this adds:\\n• Piano key container\\n• White and black keys\\n• Note data for each key'
-                    },
-                    {
-                        title: 'Add Control Buttons',
-                        description: 'Let\'s add play, record, and save buttons!',
-                        instruction: 'Add these control buttons:',
-                        code: `  <div class="composer-controls">
-    <button class="control-btn play-btn" id="playBtn">
-      <i data-lucide="play"></i> Play
-    </button>
-    <button class="control-btn record-btn" id="recordBtn">
-      <i data-lucide="circle"></i> Record
-    </button>
-    <button class="control-btn save-btn" id="saveBtn">
-      <i data-lucide="save"></i> Save
-    </button>
-  </div>`,
-                        codeFile: 'index.html',
-                        tip: 'Color-coded buttons help users understand each action!',
-                        explanation: 'What this adds:\\n• Play button (green)\\n• Record button (red)\\n• Save button (blue)'
-                    },
-                    {
-                        title: 'Style the Composer Container',
-                        description: 'Let\'s create a clean, modern design!',
-                        instruction: 'Add this CSS:',
-                        code: `.music-composer {
-  background: #f8fafc;
-  padding: 2rem;
-  border-radius: 16px;
-  border: 2px solid #e2e8f0;
-  max-width: 500px;
-  margin: 2rem auto;
-}
-
-.composer-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.composer-icon {
-  width: 50px;
-  height: 50px;
-  background: #8b5cf6;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-}
-
-.composer-title h2 {
-  margin: 0;
-  color: #1e293b;
-}
-
-.composer-title p {
-  margin: 0;
-  color: #64748b;
-  font-size: 0.85rem;
-}`,
-                        codeFile: 'styles.css',
-                        tip: 'Purple is often associated with creativity and music!',
-                        explanation: 'What this does:\\n• Light background\\n• Purple accent icon\\n• Clean typography'
-                    },
-                    {
-                        title: 'Style the Piano Keys',
-                        description: 'Let\'s make the piano look realistic!',
-                        instruction: 'Add this CSS:',
-                        code: `.piano-container {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 12px;
-  margin-bottom: 1.5rem;
-  border: 1px solid #e2e8f0;
-}
-
-.piano-keys {
-  display: flex;
-  justify-content: center;
-  position: relative;
-  height: 120px;
-}
-
-.piano-key {
-  border: none;
-  cursor: pointer;
-  transition: all 0.1s;
-}
-
-.piano-key.white {
-  width: 40px;
-  height: 120px;
-  background: white;
-  border: 2px solid #1e293b;
-  border-radius: 0 0 6px 6px;
-  margin: 0 1px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding-bottom: 8px;
-  font-size: 0.75rem;
-  font-weight: bold;
-  color: #64748b;
-}
-
-.piano-key.black {
-  width: 28px;
-  height: 70px;
-  background: #1e293b;
-  border-radius: 0 0 4px 4px;
-  position: absolute;
-  z-index: 1;
-}
-
-.piano-key.white:active {
-  background: #e2e8f0;
-}
-
-.piano-key.black:active {
-  background: #374151;
-}`,
-                        codeFile: 'styles.css',
-                        tip: 'The :active state shows when keys are pressed!',
-                        explanation: 'What this does:\\n• White keys with labels\\n• Black keys positioned above\\n• Press feedback with :active'
-                    },
-                    {
-                        title: 'Position the Black Keys',
-                        description: 'Let\'s position each black key correctly!',
-                        instruction: 'Add this CSS:',
-                        code: `.piano-key.black:nth-of-type(2) { left: 30px; }
-.piano-key.black:nth-of-type(4) { left: 72px; }
-.piano-key.black:nth-of-type(7) { left: 156px; }`,
-                        codeFile: 'styles.css',
-                        tip: 'Black keys sit between specific white keys!',
-                        explanation: 'What this does:\\n• Positions C# between C and D\\n• Positions D# between D and E\\n• Positions F# between F and G'
-                    },
-                    {
-                        title: 'Style the Control Buttons',
-                        description: 'Let\'s create distinct button styles!',
-                        instruction: 'Add this CSS:',
-                        code: `.composer-controls {
-  display: flex;
-  gap: 0.75rem;
-}
-
-.control-btn {
-  flex: 1;
-  padding: 0.75rem;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  transition: all 0.2s;
-}
-
-.play-btn {
-  background: #10b981;
-  color: white;
-}
-
-.record-btn {
-  background: #ef4444;
-  color: white;
-}
-
-.save-btn {
-  background: #6366f1;
-  color: white;
-}
-
-.control-btn:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
-}`,
-                        codeFile: 'styles.css',
-                        tip: 'Green for play, red for record - intuitive colors!',
-                        explanation: 'What this does:\\n• Three equal-width buttons\\n• Color-coded by function\\n• Hover lift effect'
-                    },
-                    {
-                        title: 'Add Web Audio API Setup',
-                        description: 'Let\'s set up the audio context for playing sounds!',
-                        instruction: 'Add this JavaScript:',
-                        code: `// Audio context for generating sounds
-let audioContext;
-
-function initAudio() {
-  audioContext = new (window.AudioContext || window.webkitAudioContext)();
-}
-
-// Note frequencies (Hz)
-const noteFrequencies = {
-  'C4': 261.63,
-  'C#4': 277.18,
-  'D4': 293.66,
-  'D#4': 311.13,
-  'E4': 329.63,
-  'F4': 349.23,
-  'F#4': 369.99,
-  'G4': 392.00
-};
-
-function playNote(note) {
-  if (!audioContext) initAudio();
-  
-  const oscillator = audioContext.createOscillator();
-  const gainNode = audioContext.createGain();
-  
-  oscillator.connect(gainNode);
-  gainNode.connect(audioContext.destination);
-  
-  oscillator.frequency.value = noteFrequencies[note];
-  oscillator.type = 'sine';
-  
-  gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
-  gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-  
-  oscillator.start();
-  oscillator.stop(audioContext.currentTime + 0.5);
-}`,
-                        codeFile: 'script.js',
-                        tip: 'Web Audio API lets us generate sounds in the browser!',
-                        explanation: 'What this does:\\n• Creates audio context\\n• Defines note frequencies\\n• Plays notes with oscillator'
-                    },
-                    {
-                        title: 'Add Piano Key Event Listeners',
-                        description: 'Let\'s make the piano keys playable!',
-                        instruction: 'Add this JavaScript:',
-                        code: `const pianoKeys = document.querySelectorAll('.piano-key');
-
-pianoKeys.forEach(key => {
-  key.addEventListener('mousedown', function() {
-    const note = this.dataset.note;
-    if (note) {
-      playNote(note);
-      this.classList.add('playing');
-    }
-  });
-  
-  key.addEventListener('mouseup', function() {
-    this.classList.remove('playing');
-  });
-  
-  key.addEventListener('mouseleave', function() {
-    this.classList.remove('playing');
-  });
-});`,
-                        codeFile: 'script.js',
-                        tip: 'mousedown plays immediately, mouseup/leave stops the visual!',
-                        explanation: 'What this does:\\n• Listens for mouse events\\n• Plays note on mousedown\\n• Adds visual feedback class'
-                    },
-                    {
-                        title: 'Add Keyboard Support',
-                        description: 'Let\'s allow playing with computer keyboard too!',
-                        instruction: 'Add this JavaScript:',
-                        code: `// Keyboard mapping
-const keyboardMap = {
-  'a': 'C4',
-  'w': 'C#4',
-  's': 'D4',
-  'e': 'D#4',
-  'd': 'E4',
-  'f': 'F4',
-  't': 'F#4',
-  'g': 'G4'
-};
-
-document.addEventListener('keydown', function(e) {
-  const note = keyboardMap[e.key.toLowerCase()];
-  if (note && !e.repeat) {
-    playNote(note);
-    // Highlight the key
-    const key = document.querySelector(\`[data-note="\${note}"]\`);
-    if (key) key.classList.add('playing');
-  }
-});
-
-document.addEventListener('keyup', function(e) {
-  const note = keyboardMap[e.key.toLowerCase()];
-  if (note) {
-    const key = document.querySelector(\`[data-note="\${note}"]\`);
-    if (key) key.classList.remove('playing');
-  }
-});`,
-                        codeFile: 'script.js',
-                        tip: 'A-S-D-F-G maps to white keys, W-E-T to black keys!',
-                        explanation: 'What this does:\\n• Maps keyboard to notes\\n• Plays on keydown\\n• Visual feedback on keys'
+                        title: 'Coming Soon',
+                        description: 'This comprehensive tutorial is currently being developed. Check back soon for a full step-by-step guide covering Web Audio API, virtual instruments, and music composition!',
+                        instruction: 'This tutorial will include:',
+                        code: `// Coming Soon Features:
+// - Web Audio API sound generation
+// - Virtual piano keyboard
+// - Music notation system
+// - Audio recording and playback
+// - Multiple instrument sounds
+// - Tempo and rhythm controls
+// - Export to audio file`,
+                        codeFile: 'preview.js',
+                        tip: 'This advanced tutorial is being crafted to provide comprehensive coverage of browser-based music creation.',
+                        explanation: 'What you\'ll learn:\\n• Web Audio API for sound generation\\n• Virtual musical instruments\\n• Music notation systems\\n• Audio recording and playback\\n• Canvas-based interfaces'
                     }
                 ],
                 learningObjectives: [
@@ -4247,366 +3279,24 @@ document.addEventListener('keyup', function(e) {
             </div>`,
             workshop: {
                 goal: 'Create an AI-powered workout planning system with adaptive algorithms',
-                duration: '220 minutes',
+                duration: 'Coming Soon',
+                comingSoon: true,
                 steps: [
                     {
-                        title: 'Create the Planner Container',
-                        description: 'Let\'s build the main container with a vibrant fitness theme!',
-                        instruction: 'Add this HTML structure:',
-                        code: `<div class="workout-planner">
-  <div class="planner-header">
-    <div class="planner-icon">
-      <i data-lucide="zap"></i>
-    </div>
-    <h2>AI Workout Planner</h2>
-    <p>Personalized for You</p>
-  </div>
-</div>`,
-                        codeFile: 'index.html',
-                        tip: 'Fitness apps should feel energetic and motivating!',
-                        explanation: 'What this creates:\\n• Main planner container\\n• Header with energy icon\\n• Personalization message'
-                    },
-                    {
-                        title: 'Add Today\'s Workout Section',
-                        description: 'Let\'s show the user their workout for today!',
-                        instruction: 'Add this workout section:',
-                        code: `  <div class="todays-workout">
-    <h3>Today's Workout</h3>
-    <div class="exercise-list">
-      <div class="exercise-item">
-        <span class="exercise-name">Push-ups</span>
-        <span class="exercise-reps">3x12</span>
-      </div>
-      <div class="exercise-item">
-        <span class="exercise-name">Squats</span>
-        <span class="exercise-reps">3x15</span>
-      </div>
-      <div class="exercise-item">
-        <span class="exercise-name">Plank</span>
-        <span class="exercise-reps">3x45s</span>
-      </div>
-    </div>
-  </div>`,
-                        codeFile: 'index.html',
-                        tip: 'Clear exercise lists help users know exactly what to do!',
-                        explanation: 'What this adds:\\n• Today\'s workout heading\\n• List of exercises\\n• Sets and reps for each'
-                    },
-                    {
-                        title: 'Add Progress Stats',
-                        description: 'Let\'s show the user their fitness progress!',
-                        instruction: 'Add these stats:',
-                        code: `  <div class="progress-stats">
-    <div class="stat-item">
-      <span class="stat-value">7</span>
-      <span class="stat-label">Streak</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-value">85%</span>
-      <span class="stat-label">Progress</span>
-    </div>
-    <div class="stat-item">
-      <span class="stat-value">12</span>
-      <span class="stat-label">Level</span>
-    </div>
-  </div>
-  <button class="start-workout-btn" id="startWorkoutBtn">
-    <i data-lucide="play"></i> Start Workout
-  </button>`,
-                        codeFile: 'index.html',
-                        tip: 'Gamification elements like streaks and levels motivate users!',
-                        explanation: 'What this adds:\\n• Three progress stats\\n• Streak, progress, and level\\n• Start workout button'
-                    },
-                    {
-                        title: 'Style the Planner Container',
-                        description: 'Let\'s create an energetic gradient design!',
-                        instruction: 'Add this CSS:',
-                        code: `.workout-planner {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 2rem;
-  border-radius: 16px;
-  max-width: 400px;
-  margin: 2rem auto;
-}
-
-.planner-header {
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-.planner-icon {
-  width: 60px;
-  height: 60px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  margin: 0 auto 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.planner-header h2 {
-  margin: 0;
-  font-size: 1.5rem;
-}
-
-.planner-header p {
-  margin: 0.5rem 0 0;
-  opacity: 0.9;
-  font-size: 0.9rem;
-}`,
-                        codeFile: 'styles.css',
-                        tip: 'Purple gradients feel energetic and modern!',
-                        explanation: 'What this does:\\n• Vibrant gradient background\\n• Centered header\\n• Semi-transparent icon'
-                    },
-                    {
-                        title: 'Style Today\'s Workout',
-                        description: 'Let\'s style the workout list!',
-                        instruction: 'Add this CSS:',
-                        code: `.todays-workout {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 1.5rem;
-  border-radius: 12px;
-  margin-bottom: 1.5rem;
-}
-
-.todays-workout h3 {
-  margin: 0 0 1rem;
-  font-size: 1.1rem;
-}
-
-.exercise-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.exercise-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.exercise-name {
-  font-size: 0.95rem;
-}
-
-.exercise-reps {
-  background: rgba(255, 255, 255, 0.2);
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-}`,
-                        codeFile: 'styles.css',
-                        tip: 'Pill-shaped rep badges are easy to scan!',
-                        explanation: 'What this does:\\n• Semi-transparent background\\n• Flexbox for exercise rows\\n• Pill badges for reps'
-                    },
-                    {
-                        title: 'Style the Progress Stats',
-                        description: 'Let\'s make the stats stand out!',
-                        instruction: 'Add this CSS:',
-                        code: `.progress-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.stat-item {
-  text-align: center;
-}
-
-.stat-value {
-  display: block;
-  font-size: 1.75rem;
-  font-weight: bold;
-}
-
-.stat-label {
-  font-size: 0.75rem;
-  opacity: 0.8;
-}
-
-.start-workout-btn {
-  width: 100%;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  transition: background 0.3s;
-}
-
-.start-workout-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-}`,
-                        codeFile: 'styles.css',
-                        tip: 'Large stat numbers are easy to read at a glance!',
-                        explanation: 'What this does:\\n• Three-column grid for stats\\n• Large, bold numbers\\n• Full-width start button'
-                    },
-                    {
-                        title: 'Add Workout Data',
-                        description: 'Let\'s create the workout data structure!',
-                        instruction: 'Add this JavaScript:',
-                        code: `// Workout database
-const workouts = {
-  beginner: [
-    { name: 'Push-ups', sets: 3, reps: '10' },
-    { name: 'Squats', sets: 3, reps: '12' },
-    { name: 'Plank', sets: 3, reps: '30s' }
-  ],
-  intermediate: [
-    { name: 'Push-ups', sets: 3, reps: '15' },
-    { name: 'Squats', sets: 4, reps: '15' },
-    { name: 'Plank', sets: 3, reps: '45s' },
-    { name: 'Lunges', sets: 3, reps: '12 each' }
-  ],
-  advanced: [
-    { name: 'Diamond Push-ups', sets: 4, reps: '12' },
-    { name: 'Jump Squats', sets: 4, reps: '15' },
-    { name: 'Plank', sets: 3, reps: '60s' },
-    { name: 'Burpees', sets: 3, reps: '10' }
-  ]
-};
-
-// User progress
-let userProgress = {
-  level: 12,
-  streak: 7,
-  completionRate: 85,
-  currentDifficulty: 'intermediate'
-};`,
-                        codeFile: 'script.js',
-                        tip: 'Structured data makes it easy to generate workouts!',
-                        explanation: 'What this does:\\n• Defines workouts by difficulty\\n• Tracks user progress\\n• Stores current difficulty level'
-                    },
-                    {
-                        title: 'Add AI Workout Generation',
-                        description: 'Let\'s create a simple AI that adapts workouts!',
-                        instruction: 'Add this JavaScript:',
-                        code: `function generateWorkout() {
-  // Simple AI: adjust difficulty based on completion rate
-  let difficulty = userProgress.currentDifficulty;
-  
-  if (userProgress.completionRate > 90 && userProgress.streak > 5) {
-    // User is doing great, increase difficulty
-    if (difficulty === 'beginner') difficulty = 'intermediate';
-    else if (difficulty === 'intermediate') difficulty = 'advanced';
-  } else if (userProgress.completionRate < 60) {
-    // User is struggling, decrease difficulty
-    if (difficulty === 'advanced') difficulty = 'intermediate';
-    else if (difficulty === 'intermediate') difficulty = 'beginner';
-  }
-  
-  userProgress.currentDifficulty = difficulty;
-  return workouts[difficulty];
-}
-
-function displayWorkout(workout) {
-  const exerciseList = document.querySelector('.exercise-list');
-  exerciseList.innerHTML = workout.map(exercise => \`
-    <div class="exercise-item">
-      <span class="exercise-name">\${exercise.name}</span>
-      <span class="exercise-reps">\${exercise.sets}x\${exercise.reps}</span>
-    </div>
-  \`).join('');
-}`,
-                        codeFile: 'script.js',
-                        tip: 'The AI adjusts difficulty based on user performance!',
-                        explanation: 'What this does:\\n• Analyzes user progress\\n• Adjusts difficulty level\\n• Generates appropriate workout'
-                    },
-                    {
-                        title: 'Add Start Workout Functionality',
-                        description: 'Let\'s make the start button work!',
-                        instruction: 'Add this JavaScript:',
-                        code: `const startBtn = document.getElementById('startWorkoutBtn');
-
-startBtn.addEventListener('click', function() {
-  // Generate new workout
-  const workout = generateWorkout();
-  displayWorkout(workout);
-  
-  // Update button to show workout started
-  this.innerHTML = '<i data-lucide="check"></i> Workout Started!';
-  this.style.background = 'rgba(16, 185, 129, 0.5)';
-  
-  // Re-initialize Lucide icons
-  if (typeof lucide !== 'undefined') {
-    lucide.createIcons();
-  }
-  
-  // Simulate workout completion after 3 seconds (demo)
-  setTimeout(() => {
-    completeWorkout();
-  }, 3000);
-});
-
-function completeWorkout() {
-  userProgress.streak++;
-  userProgress.level++;
-  
-  // Update display
-  document.querySelector('.stat-item:nth-child(1) .stat-value').textContent = userProgress.streak;
-  document.querySelector('.stat-item:nth-child(3) .stat-value').textContent = userProgress.level;
-  
-  startBtn.innerHTML = '<i data-lucide="trophy"></i> Workout Complete!';
-  
-  if (typeof lucide !== 'undefined') {
-    lucide.createIcons();
-  }
-}`,
-                        codeFile: 'script.js',
-                        tip: 'Visual feedback shows the workout is in progress!',
-                        explanation: 'What this does:\\n• Generates personalized workout\\n• Updates button state\\n• Simulates workout completion\\n• Updates user stats'
-                    },
-                    {
-                        title: 'Add Progress Persistence',
-                        description: 'Let\'s save progress to localStorage!',
-                        instruction: 'Add this JavaScript:',
-                        code: `// Load saved progress
-function loadProgress() {
-  const saved = localStorage.getItem('workoutProgress');
-  if (saved) {
-    userProgress = JSON.parse(saved);
-    updateStatsDisplay();
-  }
-}
-
-// Save progress
-function saveProgress() {
-  localStorage.setItem('workoutProgress', JSON.stringify(userProgress));
-}
-
-// Update stats display
-function updateStatsDisplay() {
-  document.querySelector('.stat-item:nth-child(1) .stat-value').textContent = userProgress.streak;
-  document.querySelector('.stat-item:nth-child(2) .stat-value').textContent = userProgress.completionRate + '%';
-  document.querySelector('.stat-item:nth-child(3) .stat-value').textContent = userProgress.level;
-}
-
-// Load on page load
-loadProgress();
-
-// Save after completing workout
-function completeWorkout() {
-  userProgress.streak++;
-  userProgress.level++;
-  saveProgress();
-  updateStatsDisplay();
-  
-  startBtn.innerHTML = '<i data-lucide="trophy"></i> Workout Complete!';
-  if (typeof lucide !== 'undefined') lucide.createIcons();
-}`,
-                        codeFile: 'script.js',
-                        tip: 'localStorage keeps progress even after closing the browser!',
-                        explanation: 'What this does:\\n• Loads saved progress on start\\n• Saves after each workout\\n• Updates display with current stats'
+                        title: 'Coming Soon',
+                        description: 'This comprehensive tutorial is currently being developed. Check back soon for a full step-by-step guide covering AI-powered fitness planning, adaptive algorithms, and progress tracking!',
+                        instruction: 'This tutorial will include:',
+                        code: `// Coming Soon Features:
+// - AI workout generation algorithms
+// - Adaptive difficulty progression
+// - Fitness tracking and analytics
+// - Gamification (streaks, levels, achievements)
+// - Exercise database management
+// - Progress visualization charts
+// - Personalized recommendations`,
+                        codeFile: 'preview.js',
+                        tip: 'This advanced tutorial is being crafted to provide comprehensive coverage of AI-powered fitness systems.',
+                        explanation: 'What you\'ll learn:\\n• Machine learning for fitness\\n• Adaptive workout progression\\n• Fitness tracking and analytics\\n• Gamification features\\n• User preference systems'
                     }
                 ],
                 learningObjectives: [

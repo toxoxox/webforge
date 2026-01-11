@@ -382,9 +382,26 @@ const ComponentService = {
                 this.highlightSearchTerm(tag, this.currentFilters.search)
             );
 
+            // Check if workshop is available
+            const hasWorkshop = component.workshop && component.workshop.steps && component.workshop.steps.length > 0;
+            const isComingSoon = component.workshop && component.workshop.comingSoon;
+            const workshopAvailable = hasWorkshop && !isComingSoon;
+
+            // Build button based on workshop availability
+            const buildButton = workshopAvailable 
+                ? `<button class="component-btn" onclick="ComponentService.startWorkshop('${component.id}')">
+                    <i data-lucide="hammer"></i>
+                    <span>Build This</span>
+                   </button>`
+                : `<button class="component-btn disabled" onclick="ComponentService.showToast('${isComingSoon ? 'This workshop is coming soon!' : 'Workshop not yet available'}', 'info')" title="${isComingSoon ? 'Coming Soon' : 'Workshop not available'}">
+                    <i data-lucide="${isComingSoon ? 'clock' : 'hammer'}"></i>
+                    <span>${isComingSoon ? 'Coming Soon' : 'Build This'}</span>
+                   </button>`;
+
             return `
                 <div class="component-card ${recommendedClass} ${searchMatchClass}" data-component="${component.id}">
                     ${recommendedBadge}
+                    ${isComingSoon ? '<div class="coming-soon-badge">Coming Soon</div>' : ''}
                     <div class="component-preview">
                         ${component.preview}
                     </div>
@@ -399,10 +416,7 @@ const ComponentService = {
                             `).join('')}
                         </div>
                         <div class="component-actions">
-                            <button class="component-btn" onclick="ComponentService.startWorkshop('${component.id}')">
-                                <i data-lucide="hammer"></i>
-                                <span>Build This</span>
-                            </button>
+                            ${buildButton}
                             <button class="component-btn primary" onclick="ComponentService.previewComponent('${component.id}')">
                                 <i data-lucide="eye"></i>
                                 <span>Preview</span>
@@ -502,6 +516,20 @@ const ComponentService = {
         if (!component || !component.workshop) {
             console.error('Workshop not available!');
             this.showToast('Workshop not available for this component', 'error');
+            return;
+        }
+
+        // Check if workshop is marked as coming soon
+        if (component.workshop.comingSoon) {
+            console.error('Workshop is coming soon!');
+            this.showToast('This workshop is coming soon! Check back later.', 'info');
+            return;
+        }
+
+        // Check if workshop has steps
+        if (!component.workshop.steps || component.workshop.steps.length === 0) {
+            console.error('Workshop has no steps!');
+            this.showToast('Workshop steps are not yet available for this component', 'error');
             return;
         }
 
