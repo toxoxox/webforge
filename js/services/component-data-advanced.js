@@ -1692,12 +1692,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>`,
             workshop: {
-                goal: 'Build a complete admin panel for managing pet listings dynamically',
-                duration: '200 minutes',
+                goal: 'Build a complete admin panel for managing pet listings with full CRUD operations',
+                duration: '240 minutes',
                 steps: [
                     {
                         title: 'Create the Admin Panel Container',
-                        description: 'Let\'s start by creating the main container for our pet management system!',
+                        description: 'Let\'s start by building the main container for our pet management system with a clean, professional look!',
                         instruction: 'Add this HTML structure:',
                         code: `<div class="pet-admin-panel">
   <div class="admin-header">
@@ -1712,13 +1712,42 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>`,
                         codeFile: 'index.html',
                         tip: 'Admin panels should be clearly labeled so staff know they\'re in the management area!',
-                        explanation: 'What this creates:\\n• Main container for the admin system\\n• Header with icon and title\\n• Subtitle showing available actions'
+                        explanation: 'What this creates:\\n• Main container for the admin system\\n• Header with settings icon using Lucide\\n• Title and subtitle for clear navigation\\n• We\'ll add the form and pet list next'
+                    },
+                    {
+                        title: 'Add Stats Summary Bar',
+                        description: 'Let\'s add a stats bar showing how many pets are in the system!',
+                        instruction: 'Add this stats section after the header:',
+                        code: `  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-number" id="totalPets">0</span>
+      <span class="stat-label">Total Pets</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number" id="availablePets">0</span>
+      <span class="stat-label">Available</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number" id="pendingPets">0</span>
+      <span class="stat-label">Pending</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number" id="adoptedPets">0</span>
+      <span class="stat-label">Adopted</span>
+    </div>
+  </div>`,
+                        codeFile: 'index.html',
+                        tip: 'Stats give staff a quick overview of the shelter\'s current status!',
+                        explanation: 'What this adds:\\n• Four stat boxes showing pet counts\\n• IDs for updating with JavaScript later\\n• Labels explaining each number\\n• Will update dynamically as pets are added'
                     },
                     {
                         title: 'Add the Pet Form Container',
-                        description: 'Now let\'s add the form where staff can enter pet details!',
+                        description: 'Now let\'s add the form where staff can enter pet details with name and age fields!',
                         instruction: 'Add this form structure inside the admin panel:',
                         code: `  <div class="pet-form-container">
+    <h3 class="form-title">
+      <i data-lucide="plus-circle"></i> Add New Pet
+    </h3>
     <form class="pet-form" id="petForm">
       <div class="form-row">
         <div class="form-group">
@@ -1734,11 +1763,24 @@ document.addEventListener('DOMContentLoaded', function() {
   </div>`,
                         codeFile: 'index.html',
                         tip: 'Using placeholder text shows staff exactly what format to use!',
-                        explanation: 'What this form does:\\n• Creates a form for data collection\\n• Groups related fields in rows\\n• Labels tell users what each field is for'
+                        explanation: 'What this form does:\\n• Creates a form for data collection\\n• Groups related fields in rows\\n• Labels tell users what each field is for\\n• required attribute ensures fields aren\'t empty'
+                    },
+                    {
+                        title: 'Add Pet Description Field',
+                        description: 'Let\'s add a textarea for staff to write a description about each pet!',
+                        instruction: 'Add this description field to your form:',
+                        code: `      <div class="form-group full-width">
+        <label for="petDescription">Description</label>
+        <textarea id="petDescription" name="petDescription" rows="3" 
+          placeholder="Friendly and playful, loves belly rubs..."></textarea>
+      </div>`,
+                        codeFile: 'index.html',
+                        tip: 'Good descriptions help potential adopters connect with pets!',
+                        explanation: 'What this adds:\\n• Textarea for longer text input\\n• full-width class spans both columns\\n• Placeholder gives example of good description\\n• rows="3" sets initial height'
                     },
                     {
                         title: 'Add Photo Upload Section',
-                        description: 'Every pet needs a photo! Let\'s add an upload area.',
+                        description: 'Every pet needs a photo! Let\'s add a drag-and-drop upload area.',
                         instruction: 'Add this photo upload section to your form:',
                         code: `      <div class="form-group photo-upload">
         <label>Pet Photo</label>
@@ -1746,17 +1788,24 @@ document.addEventListener('DOMContentLoaded', function() {
           <div class="upload-icon">
             <i data-lucide="camera"></i>
           </div>
-          <p>Click to upload photo or drag and drop</p>
+          <p class="upload-text">Click to upload photo or drag and drop</p>
+          <p class="upload-hint">PNG, JPG up to 5MB</p>
           <input type="file" id="petPhoto" name="petPhoto" accept="image/*" hidden>
+        </div>
+        <div class="photo-preview" id="photoPreview" hidden>
+          <img id="previewImage" alt="Pet photo preview">
+          <button type="button" class="remove-photo" id="removePhoto">
+            <i data-lucide="x"></i>
+          </button>
         </div>
       </div>`,
                         codeFile: 'index.html',
                         tip: 'The accept="image/*" attribute only allows image files!',
-                        explanation: 'What this upload area does:\\n• Creates a clickable upload zone\\n• Hidden file input for better design\\n• Camera icon shows this is for photos'
+                        explanation: 'What this upload area does:\\n• Creates a clickable upload zone\\n• Hidden file input for better design\\n• Camera icon shows this is for photos\\n• Preview area shows selected image\\n• Remove button lets staff change their selection'
                     },
                     {
                         title: 'Add Pet Type and Status Dropdowns',
-                        description: 'Let\'s add dropdown menus for pet type and adoption status!',
+                        description: 'Let\'s add dropdown menus for pet type, breed, and adoption status!',
                         instruction: 'Add these dropdowns to your form:',
                         code: `      <div class="form-row">
         <div class="form-group">
@@ -1767,27 +1816,43 @@ document.addEventListener('DOMContentLoaded', function() {
             <option value="cat">Cat</option>
             <option value="rabbit">Rabbit</option>
             <option value="bird">Bird</option>
+            <option value="hamster">Hamster</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="petBreed">Breed</label>
+          <input type="text" id="petBreed" name="petBreed" placeholder="Golden Retriever">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="petGender">Gender</label>
+          <select id="petGender" name="petGender" required>
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
           </select>
         </div>
         <div class="form-group">
           <label for="petStatus">Status</label>
           <select id="petStatus" name="petStatus" required>
             <option value="available">Available</option>
-            <option value="pending">Pending</option>
+            <option value="pending">Pending Adoption</option>
             <option value="adopted">Adopted</option>
           </select>
         </div>
       </div>`,
                         codeFile: 'index.html',
                         tip: 'Dropdowns prevent typos and ensure consistent data!',
-                        explanation: 'What these dropdowns do:\\n• Select menus for pet type and status\\n• Empty first option forces a choice\\n• Predefined options ensure consistency'
+                        explanation: 'What these dropdowns do:\\n• Select menus for pet type, gender, and status\\n• Empty first option forces a choice\\n• Breed is a text input for flexibility\\n• Predefined options ensure consistency'
                     },
                     {
                         title: 'Add Action Buttons',
                         description: 'Let\'s add buttons to save, preview, and clear the form!',
                         instruction: 'Add these buttons after your form fields:',
                         code: `      <div class="form-actions">
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary" id="addPetBtn">
           <i data-lucide="plus"></i> Add Pet
         </button>
         <button type="button" class="btn btn-secondary" id="previewBtn">
@@ -1796,21 +1861,63 @@ document.addEventListener('DOMContentLoaded', function() {
         <button type="button" class="btn btn-danger" id="clearBtn">
           <i data-lucide="trash-2"></i> Clear
         </button>
-      </div>`,
+      </div>
+    </form>
+  </div>`,
                         codeFile: 'index.html',
                         tip: 'Different button colors help users understand each action!',
-                        explanation: 'What these buttons do:\\n• Add Pet (green) - Saves the new pet\\n• Preview (blue) - Shows how it will look\\n• Clear (red) - Resets the form'
+                        explanation: 'What these buttons do:\\n• Add Pet (green) - Saves the new pet to the system\\n• Preview (blue) - Shows how the pet card will look\\n• Clear (red) - Resets all form fields\\n• Icons make buttons easier to scan'
                     },
                     {
-                        title: 'Style the Admin Panel',
-                        description: 'Let\'s make our admin panel look professional!',
+                        title: 'Add Pet Listing Table',
+                        description: 'Now let\'s add a table to display all the pets in the system!',
+                        instruction: 'Add this table section after the form:',
+                        code: `  <div class="pet-list-container">
+    <div class="list-header">
+      <h3><i data-lucide="list"></i> Pet Listings</h3>
+      <div class="list-controls">
+        <input type="text" id="searchPets" placeholder="Search pets..." class="search-input">
+        <select id="filterStatus" class="filter-select">
+          <option value="all">All Status</option>
+          <option value="available">Available</option>
+          <option value="pending">Pending</option>
+          <option value="adopted">Adopted</option>
+        </select>
+      </div>
+    </div>
+    <div class="pet-table-wrapper">
+      <table class="pet-table" id="petTable">
+        <thead>
+          <tr>
+            <th>Photo</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Age</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="petTableBody">
+          <!-- Pet rows will be inserted here by JavaScript -->
+        </tbody>
+      </table>
+    </div>
+    <p class="empty-message" id="emptyMessage">No pets found. Add your first pet above!</p>
+  </div>`,
+                        codeFile: 'index.html',
+                        tip: 'Tables are great for displaying structured data like pet listings!',
+                        explanation: 'What this table does:\\n• Displays all pets in organized rows\\n• Search input filters pets by name\\n• Status dropdown filters by adoption status\\n• Action buttons for edit/delete\\n• Empty message shows when no pets exist'
+                    },
+                    {
+                        title: 'Style the Admin Panel Container',
+                        description: 'Let\'s make our admin panel look professional with clean styling!',
                         instruction: 'Add this CSS:',
                         code: `.pet-admin-panel {
   background: #f8fafc;
   padding: 2rem;
   border-radius: 16px;
   border: 2px solid #e2e8f0;
-  max-width: 600px;
+  max-width: 900px;
   margin: 2rem auto;
 }
 
@@ -1818,7 +1925,7 @@ document.addEventListener('DOMContentLoaded', function() {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .admin-icon {
@@ -1835,6 +1942,7 @@ document.addEventListener('DOMContentLoaded', function() {
 .admin-title h2 {
   margin: 0;
   color: #1e293b;
+  font-size: 1.5rem;
 }
 
 .admin-title p {
@@ -1843,25 +1951,74 @@ document.addEventListener('DOMContentLoaded', function() {
   font-size: 0.9rem;
 }`,
                         codeFile: 'styles.css',
-                        tip: 'Light backgrounds make admin panels feel clean!',
-                        explanation: 'What this styling does:\\n• Light gray background\\n• Blue icon for visual interest\\n• Clean typography hierarchy'
+                        tip: 'Light backgrounds make admin panels feel clean and professional!',
+                        explanation: 'What this styling does:\\n• Light gray background for the panel\\n• Blue icon creates visual interest\\n• Flexbox aligns header elements\\n• Clean typography hierarchy'
                     },
                     {
-                        title: 'Style the Form',
-                        description: 'Let\'s style the form layout and inputs!',
+                        title: 'Style the Stats Bar',
+                        description: 'Let\'s make the stats bar look impressive with colored numbers!',
+                        instruction: 'Add this CSS:',
+                        code: `.stats-bar {
+  display: flex;
+  justify-content: space-around;
+  background: white;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  border: 1px solid #e2e8f0;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #3b82f6;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stat:nth-child(2) .stat-number { color: #10b981; }
+.stat:nth-child(3) .stat-number { color: #f59e0b; }
+.stat:nth-child(4) .stat-number { color: #8b5cf6; }`,
+                        codeFile: 'styles.css',
+                        tip: 'Different colors for each stat makes them easy to scan quickly!',
+                        explanation: 'What this does:\\n• White background for contrast\\n• Evenly spaced stats\\n• Large colored numbers\\n• Small uppercase labels\\n• Each stat has a unique color'
+                    },
+                    {
+                        title: 'Style the Form Container',
+                        description: 'Let\'s style the form layout with proper spacing and inputs!',
                         instruction: 'Add this CSS:',
                         code: `.pet-form-container {
   background: white;
   padding: 2rem;
   border-radius: 12px;
   border: 1px solid #e2e8f0;
+  margin-bottom: 2rem;
+}
+
+.form-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 1.5rem;
+  color: #1e293b;
+  font-size: 1.1rem;
 }
 
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .form-group {
@@ -1869,37 +2026,62 @@ document.addEventListener('DOMContentLoaded', function() {
   flex-direction: column;
 }
 
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
 .form-group label {
   font-weight: 600;
   color: #374151;
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
-}
-
-.form-group input,
-.form-group select {
+}`,
+                        codeFile: 'styles.css',
+                        tip: 'Grid layout automatically makes forms look organized!',
+                        explanation: 'What this does:\\n• White background for the form\\n• Two-column grid layout\\n• full-width class spans both columns\\n• Bold labels for clarity'
+                    },
+                    {
+                        title: 'Style Form Inputs and Selects',
+                        description: 'Let\'s style the input fields and dropdowns to look consistent!',
+                        instruction: 'Add this CSS:',
+                        code: `.form-group input,
+.form-group select,
+.form-group textarea {
   padding: 0.75rem;
   border: 1px solid #d1d5db;
   border-radius: 8px;
   font-size: 0.9rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .form-group input:focus,
-.form-group select:focus {
+.form-group select:focus,
+.form-group textarea:focus {
   outline: none;
   border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #9ca3af;
 }`,
                         codeFile: 'styles.css',
-                        tip: 'Blue focus borders show which field is active!',
-                        explanation: 'What this does:\\n• Two-column grid layout\\n• Clean input styling\\n• Focus states for accessibility'
+                        tip: 'The focus ring helps users see which field they\'re typing in!',
+                        explanation: 'What this does:\\n• Consistent padding and borders\\n• Blue focus state with subtle shadow\\n• Textarea can be resized vertically\\n• Light placeholder text color'
                     },
                     {
-                        title: 'Style the Upload Area',
-                        description: 'Let\'s make the photo upload area inviting!',
+                        title: 'Style the Photo Upload Area',
+                        description: 'Let\'s make the photo upload area inviting with drag-and-drop styling!',
                         instruction: 'Add this CSS:',
                         code: `.photo-upload .upload-area {
   border: 2px dashed #d1d5db;
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 2rem;
   text-align: center;
   background: #f9fafb;
@@ -1912,9 +2094,14 @@ document.addEventListener('DOMContentLoaded', function() {
   background: #f0f9ff;
 }
 
+.photo-upload .upload-area.drag-over {
+  border-color: #10b981;
+  background: #ecfdf5;
+}
+
 .upload-icon {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   background: #fbbf24;
   border-radius: 50%;
   margin: 0 auto 1rem;
@@ -1922,19 +2109,78 @@ document.addEventListener('DOMContentLoaded', function() {
   align-items: center;
   justify-content: center;
   color: white;
+}
+
+.upload-text {
+  margin: 0 0 0.5rem;
+  color: #374151;
+  font-weight: 500;
+}
+
+.upload-hint {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #9ca3af;
 }`,
                         codeFile: 'styles.css',
                         tip: 'Dashed borders are a universal sign for drop zones!',
-                        explanation: 'What this does:\\n• Dashed border shows it\'s a drop zone\\n• Hover effect provides feedback\\n• Yellow icon is friendly and visible'
+                        explanation: 'What this does:\\n• Dashed border shows it\'s a drop zone\\n• Hover effect provides feedback\\n• drag-over class for when files are dragged\\n• Yellow icon is friendly and visible'
                     },
                     {
-                        title: 'Style the Buttons',
+                        title: 'Style the Photo Preview',
+                        description: 'Let\'s style the preview area that shows after selecting a photo!',
+                        instruction: 'Add this CSS:',
+                        code: `.photo-preview {
+  position: relative;
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.photo-preview img {
+  max-width: 150px;
+  max-height: 150px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid #e2e8f0;
+}
+
+.remove-photo {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.remove-photo:hover {
+  background: #dc2626;
+}
+
+.remove-photo i {
+  width: 14px;
+  height: 14px;
+}`,
+                        codeFile: 'styles.css',
+                        tip: 'The X button lets staff easily remove a photo and try again!',
+                        explanation: 'What this does:\\n• Shows selected image with rounded corners\\n• Red X button positioned in corner\\n• object-fit: cover maintains aspect ratio\\n• Hover effect on remove button'
+                    },
+                    {
+                        title: 'Style the Action Buttons',
                         description: 'Let\'s create distinct button styles for each action!',
                         instruction: 'Add this CSS:',
                         code: `.form-actions {
   display: flex;
   gap: 1rem;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 
 .btn {
@@ -1957,9 +2203,17 @@ document.addEventListener('DOMContentLoaded', function() {
   color: white;
 }
 
+.btn-primary:hover {
+  background: #059669;
+}
+
 .btn-secondary {
   background: #6366f1;
   color: white;
+}
+
+.btn-secondary:hover {
+  background: #4f46e5;
 }
 
 .btn-danger {
@@ -1967,20 +2221,476 @@ document.addEventListener('DOMContentLoaded', function() {
   color: white;
 }
 
-.btn:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
+.btn-danger:hover {
+  background: #dc2626;
+}
+
+.btn:active {
+  transform: translateY(1px);
 }`,
                         codeFile: 'styles.css',
-                        tip: 'Color coding helps users understand button purposes!',
-                        explanation: 'What this does:\\n• Green for primary action\\n• Blue for secondary action\\n• Red for destructive action'
+                        tip: 'Color coding helps users understand button purposes at a glance!',
+                        explanation: 'What this does:\\n• Green for primary action (Add)\\n• Blue for secondary action (Preview)\\n• Red for destructive action (Clear)\\n• Hover states darken colors\\n• Active state adds pressed feeling'
                     },
                     {
-                        title: 'Add Form Submission JavaScript',
-                        description: 'Let\'s handle form submission and save pet data!',
+                        title: 'Style the Pet Table',
+                        description: 'Let\'s style the pet listing table with clean rows and hover effects!',
+                        instruction: 'Add this CSS:',
+                        code: `.pet-list-container {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.list-header h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  color: #1e293b;
+}
+
+.list-controls {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.search-input {
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  width: 200px;
+}
+
+.filter-select {
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  background: white;
+}`,
+                        codeFile: 'styles.css',
+                        tip: 'Search and filter controls help staff find pets quickly!',
+                        explanation: 'What this does:\\n• White background for the table area\\n• Header with title and controls\\n• Search input for filtering by name\\n• Dropdown for status filtering'
+                    },
+                    {
+                        title: 'Style the Table Rows',
+                        description: 'Let\'s style the table rows with proper spacing and status badges!',
+                        instruction: 'Add this CSS:',
+                        code: `.pet-table-wrapper {
+  overflow-x: auto;
+}
+
+.pet-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pet-table th,
+.pet-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.pet-table th {
+  background: #f8fafc;
+  font-weight: 600;
+  color: #64748b;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.pet-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.pet-table .pet-photo {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.status-available { background: #dcfce7; color: #166534; }
+.status-pending { background: #fef3c7; color: #92400e; }
+.status-adopted { background: #e0e7ff; color: #3730a3; }`,
+                        codeFile: 'styles.css',
+                        tip: 'Status badges with colors make it easy to scan the table!',
+                        explanation: 'What this does:\\n• Responsive table with horizontal scroll\\n• Hover effect on rows\\n• Circular pet photos\\n• Colored status badges'
+                    },
+                    {
+                        title: 'Style Table Action Buttons',
+                        description: 'Let\'s add edit and delete buttons for each pet row!',
+                        instruction: 'Add this CSS:',
+                        code: `.table-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-icon {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.btn-edit {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.btn-edit:hover {
+  background: #2563eb;
+  color: white;
+}
+
+.btn-delete {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.btn-delete:hover {
+  background: #dc2626;
+  color: white;
+}
+
+.empty-message {
+  text-align: center;
+  color: #9ca3af;
+  padding: 2rem;
+  font-style: italic;
+}`,
+                        codeFile: 'styles.css',
+                        tip: 'Icon buttons save space while still being easy to click!',
+                        explanation: 'What this does:\\n• Small icon buttons for actions\\n• Blue for edit, red for delete\\n• Hover fills with solid color\\n• Empty message when no pets'
+                    },
+                    {
+                        title: 'Create the Pet Data Array',
+                        description: 'Let\'s create JavaScript to manage our pet data with sample pets!',
+                        instruction: 'Add this JavaScript:',
+                        code: `// Pet data management
+let petsData = JSON.parse(localStorage.getItem('shelterPets')) || [
+  {
+    id: 1,
+    name: 'Buddy',
+    type: 'dog',
+    breed: 'Golden Retriever',
+    age: '3 years',
+    gender: 'male',
+    status: 'available',
+    description: 'Friendly and playful, loves belly rubs and fetch!',
+    photo: 'https://picsum.photos/100/100?random=1'
+  },
+  {
+    id: 2,
+    name: 'Whiskers',
+    type: 'cat',
+    breed: 'Tabby',
+    age: '2 years',
+    gender: 'female',
+    status: 'pending',
+    description: 'Calm and affectionate, perfect lap cat.',
+    photo: 'https://picsum.photos/100/100?random=2'
+  }
+];
+
+// State for filtering
+let currentFilter = 'all';
+let searchTerm = '';`,
+                        codeFile: 'script.js',
+                        tip: 'Starting with sample data helps test the admin panel immediately!',
+                        explanation: 'What this does:\\n• Loads pets from localStorage or uses samples\\n• Each pet has all the form fields\\n• State variables track current filters\\n• Data persists between page loads'
+                    },
+                    {
+                        title: 'Create the Render Function',
+                        description: 'Let\'s create a function to display pets in the table!',
+                        instruction: 'Add this JavaScript:',
+                        code: `function renderPets() {
+  const tbody = document.getElementById('petTableBody');
+  const emptyMsg = document.getElementById('emptyMessage');
+  
+  // Filter pets
+  let filtered = petsData.filter(pet => {
+    const matchesFilter = currentFilter === 'all' || pet.status === currentFilter;
+    const matchesSearch = pet.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          pet.type.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchesFilter && matchesSearch;
+  });
+  
+  // Update stats
+  updateStats();
+  
+  // Show/hide empty message
+  emptyMsg.hidden = filtered.length > 0;
+  
+  // Render table rows
+  tbody.innerHTML = filtered.map(pet => \`
+    <tr data-id="\${pet.id}">
+      <td><img src="\${pet.photo || 'https://via.placeholder.com/50'}" alt="\${pet.name}" class="pet-photo"></td>
+      <td><strong>\${pet.name}</strong><br><small>\${pet.breed || pet.type}</small></td>
+      <td>\${pet.type}</td>
+      <td>\${pet.age}</td>
+      <td><span class="status-badge status-\${pet.status}">\${pet.status}</span></td>
+      <td class="table-actions">
+        <button class="btn-icon btn-edit" onclick="editPet(\${pet.id})" aria-label="Edit">
+          <i data-lucide="pencil"></i>
+        </button>
+        <button class="btn-icon btn-delete" onclick="deletePet(\${pet.id})" aria-label="Delete">
+          <i data-lucide="trash-2"></i>
+        </button>
+      </td>
+    </tr>
+  \`).join('');
+  
+  // Re-initialize icons
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+}`,
+                        codeFile: 'script.js',
+                        tip: 'Template literals make it easy to create HTML with dynamic data!',
+                        explanation: 'What this does:\\n• Filters pets by status and search\\n• Creates table rows for each pet\\n• Shows status badges with colors\\n• Edit and delete buttons for each row'
+                    },
+                    {
+                        title: 'Add Stats Update Function',
+                        description: 'Let\'s create a function to update the stats bar!',
+                        instruction: 'Add this JavaScript:',
+                        code: `function updateStats() {
+  document.getElementById('totalPets').textContent = petsData.length;
+  document.getElementById('availablePets').textContent = 
+    petsData.filter(p => p.status === 'available').length;
+  document.getElementById('pendingPets').textContent = 
+    petsData.filter(p => p.status === 'pending').length;
+  document.getElementById('adoptedPets').textContent = 
+    petsData.filter(p => p.status === 'adopted').length;
+}
+
+function savePets() {
+  localStorage.setItem('shelterPets', JSON.stringify(petsData));
+}`,
+                        codeFile: 'script.js',
+                        tip: 'Keeping stats updated gives staff instant feedback!',
+                        explanation: 'What this does:\\n• Counts pets by status\\n• Updates the stats bar numbers\\n• savePets function persists to localStorage\\n• Called whenever pets change'
+                    },
+                    {
+                        title: 'Add Form Submission Handler',
+                        description: 'Let\'s handle form submission to add new pets!',
                         instruction: 'Add this JavaScript:',
                         code: `const petForm = document.getElementById('petForm');
+let currentPhotoData = null;
 
+petForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const formData = new FormData(petForm);
+  const newPet = {
+    id: Date.now(),
+    name: formData.get('petName'),
+    age: formData.get('petAge'),
+    type: formData.get('petType'),
+    breed: formData.get('petBreed'),
+    gender: formData.get('petGender'),
+    status: formData.get('petStatus'),
+    description: formData.get('petDescription'),
+    photo: currentPhotoData || 'https://via.placeholder.com/100'
+  };
+  
+  // Add to array and save
+  petsData.push(newPet);
+  savePets();
+  
+  // Reset form and photo
+  petForm.reset();
+  resetPhotoUpload();
+  currentPhotoData = null;
+  
+  // Re-render table
+  renderPets();
+  
+  // Show success message
+  showNotification('Pet added successfully!', 'success');
+});`,
+                        codeFile: 'script.js',
+                        tip: 'Always save to localStorage after modifying data!',
+                        explanation: 'What this does:\\n• Prevents default form submission\\n• Creates pet object from form data\\n• Adds to array and saves\\n• Resets form and re-renders table'
+                    },
+                    {
+                        title: 'Add Photo Upload Handler',
+                        description: 'Let\'s make the photo upload area work with click and drag-drop!',
+                        instruction: 'Add this JavaScript:',
+                        code: `const uploadArea = document.getElementById('uploadArea');
+const petPhotoInput = document.getElementById('petPhoto');
+const photoPreview = document.getElementById('photoPreview');
+const previewImage = document.getElementById('previewImage');
+const removePhotoBtn = document.getElementById('removePhoto');
+
+// Click to upload
+uploadArea.addEventListener('click', () => petPhotoInput.click());
+
+// Handle file selection
+petPhotoInput.addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (file) handlePhotoFile(file);
+});
+
+// Drag and drop
+uploadArea.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  uploadArea.classList.add('drag-over');
+});
+
+uploadArea.addEventListener('dragleave', () => {
+  uploadArea.classList.remove('drag-over');
+});
+
+uploadArea.addEventListener('drop', (e) => {
+  e.preventDefault();
+  uploadArea.classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) {
+    handlePhotoFile(file);
+  }
+});`,
+                        codeFile: 'script.js',
+                        tip: 'Drag-and-drop makes uploading photos much easier!',
+                        explanation: 'What this does:\\n• Click triggers file input\\n• Drag-over adds visual feedback\\n• Drop handles the file\\n• Only accepts image files'
+                    },
+                    {
+                        title: 'Add Photo Processing Function',
+                        description: 'Let\'s create a function to process and preview uploaded photos!',
+                        instruction: 'Add this JavaScript:',
+                        code: `function handlePhotoFile(file) {
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    currentPhotoData = e.target.result;
+    previewImage.src = currentPhotoData;
+    uploadArea.hidden = true;
+    photoPreview.hidden = false;
+  };
+  reader.readAsDataURL(file);
+}
+
+function resetPhotoUpload() {
+  uploadArea.hidden = false;
+  photoPreview.hidden = true;
+  petPhotoInput.value = '';
+  currentPhotoData = null;
+}
+
+// Remove photo button
+removePhotoBtn.addEventListener('click', resetPhotoUpload);`,
+                        codeFile: 'script.js',
+                        tip: 'FileReader converts images to data URLs for preview and storage!',
+                        explanation: 'What this does:\\n• Reads file as data URL\\n• Shows preview image\\n• Hides upload area\\n• Reset function restores original state'
+                    },
+                    {
+                        title: 'Add Search and Filter Handlers',
+                        description: 'Let\'s make the search and filter controls work!',
+                        instruction: 'Add this JavaScript:',
+                        code: `const searchInput = document.getElementById('searchPets');
+const filterSelect = document.getElementById('filterStatus');
+
+// Search handler
+searchInput.addEventListener('input', function(e) {
+  searchTerm = e.target.value;
+  renderPets();
+});
+
+// Filter handler
+filterSelect.addEventListener('change', function(e) {
+  currentFilter = e.target.value;
+  renderPets();
+});`,
+                        codeFile: 'script.js',
+                        tip: 'Real-time filtering makes finding pets super fast!',
+                        explanation: 'What this does:\\n• Updates search term on typing\\n• Updates filter on dropdown change\\n• Re-renders table with new filters\\n• No button needed - instant results'
+                    },
+                    {
+                        title: 'Add Delete Pet Function',
+                        description: 'Let\'s add the ability to delete pets with confirmation!',
+                        instruction: 'Add this JavaScript:',
+                        code: `function deletePet(id) {
+  const pet = petsData.find(p => p.id === id);
+  if (!pet) return;
+  
+  if (confirm(\`Are you sure you want to delete \${pet.name}? This cannot be undone.\`)) {
+    petsData = petsData.filter(p => p.id !== id);
+    savePets();
+    renderPets();
+    showNotification(\`\${pet.name} has been removed.\`, 'info');
+  }
+}`,
+                        codeFile: 'script.js',
+                        tip: 'Always confirm before deleting - accidents happen!',
+                        explanation: 'What this does:\\n• Finds pet by ID\\n• Shows confirmation dialog\\n• Removes from array if confirmed\\n• Saves and re-renders'
+                    },
+                    {
+                        title: 'Add Edit Pet Function',
+                        description: 'Let\'s add the ability to edit existing pets!',
+                        instruction: 'Add this JavaScript:',
+                        code: `let editingPetId = null;
+
+function editPet(id) {
+  const pet = petsData.find(p => p.id === id);
+  if (!pet) return;
+  
+  editingPetId = id;
+  
+  // Fill form with pet data
+  document.getElementById('petName').value = pet.name;
+  document.getElementById('petAge').value = pet.age;
+  document.getElementById('petType').value = pet.type;
+  document.getElementById('petBreed').value = pet.breed || '';
+  document.getElementById('petGender').value = pet.gender;
+  document.getElementById('petStatus').value = pet.status;
+  document.getElementById('petDescription').value = pet.description || '';
+  
+  // Show photo if exists
+  if (pet.photo && !pet.photo.includes('placeholder')) {
+    currentPhotoData = pet.photo;
+    previewImage.src = pet.photo;
+    uploadArea.hidden = true;
+    photoPreview.hidden = false;
+  }
+  
+  // Change button text
+  document.getElementById('addPetBtn').innerHTML = '<i data-lucide="save"></i> Update Pet';
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+  
+  // Scroll to form
+  petForm.scrollIntoView({ behavior: 'smooth' });
+}`,
+                        codeFile: 'script.js',
+                        tip: 'Reusing the add form for editing keeps the UI simple!',
+                        explanation: 'What this does:\\n• Stores ID of pet being edited\\n• Fills form with existing data\\n• Shows existing photo\\n• Changes button to "Update"\\n• Scrolls to form'
+                    },
+                    {
+                        title: 'Update Form Submit for Edit Mode',
+                        description: 'Let\'s modify the form submission to handle both add and edit!',
+                        instruction: 'Update the form submit handler:',
+                        code: `// Update the submit handler to check for edit mode
 petForm.addEventListener('submit', function(e) {
   e.preventDefault();
   
@@ -1989,72 +2699,161 @@ petForm.addEventListener('submit', function(e) {
     name: formData.get('petName'),
     age: formData.get('petAge'),
     type: formData.get('petType'),
+    breed: formData.get('petBreed'),
+    gender: formData.get('petGender'),
     status: formData.get('petStatus'),
-    id: Date.now()
+    description: formData.get('petDescription'),
+    photo: currentPhotoData || 'https://via.placeholder.com/100'
   };
   
-  // Save to localStorage
-  let pets = JSON.parse(localStorage.getItem('pets')) || [];
-  pets.push(petData);
-  localStorage.setItem('pets', JSON.stringify(pets));
-  
-  alert('Pet added successfully!');
-  petForm.reset();
-});`,
-                        codeFile: 'script.js',
-                        tip: 'localStorage keeps data even when the browser closes!',
-                        explanation: 'What this does:\\n• Prevents default form submission\\n• Collects form data\\n• Saves to localStorage\\n• Resets form after saving'
-                    },
-                    {
-                        title: 'Add Photo Upload JavaScript',
-                        description: 'Let\'s make the photo upload area work!',
-                        instruction: 'Add this JavaScript:',
-                        code: `const uploadArea = document.getElementById('uploadArea');
-const petPhotoInput = document.getElementById('petPhoto');
-
-uploadArea.addEventListener('click', () => {
-  petPhotoInput.click();
-});
-
-petPhotoInput.addEventListener('change', function(e) {
-  const file = e.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      uploadArea.innerHTML = \`
-        <img src="\${e.target.result}" style="max-width: 100px; border-radius: 8px;">
-        <p>Photo selected: \${file.name}</p>
-      \`;
-    };
-    reader.readAsDataURL(file);
+  if (editingPetId) {
+    // Update existing pet
+    const index = petsData.findIndex(p => p.id === editingPetId);
+    if (index !== -1) {
+      petsData[index] = { ...petsData[index], ...petData };
+      showNotification('Pet updated successfully!', 'success');
+    }
+    editingPetId = null;
+    document.getElementById('addPetBtn').innerHTML = '<i data-lucide="plus"></i> Add Pet';
+  } else {
+    // Add new pet
+    petData.id = Date.now();
+    petsData.push(petData);
+    showNotification('Pet added successfully!', 'success');
   }
+  
+  savePets();
+  petForm.reset();
+  resetPhotoUpload();
+  currentPhotoData = null;
+  renderPets();
+  if (typeof lucide !== 'undefined') lucide.createIcons();
 });`,
                         codeFile: 'script.js',
-                        tip: 'FileReader lets us preview images before uploading!',
-                        explanation: 'What this does:\\n• Makes upload area clickable\\n• Shows preview of selected image\\n• Displays filename for confirmation'
+                        tip: 'The spread operator merges existing data with updates!',
+                        explanation: 'What this does:\\n• Checks if editing or adding\\n• Updates existing pet if editing\\n• Adds new pet if not editing\\n• Resets edit mode after save'
                     },
                     {
-                        title: 'Add Clear Button JavaScript',
-                        description: 'Finally, let\'s make the clear button reset everything!',
+                        title: 'Add Notification System',
+                        description: 'Let\'s add a notification system for user feedback!',
+                        instruction: 'Add this JavaScript and CSS:',
+                        code: `function showNotification(message, type = 'info') {
+  // Remove existing notification
+  const existing = document.querySelector('.notification');
+  if (existing) existing.remove();
+  
+  // Create notification
+  const notification = document.createElement('div');
+  notification.className = \`notification notification-\${type}\`;
+  notification.innerHTML = \`
+    <i data-lucide="\${type === 'success' ? 'check-circle' : 'info'}"></i>
+    <span>\${message}</span>
+  \`;
+  
+  document.body.appendChild(notification);
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+  
+  // Auto-remove after 3 seconds
+  setTimeout(() => notification.remove(), 3000);
+}
+
+// Add notification CSS
+const notificationStyles = \`
+.notification {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  animation: slideIn 0.3s ease;
+  z-index: 1000;
+}
+.notification-success { background: #10b981; color: white; }
+.notification-info { background: #3b82f6; color: white; }
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+\`;`,
+                        codeFile: 'script.js',
+                        tip: 'Toast notifications give feedback without interrupting workflow!',
+                        explanation: 'What this does:\\n• Creates floating notification\\n• Different colors for success/info\\n• Auto-removes after 3 seconds\\n• Smooth slide-in animation'
+                    },
+                    {
+                        title: 'Add Clear Form Handler',
+                        description: 'Let\'s make the clear button reset everything properly!',
                         instruction: 'Add this JavaScript:',
                         code: `const clearBtn = document.getElementById('clearBtn');
 
 clearBtn.addEventListener('click', function() {
   petForm.reset();
-  uploadArea.innerHTML = \`
-    <div class="upload-icon">
-      <i data-lucide="camera"></i>
-    </div>
-    <p>Click to upload photo or drag and drop</p>
-  \`;
-  // Re-initialize Lucide icons
-  if (typeof lucide !== 'undefined') {
-    lucide.createIcons();
+  resetPhotoUpload();
+  currentPhotoData = null;
+  
+  // Reset edit mode if active
+  if (editingPetId) {
+    editingPetId = null;
+    document.getElementById('addPetBtn').innerHTML = '<i data-lucide="plus"></i> Add Pet';
+    if (typeof lucide !== 'undefined') lucide.createIcons();
   }
 });`,
                         codeFile: 'script.js',
-                        tip: 'Don\'t forget to restore the upload area\'s original content!',
-                        explanation: 'What this does:\\n• Resets all form fields\\n• Restores upload area to original state\\n• Re-initializes icons if needed'
+                        tip: 'Clear should also cancel any edit in progress!',
+                        explanation: 'What this does:\\n• Resets all form fields\\n• Clears photo upload\\n• Cancels edit mode\\n• Restores Add button text'
+                    },
+                    {
+                        title: 'Initialize and Make Responsive',
+                        description: 'Let\'s initialize everything and add responsive styles!',
+                        instruction: 'Add this JavaScript and CSS:',
+                        code: `// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+  renderPets();
+  console.log('Pet Admin Panel initialized with', petsData.length, 'pets');
+});
+
+/* Add to styles.css */
+@media (max-width: 768px) {
+  .pet-admin-panel {
+    padding: 1rem;
+    margin: 1rem;
+  }
+  
+  .admin-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .stats-bar {
+    flex-wrap: wrap;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-actions {
+    flex-direction: column;
+  }
+  
+  .list-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .list-controls {
+    flex-direction: column;
+  }
+  
+  .search-input {
+    width: 100%;
+  }
+}`,
+                        codeFile: 'script.js',
+                        tip: 'Mobile-first design ensures the admin panel works on tablets too!',
+                        explanation: 'What this does:\\n• Initializes on page load\\n• Stacks elements on mobile\\n• Full-width inputs on small screens\\n• Maintains usability on all devices'
                     }
                 ],
                 learningObjectives: [

@@ -926,8 +926,9 @@ const IntermediateComponentData = {
                     {
                         title: 'Add Before and After Images',
                         description: 'Now let\'s add the before and after images that users will compare by dragging the slider.',
-                        instruction: 'Add these image elements inside the slider-images div:',
-                        code: `        <div class="image-container before-image">
+                        instruction: 'Replace the comment <!-- Images will go here --> with these image elements:',
+                        code: `      <div class="slider-images">
+        <div class="image-container before-image">
           <img src="https://picsum.photos/600/400?random=1" alt="Before image" class="slider-img">
           <div class="image-label">Before</div>
         </div>
@@ -935,7 +936,8 @@ const IntermediateComponentData = {
         <div class="image-container after-image">
           <img src="https://picsum.photos/600/400?random=2" alt="After image" class="slider-img">
           <div class="image-label">After</div>
-        </div>`,
+        </div>
+      </div>`,
                         codeFile: 'index.html',
                         tip: 'Using placeholder images from Picsum lets you test the slider before adding your own images!',
                         explanation: 'What we just added:\n• <div class="image-container before-image"> - Container for the "before" image\n• <img class="slider-img"> - The actual before image\n• <div class="image-label"> - Text label that says "Before"\n• <div class="image-container after-image"> - Container for the "after" image\n• Same structure for the after image with "After" label\n• alt attributes - Describe images for screen readers\n\nBoth images will be positioned on top of each other, and we\'ll use CSS to reveal portions of each.',
@@ -959,13 +961,15 @@ const IntermediateComponentData = {
                     {
                         title: 'Add Slider Handle',
                         description: 'Let\'s add the draggable handle that users will use to control the slider.',
-                        instruction: 'Add this slider handle after the images:',
-                        code: `        <div class="slider-handle" id="sliderHandle">
-          <div class="handle-line"></div>
-          <div class="handle-circle">
-            <i data-lucide="move-horizontal"></i>
-          </div>
-        </div>`,
+                        instruction: 'Add this slider handle right after the closing </div> of slider-images, but still inside the before-after-slider div:',
+                        code: `      <!-- Add this after </div> of slider-images -->
+      <div class="slider-handle" id="sliderHandle">
+        <div class="handle-line"></div>
+        <div class="handle-circle">
+          <i data-lucide="move-horizontal"></i>
+        </div>
+      </div>
+    </div> <!-- closes before-after-slider -->`,
                         codeFile: 'index.html',
                         tip: 'The move-horizontal icon clearly shows users that they can drag this element!',
                         explanation: 'What we just added:\n• <div class="slider-handle"> - The draggable control element\n• id="sliderHandle" - ID for JavaScript to make it draggable\n• <div class="handle-line"> - Vertical line that shows the split between images\n• <div class="handle-circle"> - Circular button that users can grab\n• <i data-lucide="move-horizontal"> - Icon showing horizontal movement\n\nThis creates the interactive element that users will drag to compare the images.',
@@ -1087,7 +1091,7 @@ const IntermediateComponentData = {
                     },
                     {
                         title: 'Style the Slider Handle',
-                        description: 'Finally, let\'s style the draggable handle that controls the image comparison.',
+                        description: 'Now let\'s style the draggable handle that controls the image comparison.',
                         instruction: 'Add this CSS for the slider handle:',
                         code: `.slider-handle {
   position: absolute;
@@ -1138,6 +1142,87 @@ const IntermediateComponentData = {
                                     value: '.slider-handle',
                                     message: 'Add CSS styling for the slider handle!',
                                     hint: 'Style the .slider-handle with positioning and cursor'
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        title: 'Make the Slider Interactive',
+                        description: 'Finally, let\'s add JavaScript to make the slider actually work! When users drag the handle, we\'ll update the clip-path to reveal more or less of the after image.',
+                        instruction: 'Add this JavaScript to make the slider draggable:',
+                        code: `// Get the slider elements
+const slider = document.getElementById('beforeAfterSlider');
+const handle = document.querySelector('.slider-handle');
+const afterImage = document.querySelector('.after-image');
+
+// Track if user is currently dragging
+let isDragging = false;
+
+// Function to update slider position
+function updateSliderPosition(x) {
+  // Get slider boundaries
+  const sliderRect = slider.getBoundingClientRect();
+  
+  // Calculate position as percentage (0 to 100)
+  let percentage = ((x - sliderRect.left) / sliderRect.width) * 100;
+  
+  // Keep percentage between 0 and 100
+  percentage = Math.max(0, Math.min(100, percentage));
+  
+  // Move the handle to new position
+  handle.style.left = percentage + '%';
+  
+  // Update clip-path to reveal that much of the after image
+  afterImage.style.clipPath = 'inset(0 ' + (100 - percentage) + '% 0 0)';
+}
+
+// When mouse button is pressed on handle, start dragging
+handle.addEventListener('mousedown', function() {
+  isDragging = true;
+});
+
+// When mouse moves anywhere on page while dragging
+document.addEventListener('mousemove', function(e) {
+  if (isDragging) {
+    updateSliderPosition(e.clientX);
+  }
+});
+
+// When mouse button is released, stop dragging
+document.addEventListener('mouseup', function() {
+  isDragging = false;
+});
+
+// Also support touch devices (mobile/tablet)
+handle.addEventListener('touchstart', function() {
+  isDragging = true;
+});
+
+document.addEventListener('touchmove', function(e) {
+  if (isDragging) {
+    updateSliderPosition(e.touches[0].clientX);
+  }
+});
+
+document.addEventListener('touchend', function() {
+  isDragging = false;
+});`,
+                        codeFile: 'script.js',
+                        tip: 'We listen for mouse events on the whole document so dragging works even if the cursor moves outside the handle!',
+                        explanation: 'How the JavaScript works:\n\n1. Get elements: We grab the slider, handle, and after-image using their IDs and classes.\n\n2. Track dragging: The isDragging variable remembers if the user is currently dragging.\n\n3. updateSliderPosition function:\n   • Gets the slider\'s position on screen with getBoundingClientRect()\n   • Calculates what percentage across the slider the mouse is\n   • Clamps the value between 0-100 so it can\'t go outside\n   • Moves the handle by setting its left position\n   • Updates clip-path to show that percentage of the after image\n\n4. Event listeners:\n   • mousedown on handle: Start dragging\n   • mousemove on document: Update position while dragging\n   • mouseup on document: Stop dragging\n   • Touch events: Same logic for mobile devices\n\nNow try dragging the handle left and right to compare the images!',
+                        validation: {
+                            required: [
+                                {
+                                    type: 'function',
+                                    value: 'updateSliderPosition',
+                                    message: 'Add the updateSliderPosition function!',
+                                    hint: 'This function calculates and applies the new slider position'
+                                },
+                                {
+                                    type: 'keyword',
+                                    value: 'addEventListener',
+                                    message: 'Add event listeners for mouse interactions!',
+                                    hint: 'Use addEventListener to handle mousedown, mousemove, and mouseup'
                                 }
                             ]
                         }
