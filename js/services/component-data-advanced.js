@@ -554,7 +554,7 @@ clearBtn.addEventListener('click', function() {
             </div>`,
             workshop: {
                 goal: 'Create an advanced game database with API integration and complex search',
-                duration: '150 minutes',
+                duration: '180 minutes',
                 steps: [
                     {
                         title: 'Create the Database Container',
@@ -562,65 +562,170 @@ clearBtn.addEventListener('click', function() {
                         instruction: 'Add this HTML structure:',
                         code: `<div class="game-database">
   <div class="database-header">
-    <h2>Game Database</h2>
-    <p>Explore thousands of games</p>
+    <div class="header-icon">
+      <i data-lucide="gamepad-2"></i>
+    </div>
+    <div class="header-text">
+      <h2>Game Database</h2>
+      <p>Explore thousands of games</p>
+    </div>
   </div>
 </div>`,
                         codeFile: 'index.html',
                         tip: 'Dark themes are popular for gaming websites - they reduce eye strain during long sessions!',
-                        explanation: 'What this creates:\\n• Main container with game-database class\\n• Header section with title and subtitle\\n• We\'ll add search and filters next'
+                        explanation: 'What this creates:\\n• Main container with game-database class\\n• Header with gamepad icon using Lucide\\n• Title and subtitle for the database\\n• We\'ll add search and filters next'
+                    },
+                    {
+                        title: 'Add Stats Summary Bar',
+                        description: 'Let\'s add a stats bar showing how many games are in our database!',
+                        instruction: 'Add this stats section after the header:',
+                        code: `  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-number" id="totalGames">0</span>
+      <span class="stat-label">Total Games</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number" id="genreCount">5</span>
+      <span class="stat-label">Genres</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number" id="avgRating">4.5</span>
+      <span class="stat-label">Avg Rating</span>
+    </div>
+  </div>`,
+                        codeFile: 'index.html',
+                        tip: 'Stats give users a quick overview of the database size and quality!',
+                        explanation: 'What this adds:\\n• Three stat boxes showing database info\\n• IDs for updating with JavaScript later\\n• Labels explaining each number'
                     },
                     {
                         title: 'Add the Search Bar',
-                        description: 'Now let\'s add a search bar so users can find games quickly!',
+                        description: 'Now let\'s add a powerful search bar so users can find games quickly!',
                         instruction: 'Add this search section inside the database container:',
                         code: `  <div class="search-section">
     <div class="search-bar">
-      <input type="text" id="gameSearch" placeholder="Search games..." class="search-input">
+      <i data-lucide="search" class="search-icon"></i>
+      <input type="text" id="gameSearch" placeholder="Search by title, genre, or year..." class="search-input">
       <button class="search-btn" aria-label="Search">
-        <i data-lucide="search"></i>
+        Search
       </button>
     </div>
   </div>`,
                         codeFile: 'index.html',
-                        tip: 'Using Lucide icons keeps the interface clean and professional!',
-                        explanation: 'What this adds:\\n• Search input with placeholder text\\n• Search button with icon\\n• aria-label for accessibility'
+                        tip: 'A search icon inside the input makes it instantly recognizable!',
+                        explanation: 'What this adds:\\n• Search input with descriptive placeholder\\n• Icon inside the input field\\n• Search button for explicit searching\\n• aria-label for accessibility'
+                    },
+                    {
+                        title: 'Add Sort Dropdown',
+                        description: 'Let\'s add a dropdown so users can sort games by different criteria!',
+                        instruction: 'Add this sort dropdown after the search bar:',
+                        code: `  <div class="sort-section">
+    <label for="sortSelect">Sort by:</label>
+    <select id="sortSelect" class="sort-select">
+      <option value="rating">Highest Rated</option>
+      <option value="newest">Newest First</option>
+      <option value="oldest">Oldest First</option>
+      <option value="title">Title A-Z</option>
+    </select>
+  </div>`,
+                        codeFile: 'index.html',
+                        tip: 'Sorting options help users find exactly what they\'re looking for!',
+                        explanation: 'What this adds:\\n• Label for accessibility\\n• Dropdown with common sort options\\n• Value attributes for JavaScript sorting'
                     },
                     {
                         title: 'Add Filter Tags',
                         description: 'Let\'s add genre filter tags so users can browse by category!',
-                        instruction: 'Add these filter tags after the search section:',
-                        code: `  <div class="filter-tags">
-    <button class="filter-tag active" data-genre="all">All</button>
-    <button class="filter-tag" data-genre="action">Action</button>
-    <button class="filter-tag" data-genre="rpg">RPG</button>
-    <button class="filter-tag" data-genre="strategy">Strategy</button>
-    <button class="filter-tag" data-genre="sports">Sports</button>
-  </div>`,
-                        codeFile: 'index.html',
-                        tip: 'data-genre attributes will help us filter games with JavaScript later!',
-                        explanation: 'What this adds:\\n• Filter buttons for each genre\\n• "active" class shows current selection\\n• data-genre stores the filter value'
-                    },
-                    {
-                        title: 'Add the Games Grid',
-                        description: 'Now let\'s create a grid to display our game cards!',
-                        instruction: 'Add this games grid section:',
-                        code: `  <div class="games-grid" id="gamesGrid">
-    <div class="game-card">
-      <div class="game-image" style="background: #4f46e5;"></div>
-      <div class="game-info">
-        <h4 class="game-title">Super Adventure</h4>
-        <div class="game-meta">
-          <span class="game-rating"><i data-lucide="star"></i> 4.8</span>
-          <span class="game-year">2023</span>
-          <span class="game-genre">Action</span>
-        </div>
-      </div>
+                        instruction: 'Add these filter tags after the sort section:',
+                        code: `  <div class="filter-section">
+    <p class="filter-label">Filter by Genre:</p>
+    <div class="filter-tags">
+      <button class="filter-tag active" data-genre="all">
+        <i data-lucide="layers"></i> All
+      </button>
+      <button class="filter-tag" data-genre="action">
+        <i data-lucide="swords"></i> Action
+      </button>
+      <button class="filter-tag" data-genre="rpg">
+        <i data-lucide="wand-2"></i> RPG
+      </button>
+      <button class="filter-tag" data-genre="strategy">
+        <i data-lucide="brain"></i> Strategy
+      </button>
+      <button class="filter-tag" data-genre="sports">
+        <i data-lucide="trophy"></i> Sports
+      </button>
+      <button class="filter-tag" data-genre="puzzle">
+        <i data-lucide="puzzle"></i> Puzzle
+      </button>
     </div>
   </div>`,
                         codeFile: 'index.html',
-                        tip: 'We\'ll duplicate this card structure for more games!',
-                        explanation: 'What this creates:\\n• Grid container for game cards\\n• Sample game card with image placeholder\\n• Game info with rating, year, and genre'
+                        tip: 'Icons make filter tags more visually appealing and easier to scan!',
+                        explanation: 'What this adds:\\n• Filter label for clarity\\n• Six genre filter buttons with icons\\n• data-genre attributes for JavaScript filtering\\n• "active" class shows current selection'
+                    },
+                    {
+                        title: 'Add Results Count',
+                        description: 'Let\'s show users how many games match their search/filter!',
+                        instruction: 'Add this results indicator:',
+                        code: `  <div class="results-info">
+    <span id="resultsCount">Showing 0 games</span>
+    <button class="clear-filters" id="clearFilters">
+      <i data-lucide="x"></i> Clear Filters
+    </button>
+  </div>`,
+                        codeFile: 'index.html',
+                        tip: 'Showing result counts helps users know if they need to adjust their search!',
+                        explanation: 'What this adds:\\n• Dynamic results count\\n• Clear filters button to reset\\n• Will be updated by JavaScript'
+                    },
+                    {
+                        title: 'Add the Games Grid Container',
+                        description: 'Now let\'s create the grid container for our game cards!',
+                        instruction: 'Add this games grid section:',
+                        code: `  <div class="games-grid" id="gamesGrid">
+    <!-- Game cards will be inserted here by JavaScript -->
+  </div>
+  
+  <div class="load-more-section">
+    <button class="load-more-btn" id="loadMoreBtn">
+      <i data-lucide="plus"></i> Load More Games
+    </button>
+  </div>`,
+                        codeFile: 'index.html',
+                        tip: 'Loading games in batches improves performance for large databases!',
+                        explanation: 'What this creates:\\n• Empty grid container for game cards\\n• Cards will be added dynamically\\n• Load more button for pagination'
+                    },
+                    {
+                        title: 'Create a Game Card Template',
+                        description: 'Let\'s add a sample game card to see the structure!',
+                        instruction: 'Add this sample card inside the games-grid:',
+                        code: `    <article class="game-card" data-genre="action" data-year="2023" data-rating="4.8">
+      <div class="game-image">
+        <img src="https://picsum.photos/300/200?random=1" alt="Super Adventure">
+        <span class="game-badge">New</span>
+      </div>
+      <div class="game-info">
+        <div class="game-header">
+          <h3 class="game-title">Super Adventure</h3>
+          <button class="favorite-btn" aria-label="Add to favorites">
+            <i data-lucide="heart"></i>
+          </button>
+        </div>
+        <p class="game-description">An epic journey through mystical lands filled with danger and discovery.</p>
+        <div class="game-meta">
+          <span class="game-rating">
+            <i data-lucide="star"></i> 4.8
+          </span>
+          <span class="game-year">2023</span>
+          <span class="game-genre">Action</span>
+        </div>
+        <div class="game-actions">
+          <button class="btn-primary">View Details</button>
+          <button class="btn-secondary">Add to List</button>
+        </div>
+      </div>
+    </article>`,
+                        codeFile: 'index.html',
+                        tip: 'Using <article> is semantic HTML - it tells browsers this is self-contained content!',
+                        explanation: 'What this card includes:\\n• Image with badge overlay\\n• Title with favorite button\\n• Description text\\n• Rating, year, and genre meta\\n• Action buttons for interaction'
                     },
                     {
                         title: 'Style the Database Container',
@@ -631,84 +736,190 @@ clearBtn.addEventListener('click', function() {
   color: white;
   padding: 2rem;
   border-radius: 16px;
-  max-width: 900px;
+  max-width: 1000px;
   margin: 2rem auto;
 }
 
 .database-header {
-  text-align: center;
-  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-.database-header h2 {
+.header-icon {
+  width: 50px;
+  height: 50px;
+  background: #4f46e5;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-text h2 {
   margin: 0;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
 }
 
-.database-header p {
-  margin: 0.5rem 0 0;
+.header-text p {
+  margin: 0.25rem 0 0;
   color: #9ca3af;
+  font-size: 0.9rem;
 }`,
                         codeFile: 'styles.css',
                         tip: 'Dark backgrounds with light text create that gaming aesthetic!',
-                        explanation: 'What this styling does:\\n• Dark gray background (#1f2937)\\n• White text for contrast\\n• Centered header with subtle subtitle'
+                        explanation: 'What this styling does:\\n• Dark gray background (#1f2937)\\n• Purple icon for gaming feel\\n• Flexbox header layout\\n• Subtle subtitle color'
+                    },
+                    {
+                        title: 'Style the Stats Bar',
+                        description: 'Let\'s make the stats bar look impressive!',
+                        instruction: 'Add this CSS:',
+                        code: `.stats-bar {
+  display: flex;
+  justify-content: space-around;
+  background: #374151;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #10b981;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}`,
+                        codeFile: 'styles.css',
+                        tip: 'Green numbers stand out and feel positive!',
+                        explanation: 'What this does:\\n• Darker background for contrast\\n• Evenly spaced stats\\n• Large green numbers\\n• Small uppercase labels'
                     },
                     {
                         title: 'Style the Search Bar',
                         description: 'Let\'s make the search bar look modern and easy to use!',
                         instruction: 'Add this CSS:',
                         code: `.search-section {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .search-bar {
   display: flex;
+  align-items: center;
   gap: 0.5rem;
+  background: #374151;
+  padding: 0.5rem;
+  border-radius: 12px;
+}
+
+.search-icon {
+  padding: 0 0.5rem;
+  color: #9ca3af;
 }
 
 .search-input {
   flex: 1;
-  padding: 0.75rem 1rem;
-  border: 1px solid #374151;
-  background: #374151;
+  padding: 0.75rem;
+  border: none;
+  background: transparent;
   color: white;
-  border-radius: 8px;
   font-size: 1rem;
 }
 
 .search-input::placeholder {
-  color: #9ca3af;
+  color: #6b7280;
+}
+
+.search-input:focus {
+  outline: none;
 }
 
 .search-btn {
-  padding: 0.75rem 1rem;
-  background: #3b82f6;
+  padding: 0.75rem 1.5rem;
+  background: #4f46e5;
   color: white;
   border: none;
   border-radius: 8px;
+  font-weight: 600;
   cursor: pointer;
   transition: background 0.3s;
 }
 
 .search-btn:hover {
-  background: #2563eb;
+  background: #4338ca;
 }`,
                         codeFile: 'styles.css',
-                        tip: 'The blue search button creates a nice accent against the dark theme!',
-                        explanation: 'What this does:\\n• Flexbox layout for input and button\\n• Dark input field that matches theme\\n• Blue accent button for the search action'
+                        tip: 'The contained search bar feels more polished than a plain input!',
+                        explanation: 'What this does:\\n• Contained search bar design\\n• Icon inside the bar\\n• Purple accent button\\n• Smooth hover transition'
+                    },
+                    {
+                        title: 'Style the Sort Dropdown',
+                        description: 'Let\'s style the sort dropdown to match our theme!',
+                        instruction: 'Add this CSS:',
+                        code: `.sort-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.sort-section label {
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+.sort-select {
+  padding: 0.5rem 1rem;
+  background: #374151;
+  color: white;
+  border: 1px solid #4b5563;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.sort-select:focus {
+  outline: none;
+  border-color: #4f46e5;
+}`,
+                        codeFile: 'styles.css',
+                        tip: 'Custom styled selects look much better than browser defaults!',
+                        explanation: 'What this does:\\n• Inline label and dropdown\\n• Dark themed select\\n• Purple focus border\\n• Consistent styling'
                     },
                     {
                         title: 'Style the Filter Tags',
-                        description: 'Let\'s make the genre filters look like clickable pills!',
+                        description: 'Let\'s make the genre filters look like clickable pills with icons!',
                         instruction: 'Add this CSS:',
-                        code: `.filter-tags {
+                        code: `.filter-section {
+  margin-bottom: 1rem;
+}
+
+.filter-label {
+  color: #9ca3af;
+  font-size: 0.85rem;
+  margin: 0 0 0.75rem;
+}
+
+.filter-tags {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
-  margin-bottom: 1.5rem;
 }
 
 .filter-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.5rem 1rem;
   background: #374151;
   color: #9ca3af;
@@ -727,10 +938,55 @@ clearBtn.addEventListener('click', function() {
 .filter-tag.active {
   background: #10b981;
   color: white;
+}
+
+.filter-tag i {
+  width: 16px;
+  height: 16px;
 }`,
                         codeFile: 'styles.css',
-                        tip: 'The green active state clearly shows which filter is selected!',
-                        explanation: 'What this does:\\n• Pill-shaped buttons with border-radius\\n• Gray inactive, green active state\\n• Hover effects for interactivity'
+                        tip: 'Icons make filters more scannable and visually interesting!',
+                        explanation: 'What this does:\\n• Pill-shaped buttons\\n• Icons aligned with text\\n• Green active state\\n• Smooth hover transitions'
+                    },
+                    {
+                        title: 'Style the Results Info',
+                        description: 'Let\'s style the results count and clear button!',
+                        instruction: 'Add this CSS:',
+                        code: `.results-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #374151;
+}
+
+.results-info span {
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+.clear-filters {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  color: #ef4444;
+  border: 1px solid #ef4444;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.clear-filters:hover {
+  background: #ef4444;
+  color: white;
+}`,
+                        codeFile: 'styles.css',
+                        tip: 'Red for the clear button signals a destructive/reset action!',
+                        explanation: 'What this does:\\n• Space between count and button\\n• Subtle border separator\\n• Red outlined clear button\\n• Fills on hover'
                     },
                     {
                         title: 'Style the Games Grid',
@@ -738,8 +994,9 @@ clearBtn.addEventListener('click', function() {
                         instruction: 'Add this CSS:',
                         code: `.games-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .game-card {
@@ -750,38 +1007,112 @@ clearBtn.addEventListener('click', function() {
 }
 
 .game-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
-
-.game-image {
-  height: 150px;
-  background-size: cover;
-  background-position: center;
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }`,
                         codeFile: 'styles.css',
                         tip: 'auto-fill with minmax creates a responsive grid automatically!',
-                        explanation: 'What this does:\\n• Responsive grid that adjusts to screen size\\n• Cards lift on hover for interactivity\\n• Image area for game artwork'
+                        explanation: 'What this does:\\n• Responsive grid layout\\n• Cards at least 280px wide\\n• Lift effect on hover\\n• Strong shadow for depth'
                     },
                     {
-                        title: 'Style the Game Info',
-                        description: 'Let\'s style the game details section of each card!',
+                        title: 'Style the Game Card Image',
+                        description: 'Let\'s style the image area with the badge overlay!',
+                        instruction: 'Add this CSS:',
+                        code: `.game-image {
+  position: relative;
+  height: 160px;
+  overflow: hidden;
+}
+
+.game-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.game-card:hover .game-image img {
+  transform: scale(1.1);
+}
+
+.game-badge {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  background: #10b981;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}`,
+                        codeFile: 'styles.css',
+                        tip: 'The zoom effect on hover makes cards feel interactive!',
+                        explanation: 'What this does:\\n• Fixed height image area\\n• Image zooms on card hover\\n• Badge positioned in corner\\n• Green badge for "New" games'
+                    },
+                    {
+                        title: 'Style the Game Info Section',
+                        description: 'Let\'s style the game details area!',
                         instruction: 'Add this CSS:',
                         code: `.game-info {
   padding: 1rem;
 }
 
-.game-title {
-  margin: 0 0 0.5rem;
-  font-size: 1rem;
-  color: white;
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
 }
 
-.game-meta {
-  display: flex;
-  gap: 1rem;
-  font-size: 0.8rem;
+.game-title {
+  margin: 0;
+  font-size: 1.1rem;
+  color: white;
+  flex: 1;
+}
+
+.favorite-btn {
+  background: none;
+  border: none;
   color: #9ca3af;
+  cursor: pointer;
+  padding: 0.25rem;
+  transition: color 0.3s;
+}
+
+.favorite-btn:hover {
+  color: #ef4444;
+}
+
+.favorite-btn.active {
+  color: #ef4444;
+}
+
+.game-description {
+  margin: 0 0 0.75rem;
+  font-size: 0.85rem;
+  color: #9ca3af;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}`,
+                        codeFile: 'styles.css',
+                        tip: 'The line-clamp limits description to 2 lines with ellipsis!',
+                        explanation: 'What this does:\\n• Title with favorite button\\n• Heart turns red on hover\\n• Description truncated to 2 lines\\n• Clean spacing throughout'
+                    },
+                    {
+                        title: 'Style the Game Meta Info',
+                        description: 'Let\'s style the rating, year, and genre tags!',
+                        instruction: 'Add this CSS:',
+                        code: `.game-meta {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
 }
 
 .game-rating {
@@ -789,38 +1120,290 @@ clearBtn.addEventListener('click', function() {
   align-items: center;
   gap: 0.25rem;
   color: #fbbf24;
+  font-weight: 600;
+}
+
+.game-rating i {
+  width: 14px;
+  height: 14px;
+}
+
+.game-year {
+  color: #9ca3af;
+}
+
+.game-genre {
+  background: #4b5563;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  color: #d1d5db;
 }`,
                         codeFile: 'styles.css',
-                        tip: 'Yellow star ratings are instantly recognizable!',
-                        explanation: 'What this does:\\n• Clean padding around game info\\n• Meta info displayed in a row\\n• Yellow color for star ratings'
+                        tip: 'Yellow stars are universally recognized for ratings!',
+                        explanation: 'What this does:\\n• Horizontal meta layout\\n• Yellow star rating\\n• Gray year text\\n• Pill-style genre tag'
                     },
                     {
-                        title: 'Add Search JavaScript',
-                        description: 'Let\'s make the search bar actually filter games!',
+                        title: 'Style the Game Action Buttons',
+                        description: 'Let\'s style the View Details and Add to List buttons!',
+                        instruction: 'Add this CSS:',
+                        code: `.game-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.game-actions .btn-primary {
+  flex: 1;
+  padding: 0.6rem;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.game-actions .btn-primary:hover {
+  background: #4338ca;
+}
+
+.game-actions .btn-secondary {
+  padding: 0.6rem 0.75rem;
+  background: transparent;
+  color: #9ca3af;
+  border: 1px solid #4b5563;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.game-actions .btn-secondary:hover {
+  background: #4b5563;
+  color: white;
+}`,
+                        codeFile: 'styles.css',
+                        tip: 'Primary button takes more space, secondary is compact!',
+                        explanation: 'What this does:\\n• Primary button fills space\\n• Secondary button outlined\\n• Hover effects on both\\n• Consistent border radius'
+                    },
+                    {
+                        title: 'Style the Load More Button',
+                        description: 'Let\'s style the pagination button!',
+                        instruction: 'Add this CSS:',
+                        code: `.load-more-section {
+  text-align: center;
+}
+
+.load-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: transparent;
+  color: #9ca3af;
+  border: 2px solid #4b5563;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.load-more-btn:hover {
+  background: #4b5563;
+  color: white;
+  border-color: #4b5563;
+}
+
+.load-more-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}`,
+                        codeFile: 'styles.css',
+                        tip: 'Outlined buttons work well for secondary actions!',
+                        explanation: 'What this does:\\n• Centered button\\n• Outlined style\\n• Fills on hover\\n• Disabled state for when no more games'
+                    },
+                    {
+                        title: 'Create the Game Data Array',
+                        description: 'Let\'s create a JavaScript array to store our game data!',
+                        instruction: 'Add this JavaScript:',
+                        code: `// Game database
+const gamesData = [
+  {
+    id: 1,
+    title: 'Super Adventure',
+    description: 'An epic journey through mystical lands filled with danger and discovery.',
+    genre: 'action',
+    year: 2023,
+    rating: 4.8,
+    image: 'https://picsum.photos/300/200?random=1',
+    isNew: true
+  },
+  {
+    id: 2,
+    title: 'Dragon Quest XI',
+    description: 'A classic RPG experience with stunning visuals and deep storytelling.',
+    genre: 'rpg',
+    year: 2022,
+    rating: 4.9,
+    image: 'https://picsum.photos/300/200?random=2',
+    isNew: false
+  },
+  {
+    id: 3,
+    title: 'Chess Masters',
+    description: 'Test your strategic thinking against AI or players worldwide.',
+    genre: 'strategy',
+    year: 2023,
+    rating: 4.5,
+    image: 'https://picsum.photos/300/200?random=3',
+    isNew: true
+  },
+  {
+    id: 4,
+    title: 'Soccer Pro 2024',
+    description: 'The most realistic soccer simulation with licensed teams.',
+    genre: 'sports',
+    year: 2024,
+    rating: 4.7,
+    image: 'https://picsum.photos/300/200?random=4',
+    isNew: true
+  },
+  {
+    id: 5,
+    title: 'Mind Bender',
+    description: 'Challenge your brain with hundreds of unique puzzles.',
+    genre: 'puzzle',
+    year: 2021,
+    rating: 4.3,
+    image: 'https://picsum.photos/300/200?random=5',
+    isNew: false
+  }
+];
+
+// State management
+let filteredGames = [...gamesData];
+let currentGenre = 'all';
+let currentSort = 'rating';
+let favorites = JSON.parse(localStorage.getItem('gameFavorites')) || [];`,
+                        codeFile: 'script.js',
+                        tip: 'Storing data in arrays makes it easy to filter and sort!',
+                        explanation: 'What this does:\\n• Creates sample game data\\n• Each game has all needed properties\\n• State variables track current filters\\n• Favorites saved to localStorage'
+                    },
+                    {
+                        title: 'Create the Render Function',
+                        description: 'Let\'s create a function to render game cards from our data!',
+                        instruction: 'Add this JavaScript:',
+                        code: `function renderGames(games) {
+  const gamesGrid = document.getElementById('gamesGrid');
+  const resultsCount = document.getElementById('resultsCount');
+  const totalGames = document.getElementById('totalGames');
+  
+  // Update counts
+  resultsCount.textContent = \`Showing \${games.length} games\`;
+  totalGames.textContent = gamesData.length;
+  
+  // Clear existing cards
+  gamesGrid.innerHTML = '';
+  
+  // Render each game
+  games.forEach(game => {
+    const isFavorite = favorites.includes(game.id);
+    const card = document.createElement('article');
+    card.className = 'game-card';
+    card.dataset.genre = game.genre;
+    card.dataset.year = game.year;
+    card.dataset.rating = game.rating;
+    
+    card.innerHTML = \`
+      <div class="game-image">
+        <img src="\${game.image}" alt="\${game.title}">
+        \${game.isNew ? '<span class="game-badge">New</span>' : ''}
+      </div>
+      <div class="game-info">
+        <div class="game-header">
+          <h3 class="game-title">\${game.title}</h3>
+          <button class="favorite-btn \${isFavorite ? 'active' : ''}" data-id="\${game.id}" aria-label="Add to favorites">
+            <i data-lucide="heart"></i>
+          </button>
+        </div>
+        <p class="game-description">\${game.description}</p>
+        <div class="game-meta">
+          <span class="game-rating">
+            <i data-lucide="star"></i> \${game.rating}
+          </span>
+          <span class="game-year">\${game.year}</span>
+          <span class="game-genre">\${game.genre}</span>
+        </div>
+        <div class="game-actions">
+          <button class="btn-primary">View Details</button>
+          <button class="btn-secondary">Add to List</button>
+        </div>
+      </div>
+    \`;
+    
+    gamesGrid.appendChild(card);
+  });
+  
+  // Re-initialize Lucide icons
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+  
+  // Add favorite button listeners
+  addFavoriteListeners();
+}`,
+                        codeFile: 'script.js',
+                        tip: 'Template literals make it easy to create HTML with dynamic data!',
+                        explanation: 'What this does:\\n• Clears existing cards\\n• Creates card HTML for each game\\n• Checks if game is favorited\\n• Updates result counts\\n• Re-initializes icons'
+                    },
+                    {
+                        title: 'Add Search Functionality',
+                        description: 'Let\'s make the search bar filter games in real-time!',
                         instruction: 'Add this JavaScript:',
                         code: `const searchInput = document.getElementById('gameSearch');
-const gamesGrid = document.getElementById('gamesGrid');
 
 searchInput.addEventListener('input', function(e) {
-  const searchTerm = e.target.value.toLowerCase();
-  const gameCards = gamesGrid.querySelectorAll('.game-card');
+  const searchTerm = e.target.value.toLowerCase().trim();
   
-  gameCards.forEach(card => {
-    const title = card.querySelector('.game-title').textContent.toLowerCase();
-    if (title.includes(searchTerm)) {
-      card.style.display = 'block';
-    } else {
-      card.style.display = 'none';
-    }
+  filteredGames = gamesData.filter(game => {
+    // Search in title, description, and genre
+    return game.title.toLowerCase().includes(searchTerm) ||
+           game.description.toLowerCase().includes(searchTerm) ||
+           game.genre.toLowerCase().includes(searchTerm) ||
+           game.year.toString().includes(searchTerm);
   });
-});`,
+  
+  // Apply current genre filter too
+  if (currentGenre !== 'all') {
+    filteredGames = filteredGames.filter(game => game.genre === currentGenre);
+  }
+  
+  // Apply current sort
+  sortGames(currentSort);
+  renderGames(filteredGames);
+});
+
+// Debounce for performance (optional enhancement)
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}`,
                         codeFile: 'script.js',
-                        tip: 'toLowerCase() makes the search case-insensitive!',
-                        explanation: 'What this does:\\n• Listens for typing in search input\\n• Filters cards based on game title\\n• Shows/hides cards that match'
+                        tip: 'Searching multiple fields gives users more flexibility!',
+                        explanation: 'What this does:\\n• Listens for typing in search\\n• Searches title, description, genre, year\\n• Combines with genre filter\\n• Includes debounce helper for performance'
                     },
                     {
-                        title: 'Add Filter JavaScript',
-                        description: 'Now let\'s make the genre filter tags work!',
+                        title: 'Add Genre Filter Functionality',
+                        description: 'Let\'s make the genre filter tags work!',
                         instruction: 'Add this JavaScript:',
                         code: `const filterTags = document.querySelectorAll('.filter-tag');
 
@@ -830,36 +1413,195 @@ filterTags.forEach(tag => {
     filterTags.forEach(t => t.classList.remove('active'));
     this.classList.add('active');
     
-    // Filter games
-    const genre = this.dataset.genre;
-    const gameCards = gamesGrid.querySelectorAll('.game-card');
+    // Get selected genre
+    currentGenre = this.dataset.genre;
     
-    gameCards.forEach(card => {
-      const cardGenre = card.querySelector('.game-genre').textContent.toLowerCase();
-      if (genre === 'all' || cardGenre === genre) {
-        card.style.display = 'block';
-      } else {
-        card.style.display = 'none';
-      }
-    });
+    // Filter games
+    if (currentGenre === 'all') {
+      filteredGames = [...gamesData];
+    } else {
+      filteredGames = gamesData.filter(game => game.genre === currentGenre);
+    }
+    
+    // Apply search filter if there's a search term
+    const searchTerm = searchInput.value.toLowerCase().trim();
+    if (searchTerm) {
+      filteredGames = filteredGames.filter(game => 
+        game.title.toLowerCase().includes(searchTerm) ||
+        game.description.toLowerCase().includes(searchTerm)
+      );
+    }
+    
+    // Apply current sort and render
+    sortGames(currentSort);
+    renderGames(filteredGames);
   });
 });`,
                         codeFile: 'script.js',
-                        tip: 'dataset.genre reads the data-genre attribute we added earlier!',
-                        explanation: 'What this does:\\n• Adds click handlers to filter tags\\n• Updates active state visually\\n• Shows only games matching the genre'
+                        tip: 'Combining filters gives users powerful search capabilities!',
+                        explanation: 'What this does:\\n• Updates active filter visually\\n• Filters by selected genre\\n• Preserves search term filter\\n• Applies sort and re-renders'
+                    },
+                    {
+                        title: 'Add Sort Functionality',
+                        description: 'Let\'s make the sort dropdown work!',
+                        instruction: 'Add this JavaScript:',
+                        code: `const sortSelect = document.getElementById('sortSelect');
+
+sortSelect.addEventListener('change', function() {
+  currentSort = this.value;
+  sortGames(currentSort);
+  renderGames(filteredGames);
+});
+
+function sortGames(sortBy) {
+  switch(sortBy) {
+    case 'rating':
+      filteredGames.sort((a, b) => b.rating - a.rating);
+      break;
+    case 'newest':
+      filteredGames.sort((a, b) => b.year - a.year);
+      break;
+    case 'oldest':
+      filteredGames.sort((a, b) => a.year - b.year);
+      break;
+    case 'title':
+      filteredGames.sort((a, b) => a.title.localeCompare(b.title));
+      break;
+  }
+}`,
+                        codeFile: 'script.js',
+                        tip: 'localeCompare handles alphabetical sorting correctly!',
+                        explanation: 'What this does:\\n• Listens for dropdown changes\\n• Sorts by rating, year, or title\\n• Uses appropriate comparison for each type\\n• Re-renders after sorting'
+                    },
+                    {
+                        title: 'Add Favorites Functionality',
+                        description: 'Let\'s make the heart buttons save favorites!',
+                        instruction: 'Add this JavaScript:',
+                        code: `function addFavoriteListeners() {
+  const favoriteBtns = document.querySelectorAll('.favorite-btn');
+  
+  favoriteBtns.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation(); // Prevent card click
+      
+      const gameId = parseInt(this.dataset.id);
+      
+      if (favorites.includes(gameId)) {
+        // Remove from favorites
+        favorites = favorites.filter(id => id !== gameId);
+        this.classList.remove('active');
+      } else {
+        // Add to favorites
+        favorites.push(gameId);
+        this.classList.add('active');
+      }
+      
+      // Save to localStorage
+      localStorage.setItem('gameFavorites', JSON.stringify(favorites));
+      
+      // Re-initialize icon
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+    });
+  });
+}`,
+                        codeFile: 'script.js',
+                        tip: 'localStorage persists favorites even after closing the browser!',
+                        explanation: 'What this does:\\n• Toggles favorite state\\n• Updates visual indicator\\n• Saves to localStorage\\n• Prevents event bubbling'
+                    },
+                    {
+                        title: 'Add Clear Filters Functionality',
+                        description: 'Let\'s make the clear filters button reset everything!',
+                        instruction: 'Add this JavaScript:',
+                        code: `const clearFiltersBtn = document.getElementById('clearFilters');
+
+clearFiltersBtn.addEventListener('click', function() {
+  // Reset search
+  searchInput.value = '';
+  
+  // Reset genre filter
+  currentGenre = 'all';
+  filterTags.forEach(tag => {
+    tag.classList.remove('active');
+    if (tag.dataset.genre === 'all') {
+      tag.classList.add('active');
+    }
+  });
+  
+  // Reset sort
+  currentSort = 'rating';
+  sortSelect.value = 'rating';
+  
+  // Reset filtered games
+  filteredGames = [...gamesData];
+  sortGames(currentSort);
+  renderGames(filteredGames);
+});`,
+                        codeFile: 'script.js',
+                        tip: 'A clear button improves UX by letting users start fresh easily!',
+                        explanation: 'What this does:\\n• Clears search input\\n• Resets genre to "All"\\n• Resets sort to default\\n• Re-renders all games'
+                    },
+                    {
+                        title: 'Initialize the Database',
+                        description: 'Let\'s initialize everything when the page loads!',
+                        instruction: 'Add this JavaScript:',
+                        code: `// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+  // Calculate average rating
+  const avgRating = (gamesData.reduce((sum, game) => sum + game.rating, 0) / gamesData.length).toFixed(1);
+  document.getElementById('avgRating').textContent = avgRating;
+  
+  // Count unique genres
+  const genres = new Set(gamesData.map(game => game.genre));
+  document.getElementById('genreCount').textContent = genres.size;
+  
+  // Initial sort and render
+  sortGames(currentSort);
+  renderGames(filteredGames);
+  
+  console.log('Game Database initialized with', gamesData.length, 'games');
+});`,
+                        codeFile: 'script.js',
+                        tip: 'DOMContentLoaded ensures all HTML is ready before running JavaScript!',
+                        explanation: 'What this does:\\n• Calculates average rating\\n• Counts unique genres\\n• Renders initial game list\\n• Logs initialization message'
                     },
                     {
                         title: 'Make It Responsive',
-                        description: 'Finally, let\'s ensure it works great on mobile!',
+                        description: 'Finally, let\'s ensure it works great on all devices!',
                         instruction: 'Add this media query:',
-                        code: `@media (max-width: 600px) {
+                        code: `@media (max-width: 768px) {
   .game-database {
     padding: 1rem;
     margin: 1rem;
   }
   
+  .database-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .stats-bar {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .search-bar {
+    flex-direction: column;
+  }
+  
+  .search-btn {
+    width: 100%;
+  }
+  
   .filter-tags {
     justify-content: center;
+  }
+  
+  .results-info {
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
   }
   
   .games-grid {
@@ -867,8 +1609,8 @@ filterTags.forEach(tag => {
   }
 }`,
                         codeFile: 'styles.css',
-                        tip: 'Single column layout works best on mobile phones!',
-                        explanation: 'What this does:\\n• Reduces padding on mobile\\n• Centers filter tags\\n• Single column grid for small screens'
+                        tip: 'Stacking elements vertically works best on mobile!',
+                        explanation: 'What this does:\\n• Stacks header vertically\\n• Full-width search button\\n• Centers filter tags\\n• Single column game grid\\n• Stacked results info'
                     }
                 ],
                 learningObjectives: [

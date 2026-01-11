@@ -331,6 +331,12 @@ const AnalyticsService = {
 
 // Auto-initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
+    // Enable debug mode for testing (remove in production)
+    // To enable: localStorage.setItem('analytics_debug', 'true')
+    if (localStorage.getItem('analytics_debug') === 'true') {
+        console.log('Analytics: Debug mode enabled');
+    }
+    
     AnalyticsService.init();
     AnalyticsService.trackUserType();
 });

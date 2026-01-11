@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | WebForge</title>
+    <meta name="description" content="Oops! This page doesn't exist. Let's get you back to forging.">
+    <link rel="icon" type="image/png" href="img/webforge-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Roboto+Slab:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --forge-fire: #ff6b35;
+            --forge-ember: #f7931e;
+            --forge-flame: #ffd23f;
+            --anvil-black: #1a1a1a;
+            --metal-dark: #2c2c2c;
+            --metal-shine: #a8a8a8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto Slab', serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+            color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animated ember particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--forge-ember);
+            border-radius: 50%;
+            animation: float-up 4s ease-in infinite;
+            opacity: 0;
+            box-shadow: 0 0 6px var(--forge-fire), 0 0 12px var(--forge-ember);
+        }
+
+        @keyframes float-up {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) scale(0);
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-20vh) scale(1);
+            }
+        }
+
+        .container {
+            text-align: center;
+            z-index: 1;
+            padding: 2rem;
+            max-width: 600px;
+        }
+
+        /* Broken anvil icon */
+        .error-icon {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .anvil-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .anvil {
+            width: 120px;
+            height: 120px;
+            color: var(--metal-shine);
+            filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.3));
+            animation: anvil-shake 2s ease-in-out infinite;
+        }
+
+        .crack {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            color: var(--forge-fire);
+            animation: crack-glow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes anvil-shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-2deg); }
+            75% { transform: rotate(2deg); }
+        }
+
+        @keyframes crack-glow {
+            from { 
+                filter: drop-shadow(0 0 5px var(--forge-fire));
+                opacity: 0.7;
+            }
+            to { 
+                filter: drop-shadow(0 0 15px var(--forge-flame));
+                opacity: 1;
+            }
+        }
+
+        /* 404 text */
+        .error-code {
+            font-family: 'Cinzel', serif;
+            font-size: 8rem;
+            font-weight: 700;
+            background: linear-gradient(180deg, var(--forge-flame) 0%, var(--forge-fire) 50%, var(--forge-ember) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: none;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            animation: fire-flicker 3s ease-in-out infinite;
+        }
+
+        @keyframes fire-flicker {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .error-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.75rem;
+            color: var(--forge-flame);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(255, 210, 63, 0.3);
+        }
+
+        .error-message {
+            font-size: 1.1rem;
+            color: var(--metal-shine);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+
+        /* Buttons */
+        .actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.75rem;
+            border-radius: 8px;
+            font-family: 'Roboto Slab', serif;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn i {
+            width: 20px;
+            height: 20px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--forge-fire) 0%, var(--forge-ember) 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(255, 107, 53, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--metal-shine);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Fun suggestions */
+        .suggestions {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .suggestions h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            color: var(--metal-shine);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .suggestion-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .suggestion-link {
+            color: var(--forge-ember);
+            text-decoration: none;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: color 0.2s ease;
+        }
+
+        .suggestion-link:hover {
+            color: var(--forge-flame);
+        }
+
+        .suggestion-link i {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .error-code {
+                font-size: 5rem;
+            }
+
+            .error-title {
+                font-size: 1.4rem;
+            }
+
+            .anvil {
+                width: 80px;
+                height: 80px;
+            }
+
+            .crack {
+                width: 30px;
+                height: 30px;
+            }
+
+            .actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating ember particles -->
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <div class="error-icon">
+            <div class="anvil-container">
+                <i data-lucide="anvil" class="anvil"></i>
+                <i data-lucide="zap" class="crack"></i>
+            </div>
+        </div>
+
+        <div class="error-code">404</div>
+        <h1 class="error-title">The Forge Fire Has Gone Out</h1>
+        <p class="error-message">
+            Looks like this page got lost in the workshop. 
+            The link might be broken, or the page may have been moved.
+        </p>
+
+        <div class="actions">
+            <a href="/" class="btn btn-primary">
+                <i data-lucide="home"></i>
+                <span>Back to Home</span>
+            </a>
+            <a href="/components.html" class="btn btn-secondary">
+                <i data-lucide="hammer"></i>
+                <span>Browse Components</span>
+            </a>
+        </div>
+
+        <div class="suggestions">
+            <h3>Or try one of these:</h3>
+            <div class="suggestion-links">
+                <a href="/editor.html" class="suggestion-link">
+                    <i data-lucide="code"></i>
+                    <span>Open Editor</span>
+                </a>
+                <a href="/index.html#tutorial-hub-page" class="suggestion-link">
+                    <i data-lucide="book-open"></i>
+                    <span>Tutorials</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Create floating ember particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 20;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 4 + 's';
+                particle.style.animationDuration = (3 + Math.random() * 2) + 's';
+                
+                // Vary particle sizes
+                const size = 2 + Math.random() * 4;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                container.appendChild(particle);
+            }
+        }
+
+        createParticles();
+    </script>
+</body>
+</html>
