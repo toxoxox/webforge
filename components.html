@@ -24,6 +24,15 @@
     <link rel="stylesheet" href="styles/components.css">
     <link rel="stylesheet" href="styles/component-detail.css">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Firebase Analytics -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script>
+        if (typeof firebase !== 'undefined' && FIREBASE_CONFIG) {
+            firebase.initializeApp(FIREBASE_CONFIG);
+        }
+    </script>
 </head>
 <body>
     <div id="app">
@@ -264,6 +273,7 @@
         <script src="js/models/types.js"></script>
         <script src="js/services/storage.js"></script>
         <script src="js/services/forge-master.js"></script>
+        <script src="js/services/analytics.js"></script>
         <script src="js/services/website-selector.js"></script>
         <!-- Component system dependencies - load in order -->
         <script src="js/services/component-data-beginner.js"></script>

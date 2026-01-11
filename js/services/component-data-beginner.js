@@ -414,6 +414,221 @@ const BeginnerComponentData = {
                 }
               ]
             }
+          },
+          {
+            "title": "Style the Hero Container",
+            "description": "Now let's make our hero section look amazing with a beautiful gradient background and proper layout!",
+            "instruction": "Add this CSS to style the hero section:",
+            "code": `.hero {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4rem;
+  gap: 2rem;
+}`,
+            "codeFile": "style.css",
+            "tip": "The gradient goes from purple-blue to purple at a 135-degree angle. Try changing the colors to customize!",
+            "explanation": "What each property does:\\n• background: linear-gradient() - Creates a smooth color transition\\n• min-height: 80vh - Makes the hero at least 80% of the screen height\\n• display: flex - Enables flexbox for easy layout\\n• align-items: center - Vertically centers the content\\n• justify-content: space-between - Pushes content and image apart\\n• padding: 4rem - Adds space inside the hero\\n• gap: 2rem - Adds space between the two sides",
+            "validation": {
+              "required": [
+                {
+                  "type": "css-rule",
+                  "value": ".hero",
+                  "message": "Add CSS styling for the .hero class!",
+                  "hint": "Create a .hero rule in your CSS"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Style the Hero Content Area",
+            "description": "Let's style the left side where our text and button will go!",
+            "instruction": "Add this CSS for the content area:",
+            "code": `.hero-content {
+  flex: 1;
+  max-width: 500px;
+  color: white;
+}`,
+            "codeFile": "style.css",
+            "tip": "Setting max-width prevents the text from getting too wide on large screens!",
+            "explanation": "What this does:\\n• flex: 1 - Takes up available space\\n• max-width: 500px - Limits width for readability\\n• color: white - Makes all text white to show on the gradient",
+            "validation": {
+              "required": [
+                {
+                  "type": "css-rule",
+                  "value": ".hero-content",
+                  "message": "Add CSS styling for the .hero-content class!",
+                  "hint": "Style the content container"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Style the Hero Title",
+            "description": "Let's make the main heading big and bold to grab attention!",
+            "instruction": "Add this CSS for the title:",
+            "code": `.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  line-height: 1.2;
+}`,
+            "codeFile": "style.css",
+            "tip": "Line-height: 1.2 keeps the lines close together for a tight, professional look!",
+            "explanation": "What this does:\\n• font-size: 3rem - Makes the title really big (48px)\\n• font-weight: 700 - Makes it bold\\n• margin: 0 0 1rem 0 - Adds space below the title\\n• line-height: 1.2 - Controls spacing between lines",
+            "validation": {
+              "required": [
+                {
+                  "type": "css-rule",
+                  "value": ".hero-title",
+                  "message": "Add CSS styling for the .hero-title class!",
+                  "hint": "Style the main heading"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Style the Hero Subtitle",
+            "description": "Now let's style the subtitle text to complement the main heading!",
+            "instruction": "Add this CSS for the subtitle:",
+            "code": `.hero-subtitle {
+  font-size: 1.25rem;
+  opacity: 0.9;
+  margin: 0 0 2rem 0;
+  line-height: 1.6;
+}`,
+            "codeFile": "style.css",
+            "tip": "Using opacity: 0.9 makes the text slightly transparent, creating visual hierarchy!",
+            "explanation": "What this does:\\n• font-size: 1.25rem - Slightly larger than normal text\\n• opacity: 0.9 - Makes it slightly see-through\\n• margin: 0 0 2rem 0 - Adds space below before the button\\n• line-height: 1.6 - Makes text easier to read",
+            "validation": {
+              "required": [
+                {
+                  "type": "css-rule",
+                  "value": ".hero-subtitle",
+                  "message": "Add CSS styling for the .hero-subtitle class!",
+                  "hint": "Style the subtitle paragraph"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Style the Call-to-Action Button",
+            "description": "Let's create an eye-catching button that makes visitors want to click!",
+            "instruction": "Add this CSS for the CTA button:",
+            "code": `.hero-cta {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+}`,
+            "codeFile": "style.css",
+            "tip": "The green color stands out against the purple gradient - this contrast draws attention!",
+            "explanation": "What this does:\\n• background: #4CAF50 - Bright green color\\n• padding: 1rem 2rem - Makes the button nice and clickable\\n• border-radius: 8px - Rounds the corners\\n• box-shadow - Adds a subtle glow effect\\n• transition - Enables smooth hover animations",
+            "validation": {
+              "required": [
+                {
+                  "type": "css-rule",
+                  "value": ".hero-cta",
+                  "message": "Add CSS styling for the .hero-cta button!",
+                  "hint": "Style the call-to-action button"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Add Button Hover Effect",
+            "description": "Let's make the button interactive with a cool hover effect!",
+            "instruction": "Add this CSS for the hover state:",
+            "code": `.hero-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}`,
+            "codeFile": "style.css",
+            "tip": "The button lifts up slightly when you hover - this makes it feel clickable!",
+            "explanation": "What this does:\\n• transform: translateY(-3px) - Moves the button up 3 pixels\\n• box-shadow increases - Makes the glow stronger\\n• Combined with transition, this creates a smooth lift effect!",
+            "validation": {
+              "required": [
+                {
+                  "type": "css-rule",
+                  "value": ".hero-cta:hover",
+                  "message": "Add a hover effect for the button!",
+                  "hint": "Use .hero-cta:hover selector"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Style the Hero Image Area",
+            "description": "Finally, let's style the image on the right side of our hero!",
+            "instruction": "Add this CSS for the image area:",
+            "code": `.hero-image {
+  flex: 1;
+  max-width: 400px;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}`,
+            "codeFile": "style.css",
+            "tip": "The box-shadow makes the image pop off the background!",
+            "explanation": "What this does:\\n• flex: 1 - Takes up available space\\n• max-width: 400px - Limits the image size\\n• justify-content: center - Centers the image\\n• border-radius: 16px - Rounds the image corners\\n• box-shadow - Adds depth with a shadow",
+            "validation": {
+              "required": [
+                {
+                  "type": "css-rule",
+                  "value": ".hero-image",
+                  "message": "Add CSS styling for the .hero-image class!",
+                  "hint": "Style the image container"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Make It Responsive",
+            "description": "Let's make sure our hero looks great on mobile devices too!",
+            "instruction": "Add this CSS media query for mobile:",
+            "code": `@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-image {
+    order: -1;
+    max-width: 250px;
+  }
+}`,
+            "codeFile": "style.css",
+            "tip": "On mobile, we stack the content vertically and show the image first!",
+            "explanation": "What this does:\\n• @media (max-width: 768px) - Applies styles on screens smaller than 768px\\n• flex-direction: column - Stacks content vertically\\n• text-align: center - Centers the text\\n• order: -1 - Moves the image above the text\\n• Smaller font-size and padding for mobile",
+            "validation": {
+              "required": [
+                {
+                  "type": "css-rule",
+                  "value": "@media",
+                  "message": "Add a media query for mobile responsiveness!",
+                  "hint": "Use @media (max-width: 768px)"
+                }
+              ]
+            }
           }
         ],
         "learningObjectives": [
@@ -493,6 +708,164 @@ const BeginnerComponentData = {
                 }
               ]
             }
+          },
+          {
+            "title": "Style the Card Container",
+            "description": "Now let's make our card look professional with rounded corners and a nice shadow!",
+            "instruction": "Add this CSS to style the card:",
+            "code": `.card {
+  max-width: 320px;
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+}`,
+            "codeFile": "style.css",
+            "tip": "The overflow: hidden makes sure the image corners stay rounded!",
+            "explanation": "What each property does:\\n• max-width: 320px - Limits the card width\\n• background: white - Clean white background\\n• border-radius: 16px - Rounds all corners\\n• overflow: hidden - Clips content to rounded corners\\n• box-shadow - Adds a subtle shadow for depth\\n• transition - Enables smooth hover animations",
+            "validation": {
+              "required": [
+                {
+                  "type": "css-rule",
+                  "value": ".card",
+                  "message": "Add CSS styling for the .card class!",
+                  "hint": "Create a .card rule in your CSS"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Add Card Hover Effect",
+            "description": "Let's make the card lift up when you hover over it!",
+            "instruction": "Add this CSS for the hover effect:",
+            "code": `.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}`,
+            "codeFile": "style.css",
+            "tip": "The card lifts up 8 pixels and the shadow gets bigger - this creates a floating effect!",
+            "explanation": "What this does:\\n• transform: translateY(-8px) - Moves the card up\\n• box-shadow increases - Makes the shadow larger and more visible\\n• Combined with transition, this creates a smooth lift effect!",
+            "validation": {
+              "required": [
+                {
+                  "type": "css-rule",
+                  "value": ".card:hover",
+                  "message": "Add a hover effect for the card!",
+                  "hint": "Use .card:hover selector"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Style the Card Image",
+            "description": "Let's make the image fill the top of the card nicely!",
+            "instruction": "Add this CSS for the image:",
+            "code": `.card-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}`,
+            "codeFile": "style.css",
+            "tip": "object-fit: cover makes the image fill the space without stretching!",
+            "explanation": "What this does:\\n• width: 100% - Image fills the card width\\n• height: 180px - Fixed height for consistency\\n• object-fit: cover - Crops image to fit without distortion\\n• display: block - Removes extra space below image",
+            "validation": {
+              "required": [
+                {
+                  "type": "css-rule",
+                  "value": ".card-image",
+                  "message": "Add CSS styling for the .card-image class!",
+                  "hint": "Style the card image"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Style the Card Content Area",
+            "description": "Now let's add padding around the text content!",
+            "instruction": "Add this CSS for the content area:",
+            "code": `.card-content {
+  padding: 1.5rem;
+}`,
+            "codeFile": "style.css",
+            "tip": "Padding creates breathing room around the text!",
+            "explanation": "What this does:\\n• padding: 1.5rem - Adds 24px of space on all sides\\n• This separates the text from the card edges",
+            "validation": {
+              "required": [
+                {
+                  "type": "css-rule",
+                  "value": ".card-content",
+                  "message": "Add CSS styling for the .card-content class!",
+                  "hint": "Style the content container"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Style the Card Title and Description",
+            "description": "Let's make the title stand out and the description easy to read!",
+            "instruction": "Add this CSS for the text:",
+            "code": `.card-title {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.card-description {
+  margin: 0 0 1.5rem 0;
+  color: #6b7280;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}`,
+            "codeFile": "style.css",
+            "tip": "Using different colors creates visual hierarchy - dark for important, gray for supporting text!",
+            "explanation": "What this does:\\n• .card-title - Bold, dark text for the heading\\n• .card-description - Lighter gray for the body text\\n• line-height: 1.6 - Makes text easier to read\\n• Margins create proper spacing between elements",
+            "validation": {
+              "required": [
+                {
+                  "type": "css-rule",
+                  "value": ".card-title",
+                  "message": "Add CSS styling for the .card-title class!",
+                  "hint": "Style the card title"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Style the Card Button",
+            "description": "Finally, let's create a beautiful button for the card!",
+            "instruction": "Add this CSS for the button:",
+            "code": `.card-button {
+  width: 100%;
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 0.85rem 1.75rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.card-button:hover {
+  background: #5a67d8;
+}`,
+            "codeFile": "style.css",
+            "tip": "The button spans the full width of the card for easy clicking!",
+            "explanation": "What this does:\\n• width: 100% - Button fills the card width\\n• background: #667eea - Purple-blue color\\n• border-radius: 10px - Rounded corners\\n• transition - Smooth color change on hover\\n• :hover - Darker shade when hovering",
+            "validation": {
+              "required": [
+                {
+                  "type": "css-rule",
+                  "value": ".card-button",
+                  "message": "Add CSS styling for the .card-button class!",
+                  "hint": "Style the card button"
+                }
+              ]
+            }
           }
         ],
         "learningObjectives": [
@@ -549,11 +922,157 @@ const BeginnerComponentData = {
             "description": "Let's start by making a container to hold all our images!",
             "instruction": "Add this HTML to create the gallery:",
             "code": `<div class="gallery">
-  <h2>Photo Gallery</h2>
+  <h2 class="gallery-title">Photo Gallery</h2>
+  <div class="gallery-grid">
+  </div>
 </div>`,
             "codeFile": "index.html",
             "tip": "The gallery container will hold all our images in a grid layout!",
-            "explanation": "We're creating a simple container with a heading. Soon we'll add images inside!"
+            "explanation": "We're creating:\\n• <div class=\"gallery\"> - Main container\\n• <h2 class=\"gallery-title\"> - A heading for the gallery\\n• <div class=\"gallery-grid\"> - Where our images will go"
+          },
+          {
+            "title": "Add Gallery Images",
+            "description": "Now let's add some images to our gallery grid!",
+            "instruction": "Add these images inside the gallery-grid div:",
+            "code": `    <div class="gallery-item">
+      <img src="https://picsum.photos/400/300?random=1" alt="Gallery image 1">
+    </div>
+    <div class="gallery-item">
+      <img src="https://picsum.photos/400/300?random=2" alt="Gallery image 2">
+    </div>
+    <div class="gallery-item">
+      <img src="https://picsum.photos/400/300?random=3" alt="Gallery image 3">
+    </div>
+    <div class="gallery-item">
+      <img src="https://picsum.photos/400/300?random=4" alt="Gallery image 4">
+    </div>
+    <div class="gallery-item">
+      <img src="https://picsum.photos/400/300?random=5" alt="Gallery image 5">
+    </div>
+    <div class="gallery-item">
+      <img src="https://picsum.photos/400/300?random=6" alt="Gallery image 6">
+    </div>`,
+            "codeFile": "index.html",
+            "tip": "Each image is wrapped in a gallery-item div for easier styling!",
+            "explanation": "What we added:\\n• Six gallery items, each containing an image\\n• picsum.photos gives us random placeholder images\\n• The ?random=X makes each image different"
+          },
+          {
+            "title": "Style the Gallery Container",
+            "description": "Let's add some basic styling to our gallery container!",
+            "instruction": "Add this CSS for the gallery:",
+            "code": `.gallery {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-title {
+  text-align: center;
+  margin: 0 0 2rem 0;
+  color: #333;
+  font-size: 1.75rem;
+}`,
+            "codeFile": "style.css",
+            "tip": "The max-width and margin: auto centers the gallery on the page!",
+            "explanation": "What this does:\\n• max-width: 1200px - Limits gallery width\\n• margin: 2rem auto - Centers horizontally with space above/below\\n• padding: 2rem - Space inside the container\\n• box-shadow - Subtle shadow for depth"
+          },
+          {
+            "title": "Create the CSS Grid Layout",
+            "description": "Now for the magic - let's use CSS Grid to arrange our images!",
+            "instruction": "Add this CSS for the grid:",
+            "code": `.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}`,
+            "codeFile": "style.css",
+            "tip": "CSS Grid makes creating layouts super easy! repeat(3, 1fr) creates 3 equal columns.",
+            "explanation": "What this does:\\n• display: grid - Enables CSS Grid layout\\n• grid-template-columns: repeat(3, 1fr) - Creates 3 equal-width columns\\n• gap: 1rem - Adds space between grid items"
+          },
+          {
+            "title": "Style the Gallery Items",
+            "description": "Let's make each gallery item look polished with rounded corners!",
+            "instruction": "Add this CSS for gallery items:",
+            "code": `.gallery-item {
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s;
+}`,
+            "codeFile": "style.css",
+            "tip": "object-fit: cover ensures images fill the space without stretching!",
+            "explanation": "What this does:\\n• border-radius: 12px - Rounds the corners\\n• overflow: hidden - Clips image to rounded corners\\n• object-fit: cover - Fills space without distortion\\n• transition - Enables smooth hover animation"
+          },
+          {
+            "title": "Add Hover Effect",
+            "description": "Let's add a zoom effect when hovering over images!",
+            "instruction": "Add this CSS for the hover effect:",
+            "code": `.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+.gallery-item::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.3s;
+}
+
+.gallery-item:hover::after {
+  background: rgba(0, 0, 0, 0.2);
+}`,
+            "codeFile": "style.css",
+            "tip": "The ::after pseudo-element creates a dark overlay on hover!",
+            "explanation": "What this does:\\n• transform: scale(1.1) - Zooms image to 110%\\n• ::after creates an overlay layer\\n• On hover, the overlay becomes slightly dark\\n• This creates a professional hover effect!"
+          },
+          {
+            "title": "Make It Responsive - Tablet",
+            "description": "Let's make the gallery show 2 columns on tablets!",
+            "instruction": "Add this media query:",
+            "code": `@media (max-width: 900px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}`,
+            "codeFile": "style.css",
+            "tip": "On screens smaller than 900px, we switch to 2 columns!",
+            "explanation": "What this does:\\n• @media (max-width: 900px) - Applies on screens under 900px\\n• Changes from 3 columns to 2 columns\\n• Images get more space on smaller screens"
+          },
+          {
+            "title": "Make It Responsive - Mobile",
+            "description": "Finally, let's make it single column on mobile phones!",
+            "instruction": "Add this media query for mobile:",
+            "code": `@media (max-width: 600px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .gallery {
+    padding: 1rem;
+    margin: 1rem;
+  }
+  
+  .gallery-item img {
+    height: 250px;
+  }
+}`,
+            "codeFile": "style.css",
+            "tip": "On mobile, one column looks best and images get taller!",
+            "explanation": "What this does:\\n• grid-template-columns: 1fr - Single column layout\\n• Reduced padding and margin for mobile\\n• Taller images (250px) since they're full width\\n• Your gallery now works on all devices!"
           }
         ],
         "learningObjectives": [
@@ -623,13 +1142,170 @@ const BeginnerComponentData = {
             "description": "Let's start by creating a section for customer reviews!",
             "instruction": "Add this HTML:",
             "code": `<section class="testimonials">
-  <h2>What Our Customers Say</h2>
+  <h2 class="testimonials-title">What Our Customers Say</h2>
   <div class="testimonial-grid">
   </div>
 </section>`,
             "codeFile": "index.html",
             "tip": "Testimonials build trust with potential customers!",
-            "explanation": "We're creating a section with a heading and a grid to hold testimonial cards."
+            "explanation": "We're creating:\\n• <section class=\"testimonials\"> - Main container\\n• <h2> - Section heading\\n• <div class=\"testimonial-grid\"> - Will hold our testimonial cards"
+          },
+          {
+            "title": "Add Testimonial Cards",
+            "description": "Now let's add some testimonial cards with customer info and quotes!",
+            "instruction": "Add these cards inside the testimonial-grid div:",
+            "code": `    <div class="testimonial-card">
+      <div class="testimonial-header">
+        <img src="https://i.pravatar.cc/100?img=1" alt="Sarah Johnson" class="testimonial-avatar">
+        <div class="testimonial-info">
+          <h4 class="testimonial-name">Sarah Johnson</h4>
+          <p class="testimonial-role">Happy Customer</p>
+        </div>
+      </div>
+      <p class="testimonial-quote">"Amazing service! Highly recommend to everyone. The team was professional and friendly."</p>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-header">
+        <img src="https://i.pravatar.cc/100?img=3" alt="Mike Chen" class="testimonial-avatar">
+        <div class="testimonial-info">
+          <h4 class="testimonial-name">Mike Chen</h4>
+          <p class="testimonial-role">Regular Client</p>
+        </div>
+      </div>
+      <p class="testimonial-quote">"Best experience ever! Will definitely come back. Five stars all the way!"</p>
+    </div>`,
+            "codeFile": "index.html",
+            "tip": "Real photos and names make testimonials more believable!",
+            "explanation": "Each card has:\\n• Avatar image for the customer\\n• Name and role/title\\n• Their quote in italics"
+          },
+          {
+            "title": "Style the Testimonials Section",
+            "description": "Let's add a nice background and center our content!",
+            "instruction": "Add this CSS:",
+            "code": `.testimonials {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 3rem 2rem;
+  background: #f9fafb;
+  border-radius: 16px;
+}
+
+.testimonials-title {
+  text-align: center;
+  margin: 0 0 2rem 0;
+  color: #333;
+  font-size: 1.75rem;
+}`,
+            "codeFile": "style.css",
+            "tip": "The light gray background makes the white cards pop!",
+            "explanation": "What this does:\\n• max-width and margin: auto centers the section\\n• Light background creates contrast with cards\\n• Centered title looks professional"
+          },
+          {
+            "title": "Create the Grid Layout",
+            "description": "Let's arrange our testimonial cards in a responsive grid!",
+            "instruction": "Add this CSS for the grid:",
+            "code": `.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}`,
+            "codeFile": "style.css",
+            "tip": "auto-fit with minmax creates a responsive grid automatically!",
+            "explanation": "What this does:\\n• display: grid - Enables CSS Grid\\n• auto-fit - Automatically adjusts columns\\n• minmax(300px, 1fr) - Cards are at least 300px wide\\n• gap: 1.5rem - Space between cards"
+          },
+          {
+            "title": "Style the Testimonial Cards",
+            "description": "Now let's make each card look polished with shadows and rounded corners!",
+            "instruction": "Add this CSS for the cards:",
+            "code": `.testimonial-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}`,
+            "codeFile": "style.css",
+            "tip": "The hover effect makes cards feel interactive!",
+            "explanation": "What this does:\\n• White background stands out from section\\n• box-shadow adds depth\\n• Hover lifts the card up slightly"
+          },
+          {
+            "title": "Style the Card Header",
+            "description": "Let's align the avatar and customer info nicely!",
+            "instruction": "Add this CSS for the header:",
+            "code": `.testimonial-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.testimonial-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}`,
+            "codeFile": "style.css",
+            "tip": "Flexbox makes it easy to align the avatar and text!",
+            "explanation": "What this does:\\n• display: flex aligns items horizontally\\n• gap adds space between avatar and text\\n• border-radius: 50% makes the image circular"
+          },
+          {
+            "title": "Style the Customer Info",
+            "description": "Let's style the name and role text!",
+            "instruction": "Add this CSS:",
+            "code": `.testimonial-name {
+  margin: 0;
+  color: #333;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.testimonial-role {
+  margin: 0.2rem 0 0 0;
+  color: #667eea;
+  font-size: 0.85rem;
+}`,
+            "codeFile": "style.css",
+            "tip": "The purple role text adds a nice accent color!",
+            "explanation": "What this does:\\n• Bold name stands out\\n• Smaller, colored role text creates hierarchy\\n• Tight margins keep things compact"
+          },
+          {
+            "title": "Style the Quote",
+            "description": "Finally, let's make the testimonial quote look like a real quote!",
+            "instruction": "Add this CSS for the quote:",
+            "code": `.testimonial-quote {
+  margin: 0;
+  color: #666;
+  line-height: 1.6;
+  font-style: italic;
+  font-size: 0.95rem;
+}`,
+            "codeFile": "style.css",
+            "tip": "Italic text is traditionally used for quotes!",
+            "explanation": "What this does:\\n• font-style: italic makes it look like a quote\\n• Gray color is softer than black\\n• line-height: 1.6 improves readability"
+          },
+          {
+            "title": "Make It Responsive",
+            "description": "Let's ensure it looks great on mobile too!",
+            "instruction": "Add this media query:",
+            "code": `@media (max-width: 600px) {
+  .testimonials {
+    padding: 2rem 1rem;
+    margin: 1rem;
+  }
+  
+  .testimonials-title {
+    font-size: 1.5rem;
+  }
+}`,
+            "codeFile": "style.css",
+            "tip": "Smaller padding on mobile gives more room for content!",
+            "explanation": "What this does:\\n• Reduces padding on small screens\\n• Smaller title font for mobile\\n• The grid automatically becomes single column!"
           }
         ],
         "learningObjectives": [
@@ -720,10 +1396,214 @@ const BeginnerComponentData = {
             "code": `<footer class="site-footer">
   <div class="footer-content">
   </div>
+  <div class="footer-bottom">
+    <p>&copy; 2024 My Company. All rights reserved.</p>
+  </div>
 </footer>`,
             "codeFile": "index.html",
             "tip": "The footer goes at the very bottom of your website!",
-            "explanation": "We're creating a footer element with a container for our content."
+            "explanation": "We're creating:\\n• <footer> - Semantic HTML element for footers\\n• footer-content - Will hold our columns\\n• footer-bottom - Copyright section at the bottom"
+          },
+          {
+            "title": "Add Footer Columns",
+            "description": "Let's add three columns: company info, quick links, and social media!",
+            "instruction": "Add these columns inside footer-content:",
+            "code": `    <div class="footer-column">
+      <h3>My Company</h3>
+      <p>Building amazing websites since 2024</p>
+      <p>Email: contact@mycompany.com</p>
+      <p>Phone: (123) 456-7890</p>
+    </div>
+    <div class="footer-column">
+      <h3>Quick Links</h3>
+      <ul class="footer-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h3>Follow Us</h3>
+      <div class="social-links">
+        <a href="#" class="social-link" aria-label="Facebook">
+          <i data-lucide="facebook"></i>
+        </a>
+        <a href="#" class="social-link" aria-label="Twitter">
+          <i data-lucide="twitter"></i>
+        </a>
+        <a href="#" class="social-link" aria-label="Instagram">
+          <i data-lucide="instagram"></i>
+        </a>
+      </div>
+    </div>`,
+            "codeFile": "index.html",
+            "tip": "Using Lucide icons keeps the design consistent and professional!",
+            "explanation": "Three columns:\\n• Company info with contact details\\n• Quick navigation links\\n• Social media icons using Lucide"
+          },
+          {
+            "title": "Style the Footer Container",
+            "description": "Let's give our footer a dark background and proper spacing!",
+            "instruction": "Add this CSS:",
+            "code": `.site-footer {
+  background: #2c3e50;
+  color: white;
+  padding: 3rem 2rem 1rem;
+  margin-top: auto;
+}`,
+            "codeFile": "style.css",
+            "tip": "Dark footers are classic and make content easy to read!",
+            "explanation": "What this does:\\n• Dark blue-gray background\\n• White text for contrast\\n• More padding on top, less on bottom\\n• margin-top: auto pushes footer to bottom"
+          },
+          {
+            "title": "Create the Column Layout",
+            "description": "Let's arrange our columns using flexbox!",
+            "instruction": "Add this CSS for the content area:",
+            "code": `.footer-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  flex-wrap: wrap;
+}
+
+.footer-column {
+  flex: 1;
+  min-width: 200px;
+}`,
+            "codeFile": "style.css",
+            "tip": "flex-wrap: wrap makes columns stack on smaller screens!",
+            "explanation": "What this does:\\n• Flexbox spreads columns evenly\\n• gap adds space between columns\\n• max-width centers content\\n• flex-wrap allows responsive stacking"
+          },
+          {
+            "title": "Style the Column Headings",
+            "description": "Let's make the column titles stand out!",
+            "instruction": "Add this CSS:",
+            "code": `.footer-column h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  color: white;
+}
+
+.footer-column p {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  color: #bdc3c7;
+}`,
+            "codeFile": "style.css",
+            "tip": "Lighter gray text creates visual hierarchy!",
+            "explanation": "What this does:\\n• White headings stand out\\n• Gray paragraph text is softer\\n• Consistent spacing between items"
+          },
+          {
+            "title": "Style the Footer Links",
+            "description": "Let's make the navigation links look clean!",
+            "instruction": "Add this CSS for the links:",
+            "code": `.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+  color: #bdc3c7;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: white;
+}`,
+            "codeFile": "style.css",
+            "tip": "Links turn white on hover for clear feedback!",
+            "explanation": "What this does:\\n• Removes bullet points from list\\n• Gray links that turn white on hover\\n• Smooth color transition"
+          },
+          {
+            "title": "Style the Social Media Icons",
+            "description": "Let's create circular icon buttons for social links!",
+            "instruction": "Add this CSS:",
+            "code": `.social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-link {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-decoration: none;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.social-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+}`,
+            "codeFile": "style.css",
+            "tip": "The semi-transparent background looks modern and clean!",
+            "explanation": "What this does:\\n• Circular buttons with flexbox centering\\n• Semi-transparent white background\\n• Hover lifts the icon slightly\\n• Smooth transitions for polish"
+          },
+          {
+            "title": "Style the Footer Bottom",
+            "description": "Let's add a separator line and style the copyright!",
+            "instruction": "Add this CSS:",
+            "code": `.footer-bottom {
+  text-align: center;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-bottom p {
+  margin: 0;
+  color: #bdc3c7;
+  font-size: 0.85rem;
+}`,
+            "codeFile": "style.css",
+            "tip": "The subtle border separates the copyright from the main content!",
+            "explanation": "What this does:\\n• Centered copyright text\\n• Subtle top border as separator\\n• Smaller, lighter text"
+          },
+          {
+            "title": "Make It Responsive",
+            "description": "Let's ensure the footer looks great on mobile!",
+            "instruction": "Add this media query:",
+            "code": `@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .footer-column {
+    margin-bottom: 2rem;
+  }
+  
+  .social-links {
+    justify-content: center;
+  }
+  
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .footer-links li {
+    margin: 0;
+  }
+}`,
+            "codeFile": "style.css",
+            "tip": "On mobile, everything stacks and centers nicely!",
+            "explanation": "What this does:\\n• Columns stack vertically\\n• Content centers on mobile\\n• Links wrap horizontally\\n• Social icons center"
           }
         ],
         "learningObjectives": [
